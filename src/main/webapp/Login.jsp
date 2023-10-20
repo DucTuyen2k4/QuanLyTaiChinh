@@ -11,6 +11,6 @@
     <title>Title</title>
 </head>
 <body>
-<a href="Login">play</a>
+<a href="user">play</a>
 </body>
 </html>

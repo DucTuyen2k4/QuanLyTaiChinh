@@ -77,7 +77,7 @@
 <body>
 <div class="container">
     <h1>Đăng ký</h1>
-    <form method="post" action="Login?action=addUser">
+    <form method="post" action="user?action=addUser">
         <label for="userName">Tên đăng nhập:</label>
         <input type="text" name="userName" id="userName" required>
 

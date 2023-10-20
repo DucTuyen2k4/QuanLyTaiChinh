@@ -26,6 +26,20 @@ public class UserServlet extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        String action = req.getParameter("action");
+        if (action == null) {
+            action = "";
+        }
+        switch (action){
+            case "Login":
+                req.getRequestDispatcher("Login.jsp").forward(req,resp);
+                break;
+            case "Register":
+                req.getRequestDispatcher("Register.jsp").forward(req,resp);
+                break;
+            default:
+                break;
+        }
         register(req, resp);
     }
 
@@ -46,7 +60,7 @@ public class UserServlet extends HttpServlet {
                 }
                 break;
             default:
-//vị trí màn hình thêm
+                System.out.println("From dang ky");
                 break;
         }
     }
@@ -67,7 +81,6 @@ public class UserServlet extends HttpServlet {
         System.out.println(password);
         System.out.println(confirmPassword);
         if (password.equals(confirmPassword)) {
-            System.out.println("ok");
             String gender = request.getParameter("gender");
             String birthdateString = request.getParameter("birthdate");
             int phoneNumber = Integer.parseInt(request.getParameter("phoneNumber"));
@@ -75,15 +88,19 @@ public class UserServlet extends HttpServlet {
             SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
             Date birthdate = null;
             try {
-
                 birthdate = sdf.parse(birthdateString);
             } catch (ParseException e) {
                 e.printStackTrace();
             }
-
             userDAO.addUser(new User(fullName,userName, password, gender, birthdate, phoneNumber));
-            System.out.println("MK đúng ");
-            //  request.getRequestDispatcher("index.jsp").forward(request, response); //-vị trí sau khi tạo thành công mình sẽ chuyển tới đâu
+            boolean userAddedSuccessfully = true;
+            if (userAddedSuccessfully){
+                request.getRequestDispatcher("RegisterSuccess.jsp").forward(request,response);
+            }else {
+                request.getRequestDispatcher("RegisterFailure.jsp").forward(request,response);
+            }
+            System.out.println("thanh cong");
+
         } else {
             System.out.println("xác nhận mk sai ");
         }
