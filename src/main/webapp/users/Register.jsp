@@ -84,6 +84,7 @@
 
 
 
+
         <label for="password">Mật khẩu (6-8 ký tự):</label>
         <input type="password" id="password" name="password" minlength="6" maxlength="8" required>
 
