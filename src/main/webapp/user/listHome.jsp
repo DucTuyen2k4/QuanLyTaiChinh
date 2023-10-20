@@ -11,6 +11,7 @@
             background-image: url("/users/notepad-3316267_1280.jpg");
         }
 
+
         .header {
             background-color: #bcf38c;
             color: #fff;

@@ -21,6 +21,7 @@ public class ListUser extends HttpServlet {
         String userName = req.getParameter("userName");
         String password = req.getParameter("password");
 
+
         if (userDAO.checkUser(userName, password)) {
             resp.sendRedirect("/home");
         } else {
