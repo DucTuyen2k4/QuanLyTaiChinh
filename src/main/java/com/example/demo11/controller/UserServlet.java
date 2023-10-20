@@ -94,6 +94,7 @@ public class UserServlet extends HttpServlet {
                 e.printStackTrace();
             }
 
+
             userDAO.addUser(new User(fullName, userName, password, gender, birthdate, phoneNumber));
             boolean userAddedSuccessfully = true;
             if (userAddedSuccessfully) {

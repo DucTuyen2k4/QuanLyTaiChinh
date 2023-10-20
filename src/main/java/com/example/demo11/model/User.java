@@ -9,6 +9,7 @@ public class User {
     private String password;
     private String gender;
 
+
     private Date birthdate;
     private int phoneNumber;
 

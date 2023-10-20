@@ -17,6 +17,7 @@ public class ListUser extends HttpServlet {
     UserDAO userDAO = new UserDAO();
 
     @Override
+
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         String userName = req.getParameter("userName");
         String password = req.getParameter("password");
