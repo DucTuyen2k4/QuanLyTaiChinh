@@ -13,6 +13,7 @@ public class UserDAO implements IUserDAO {
     @Override
 
 
+
     public void addUser(User user) throws SQLException, ClassNotFoundException {
         String query = "insert into users(fullName,userName,password,gender,birthdate,phoneNumber) values (?,?,?,?,?,?)";
         PreparedStatement preparedStatement = JDBC.connection().prepareStatement(query);
