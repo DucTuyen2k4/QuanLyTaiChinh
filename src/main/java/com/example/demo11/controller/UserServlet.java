@@ -14,7 +14,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-@WebServlet(name="UserServlet",value = "/user")
+@WebServlet(name = "UserServlet", value = "/user")
 public class UserServlet extends HttpServlet {
     public static UserDAO userDAO;
 
@@ -30,12 +30,10 @@ public class UserServlet extends HttpServlet {
         if (action == null) {
             action = "";
         }
-        switch (action){
-            case "Login":
-                req.getRequestDispatcher("Login.jsp").forward(req,resp);
-                break;
+        switch (action) {
+
             case "Register":
-                req.getRequestDispatcher("Register.jsp").forward(req,resp);
+                req.getRequestDispatcher("Register.jsp").forward(req, resp);
                 break;
             default:
                 break;
@@ -49,6 +47,7 @@ public class UserServlet extends HttpServlet {
         if (action == null) {
             action = "";
         }
+        System.out.println(action);
         switch (action) {
             case "addUser":
                 try {
@@ -59,8 +58,8 @@ public class UserServlet extends HttpServlet {
                     throw new RuntimeException(e);
                 }
                 break;
-            default:
-                System.out.println("From dang ky");
+            case "Login":
+                register(req, resp);
                 break;
         }
     }
@@ -69,9 +68,11 @@ public class UserServlet extends HttpServlet {
     public void destroy() {
         super.destroy();
     }
+
     public static void register(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        request.getRequestDispatcher("Register.jsp").forward(request, response);//vị chí sẽ chuyền tới sau khi nhấn vào
+        request.getRequestDispatcher("user/listHome.jsp").forward(request, response);//vị chí sẽ chuyền tới sau khi nhấn vào
     }
+
     public static void addUser(HttpServletRequest request, HttpServletResponse response) throws SQLException, ClassNotFoundException, ServletException, IOException {
         String fullName = request.getParameter("fullName");
         String userName = request.getParameter("userName");
@@ -92,17 +93,17 @@ public class UserServlet extends HttpServlet {
             } catch (ParseException e) {
                 e.printStackTrace();
             }
-            userDAO.addUser(new User(fullName,userName, password, gender, birthdate, phoneNumber));
+            userDAO.addUser(new User(fullName, userName, password, gender, birthdate, phoneNumber));
             boolean userAddedSuccessfully = true;
-            if (userAddedSuccessfully){
-                request.getRequestDispatcher("RegisterSuccess.jsp").forward(request,response);
-            }else {
-                request.getRequestDispatcher("RegisterFailure.jsp").forward(request,response);
+            if (userAddedSuccessfully) {
+                request.getRequestDispatcher("users/list.jsp").forward(request, response);
+            } else {
+                request.getRequestDispatcher("RegisterFailure.jsp").forward(request, response);
             }
             System.out.println("thanh cong");
 
         } else {
-            System.out.println("xác nhận mk sai ");
+            System.out.println("hello ");
         }
     }
 

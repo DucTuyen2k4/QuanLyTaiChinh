@@ -77,7 +77,7 @@
 <body>
 <div class="container">
     <h1>Đăng ký</h1>
-    <form method="post" action="user?action=addUser">
+    <form method="post" action="/user?action=addUser">
         <label for="userName">Tên đăng nhập:</label>
         <input type="text" name="userName" id="userName" required>
 
@@ -103,7 +103,8 @@
         <label for="birthdate">Ngày tháng năm sinh:</label>
         <input type="date" name="birthdate" id="birthdate">
 
-        <input type="submit" value="Submit">
+        <input type="submit" value="Đăng kí">
+
     </form>
 </div>
 </body>

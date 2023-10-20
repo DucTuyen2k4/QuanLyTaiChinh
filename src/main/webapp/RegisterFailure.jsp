@@ -13,7 +13,7 @@
 <body>
 <body>
 <h1>Đăng Ký Thất Bại</h1>
-<form method="get" action="user?action=Login" >
+<form method="get" action="user?action=Login">
     <div>
         <input type="submit" value="Đăng nhập">
     </div>
