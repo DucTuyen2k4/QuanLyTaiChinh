@@ -16,16 +16,17 @@ public class UserDAO implements IUserDAO {
 
 
     public void addUser(User user) throws SQLException, ClassNotFoundException {
-        String query = "insert into users(fullName,userName,password,email,gender,birthdate,phoneNumber) values (?,?,?,?,?,?,?)";
+        String query = "insert into users(image,fullName,userName,password,email,gender,birthdate,phoneNumber) values (?,?,?,?,?,?,?,?)";
         PreparedStatement preparedStatement = JDBC.connection().prepareStatement(query);
-        preparedStatement.setString(1, user.getFullName());
-        preparedStatement.setString(2, user.getUserName());
+        preparedStatement.setString(1, user.getImage());
+        preparedStatement.setString(2, user.getFullName());
+        preparedStatement.setString(3, user.getUserName());
 
-        preparedStatement.setString(3, user.getPassword());
-        preparedStatement.setString(4, user.getEmail());
-        preparedStatement.setString(5, user.getGender());
-        preparedStatement.setDate(6, new java.sql.Date(user.getBirthdate().getTime()));
-        preparedStatement.setInt(7, user.getPhoneNumber());
+        preparedStatement.setString(4, user.getPassword());
+        preparedStatement.setString(5, user.getEmail());
+        preparedStatement.setString(6, user.getGender());
+        preparedStatement.setDate(7, new java.sql.Date(user.getBirthdate().getTime()));
+        preparedStatement.setInt(8, user.getPhoneNumber());
         preparedStatement.executeUpdate();
     }
 

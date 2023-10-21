@@ -15,7 +15,7 @@
             display: flex;
             justify-content: center;
             align-items: center;
-            height: 100vh;
+            height: 120vh;
         }
 
         .container {
@@ -78,13 +78,10 @@
 <div class="container">
     <h1>Đăng ký</h1>
     <form method="post" action="/user?action=addUser">
+        <label for="image">Ảnh :</label>
+        <input type="text" name="image" id="image" required>
         <label for="userName">Tên đăng nhập:</label>
         <input type="text" name="userName" id="userName" required>
-
-
-
-
-
         <label for="password">Mật khẩu (6-8 ký tự):</label>
         <input type="password" id="password" name="password" minlength="6" maxlength="8" required>
 

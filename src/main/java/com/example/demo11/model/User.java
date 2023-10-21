@@ -10,12 +10,29 @@ public class User {
     private String password;
     private String email;
     private String gender;
-
-
-
+    private String image;
 
     private Date birthdate;
     private int phoneNumber;
+
+    public String getImage() {
+        return image;
+    }
+
+    public void setImage(String image) {
+        this.image = image;
+    }
+
+    public User( String fullName, String userName, String password, String email, String gender, String image, Date birthdate, int phoneNumber) {
+        this.fullName = fullName;
+        this.userName = userName;
+        this.password = password;
+        this.email = email;
+        this.gender = gender;
+        this.image = image;
+        this.birthdate = birthdate;
+        this.phoneNumber = phoneNumber;
+    }
 
     public User(String fullName, String userName, String password, String gender, Date birthdate, int phoneNumber) {
         this.fullName = fullName;

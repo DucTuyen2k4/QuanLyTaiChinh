@@ -85,6 +85,7 @@ public class UserServlet extends HttpServlet {
             String gender = request.getParameter("gender");
             String email=request.getParameter("email");
             String birthdateString = request.getParameter("birthdate");
+            String image = request.getParameter("image");
             int phoneNumber = Integer.parseInt(request.getParameter("phoneNumber"));
             System.out.println(userName + password + gender + birthdateString + phoneNumber);
             SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
@@ -98,7 +99,7 @@ public class UserServlet extends HttpServlet {
 
 
 
-            userDAO.addUser(new User(fullName, userName, password,email, gender, birthdate, phoneNumber));
+            userDAO.addUser(new User(fullName, userName, password,email, gender,image, birthdate, phoneNumber));
             boolean userAddedSuccessfully = true;
             if (userAddedSuccessfully) {
                 request.getRequestDispatcher("users/list.jsp").forward(request, response);
