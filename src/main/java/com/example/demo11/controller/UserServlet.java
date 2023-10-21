@@ -83,6 +83,7 @@ public class UserServlet extends HttpServlet {
         System.out.println(confirmPassword);
         if (password.equals(confirmPassword)) {
             String gender = request.getParameter("gender");
+            String email=request.getParameter("email");
             String birthdateString = request.getParameter("birthdate");
             int phoneNumber = Integer.parseInt(request.getParameter("phoneNumber"));
             System.out.println(userName + password + gender + birthdateString + phoneNumber);
@@ -97,7 +98,7 @@ public class UserServlet extends HttpServlet {
 
 
 
-            userDAO.addUser(new User(fullName, userName, password, gender, birthdate, phoneNumber));
+            userDAO.addUser(new User(fullName, userName, password,email, gender, birthdate, phoneNumber));
             boolean userAddedSuccessfully = true;
             if (userAddedSuccessfully) {
                 request.getRequestDispatcher("users/list.jsp").forward(request, response);

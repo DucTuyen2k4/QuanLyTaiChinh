@@ -3,10 +3,12 @@ package com.example.demo11.model;
 import java.util.Date;
 
 public class User {
+
     private int id;
     private String fullName;
     private String userName;
     private String password;
+    private String email;
     private String gender;
 
 
@@ -22,6 +24,24 @@ public class User {
         this.gender = gender;
         this.birthdate = birthdate;
         this.phoneNumber = phoneNumber;
+    }
+
+    public User(String fullName, String userName, String password, String email, String gender, Date birthdate, int phoneNumber) {
+        this.fullName = fullName;
+        this.userName = userName;
+        this.password = password;
+        this.email = email;
+        this.gender = gender;
+        this.birthdate = birthdate;
+        this.phoneNumber = phoneNumber;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
     }
 
     public String getFullName() {

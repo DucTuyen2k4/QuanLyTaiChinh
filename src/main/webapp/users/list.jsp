@@ -94,7 +94,7 @@
     </div>
     <div class="content">
         <div class="content1">
-            <b><h1>ĐĂNG NHẬP</h1></b>
+            <b><h1>Đăng nhập</h1></b>
         </div>
         <div class="content2" style="color: aliceblue">
             <form action="/list" method="post">

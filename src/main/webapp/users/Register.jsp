@@ -96,6 +96,8 @@
 
         <label for="phoneNumber">Số điện thoại:</label>
         <input type="text" name="phoneNumber" id="phoneNumber" required>
+        <label >email:</label>
+        <input type="text" name="email" required>
 
         <label for="gender">Giới tính:</label>
         <select name="gender" id="gender">
