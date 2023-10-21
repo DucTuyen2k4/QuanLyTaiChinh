@@ -3,15 +3,14 @@ package com.example.demo11.sevice;
 import com.example.demo11.model.User;
 
 import java.sql.SQLException;
+import java.util.List;
 
 public interface IUserDAO {
 
-
-
-
-
+    List<User> selectProfileUser(int idUser) throws SQLException, ClassNotFoundException;
     void addUser(User user) throws SQLException, ClassNotFoundException;
 
     boolean checkUser(String userName, String password);
+    void updateProfileUser(int idUser,String emailUser,String fullNameUser,int phoneNumberUser,String imageUser) throws SQLException, ClassNotFoundException;
 
 }
