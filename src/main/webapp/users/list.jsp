@@ -10,10 +10,7 @@
         body {
 
 
-
-
-
-            background-image: url("notepad-3316267_1280.jpg");
+            background-image: url("/users/notepad-3316267_1280.jpg");
         }
 
         .header {
@@ -63,10 +60,9 @@
             text-align: center;
             margin: 50px;
         }
-
-        #submit {
-            background-color: springgreen;
+        button{
             border-radius: 10px 10px;
+            color: #318a18;
         }
 
         p {
@@ -97,15 +93,17 @@
             <b><h1>Đăng nhập</h1></b>
         </div>
         <div class="content2" style="color: aliceblue">
-            <form action="/list" method="post">
+            <form action="/user" method="post">
                 <p>Tên đăng nhâp :</p>
                 <input type="text" name="userName" placeholder="UserName" id="username"
                        style="border-radius: 10px 10px"><br><br>
                 <p>Mật khẩu :</p>
                 <input type="password" name="password" placeholder="Password" id="password"
                        style="border-radius: 10px 10px"><br><br>
-                <input type="submit" value="Đăng nhập" id="submit">
+                <p style="margin-left: 180px ; color: red" >${message}</p>
+                <button name="action" value="login">Đăng nhập</button>
             </form>
+
         </div>
         <div class="content3" style="text-align: center">
             <a href=""> Quyên mật khẩu ?</a><br>
@@ -113,7 +111,6 @@
             <b style="color: #7e8585"> Chưa có tài khoản<a href="/users/Register.jsp">ĐĂNG KÍ</a></b>
         </div>
     </div>
-
     <div class="footer">
         <h6> Hotline :0848123085 <i class="fa-solid fa-phone"></i></h6>
     </div>

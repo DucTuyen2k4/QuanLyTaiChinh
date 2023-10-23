@@ -1,4 +1,5 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -127,6 +128,24 @@
 <body>
 <div class="header">
     <h1>Ứng dụng Quản lý Tài chính</h1>
+    <div>
+
+        <table border="1" cellpadding="5">
+            <c:forEach items="${list}" var="lists">
+                <tr>
+                    <td><input type="hidden" name="id" value="${lists.id}" /></td>
+                    <td><c:out value="${lists.id}"/></td>
+                    <td><c:out value="${lists.fullName}"/></td>
+                    <td><c:out value="${lists.userName}"/></td>
+                    <td><c:out value="${lists.password}"/></td>
+                    <td><c:out value="${lists.email}"/></td>
+                    <td><c:out value="${lists.gender}"/></td>
+                    <td><c:out value="${lists.birthdate}"/></td>
+                    <td><c:out value="${lists.phoneNumber}"/></td>
+                </tr>
+            </c:forEach>
+        </table>
+    </div>
     <div class="settings">
         <div class="dropdown">
             <button class="drop-ttn">Settings</button>
@@ -179,7 +198,6 @@
         event.preventDefault();
         confirmationDialog.style.display = 'block';
     });
-
     confirmLogoutBtn.addEventListener('click', function () {
         console.log("Đăng xuất thành công");
         confirmationDialog.style.display = 'none';

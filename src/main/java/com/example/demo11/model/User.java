@@ -23,7 +23,19 @@ public class User {
         this.image = image;
     }
 
-    public User( String fullName, String userName, String password, String email, String gender, String image, Date birthdate, int phoneNumber) {
+    public User(int id, String fullName, String userName, String password, String email, String gender, String image, Date birthdate, int phoneNumber) {
+        this.id = id;
+        this.fullName = fullName;
+        this.userName = userName;
+        this.password = password;
+        this.email = email;
+        this.gender = gender;
+        this.image = image;
+        this.birthdate = birthdate;
+        this.phoneNumber = phoneNumber;
+    }
+
+    public User(String fullName, String userName, String password, String email, String gender, String image, Date birthdate, int phoneNumber) {
         this.fullName = fullName;
         this.userName = userName;
         this.password = password;

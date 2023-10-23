@@ -13,6 +13,7 @@ import java.sql.SQLException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.List;
 
 @WebServlet(name = "UserServlet", value = "/user")
 public class UserServlet extends HttpServlet {
@@ -32,6 +33,7 @@ public class UserServlet extends HttpServlet {
         }
         switch (action) {
 
+
             case "Register":
                 req.getRequestDispatcher("Register.jsp").forward(req, resp);
                 break;
@@ -39,6 +41,26 @@ public class UserServlet extends HttpServlet {
                 break;
         }
         register(req, resp);
+    }
+
+    private void loginUSer(HttpServletRequest req, HttpServletResponse resp) throws SQLException, IOException {
+        String userName = req.getParameter("userName");
+        String password = req.getParameter("password");
+
+        try {
+            if (userDAO.checkUser(userName, password)) {
+                List<User> list = userDAO.show(userName,password);
+                req.setAttribute("list", list);
+                System.out.println("da vao day");
+                req.getRequestDispatcher("user/listHome.jsp").forward(req, resp);
+            } else {
+                req.setAttribute("message","Tài khoản không tồn tại!");
+                req.getRequestDispatcher("users/list.jsp").forward(req,resp);
+
+            }
+        } catch (ServletException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     @Override
@@ -58,9 +80,13 @@ public class UserServlet extends HttpServlet {
                     throw new RuntimeException(e);
                 }
                 break;
-            case "Login":
-                register(req, resp);
-                break;
+            case "login":
+                try {
+                    loginUSer(req, resp);
+                } catch (SQLException e) {
+                    throw new RuntimeException(e);
+                }
+
         }
     }
 
@@ -72,7 +98,6 @@ public class UserServlet extends HttpServlet {
     public static void register(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         request.getRequestDispatcher("user/listHome.jsp").forward(request, response);//vị chí sẽ chuyền tới sau khi nhấn vào
     }
-
     public static void addUser(HttpServletRequest request, HttpServletResponse response) throws SQLException, ClassNotFoundException, ServletException, IOException {
         String fullName = request.getParameter("fullName");
         String userName = request.getParameter("userName");
@@ -83,7 +108,7 @@ public class UserServlet extends HttpServlet {
         System.out.println(confirmPassword);
         if (password.equals(confirmPassword)) {
             String gender = request.getParameter("gender");
-            String email=request.getParameter("email");
+            String email = request.getParameter("email");
             String birthdateString = request.getParameter("birthdate");
             String image = request.getParameter("image");
             int phoneNumber = Integer.parseInt(request.getParameter("phoneNumber"));
@@ -97,9 +122,7 @@ public class UserServlet extends HttpServlet {
             }
 
 
-
-
-            userDAO.addUser(new User(fullName, userName, password,email, gender,image, birthdate, phoneNumber));
+            userDAO.addUser(new User(fullName, userName, password, email, gender, image, birthdate, phoneNumber));
             boolean userAddedSuccessfully = true;
             if (userAddedSuccessfully) {
                 request.getRequestDispatcher("users/list.jsp").forward(request, response);
@@ -112,5 +135,6 @@ public class UserServlet extends HttpServlet {
             System.out.println("hello ");
         }
     }
+
 
 }
