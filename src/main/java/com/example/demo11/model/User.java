@@ -25,6 +25,15 @@ public class User {
         this.phoneNumber = phoneNumber;
     }
 
+    public User(String password) {
+        this.password = password;
+
+    }
+
+    public User() {
+
+    }
+
     public String getImage() {
         return image;
     }

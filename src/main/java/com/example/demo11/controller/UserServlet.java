@@ -45,6 +45,9 @@ public class UserServlet extends HttpServlet {
                     throw new RuntimeException(e);
                 }
                 break;
+            case "changePassword":
+                showFormChangePassword(req, resp);
+                break;
             default:
                 break;
         }
@@ -77,6 +80,15 @@ public class UserServlet extends HttpServlet {
                     throw new RuntimeException(e);
                 }
                 break;
+            case "confirmPassword":
+                try {
+                    confirmPassword(req, resp);
+                } catch (SQLException e) {
+                    throw new RuntimeException(e);
+                } catch (ClassNotFoundException e) {
+                    throw new RuntimeException(e);
+                }
+                break;
             case "Login":
                 register(req, resp);
                 break;
@@ -101,6 +113,36 @@ public class UserServlet extends HttpServlet {
         req.getRequestDispatcher("user/updateProfile.jsp").forward(req, resp);
     }
 
+    private void confirmPassword(HttpServletRequest req, HttpServletResponse resp) throws SQLException, ClassNotFoundException, ServletException, IOException {
+        int id = Integer.parseInt(req.getParameter("id"));
+        String oldPassword = req.getParameter("oldPassword");
+        String newPassword = req.getParameter("newPassword");
+        String confirmPassword = req.getParameter("confirmPassword");
+
+        User user = userDAO.selectPassword(id);
+        String passwordUser = user.getPassword();
+        if (passwordUser.equals(oldPassword)) {
+            if (confirmPassword.equals(newPassword)) {
+                userDAO.updatePassword(id, newPassword);
+                req.getRequestDispatcher("users/list.jsp").forward(req, resp);
+            } else {
+                req.setAttribute("messages", "Mật khẩu không khớp ! ");
+                req.getRequestDispatcher("user/formChangePassword.jsp").forward(req, resp);
+            }
+        } else {
+            req.setAttribute("message", "Sai mật khẩu !");
+            req.setAttribute("id", id);
+            req.getRequestDispatcher("user/formChangePassword.jsp").forward(req, resp);
+        }
+
+    }
+
+    private void showFormChangePassword(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        int id = Integer.parseInt(req.getParameter("id"));
+        req.setAttribute("id", id);
+        req.getRequestDispatcher("user/formChangePassword.jsp").forward(req, resp);
+    }
+
     @Override
     public void destroy() {
         super.destroy();
@@ -120,7 +162,7 @@ public class UserServlet extends HttpServlet {
         System.out.println(confirmPassword);
         if (password.equals(confirmPassword)) {
             String gender = request.getParameter("gender");
-            String email=request.getParameter("email");
+            String email = request.getParameter("email");
             String birthdateString = request.getParameter("birthdate");
             String image = request.getParameter("image");
             int phoneNumber = Integer.parseInt(request.getParameter("phoneNumber"));
@@ -134,9 +176,7 @@ public class UserServlet extends HttpServlet {
             }
 
 
-
-
-            userDAO.addUser(new User(fullName, userName, password,email, gender,image, birthdate, phoneNumber));
+            userDAO.addUser(new User(fullName, userName, password, email, gender, image, birthdate, phoneNumber));
             boolean userAddedSuccessfully = true;
             if (userAddedSuccessfully) {
                 request.getRequestDispatcher("/users/list.jsp").forward(request, response);
