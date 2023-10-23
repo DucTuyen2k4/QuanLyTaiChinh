@@ -13,6 +13,7 @@ import java.sql.SQLException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.List;
 
 @WebServlet(name = "UserServlet", value = "/user")
 public class UserServlet extends HttpServlet {
@@ -34,6 +35,15 @@ public class UserServlet extends HttpServlet {
 
             case "Register":
                 req.getRequestDispatcher("Register.jsp").forward(req, resp);
+                break;
+            case "update":
+                try {
+                    showFormUpdate(req, resp);
+                } catch (SQLException e) {
+                    throw new RuntimeException(e);
+                } catch (ClassNotFoundException e) {
+                    throw new RuntimeException(e);
+                }
                 break;
             default:
                 break;
@@ -58,10 +68,37 @@ public class UserServlet extends HttpServlet {
                     throw new RuntimeException(e);
                 }
                 break;
+            case "confirmUpdate":
+                try {
+                    confirmUpdate(req, resp);
+                } catch (SQLException e) {
+                    throw new RuntimeException(e);
+                } catch (ClassNotFoundException e) {
+                    throw new RuntimeException(e);
+                }
+                break;
             case "Login":
                 register(req, resp);
                 break;
         }
+    }
+
+    private void confirmUpdate(HttpServletRequest req, HttpServletResponse resp) throws SQLException, ClassNotFoundException, ServletException, IOException {
+        int id = Integer.parseInt(req.getParameter("id"));
+        String fullName = req.getParameter("fullName");
+        String gender = req.getParameter("gender");
+        String birthdate = req.getParameter("birthdate");
+        int phoneNumber = Integer.parseInt(req.getParameter("phoneNumber"));
+        String image = req.getParameter("image");
+        userDAO.updateProfileUser(id, fullName, gender, birthdate, phoneNumber, image);
+        req.getRequestDispatcher("user/listHome.jsp").forward(req, resp);
+    }
+
+    private void showFormUpdate(HttpServletRequest req, HttpServletResponse resp) throws SQLException, ClassNotFoundException, ServletException, IOException {
+        int id = Integer.parseInt(req.getParameter("id"));
+        List<User> list = userDAO.selectProfileUser(id);
+        req.setAttribute("list", list);
+        req.getRequestDispatcher("user/updateProfile.jsp").forward(req, resp);
     }
 
     @Override
