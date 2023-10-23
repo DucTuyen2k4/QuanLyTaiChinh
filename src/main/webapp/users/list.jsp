@@ -14,8 +14,6 @@
         }
 
         .header {
-
-
             height: 80px;
         }
 

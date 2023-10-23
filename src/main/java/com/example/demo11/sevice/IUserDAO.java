@@ -9,7 +9,7 @@ public interface IUserDAO {
 
     void addUser(User user) throws SQLException, ClassNotFoundException;
 
-    boolean checkUser(String userName, String password);
+    boolean  checkUser(String userName, String password);
     List<User> show(String name,String userPassword);
 
 }

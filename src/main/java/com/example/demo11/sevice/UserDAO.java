@@ -39,17 +39,17 @@ public class UserDAO implements IUserDAO {
     @Override
     public boolean checkUser(String userName, String password) {
         try {
+
             PreparedStatement statement = JDBC.connection().prepareStatement(CHECK_USER);
             statement.setString(1, userName);
             statement.setString(2, password);
             ResultSet resultSet = statement.executeQuery();
-            return resultSet.next();
+          return resultSet.next();
         } catch (SQLException e) {
             throw new RuntimeException(e);
         } catch (ClassNotFoundException e) {
             throw new RuntimeException(e);
         }
-
     }
     private static final String SELECT_ALL_USERS = "select * from users where userName=? and password=?";
     @Override
@@ -72,7 +72,6 @@ public class UserDAO implements IUserDAO {
                 Date birthdate = resultSet.getDate("birthdate");
                 int phoneNumber = resultSet.getInt("phoneNumber");
                 list.add(new User( id,image,fullName, username, password, email, gender, birthdate, phoneNumber));
-                System.out.println(toString());
             }
         } catch (SQLException e) {
             throw new RuntimeException(e);

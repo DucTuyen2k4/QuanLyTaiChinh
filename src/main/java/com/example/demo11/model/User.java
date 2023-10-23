@@ -5,12 +5,13 @@ import java.util.Date;
 public class User {
 
     private int id;
+    private String image;
     private String fullName;
     private String userName;
     private String password;
     private String email;
     private String gender;
-    private String image;
+
 
     private Date birthdate;
     private int phoneNumber;
@@ -23,14 +24,17 @@ public class User {
         this.image = image;
     }
 
-    public User(int id, String fullName, String userName, String password, String email, String gender, String image, Date birthdate, int phoneNumber) {
+    public User() {
+    }
+
+    public User(int id, String image, String fullName, String userName, String password, String email, String gender, Date birthdate, int phoneNumber) {
         this.id = id;
+        this.image = image;
         this.fullName = fullName;
         this.userName = userName;
         this.password = password;
         this.email = email;
         this.gender = gender;
-        this.image = image;
         this.birthdate = birthdate;
         this.phoneNumber = phoneNumber;
     }

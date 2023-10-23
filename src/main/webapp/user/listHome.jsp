@@ -13,15 +13,12 @@
         }
 
 
-
-
-
         .header {
             background-color: #bcf38c;
             color: #fff;
-            padding: 20px;
-            text-align: center;
+            padding: 1px;
             position: relative;
+            height: 100px;
         }
 
         .settings {
@@ -123,38 +120,64 @@
         .confirmation-dialog-content button {
             margin-right: 10px;
         }
+
+        .viet {
+            height: 100px;
+            width: 100px;
+            background-color: white;
+            float: left;
+            border-radius: 50%;
+            border: 2px solid #a1a1a1;
+            margin: 20px;
+            padding: 10px;
+            text-align: center;
+            color: red;
+        }
+        img{
+            border-radius: 50%;
+            width: 100px;
+            height: 100px;
+        }
+        .tieude {
+            text-align: center;
+        }
     </style>
 </head>
 <body>
 <div class="header">
-    <h1>Ứng dụng Quản lý Tài chính</h1>
-    <div>
-
-        <table border="1" cellpadding="5">
-            <c:forEach items="${list}" var="lists">
-                <tr>
-                    <td><input type="hidden" name="id" value="${lists.id}" /></td>
-                    <td><c:out value="${lists.id}"/></td>
-                    <td><c:out value="${lists.fullName}"/></td>
-                    <td><c:out value="${lists.userName}"/></td>
-                    <td><c:out value="${lists.password}"/></td>
-                    <td><c:out value="${lists.email}"/></td>
-                    <td><c:out value="${lists.gender}"/></td>
-                    <td><c:out value="${lists.birthdate}"/></td>
-                    <td><c:out value="${lists.phoneNumber}"/></td>
-                </tr>
-            </c:forEach>
-        </table>
+    <div class="viet">
+            <p style="display: none"><c:out value="${lists.id}"/></p>
+            <img src="/user/z4808775197396_653716eece25dce8d3dee3bd1b95c60f.jpg">
+            <p><c:out value="${lists.fullName}"/></p>
+            <p style="display: none"><c:out value="${lists.userName}"/></p>
+            <p style="display: none"><c:out value="${lists.password}"/></p>
+            <p style="display: none"><c:out value="${lists.email}"/></p>
+            <p style="display: none"><c:out value="${lists.gender}"/></p>
+            <p style="display: none"><c:out value="${lists.birthdate}"/></p>
+            <p style="display: none"><c:out value="${lists.phoneNumber}"/></>
+        </>
     </div>
+    <div class="tieude"><h1>Ứng dụng Quản lý Tài chính</h1></div>
     <div class="settings">
         <div class="dropdown">
             <button class="drop-ttn">Settings</button>
             <div class="dropdown-content">
                 <div method="post">
-                    <a href="/user?action=update&id=${user.id}">Cập nhật thông tin</a>
-                    <hr width="100%" size="1px" align="center" color="0px 8px 16px 0px rgba(0, 0, 0, 0.2)"/>
-                    <a href="/user?action=delete&id=${user.id}">Xóa tài khoản</a>
-                    <hr width="100%" size="1px" align="center" color="0px 8px 16px 0px rgba(0, 0, 0, 0.2)"/>
+
+                    <c:forEach items="${list}" var="lists">
+                        <a href="/user?action=update&id=${lists.id}">Cập nhật thông tin</a>
+                        <p style="display: none"><c:out value="${lists.id}"/></p>
+                        <p style="display: none"><c:out value="${lists.fullName}"/></p>
+                        <p style="display: none"><c:out value="${lists.userName}"/></p>
+                        <p style="display: none"><c:out value="${lists.password}"/></p>
+                        <p style="display: none"><c:out value="${lists.email}"/></p>
+                        <p style="display: none"><c:out value="${lists.gender}"/></p>
+                        <p style="display: none"><c:out value="${lists.birthdate}"/></p>
+                        <p style="display: none"><c:out value="${lists.phoneNumber}"/></>
+                        <hr width="100%" size="1px" align="center" color="0px 8px 16px 0px rgba(0, 0, 0, 0.2)"/>
+                        <a href="/user?action=delete&id=${lists.id}">Xóa tài khoản</a>
+                        <hr width="100%" size="1px" align="center" color="0px 8px 16px 0px rgba(0, 0, 0, 0.2)"/>
+                    </c:forEach>
                 </div>
                 <div method="get">
                     <a href="#" id="logout-link">Đăng xuất</a>

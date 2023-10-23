@@ -2,12 +2,15 @@ package com.example.demo11.controller;
 
 import com.example.demo11.model.User;
 import com.example.demo11.sevice.UserDAO;
+import com.mysql.cj.xdevapi.Session;
 
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.sql.SQLException;
 import java.text.ParseException;
@@ -46,7 +49,6 @@ public class UserServlet extends HttpServlet {
     private void loginUSer(HttpServletRequest req, HttpServletResponse resp) throws SQLException, IOException {
         String userName = req.getParameter("userName");
         String password = req.getParameter("password");
-
         try {
             if (userDAO.checkUser(userName, password)) {
                 List<User> list = userDAO.show(userName,password);
@@ -56,7 +58,6 @@ public class UserServlet extends HttpServlet {
             } else {
                 req.setAttribute("message","Tài khoản không tồn tại!");
                 req.getRequestDispatcher("users/list.jsp").forward(req,resp);
-
             }
         } catch (ServletException e) {
             throw new RuntimeException(e);
@@ -86,7 +87,6 @@ public class UserServlet extends HttpServlet {
                 } catch (SQLException e) {
                     throw new RuntimeException(e);
                 }
-
         }
     }
 
