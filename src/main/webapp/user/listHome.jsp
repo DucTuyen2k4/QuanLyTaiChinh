@@ -4,6 +4,7 @@
 <html>
 <head>
     <title>Ứng dụng Quản lý Tài chính</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -13,13 +14,12 @@
         }
 
 
-<<<<<<< HEAD
-=======
 
 
 
 
->>>>>>> d0b4676 (ThemUser)
+
+
         .header {
             background-color: #bcf38c;
             color: #fff;
@@ -73,7 +73,7 @@
             flex: 0 0 250px;
             background-color: #f2f2f2;
             width: 100%;
-            height: 700px;
+            height: 1000px;
         }
 
         .content {
@@ -92,6 +92,7 @@
             width: 100px;
             height: 40px;
             font-size: 17px;
+            background-image: url('ProjectManagement-300x300.png');
         }
 
         .confirmation-dialog {
@@ -120,13 +121,16 @@
             margin-top: 0;
         }
 
-        .confirmation-dialog-content p {
+        .confirmation-dialog-ccloudflareontent p {
             margin-bottom: 20px;
         }
 
         .confirmation-dialog-content button {
             margin-right: 10px;
+
+
         }
+
 
         .viet {
             height: 100px;
@@ -148,6 +152,52 @@
         .tieude {
             text-align: center;
         }
+
+        .expense-button-container {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .expense-button {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            color: #fff;
+            font-size: 24px;
+            border: none;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+            margin-right: 10px;
+            margin-bottom: 10px;
+        }
+
+        .expense-button-label {
+            margin-top: 5px;
+            font-size: 14px;
+        }
+
+        .expense-button:hover {
+            opacity: 0.8;
+        }
+
+        .expense-button-plane {
+            background-color: #3498db;
+        }
+
+        .expense-button-hotel {
+            background-color: #e67e22;
+        }
+
+        .expense-button-camera {
+            background-color: #27ae60;
+        }
+
+
+
     </style>
 </head>
 <body>
@@ -162,14 +212,14 @@
             <p style="display: none"><c:out value="${lists.gender}"/></p>
             <p style="display: none"><c:out value="${lists.birthdate}"/></p>
             <p style="display: none"><c:out value="${lists.phoneNumber}"/></>
-        </>
     </div>
     <div class="tieude"><h1>Ứng dụng Quản lý Tài chính</h1></div>
     <div class="settings">
         <div class="dropdown">
-            <button class="drop-ttn">Settings</button>
+            <button class="drop-ttn"><i class="fa fa-cog"></i> Settings</button>
             <div class="dropdown-content">
                 <div method="post">
+
 
                     <c:forEach items="${list}" var="lists">
                         <a href="/user?action=update&id=${lists.id}">Cập nhật thông tin</a>
@@ -183,8 +233,8 @@
                         <p style="display: none"><c:out value="${lists.phoneNumber}"/></>
                         <hr width="100%" size="1px" align="center" color="0px 8px 16px 0px rgba(0, 0, 0, 0.2)"/>
                         <a href="/user?action=delete&id=${lists.id}">Xóa tài khoản</a>
-                        <hr width="100%" size="1px" align="center" color="0px 8px 16px 0px rgba(0, 0, 0, 0.2)"/>
                     </c:forEach>
+                    <hr width="100%" size="1px" align="center" color="0px 8px 16px 0px rgba(0, 0, 0, 0.2)"/>
                 </div>
                 <div method="get">
                     <a href="#" id="logout-link">Đăng xuất</a>
@@ -196,19 +246,37 @@
 
 <div class="container">
     <div class="sidebar">
-        add
-        <!-- Nội dung thanh bên -->
+        <h2> Chi tiêu </h2>
+        <div class="expense-button-container">
+
+            <a class="expense-button expense-button-plane" href="/user/updateProfilee.jsp">
+                <i class="fas fa-plane"></i>
+
+            </a>
+
+            <a class="expense-button expense-button-hotel" href="/user/updateProfilee.jsp">
+                <i class="fas fa-hotel"></i>
+            </a>
+
+            <a class="expense-button expense-button-camera" href="/user/updateProfilee.jsp">
+                <i class="fas fa-camera"></i>
+            </a>
+
+        </div>
+
+
     </div>
 
     <div class="content">
         hhh
-        <!-- Nội dung chính -->
+
     </div>
 </div>
 
 <div class="footer">
     <p>Bản quyền &copy; 2023 Ứng dụng Quản lý Tài chính</p>
 </div>
+
 <div class="confirmation-dialog" id="confirmation-dialog">
     <div class="confirmation-dialog-content">
         <h2>Xác nhận đăng xuất</h2>

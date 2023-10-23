@@ -16,6 +16,16 @@ public class User {
     private Date birthdate;
     private int phoneNumber;
 
+    public User(int id, String fullName, String email, Date birthdate, String gender, int phoneNumber, String image) {
+        this.id= id;
+        this.fullName = fullName;
+        this.email = email;
+        this.gender = gender;
+        this.image = image;
+        this.birthdate = birthdate;
+        this.phoneNumber = phoneNumber;
+    }
+
     public String getImage() {
         return image;
     }

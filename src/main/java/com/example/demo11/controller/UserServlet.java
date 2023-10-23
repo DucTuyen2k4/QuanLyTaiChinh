@@ -40,29 +40,22 @@ public class UserServlet extends HttpServlet {
             case "Register":
                 req.getRequestDispatcher("Register.jsp").forward(req, resp);
                 break;
+            case "update":
+                try {
+                    showFormUpdate(req, resp);
+                } catch (SQLException e) {
+                    throw new RuntimeException(e);
+                } catch (ClassNotFoundException e) {
+                    throw new RuntimeException(e);
+                }
+                break;
             default:
                 break;
         }
         register(req, resp);
     }
 
-    private void loginUSer(HttpServletRequest req, HttpServletResponse resp) throws SQLException, IOException {
-        String userName = req.getParameter("userName");
-        String password = req.getParameter("password");
-        try {
-            if (userDAO.checkUser(userName, password)) {
-                List<User> list = userDAO.show(userName,password);
-                req.setAttribute("list", list);
-                System.out.println("da vao day");
-                req.getRequestDispatcher("user/listHome.jsp").forward(req, resp);
-            } else {
-                req.setAttribute("message","Tài khoản không tồn tại!");
-                req.getRequestDispatcher("users/list.jsp").forward(req,resp);
-            }
-        } catch (ServletException e) {
-            throw new RuntimeException(e);
-        }
-    }
+
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -82,6 +75,7 @@ public class UserServlet extends HttpServlet {
                 }
                 break;
 
+
             case "login":
                 try {
                     loginUSer(req, resp);
@@ -89,12 +83,57 @@ public class UserServlet extends HttpServlet {
                     throw new RuntimeException(e);
                 }
 
+
+            case "confirmUpdate":
+                try {
+                    confirmUpdate(req, resp);
+                } catch (SQLException e) {
+                    throw new RuntimeException(e);
+                } catch (ClassNotFoundException e) {
+                    throw new RuntimeException(e);
+                }
+                break;
+
             case "Login":
                 register(req, resp);
                 break;
 
 
         }
+    }
+    private void loginUSer(HttpServletRequest req, HttpServletResponse resp) throws SQLException, IOException {
+        String userName = req.getParameter("userName");
+        String password = req.getParameter("password");
+        try {
+            if (userDAO.checkUser(userName, password)) {
+                List<User> list = userDAO.show(userName,password);
+                req.setAttribute("list", list);
+                System.out.println("da vao day");
+                req.getRequestDispatcher("user/listHome.jsp").forward(req, resp);
+            } else {
+                req.setAttribute("message","Tài khoản không tồn tại!");
+                req.getRequestDispatcher("users/list.jsp").forward(req,resp);
+            }
+        } catch (ServletException e) {
+            throw new RuntimeException(e);
+        }
+    }
+    private void confirmUpdate(HttpServletRequest req, HttpServletResponse resp) throws SQLException, ClassNotFoundException, ServletException, IOException {
+        int id = Integer.parseInt(req.getParameter("id"));
+        String fullName = req.getParameter("fullName");
+        String gender = req.getParameter("gender");
+        String birthdate = req.getParameter("birthdate");
+        int phoneNumber = Integer.parseInt(req.getParameter("phoneNumber"));
+        String image = req.getParameter("image");
+        userDAO.updateProfileUser(id, fullName, gender, birthdate, phoneNumber, image);
+        req.getRequestDispatcher("user/listHome.jsp").forward(req, resp);
+    }
+
+    private void showFormUpdate(HttpServletRequest req, HttpServletResponse resp) throws SQLException, ClassNotFoundException, ServletException, IOException {
+        int id = Integer.parseInt(req.getParameter("id"));
+        List<User> list = userDAO.selectProfileUser(id);
+        req.setAttribute("list", list);
+        req.getRequestDispatcher("user/updateProfile.jsp").forward(req, resp);
     }
 
     @Override
@@ -129,13 +168,15 @@ public class UserServlet extends HttpServlet {
             userDAO.addUser(new User(fullName, userName, password, email, gender, image, birthdate, phoneNumber));
             boolean userAddedSuccessfully = true;
             if (userAddedSuccessfully) {
-                request.getRequestDispatcher("users/list.jsp").forward(request, response);
+                request.getRequestDispatcher("/users/list.jsp").forward(request, response);
             } else {
                 request.getRequestDispatcher("RegisterFailure.jsp").forward(request, response);
             }
 
         } else {
-            response.sendRedirect("RegisterFailure.jsp");
+           request.setAttribute("messageFailure","Mật khẩu không trùng nhau");
+           request.getRequestDispatcher("users/Register.jsp").forward(request,response);
+
         }
     }
 

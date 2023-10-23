@@ -101,6 +101,7 @@
         <input type="password" id="password" name="password" minlength="6" maxlength="8" required>
 
         <label for="confirmPassword">Xác nhận mật khẩu:</label>
+        <p>${messageFailure}</p>
         <input type="password" name="confirmPassword" id="confirmPassword" minlength="6" maxlength="8" required>
 
         <label for="fullName">Họ và tên:</label>

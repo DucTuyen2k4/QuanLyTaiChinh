@@ -15,23 +15,38 @@ import java.util.List;
 public class UserDAO implements IUserDAO {
 
 
+    private static  final String SELECT_PROFILE_USER = "select*from users where id = ? ";
+    private static final String UPDATE_PROFILE_USER= "update users set  fullName = ? ,gender = ? ,birthdate = ? , phoneNumber = ?  , image = ? where id = ? ";
+    private static final String INSERT_USER= "insert into users(image,fullName,userName,password,email,gender,birthdate,phoneNumber) values (?,?,?,?,?,?,?,?)";
+    private static final String SELECT_ALL_USER= "SELEC*FROM user";
+
+
     @Override
 
 
     public void addUser(User user) throws SQLException, ClassNotFoundException {
-        String query = "insert into users(image,fullName,userName,password,email,gender,birthdate,phoneNumber) values (?,?,?,?,?,?,?,?)";
-        PreparedStatement preparedStatement = JDBC.connection().prepareStatement(query);
-        preparedStatement.setString(1, user.getImage());
-        preparedStatement.setString(2, user.getFullName());
-        preparedStatement.setString(3, user.getUserName());
+        PreparedStatement preparedStatement1=JDBC.connection().prepareStatement(SELECT_ALL_USER);
+        ResultSet resultSet=preparedStatement1.executeQuery();
+        if (resultSet!=null){
 
-        preparedStatement.setString(4, user.getPassword());
-        preparedStatement.setString(5, user.getEmail());
-        preparedStatement.setString(6, user.getGender());
-        preparedStatement.setDate(7, new java.sql.Date(user.getBirthdate().getTime()));
-        preparedStatement.setInt(8, user.getPhoneNumber());
-        preparedStatement.executeUpdate();
-    }
+        }else {
+
+            PreparedStatement preparedStatement = JDBC.connection().prepareStatement(INSERT_USER);
+            preparedStatement.setString(1, user.getImage());
+            preparedStatement.setString(2, user.getFullName());
+            preparedStatement.setString(3, user.getUserName());
+
+            preparedStatement.setString(4, user.getPassword());
+            preparedStatement.setString(5, user.getEmail());
+            preparedStatement.setString(6, user.getGender());
+            preparedStatement.setDate(7, new java.sql.Date(user.getBirthdate().getTime()));
+            preparedStatement.setInt(8, user.getPhoneNumber());
+            preparedStatement.executeUpdate();
+        }
+        }
+
+
+
 
 
     private static final String CHECK_USER = "select * from users where userName=? and password=?";
@@ -51,6 +66,7 @@ public class UserDAO implements IUserDAO {
             throw new RuntimeException(e);
         }
     }
+
     private static final String SELECT_ALL_USERS = "select * from users where userName=? and password=?";
     @Override
     public List<User> show(String name,String userPassword) {
@@ -80,4 +96,39 @@ public class UserDAO implements IUserDAO {
         }
         return list;
     }
+
+
+
+    public void updateProfileUser(int idUser, String fullNameUser,String gender ,String birthdate,int phoneNumberUser, String imageUser) throws SQLException, ClassNotFoundException {
+        PreparedStatement preparedStatement = JDBC.connection().prepareStatement(UPDATE_PROFILE_USER);
+        preparedStatement.setString(1,fullNameUser);
+        preparedStatement.setString(2,gender);
+        preparedStatement.setString(3,birthdate);
+        preparedStatement.setInt(4,phoneNumberUser);
+        preparedStatement.setString(5,imageUser);
+        preparedStatement.setInt(6,idUser);
+        preparedStatement.executeUpdate();
+    }
+
+
+    @Override
+    public List<User> selectProfileUser(int idUser) throws SQLException, ClassNotFoundException {
+        List<User> list = new ArrayList<>();
+        PreparedStatement preparedStatement = JDBC.connection().prepareStatement(SELECT_PROFILE_USER);
+        preparedStatement.setInt(1,idUser);
+
+        ResultSet resultSet = preparedStatement.executeQuery();
+        while (resultSet.next()){
+            int id = resultSet.getInt("id");
+            String fullName = resultSet.getString("fullName");
+            String email = resultSet.getString("email");
+            Date birthdate = resultSet.getDate("birthdate");
+            String gender = resultSet.getString("gender");
+            int phoneNumber = resultSet.getInt("phoneNumber");
+            String image = resultSet.getString("image");
+            list.add(new User(id,fullName,email,birthdate,gender,phoneNumber,image));
+        }
+        return list;
+    }
 }
+
