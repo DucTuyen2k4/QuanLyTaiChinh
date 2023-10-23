@@ -134,8 +134,8 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            width: 80px;
-            height: 80px;
+            width: 50px;
+            height: 50px;
             border-radius: 50%;
             color: #fff;
             font-size: 24px;
@@ -179,7 +179,7 @@
             <div class="dropdown-content">
                 <div method="post">
                     <a href="/user?action=update&id=${user.id}">Cập nhật thông tin</a>
-                    <a href="/user/updateProfilee.jsp">Cập nhật thông tin</a>
+                    <a href="/user/listHome.jsp">Cập nhật thông tin</a>
                     <hr width="100%" size="1px" align="center" color="0px 8px 16px 0px rgba(0, 0, 0, 0.2)"/>
                     <a href="/user?action=delete&id=${user.id}">Xóa tài khoản</a>
                     <hr width="100%" size="1px" align="center" color="0px 8px 16px 0px rgba(0, 0, 0, 0.2)"/>
@@ -197,19 +197,17 @@
         <h2> Chi tiêu </h2>
         <div class="expense-button-container">
 
-            <a class="expense-button expense-button-plane" href="updateProfilee.jsp">
+            <a class="expense-button expense-button-plane" href="/user/updateProfilee.jsp">
                 <i class="fas fa-plane"></i>
-                <span class="expense-button-label"> du lich</span>
+
             </a>
 
-            <a class="expense-button expense-button-hotel" href="updateProfilee.jsp">
+            <a class="expense-button expense-button-hotel" href="/user/updateProfilee.jsp">
                 <i class="fas fa-hotel"></i>
-                <span class="expense-button-label">nha nghi</span>
             </a>
 
-            <a class="expense-button expense-button-camera" href="updateProfilee.jsp">
+            <a class="expense-button expense-button-camera" href="/user/updateProfilee.jsp">
                 <i class="fas fa-camera"></i>
-                <span class="expense-button-label">Chup ảnh</span>
             </a>
 
         </div>
