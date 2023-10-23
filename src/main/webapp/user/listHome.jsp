@@ -3,7 +3,6 @@
 <html>
 <head>
     <title>Ứng dụng Quản lý Tài chính</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -11,6 +10,9 @@
             padding: 0;
             background-image: url("/users/notepad-3316267_1280.jpg");
         }
+
+
+
 
 
         .header {
@@ -66,7 +68,7 @@
             flex: 0 0 250px;
             background-color: #f2f2f2;
             width: 100%;
-            height: 1000px;
+            height: 700px;
         }
 
         .content {
@@ -85,7 +87,6 @@
             width: 100px;
             height: 40px;
             font-size: 17px;
-            background-image: url('ProjectManagement-300x300.png');
         }
 
         .confirmation-dialog {
@@ -114,60 +115,13 @@
             margin-top: 0;
         }
 
-        .confirmation-dialog-ccloudflareontent p {
+        .confirmation-dialog-content p {
             margin-bottom: 20px;
         }
 
         .confirmation-dialog-content button {
             margin-right: 10px;
-
-
         }
-
-        .expense-button-container {
-            display: flex;
-            justify-content: center;
-            flex-wrap: wrap;
-        }
-
-        .expense-button {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            width: 80px;
-            height: 80px;
-            border-radius: 50%;
-            color: #fff;
-            font-size: 24px;
-            border: none;
-            cursor: pointer;
-            transition: background-color 0.3s ease;
-            margin-right: 10px;
-            margin-bottom: 10px;
-        }
-
-        .expense-button-label {
-            margin-top: 5px;
-            font-size: 14px;
-        }
-
-        .expense-button:hover {
-            opacity: 0.8;
-        }
-
-        .expense-button-plane {
-            background-color: #3498db;
-        }
-
-        .expense-button-hotel {
-            background-color: #e67e22;
-        }
-
-        .expense-button-camera {
-            background-color: #27ae60;
-        }
-
-
     </style>
 </head>
 <body>
@@ -175,11 +129,10 @@
     <h1>Ứng dụng Quản lý Tài chính</h1>
     <div class="settings">
         <div class="dropdown">
-            <button class="drop-ttn"><i class="fa fa-cog"></i> Settings</button>
+            <button class="drop-ttn">Settings</button>
             <div class="dropdown-content">
                 <div method="post">
                     <a href="/user?action=update&id=${user.id}">Cập nhật thông tin</a>
-                    <a href="/user/updateProfilee.jsp">Cập nhật thông tin</a>
                     <hr width="100%" size="1px" align="center" color="0px 8px 16px 0px rgba(0, 0, 0, 0.2)"/>
                     <a href="/user?action=delete&id=${user.id}">Xóa tài khoản</a>
                     <hr width="100%" size="1px" align="center" color="0px 8px 16px 0px rgba(0, 0, 0, 0.2)"/>
@@ -194,45 +147,18 @@
 
 <div class="container">
     <div class="sidebar">
-        <h2> Chi tiêu </h2>
-        <div class="expense-button-container">
-
-            <a class="expense-button expense-button-plane" href="updateProfilee.jsp">
-                <i class="fas fa-plane"></i>
-                <span class="expense-button-label"> du lich</span>
-            </a>
-
-            <a class="expense-button expense-button-hotel" href="updateProfilee.jsp">
-                <i class="fas fa-hotel"></i>
-                <span class="expense-button-label">nha nghi</span>
-            </a>
-
-            <a class="expense-button expense-button-camera" href="updateProfilee.jsp">
-                <i class="fas fa-camera"></i>
-                <span class="expense-button-label">Chup ảnh</span>
-            </a>
-
-        </div>
-
-
+        add
+        <!-- Nội dung thanh bên -->
     </div>
 
     <div class="content">
         hhh
-
+        <!-- Nội dung chính -->
     </div>
 </div>
 
 <div class="footer">
     <p>Bản quyền &copy; 2023 Ứng dụng Quản lý Tài chính</p>
-</div>
-<div class="confirmation-dialog" id="confirmation-dialogg">
-    <div class="confirmation-dialog-content">
-        <h2>Xác nhận xóa tài khoản</h2>
-        <p>Bạn có chắc chắn muốn xóa tài khoản không?</p>
-        <button id="confirm-logout-btnn">Đồng ý</button>
-        <button id="cancel-logout-btnn">Hủy</button>
-    </div>
 </div>
 <div class="confirmation-dialog" id="confirmation-dialog">
     <div class="confirmation-dialog-content">
