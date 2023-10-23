@@ -126,6 +126,7 @@
 <div class="header">
     <h1>Ứng dụng Quản lý Tài chính</h1>
     <div>
+
         <table border="1" cellpadding="5">
             <c:forEach items="${list}" var="lists">
         </table>
