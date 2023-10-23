@@ -13,6 +13,13 @@
         }
 
 
+<<<<<<< HEAD
+=======
+
+
+
+
+>>>>>>> d0b4676 (ThemUser)
         .header {
             background-color: #bcf38c;
             color: #fff;

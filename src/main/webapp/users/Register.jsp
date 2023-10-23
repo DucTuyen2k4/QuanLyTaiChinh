@@ -47,7 +47,7 @@
         input[type="password"],
         select,
         input[type="date"] {
-            width: 96%;
+            width: 95%;
             padding: 10px;
             margin-top: 5px;
             border: 1px solid #ccc;
@@ -55,7 +55,7 @@
         }
 
         input[type="submit"] {
-            width: 96%;
+            width: 98%;
             background: #3498db;
             color: white;
             padding: 10px;
@@ -63,9 +63,24 @@
             cursor: pointer;
             border-radius: 5px;
         }
+        .login{
+            font-size: 84%;
+            background: #3498db;
+            color: white;
+            padding: 10px;
+            border: none;
+            cursor: pointer;
+            border-radius: 5px;
+            width: 150px;
+            text-decoration: none; /* Loại bỏ gạch chân */
+            display: flex;
+            justify-content: center; /* Đặt văn bản ở giữa theo chiều ngang */
+            align-items: center; /* Đặt văn bản ở giữa theo chiều dọc */
+        }
+
 
         input[type="submit"]:hover {
-            background: #2980b9;
+
         }
 
         span.error {
@@ -86,7 +101,7 @@
         <input type="password" id="password" name="password" minlength="6" maxlength="8" required>
 
         <label for="confirmPassword">Xác nhận mật khẩu:</label>
-        <input type="password" name="confirmPassword" id="confirmPassword" required>
+        <input type="password" name="confirmPassword" id="confirmPassword" minlength="6" maxlength="8" required>
 
         <label for="fullName">Họ và tên:</label>
         <input type="text" name="fullName" id="fullName" required>
@@ -94,10 +109,10 @@
         <label for="phoneNumber">Số điện thoại:</label>
         <input type="text" name="phoneNumber" id="phoneNumber" required>
         <label >email:</label>
-        <input type="text" name="email" required>
+        <input type="text" name="email" pattern="[^@\s]+@gmail\.com" title="Vui lòng nhập địa chỉ email có định dạng @gmail.com" required>
 
-        <label for="gender">Giới tính:</label>
-        <select name="gender" id="gender">
+        <label for="gender" >Giới tính: </label>
+        <select name="gender" id="gender" style="width: 400px">
             <option value="Male">Nam</option>
             <option value="Female">Nữ</option>
             <option value="Other">Khác</option>
@@ -106,7 +121,10 @@
         <label for="birthdate">Ngày tháng năm sinh:</label>
         <input type="date" name="birthdate" id="birthdate">
 
-        <input type="submit" value="Đăng kí">
+        <div  style="display: flex; justify-content: space-between;margin-top: 40px">
+            <input type="submit" value="Đăng ký" style=" width: 165px">
+            <a href="/users/list.jsp" class="login">Đăng nhập</a>
+        </div>
 
     </form>
 </div>

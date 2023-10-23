@@ -7,6 +7,7 @@ import java.util.List;
 
 public interface IUserDAO {
 
+
     void addUser(User user) throws SQLException, ClassNotFoundException;
 
     boolean  checkUser(String userName, String password);

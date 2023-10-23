@@ -81,12 +81,19 @@ public class UserServlet extends HttpServlet {
                     throw new RuntimeException(e);
                 }
                 break;
+
             case "login":
                 try {
                     loginUSer(req, resp);
                 } catch (SQLException e) {
                     throw new RuntimeException(e);
                 }
+
+            case "Login":
+                register(req, resp);
+                break;
+
+
         }
     }
 
@@ -101,11 +108,8 @@ public class UserServlet extends HttpServlet {
     public static void addUser(HttpServletRequest request, HttpServletResponse response) throws SQLException, ClassNotFoundException, ServletException, IOException {
         String fullName = request.getParameter("fullName");
         String userName = request.getParameter("userName");
-
         String password = request.getParameter("password");
         String confirmPassword = request.getParameter("confirmPassword");
-        System.out.println(password);
-        System.out.println(confirmPassword);
         if (password.equals(confirmPassword)) {
             String gender = request.getParameter("gender");
             String email = request.getParameter("email");
@@ -129,10 +133,9 @@ public class UserServlet extends HttpServlet {
             } else {
                 request.getRequestDispatcher("RegisterFailure.jsp").forward(request, response);
             }
-            System.out.println("thanh cong");
 
         } else {
-            System.out.println("hello ");
+            response.sendRedirect("RegisterFailure.jsp");
         }
     }
 
