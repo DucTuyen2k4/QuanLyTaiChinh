@@ -25,11 +25,11 @@ public class UserDAO implements IUserDAO {
 
 
     public void addUser(User user) throws SQLException, ClassNotFoundException {
-        PreparedStatement preparedStatement1=JDBC.connection().prepareStatement(SELECT_ALL_USER);
-        ResultSet resultSet=preparedStatement1.executeQuery();
-        if (resultSet!=null){
-
-        }else {
+//        PreparedStatement preparedStatement1=JDBC.connection().prepareStatement(SELECT_ALL_USER);
+//        ResultSet resultSet=preparedStatement1.executeQuery();
+//        if (resultSet!=null){
+//
+//        }else {
 
             PreparedStatement preparedStatement = JDBC.connection().prepareStatement(INSERT_USER);
             preparedStatement.setString(1, user.getImage());
@@ -43,7 +43,7 @@ public class UserDAO implements IUserDAO {
             preparedStatement.setInt(8, user.getPhoneNumber());
             preparedStatement.executeUpdate();
         }
-        }
+//        }
 
 
 
@@ -99,6 +99,7 @@ public class UserDAO implements IUserDAO {
 
 
 
+
     public void updateProfileUser(int idUser, String fullNameUser,String gender ,String birthdate,int phoneNumberUser, String imageUser) throws SQLException, ClassNotFoundException {
         PreparedStatement preparedStatement = JDBC.connection().prepareStatement(UPDATE_PROFILE_USER);
         preparedStatement.setString(1,fullNameUser);
@@ -129,6 +130,15 @@ public class UserDAO implements IUserDAO {
             list.add(new User(id,fullName,email,birthdate,gender,phoneNumber,image));
         }
         return list;
+    }
+
+
+
+    private String DELETE_USER="delete from users where id=?";
+    public void DeleteUser(int id) throws SQLException, ClassNotFoundException {
+        PreparedStatement preparedStatement=JDBC.connection().prepareStatement(DELETE_USER);
+        preparedStatement.setInt(1,id);
+        preparedStatement.executeUpdate();
     }
 }
 

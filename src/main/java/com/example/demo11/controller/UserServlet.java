@@ -35,11 +35,16 @@ public class UserServlet extends HttpServlet {
             action = "";
         }
         switch (action) {
+            case "delete":
+                try {
+                    DeleteUsers(req, resp);
+                } catch (SQLException e) {
+                    throw new RuntimeException(e);
+                } catch (ClassNotFoundException e) {
+                    throw new RuntimeException(e);
+                }
 
 
-            case "Register":
-                req.getRequestDispatcher("Register.jsp").forward(req, resp);
-                break;
             case "update":
                 try {
                     showFormUpdate(req, resp);
@@ -49,12 +54,23 @@ public class UserServlet extends HttpServlet {
                     throw new RuntimeException(e);
                 }
                 break;
+
+            case "Register":
+                req.getRequestDispatcher("users/Register.jsp").forward(req, resp);
+                break;
+
             default:
                 break;
         }
-        register(req, resp);
+
     }
 
+    public void DeleteUsers(HttpServletRequest req, HttpServletResponse resp) throws SQLException, ClassNotFoundException, IOException, ServletException {
+        int id = Integer.parseInt(req.getParameter("id"));
+        userDAO.DeleteUser(id);
+        req.getRequestDispatcher("users/list.jsp").forward(req, resp);
+
+    }
 
 
     @Override
@@ -94,30 +110,29 @@ public class UserServlet extends HttpServlet {
                 }
                 break;
 
-            case "Login":
-                register(req, resp);
-                break;
 
 
         }
     }
+
     private void loginUSer(HttpServletRequest req, HttpServletResponse resp) throws SQLException, IOException {
         String userName = req.getParameter("userName");
         String password = req.getParameter("password");
         try {
             if (userDAO.checkUser(userName, password)) {
-                List<User> list = userDAO.show(userName,password);
+                List<User> list = userDAO.show(userName, password);
                 req.setAttribute("list", list);
                 System.out.println("da vao day");
                 req.getRequestDispatcher("user/listHome.jsp").forward(req, resp);
             } else {
-                req.setAttribute("message","Tài khoản không tồn tại!");
-                req.getRequestDispatcher("users/list.jsp").forward(req,resp);
+                req.setAttribute("message", "Tài khoản không tồn tại!");
+                req.getRequestDispatcher("users/list.jsp").forward(req, resp);
             }
         } catch (ServletException e) {
             throw new RuntimeException(e);
         }
     }
+
     private void confirmUpdate(HttpServletRequest req, HttpServletResponse resp) throws SQLException, ClassNotFoundException, ServletException, IOException {
         int id = Integer.parseInt(req.getParameter("id"));
         String fullName = req.getParameter("fullName");
@@ -141,9 +156,7 @@ public class UserServlet extends HttpServlet {
         super.destroy();
     }
 
-    public static void register(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        request.getRequestDispatcher("user/listHome.jsp").forward(request, response);//vị chí sẽ chuyền tới sau khi nhấn vào
-    }
+
     public static void addUser(HttpServletRequest request, HttpServletResponse response) throws SQLException, ClassNotFoundException, ServletException, IOException {
         String fullName = request.getParameter("fullName");
         String userName = request.getParameter("userName");
@@ -155,7 +168,6 @@ public class UserServlet extends HttpServlet {
             String birthdateString = request.getParameter("birthdate");
             String image = request.getParameter("image");
             int phoneNumber = Integer.parseInt(request.getParameter("phoneNumber"));
-            System.out.println(userName + password + gender + birthdateString + phoneNumber);
             SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
             Date birthdate = null;
             try {
@@ -174,8 +186,8 @@ public class UserServlet extends HttpServlet {
             }
 
         } else {
-           request.setAttribute("messageFailure","Mật khẩu không trùng nhau");
-           request.getRequestDispatcher("users/Register.jsp").forward(request,response);
+            request.setAttribute("messageFailure", "Mật khẩu không trùng nhau");
+            request.getRequestDispatcher("users/Register.jsp").forward(request, response);
 
         }
     }
