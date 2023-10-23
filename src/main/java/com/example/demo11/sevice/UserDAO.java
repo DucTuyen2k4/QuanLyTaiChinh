@@ -49,7 +49,6 @@ public class UserDAO implements IUserDAO {
         } catch (ClassNotFoundException e) {
             throw new RuntimeException(e);
         }
-
     }
     private static final String SELECT_ALL_USERS = "select * from users where userName=? and password=?";
     @Override
@@ -80,5 +79,11 @@ public class UserDAO implements IUserDAO {
             throw new RuntimeException(e);
         }
         return list;
+    }
+    private String DELETE_USER="delete from users where id=?";
+    public void DeleteUser(int id) throws SQLException, ClassNotFoundException {
+        PreparedStatement preparedStatement=JDBC.connection().prepareStatement(DELETE_USER);
+        preparedStatement.setInt(1,id);
+        preparedStatement.executeUpdate();
     }
 }

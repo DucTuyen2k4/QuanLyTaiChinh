@@ -142,6 +142,7 @@
                     <td><c:out value="${lists.gender}"/></td>
                     <td><c:out value="${lists.birthdate}"/></td>
                     <td><c:out value="${lists.phoneNumber}"/></td>
+                    <td><a href="/user?action=delete&id=${lists.id}">Xóa tài khoản</a></td>
                 </tr>
             </c:forEach>
         </table>

@@ -39,10 +39,6 @@
 <h1>Đăng Ký Thành Công</h1>
 <form method="post" action="user?action=Login">
     <div>
-
-
-
-
         <input type="submit" value="Đăng nhập">
     </div>
 </form>

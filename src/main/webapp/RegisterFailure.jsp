@@ -10,10 +10,6 @@
 <head>
     <title>Title</title>
 </head>
-
-
-
-
 <body>
 <body>
 <h1>Đăng Ký Thất Bại</h1>

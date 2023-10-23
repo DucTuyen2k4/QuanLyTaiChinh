@@ -18,7 +18,10 @@ import java.util.List;
 @WebServlet(name = "UserServlet", value = "/user")
 public class UserServlet extends HttpServlet {
     public static UserDAO userDAO;
-
+public int TraId(HttpServletRequest request){
+    int id= Integer.parseInt(request.getParameter("id"));
+    return id;
+}
 
     @Override
     public void init() throws ServletException {
@@ -32,15 +35,27 @@ public class UserServlet extends HttpServlet {
             action = "";
         }
         switch (action) {
+            case "delete":
+                try {
+                    DeleteUsers(req,resp);
+                } catch (SQLException e) {
+                    throw new RuntimeException(e);
+                } catch (ClassNotFoundException e) {
+                    throw new RuntimeException(e);
+                }
 
-
-            case "Register":
-                req.getRequestDispatcher("Register.jsp").forward(req, resp);
-                break;
+//            case "Register":
+//                req.getRequestDispatcher("users/Register.jsp").forward(req, resp);
+//                break;
             default:
                 break;
         }
-        register(req, resp);
+//        register(req, resp);
+    }
+
+    public void DeleteUsers(HttpServletRequest req, HttpServletResponse resp) throws SQLException, ClassNotFoundException, IOException {
+        userDAO.DeleteUser(TraId(req));
+        resp.sendRedirect("users/list.jsp");
     }
 
     private void loginUSer(HttpServletRequest req, HttpServletResponse resp) throws SQLException, IOException {
@@ -95,9 +110,9 @@ public class UserServlet extends HttpServlet {
         super.destroy();
     }
 
-    public static void register(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        request.getRequestDispatcher("user/listHome.jsp").forward(request, response);//vị chí sẽ chuyền tới sau khi nhấn vào
-    }
+//    public static void register(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+//        request.getRequestDispatcher("user/listHome.jsp").forward(request, response);//vị chí sẽ chuyền tới sau khi nhấn vào
+//    }
     public static void addUser(HttpServletRequest request, HttpServletResponse response) throws SQLException, ClassNotFoundException, ServletException, IOException {
         String fullName = request.getParameter("fullName");
         String userName = request.getParameter("userName");
