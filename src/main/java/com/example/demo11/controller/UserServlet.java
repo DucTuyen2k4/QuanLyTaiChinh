@@ -137,7 +137,7 @@ public class UserServlet extends HttpServlet {
             userDAO.addUser(new User(fullName, userName, password, email, gender, image, birthdate, phoneNumber));
             boolean userAddedSuccessfully = true;
             if (userAddedSuccessfully) {
-                request.getRequestDispatcher("users/list.jsp").forward(request, response);
+                request.getRequestDispatcher("/users/list.jsp").forward(request, response);
             } else {
                 request.getRequestDispatcher("RegisterFailure.jsp").forward(request, response);
             }
