@@ -17,8 +17,13 @@ public class UserDAO implements IUserDAO {
 
     private static  final String SELECT_PROFILE_USER = "select*from users where id = ? ";
     private static final String UPDATE_PROFILE_USER= "update users set  fullName = ? ,gender = ? ,birthdate = ? , phoneNumber = ?  , image = ? where id = ? ";
+
     private static final String INSERT_USER= "insert into users(image,fullName,userName,password,email,gender,birthdate,phoneNumber) values (?,?,?,?,?,?,?,?)";
     private static final String SELECT_ALL_USER= "SELEC*FROM user";
+
+    private static final String SELECT_PASSWORD = "select password from users where id = ? ";
+    private static final String UPDATE_PASSWORD = "update users set password = ? where id = ?";
+
 
 
     @Override
@@ -134,11 +139,34 @@ public class UserDAO implements IUserDAO {
 
 
 
+
     private String DELETE_USER="delete from users where id=?";
     public void DeleteUser(int id) throws SQLException, ClassNotFoundException {
         PreparedStatement preparedStatement=JDBC.connection().prepareStatement(DELETE_USER);
         preparedStatement.setInt(1,id);
         preparedStatement.executeUpdate();
     }
+
+    public User selectPassword(int id) throws SQLException, ClassNotFoundException {
+        User user = new User(SELECT_PASSWORD);
+        PreparedStatement preparedStatement = JDBC.connection().prepareStatement(SELECT_PASSWORD);
+        preparedStatement.setInt(1, id);
+        ResultSet resultSet = preparedStatement.executeQuery();
+        while (resultSet.next()) {
+            String password = resultSet.getString("password");
+            user = new User(password);
+        }
+        return user;
+    }
+
+    @Override
+    public void updatePassword(int id, String password) throws SQLException, ClassNotFoundException {
+        PreparedStatement preparedStatement = JDBC.connection().prepareStatement(UPDATE_PASSWORD);
+        preparedStatement.setString(1, password);
+        preparedStatement.setInt(2, id);
+        preparedStatement.executeUpdate();
+    }
+
+
 }
 

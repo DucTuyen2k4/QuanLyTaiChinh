@@ -26,6 +26,15 @@ public class User {
         this.phoneNumber = phoneNumber;
     }
 
+    public User(String password) {
+        this.password = password;
+
+    }
+
+    public User() {
+
+    }
+
     public String getImage() {
         return image;
     }
@@ -35,8 +44,7 @@ public class User {
         this.image = image;
     }
 
-    public User() {
-    }
+
 
     public User(int id, String image, String fullName, String userName, String password, String email, String gender, Date birthdate, int phoneNumber) {
         this.id = id;

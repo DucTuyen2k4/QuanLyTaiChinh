@@ -152,8 +152,29 @@
 
 <div class="container">
     <div class="sidebar">
-        add
+
         <!-- Nội dung thanh bên -->
+
+        <h2> Chi tiêu </h2>
+        <div class="expense-button-container">
+
+            <a class="expense-button expense-button-plane" href="/user/updateProfile.jsp">
+                <i class="fas fa-plane"></i>
+
+            </a>
+
+            <a class="expense-button expense-button-hotel" href="/user/updateProfile.jsp">
+                <i class="fas fa-hotel"></i>
+            </a>
+
+            <a class="expense-button expense-button-camera" href="/user/updateProfile.jsp">
+                <i class="fas fa-camera"></i>
+            </a>
+
+        </div>
+
+
+
     </div>
 
     <div class="content">
