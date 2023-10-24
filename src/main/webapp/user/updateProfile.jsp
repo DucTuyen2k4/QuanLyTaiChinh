@@ -83,24 +83,25 @@
 <body>
 <div class="edit-product">
 
+
     <div>
         <form action="user?action=confirmUpdate" method="post" class="edit-form">
             <div class="back-button">
-                <a href="/user/listHome.jsp"><i class="fas fa-arrow-left"></i>Quay lại trang chủ</a>
+                <a href="user/listHome.jsp"><i class="fas fa-arrow-left"></i>Quay lại trang chủ</a>
             </div>
-            <c:forEach var="list" items="${list}">
+<%--            <c:forEach var="lists" items="${list}">--%>
                 <div class="form-group">
-                    <input type="hidden" name="id" value="${list.id}">
+                    <input type="hidden" name="id" value="${sessionScope['user'].getId()}">
                 </div>
                 <div class="form-group">
 
                     <label for="fullname">Họ và tên:</label>
-                    <input type="text" id="fullname" name="fullName" value="${list.fullName}">
+                    <input type="text" id="fullname" name="fullName" value="${sessionScope['user'].getFullName()}">
                 </div>
                 <div class="form-group col-half">
                     <label for="gender">Giới tính:</label>
                     <select id="gender" name="gender">
-                        <option value="${list.gender}">${list.gender}</option>
+                        <option value="${sessionScope['user'].getGender()}">${sessionScope['user'].getGender()}</option>
                         <option value="male">Nam</option>
                         <option value="female">Nữ</option>
                         <option value="other">Khác</option>
@@ -108,23 +109,23 @@
                 </div>
                 <div class="form-group">
                     <label for="birthdate">Ngày sinh:</label>
-                    <input type="date" id="birthdate" name="birthdate" value="${list.birthdate}">
+                    <input type="date" id="birthdate" name="birthdate" value="${sessionScope['user'].getBirthdate()}" required>
                 </div>
                 <div class="form-group">
                     <label for="phoneNumber">Số điện thoại:</label>
-                    <input type="tel" id="phoneNumber" name="phoneNumber" value="${list.phoneNumber}">
+                    <input type="tel" id="phoneNumber" name="phoneNumber" value="${sessionScope['user'].getPhoneNumber()}" required>
                 </div>
                 <div class="form-group">
                     <label for="image">Chọn ảnh đại diện:</label>
-                    <input type="file" id="image" name="image" accept="image/*" value="${list.image}">
+                    <input type="file" id="image" name="image" accept="image/*" value="${sessionScope['user'].getImage()}" required>
                 </div>
                 <form action="/user" method="post">
                     <div class="button-container">
                         <button class="confirm-button" name="action" value="confirmUpdate">Xác Nhận</button>
                     </div>
                 </form>
-                <a class="button-container" href="user?action=changePassword&id=${list.id}">Đổi Mật khẩu</a>
-            </c:forEach>
+                <a class="button-container" href="user?action=changePassword&id=${sessionScope['user'].getId()}">Đổi Mật khẩu</a>
+<%--            </c:forEach>--%>
         </form>
     </div>
 </div>

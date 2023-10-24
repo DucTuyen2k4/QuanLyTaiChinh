@@ -138,9 +138,16 @@ public class UserServlet extends HttpServlet {
         String userName = req.getParameter("userName");
         String password = req.getParameter("password");
         try {
+
             if (userDAO.checkUser(userName, password)) {
                 List<User> list = userDAO.show(userName, password);
                 req.setAttribute("list", list);
+
+
+                HttpSession session = req.getSession();
+                session.setAttribute("user", list.get(0));
+
+
                 System.out.println("da vao day");
                 req.getRequestDispatcher("user/listHome.jsp").forward(req, resp);
             } else {

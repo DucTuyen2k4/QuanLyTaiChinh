@@ -121,7 +121,7 @@
         </select>
 
         <label for="birthdate">Ngày tháng năm sinh:</label>
-        <input type="date" name="birthdate" id="birthdate">
+        <input type="date" name="birthdate" id="birthdate" required>
 
         <div  style="display: flex; justify-content: space-between;margin-top: 40px">
             <input type="submit" value="Đăng ký" style=" width: 165px">
