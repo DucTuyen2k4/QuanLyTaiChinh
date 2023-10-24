@@ -1,23 +1,26 @@
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-<!DOCTYPE>
+<!DOCTYPE html>
 <html>
 <head>
     <title>Ứng dụng Quản lý Tài chính</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
     <style>
-
         body {
             font-family: Arial, sans-serif;
             margin: 0;
             padding: 0;
             background-image: url("/users/notepad-3316267_1280.jpg");
         }
+
+
         .header {
             background-color: #bcf38c;
             color: #fff;
-            padding: 20px;
+            padding: 2px;
             text-align: center;
             position: relative;
+            height:100px ;
         }
 
         .settings {
@@ -65,7 +68,7 @@
             flex: 0 0 250px;
             background-color: #f2f2f2;
             width: 100%;
-            height: 700px;
+            height: 1000px;
         }
 
         .content {
@@ -84,6 +87,7 @@
             width: 100px;
             height: 40px;
             font-size: 17px;
+            background-image: url('ProjectManagement-300x300.png');
         }
 
         .confirmation-dialog {
@@ -112,38 +116,80 @@
             margin-top: 0;
         }
 
-        .confirmation-dialog-content p {
+        .confirmation-dialog-ccloudflareontent p {
             margin-bottom: 20px;
         }
 
         .confirmation-dialog-content button {
             margin-right: 10px;
+
+
         }
+
+        .expense-button-container {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .expense-button {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            color: #fff;
+            font-size: 24px;
+            border: none;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+            margin-right: 10px;
+            margin-bottom: 10px;
+        }
+
+
+        .expense-button:hover {
+            opacity: 0.8;
+        }
+
+        .expense-button-plane {
+            background-color: #3498db;
+        }
+
+        .expense-button-hotel {
+            background-color: #e67e22;
+        }
+
+        .expense-button-camera {
+            background-color: #27ae60;
+        }
+
+
     </style>
 </head>
 <body>
 <div class="header">
     <h1>Ứng dụng Quản lý Tài chính</h1>
-    <div>
 
-        <table border="1" cellpadding="5">
-            <c:forEach items="${list}" var="lists">
-        </table>
-    </div>
     <div class="settings">
         <div class="dropdown">
             <button class="drop-ttn">Settings</button>
             <div class="dropdown-content">
+                <c:forEach items="${list}" var="lists">
                 <div method="post">
+
                     <a href="/user?action=update&id=${lists.id}">Cập nhật thông tin</a>
                     <hr width="100%" size="1px" align="center" color="0px 8px 16px 0px rgba(0, 0, 0, 0.2)"/>
                     <a href="/user?action=delete&id=${lists.id}">Xóa tài khoản</a>
-                    </c:forEach>
+
                     <hr width="100%" size="1px" align="center" color="0px 8px 16px 0px rgba(0, 0, 0, 0.2)"/>
                 </div>
+
                 <div method="get">
                     <a href="#" id="logout-link">Đăng xuất</a>
                 </div>
+                </c:forEach>
             </div>
         </div>
     </div>
@@ -151,34 +197,30 @@
 
 <div class="container">
     <div class="sidebar">
-
-        <!-- Nội dung thanh bên -->
-
         <h2> Chi tiêu </h2>
         <div class="expense-button-container">
 
-            <a class="expense-button expense-button-plane" href="/user/updateProfile.jsp">
+            <a class="expense-button expense-button-plane" href="/user/updateProfiles.jsp">
                 <i class="fas fa-plane"></i>
 
             </a>
 
-            <a class="expense-button expense-button-hotel" href="/user/updateProfile.jsp">
+            <a class="expense-button expense-button-hotel" href="/user/updateProfiles.jsp">
                 <i class="fas fa-hotel"></i>
             </a>
 
-            <a class="expense-button expense-button-camera" href="/user/updateProfile.jsp">
+            <a class="expense-button expense-button-camera" href="/user/updateProfiles.jsp">
                 <i class="fas fa-camera"></i>
             </a>
 
         </div>
 
 
-
     </div>
 
     <div class="content">
         hhh
-        <!-- Nội dung chính -->
+
     </div>
 </div>
 
@@ -204,10 +246,11 @@
         event.preventDefault();
         confirmationDialog.style.display = 'block';
     });
+
     confirmLogoutBtn.addEventListener('click', function () {
         console.log("Đăng xuất thành công");
         confirmationDialog.style.display = 'none';
-        window.location.href = "users/list.jsp";
+        window.location.href = "/users/list.jsp";
     });
     cancelLogoutBtn.addEventListener('click', function () {
         confirmationDialog.style.display = 'none';

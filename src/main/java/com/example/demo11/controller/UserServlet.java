@@ -183,8 +183,10 @@ public class UserServlet extends HttpServlet {
         if (passwordUser.equals(oldPassword)) {
             if (confirmPassword.equals(newPassword)) {
                 userDAO.updatePassword(id, newPassword);
+                req.setAttribute("id", id);
                 req.getRequestDispatcher("users/list.jsp").forward(req, resp);
             } else {
+                req.setAttribute("id", id);
                 req.setAttribute("messages", "Mật khẩu không khớp ! ");
                 req.getRequestDispatcher("user/formChangePassword.jsp").forward(req, resp);
             }
