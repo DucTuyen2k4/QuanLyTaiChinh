@@ -161,6 +161,7 @@
             background-color: #e67e22;
         }
 
+
         .expense-button-camera {
             background-color: #27ae60;
         }

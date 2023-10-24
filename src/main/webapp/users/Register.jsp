@@ -91,6 +91,7 @@
 </head>
 <body>
 <div class="container">
+
     <h1>Đăng ký</h1>
     <form method="post" action="/user?action=addUser">
         <label for="image">Ảnh :</label>

@@ -10,14 +10,7 @@
 <head>
     <title>Title</title>
 </head>
-<<<<<<< HEAD
 
-
-
-
-
-=======
->>>>>>> 89a07ed46cb88e24fe4392164c1cee89d3ab8b5b
 <body>
 <body>
 <h1>Đăng Ký Thất Bại</h1>

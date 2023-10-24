@@ -28,6 +28,7 @@
             border: none;
             border-radius: 5px;
             cursor: pointer;
+
         }
 
         input[type="submit"]:hover {

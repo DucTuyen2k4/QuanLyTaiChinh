@@ -64,6 +64,7 @@
         <a href="user/listHome.jsp"><i class="fas fa-arrow-left"></i>  Quay lại trang chủ</a>
     </div>
     <h2>Đổi mật khẩu</h2>
+
     <form action="/user" method="post">
 
         <div class="form-group">

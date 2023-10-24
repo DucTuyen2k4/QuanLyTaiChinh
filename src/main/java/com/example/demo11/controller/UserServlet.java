@@ -184,6 +184,7 @@ public class UserServlet extends HttpServlet {
             if (confirmPassword.equals(newPassword)) {
                 userDAO.updatePassword(id, newPassword);
                 req.setAttribute("id", id);
+
                 req.getRequestDispatcher("users/list.jsp").forward(req, resp);
             } else {
                 req.setAttribute("id", id);

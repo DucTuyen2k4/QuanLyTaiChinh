@@ -93,6 +93,7 @@
                     <input type="hidden" name="id" value="${list.id}">
                 </div>
                 <div class="form-group">
+
                     <label for="fullname">Họ và tên:</label>
                     <input type="text" id="fullname" name="fullName" value="${list.fullName}">
                 </div>
