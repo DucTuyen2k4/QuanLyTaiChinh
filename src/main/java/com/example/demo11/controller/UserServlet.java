@@ -70,14 +70,6 @@ public class UserServlet extends HttpServlet {
 
     }
 
-    public void DeleteUsers(HttpServletRequest req, HttpServletResponse resp) throws SQLException, ClassNotFoundException, IOException, ServletException {
-        int id = Integer.parseInt(req.getParameter("id"));
-        userDAO.DeleteUser(id);
-        req.getRequestDispatcher("users/list.jsp").forward(req, resp);
-
-    }
-
-
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         String action = req.getParameter("action");
@@ -115,10 +107,31 @@ public class UserServlet extends HttpServlet {
                 }
                 break;
 
-
-
-
+            case "confirmPassword"  :
+                try {
+                    confirmPassword(req,resp);
+                    break;
+                } catch (SQLException e) {
+                    throw new RuntimeException(e);
+                } catch (ClassNotFoundException e) {
+                    throw new RuntimeException(e);
+                }
         }
+    }
+
+    @Override
+    public void destroy() {
+        super.destroy();
+    }
+//    public static showHome(HttpServletRequest request,HttpServletResponse response){
+//        request.getRequestDispatcher(us)
+//    }
+
+    public void DeleteUsers(HttpServletRequest req, HttpServletResponse resp) throws SQLException, ClassNotFoundException, IOException, ServletException {
+        int id = Integer.parseInt(req.getParameter("id"));
+        userDAO.DeleteUser(id);
+        req.getRequestDispatcher("users/list.jsp").forward(req, resp);
+
     }
 
     private void loginUSer(HttpServletRequest req, HttpServletResponse resp) throws SQLException, IOException {
@@ -136,7 +149,6 @@ public class UserServlet extends HttpServlet {
             }
         } catch (ServletException e) {
             throw new RuntimeException(e);
-
 
 
         }
@@ -188,11 +200,6 @@ public class UserServlet extends HttpServlet {
         int id = Integer.parseInt(req.getParameter("id"));
         req.setAttribute("id", id);
         req.getRequestDispatcher("user/formChangePassword.jsp").forward(req, resp);
-    }
-
-    @Override
-    public void destroy() {
-        super.destroy();
     }
 
 

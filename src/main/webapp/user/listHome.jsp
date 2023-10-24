@@ -1,18 +1,17 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-<!DOCTYPE html>
+<!DOCTYPE>
 <html>
 <head>
     <title>Ứng dụng Quản lý Tài chính</title>
     <style>
+
         body {
             font-family: Arial, sans-serif;
             margin: 0;
             padding: 0;
             background-image: url("/users/notepad-3316267_1280.jpg");
         }
-
-
         .header {
             background-color: #bcf38c;
             color: #fff;
@@ -136,7 +135,7 @@
             <button class="drop-ttn">Settings</button>
             <div class="dropdown-content">
                 <div method="post">
-                    <a href="/user?action=update&id=${user.id}">Cập nhật thông tin</a>
+                    <a href="/user?action=update&id=${lists.id}">Cập nhật thông tin</a>
                     <hr width="100%" size="1px" align="center" color="0px 8px 16px 0px rgba(0, 0, 0, 0.2)"/>
                     <a href="/user?action=delete&id=${lists.id}">Xóa tài khoản</a>
                     </c:forEach>

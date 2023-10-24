@@ -10,12 +10,6 @@
         body {
 
 
-<<<<<<< HEAD
-=======
-
-
-
->>>>>>> d0b4676 (ThemUser)
             background-image: url("/users/notepad-3316267_1280.jpg");
         }
 

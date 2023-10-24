@@ -20,14 +20,17 @@
         display: flex;
         flex-direction: column;
     }
+
     label {
         margin-bottom: 5px;
         color: #333;
         font-weight: bold;
     }
+
     textarea {
         height: 100px;
     }
+
     .back-button {
         margin-bottom: 20px;
     }
@@ -47,11 +50,13 @@
     .back-button i {
         margin-right: 5px;
     }
-    .form-groupp{
+
+    .form-groupp {
         width: 100px;
         height: 60px;
 
     }
+
     .button-container {
         display: flex;
         justify-content: center;
@@ -79,17 +84,17 @@
 <div class="edit-product">
 
     <div>
-        <form action="users?action=update" method="post" class="edit-form">
+        <form action="user?action=confirmUpdate" method="post" class="edit-form">
             <div class="back-button">
-                <a href="listHome.jsp"><i class="fas fa-arrow-left"></i>Quay lại trang chủ</a>
+                <a href="/user/listHome.jsp"><i class="fas fa-arrow-left"></i>Quay lại trang chủ</a>
             </div>
-            <c:forEach var="list" items="list">
+            <c:forEach var="list" items="${list}">
                 <div class="form-group">
                     <input type="hidden" name="id" value="${list.id}">
                 </div>
                 <div class="form-group">
                     <label for="fullname">Họ và tên:</label>
-                    <input type="text" id="fullname" name="fullname" value="${list.fullname}">
+                    <input type="text" id="fullname" name="fullName" value="${list.fullName}">
                 </div>
                 <div class="form-group col-half">
                     <label for="gender">Giới tính:</label>
@@ -102,20 +107,22 @@
                 </div>
                 <div class="form-group">
                     <label for="birthdate">Ngày sinh:</label>
-                    <input type="date" id="birthdate" name="birthdate"value="${list.birthdate}" >
+                    <input type="date" id="birthdate" name="birthdate" value="${list.birthdate}">
                 </div>
                 <div class="form-group">
                     <label for="phoneNumber">Số điện thoại:</label>
-                    <input type="tel" id="phoneNumber" name="phoneNumber" value="${list.phoneNumber}" >
+                    <input type="tel" id="phoneNumber" name="phoneNumber" value="${list.phoneNumber}">
                 </div>
                 <div class="form-group">
                     <label for="image">Chọn ảnh đại diện:</label>
-                    <input type="file" id="image" name="image" accept="image/*" value="${list.img}">
+                    <input type="file" id="image" name="image" accept="image/*" value="${list.image}">
                 </div>
-                <div class="button-container">
-                    <button class="confirm-button" name="action" value="confirmUpdate">Xác Nhận</button>
-                </div>
-                <a class="button-container"  href="user?action=changePassword&id=${list.id}">Đổi Mật khẩu</a>
+                <form action="/user" method="post">
+                    <div class="button-container">
+                        <button class="confirm-button" name="action" value="confirmUpdate">Xác Nhận</button>
+                    </div>
+                </form>
+                <a class="button-container" href="user?action=changePassword&id=${list.id}">Đổi Mật khẩu</a>
             </c:forEach>
         </form>
     </div>
