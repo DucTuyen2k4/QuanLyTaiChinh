@@ -8,10 +8,11 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
     <style>
         body {
-
-
-
-            background-image: url("/users/notepad-3316267_1280.jpg");
+            background-image: url("https://images.pexels.com/photos/3943727/pexels-photo-3943727.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1");
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+            background-repeat: no-repeat;
         }
 
         .header {
@@ -25,8 +26,8 @@
         }
 
         .content {
-            background-color: #e1d3d3;
-            opacity: 0.7;
+            background-color: #f0f0f0;
+            opacity: 0.8;
             max-width: 600px;
             margin-left: 300px;
             margin-top: 30px;

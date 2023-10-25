@@ -19,10 +19,11 @@ public class UserDAO implements IUserDAO {
     private static final String UPDATE_PROFILE_USER= "update users set  fullName = ? ,gender = ? ,birthdate = ? , phoneNumber = ?  , image = ? where id = ? ";
 
     private static final String INSERT_USER= "insert into users(image,fullName,userName,password,email,gender,birthdate,phoneNumber) values (?,?,?,?,?,?,?,?)";
-    private static final String SELECT_ALL_USER= "SELEC*FROM user";
-
+    private static final String CHECK_INF_USER = "SELECT userName FROM users where userName=?";
     private static final String SELECT_PASSWORD = "select password from users where id = ? ";
     private static final String UPDATE_PASSWORD = "update users set password = ? where id = ?";
+    private static final String CHECK_USER = "select * from users where userName=? and password=?";
+    private static final String  DELETE_USER="delete from users where id=?";
 
 
 
@@ -30,11 +31,7 @@ public class UserDAO implements IUserDAO {
 
 
     public void addUser(User user) throws SQLException, ClassNotFoundException {
-//        PreparedStatement preparedStatement1=JDBC.connection().prepareStatement(SELECT_ALL_USER);
-//        ResultSet resultSet=preparedStatement1.executeQuery();
-//        if (resultSet!=null){
-//
-//        }else {
+
 
             PreparedStatement preparedStatement = JDBC.connection().prepareStatement(INSERT_USER);
             preparedStatement.setString(1, user.getImage());
@@ -48,13 +45,13 @@ public class UserDAO implements IUserDAO {
             preparedStatement.setInt(8, user.getPhoneNumber());
             preparedStatement.executeUpdate();
         }
-//        }
 
 
 
 
 
-    private static final String CHECK_USER = "select * from users where userName=? and password=?";
+
+
 
     @Override
     public boolean checkUser(String userName, String password) {
@@ -72,13 +69,13 @@ public class UserDAO implements IUserDAO {
         }
     }
 
-    private static final String SELECT_ALL_USERS = "select * from users where userName=? and password=?";
+
     @Override
     public List<User> show(String name,String userPassword) {
 
         List<User> list = new ArrayList<>();
         try {
-           PreparedStatement statement=JDBC.connection().prepareStatement(SELECT_ALL_USERS);
+           PreparedStatement statement=JDBC.connection().prepareStatement(CHECK_USER);
            statement.setString(1,name);
            statement.setString(2,userPassword);
            ResultSet resultSet=statement.executeQuery();
@@ -118,6 +115,20 @@ public class UserDAO implements IUserDAO {
 
 
     @Override
+    public boolean CheckUserName(String username) throws SQLException, ClassNotFoundException {
+        PreparedStatement preparedStatement = JDBC.connection().prepareStatement(CHECK_INF_USER);
+        preparedStatement.setString(1,username);
+        ResultSet resultSet = preparedStatement.executeQuery();
+        if (resultSet.next()) {
+            // userName đã tồn tại trong cơ sở dữ liệu
+            return true;
+        } else {
+            // userName chưa tồn tại trong cơ sở dữ liệu
+            return false;
+        }
+    }
+
+    @Override
     public List<User> selectProfileUser(int idUser) throws SQLException, ClassNotFoundException {
         List<User> list = new ArrayList<>();
         PreparedStatement preparedStatement = JDBC.connection().prepareStatement(SELECT_PROFILE_USER);
@@ -140,7 +151,7 @@ public class UserDAO implements IUserDAO {
 
 
 
-    private String DELETE_USER="delete from users where id=?";
+
     public void DeleteUser(int id) throws SQLException, ClassNotFoundException {
         PreparedStatement preparedStatement=JDBC.connection().prepareStatement(DELETE_USER);
         preparedStatement.setInt(1,id);

@@ -3,6 +3,7 @@ package com.example.demo11.controller;
 import com.example.demo11.model.User;
 import com.example.demo11.sevice.UserDAO;
 import com.mysql.cj.xdevapi.Session;
+import sun.util.calendar.BaseCalendar;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -17,6 +18,8 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
+
+import static java.lang.Float.isNaN;
 
 @WebServlet(name = "UserServlet", value = "/user")
 public class UserServlet extends HttpServlet {
@@ -107,9 +110,9 @@ public class UserServlet extends HttpServlet {
                 }
                 break;
 
-            case "confirmPassword"  :
+            case "confirmPassword":
                 try {
-                    confirmPassword(req,resp);
+                    confirmPassword(req, resp);
                     break;
                 } catch (SQLException e) {
                     throw new RuntimeException(e);
@@ -123,9 +126,7 @@ public class UserServlet extends HttpServlet {
     public void destroy() {
         super.destroy();
     }
-//    public static showHome(HttpServletRequest request,HttpServletResponse response){
-//        request.getRequestDispatcher(us)
-//    }
+
 
     public void DeleteUsers(HttpServletRequest req, HttpServletResponse resp) throws SQLException, ClassNotFoundException, IOException, ServletException {
         int id = Integer.parseInt(req.getParameter("id"));
@@ -192,7 +193,7 @@ public class UserServlet extends HttpServlet {
                 userDAO.updatePassword(id, newPassword);
                 req.setAttribute("id", id);
 
-                req.getRequestDispatcher("users/list.jsp").forward(req, resp);
+                req.getRequestDispatcher("user/listHome.jsp").forward(req, resp);
             } else {
                 req.setAttribute("id", id);
                 req.setAttribute("messages", "Mật khẩu không khớp ! ");
@@ -216,37 +217,58 @@ public class UserServlet extends HttpServlet {
     public static void addUser(HttpServletRequest request, HttpServletResponse response) throws SQLException, ClassNotFoundException, ServletException, IOException {
         String fullName = request.getParameter("fullName");
         String userName = request.getParameter("userName");
-        String password = request.getParameter("password");
-        String confirmPassword = request.getParameter("confirmPassword");
-        if (password.equals(confirmPassword)) {
-            String gender = request.getParameter("gender");
-            String email = request.getParameter("email");
-            String birthdateString = request.getParameter("birthdate");
-            String image = request.getParameter("image");
-            int phoneNumber = Integer.parseInt(request.getParameter("phoneNumber"));
-            SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-            Date birthdate = null;
-            try {
-                birthdate = sdf.parse(birthdateString);
-            } catch (ParseException e) {
-                e.printStackTrace();
-            }
+        userDAO.CheckUserName(userName);
+        if (!userDAO.CheckUserName(userName)) {
+            String password = request.getParameter("password");
+            String confirmPassword = request.getParameter("confirmPassword");
+            if (password.equals(confirmPassword)) {
+                String gender = request.getParameter("gender");
+                String email = request.getParameter("email");
+                String birthdateString = request.getParameter("birthdate");
+                String image = request.getParameter("image");
+                String phoneNumberSt = request.getParameter("phoneNumber");
+                int phoneNumber = 0;
+                try {
+                    phoneNumber = Integer.parseInt(phoneNumberSt);
+                    SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+                    Date birthdate = null;
+                    Date currentDate = new Date();
+                    System.out.println(currentDate);
+                    try {
+                        birthdate = sdf.parse(birthdateString);
+                        System.out.println(birthdate);
+                        if (currentDate.compareTo(birthdate) > 0) {
+                            userDAO.addUser(new User(fullName, userName, password, email, gender, image, birthdate, phoneNumber));
+                            request.getRequestDispatcher("/users/list.jsp").forward(request, response);
+                        } else {
+
+                            request.setAttribute("messageFailureBirthdate", "Ngày tháng năm sinh không thể lớn hơn ngày hiện tại.");
+                            request.getRequestDispatcher("users/Register.jsp").forward(request, response);
+                        }
 
 
-            userDAO.addUser(new User(fullName, userName, password, email, gender, image, birthdate, phoneNumber));
-            boolean userAddedSuccessfully = true;
-            if (userAddedSuccessfully) {
-                request.getRequestDispatcher("/users/list.jsp").forward(request, response);
+                    } catch (ParseException e) {
+                        e.printStackTrace();
+                    }
+
+
+                } catch (NumberFormatException e) {
+                    request.setAttribute("messageFailurePhoneNumber", "Vui lòng nhập đúng 10 số điện thoại.");
+                    request.getRequestDispatcher("users/Register.jsp").forward(request, response);
+                }
+
+
             } else {
-                request.getRequestDispatcher("RegisterFailure.jsp").forward(request, response);
+                request.setAttribute("messageFailurePassword", "Mật khẩu không trùng nhau");
+                request.getRequestDispatcher("users/Register.jsp").forward(request, response);
+
             }
 
         } else {
-            request.setAttribute("messageFailure", "Mật khẩu không trùng nhau");
+            request.setAttribute("messageFailureUserName", "Tên đăng nhập đã tồn tại.");
             request.getRequestDispatcher("users/Register.jsp").forward(request, response);
-
         }
-    }
 
+    }
 
 }

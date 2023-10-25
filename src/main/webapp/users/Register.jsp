@@ -95,21 +95,21 @@
     <h1>Đăng ký</h1>
     <form method="post" action="/user?action=addUser">
         <label for="image">Ảnh :</label>
-        <input type="text" name="image" id="image" required>
+        <input type="text" name="image" id="image" required pattern=".*\.(jpg|png|gif)" title="Chỉ được nhập đường dẫn ảnh với đuôi .jpg, .png, hoặc .gif">
         <label for="userName">Tên đăng nhập:</label>
+        <p style="color: red;font-size: 10px;">${messageFailureUserName}</p>
         <input type="text" name="userName" id="userName" required>
         <label for="password">Mật khẩu (6-8 ký tự):</label>
         <input type="password" id="password" name="password" minlength="6" maxlength="8" required>
 
         <label for="confirmPassword">Xác nhận mật khẩu:</label>
-        <p>${messageFailure}</p>
+        <p style="color: red;font-size: 10px;">${messageFailurePassword}</p>
         <input type="password" name="confirmPassword" id="confirmPassword" minlength="6" maxlength="8" required>
-
         <label for="fullName">Họ và tên:</label>
         <input type="text" name="fullName" id="fullName" required>
-
-        <label for="phoneNumber">Số điện thoại:</label>
-        <input type="text" name="phoneNumber" id="phoneNumber" required>
+        <label for="phoneNumber">Số điện thoại (10 số):</label>
+        <p style="color: red;font-size: 10px;">${messageFailurePhoneNumber}</p>
+        <input type="text" name="phoneNumber" id="phoneNumber" required pattern="[0-9]{10}" title="${messageFailurePhoneNumber}">
         <label >email:</label>
         <input type="text" name="email" pattern="[^@\s]+@gmail\.com" title="Vui lòng nhập địa chỉ email có định dạng @gmail.com" required>
 
@@ -121,6 +121,7 @@
         </select>
 
         <label for="birthdate">Ngày tháng năm sinh:</label>
+        <p style="color: red;font-size: 10px;">${messageFailureBirthdate}</p>
         <input type="date" name="birthdate" id="birthdate" required>
 
         <div  style="display: flex; justify-content: space-between;margin-top: 40px">

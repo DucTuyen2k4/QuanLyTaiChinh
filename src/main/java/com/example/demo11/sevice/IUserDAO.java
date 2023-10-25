@@ -6,6 +6,7 @@ import java.sql.SQLException;
 import java.util.List;
 
 public interface IUserDAO {
+    public boolean CheckUserName( String username) throws SQLException, ClassNotFoundException;
 
     List<User> selectProfileUser(int idUser) throws SQLException, ClassNotFoundException;
 
@@ -22,7 +23,7 @@ public interface IUserDAO {
     boolean  checkUser(String userName, String password);
     List<User> show(String name,String userPassword);
 
-//    User selectPassword(int id) throws SQLException, ClassNotFoundException;
+    User selectPassword(int id) throws SQLException, ClassNotFoundException;
 
     void updatePassword(int id, String password) throws SQLException, ClassNotFoundException;
 

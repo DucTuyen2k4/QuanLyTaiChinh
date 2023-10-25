@@ -4,9 +4,24 @@
 <html>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
 <style>
+    body {
+        font-family: Arial, sans-serif;
+        background-image: url("https://i.pinimg.com/564x/7e/29/23/7e292374c4294a92b077983559036e1f.jpg");
+        background-size: cover;
+        background-repeat: no-repeat;
+        background-attachment: fixed;
+        margin: 0;
+        padding: 0;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+    }
+
     .edit-product {
-        max-width: 800px;
-        margin: 0 auto;
+
+        width: 500px;
+        height: 650px;
         padding: 20px;
         background-color: #F8F8F8;
     }
@@ -19,6 +34,13 @@
     .form-group {
         display: flex;
         flex-direction: column;
+    }
+    .form-group input {
+
+        padding: 9px;
+        /*font-size: 16px;*/
+        /*border: 1px solid #ccc;*/
+
     }
 
     label {
@@ -85,47 +107,69 @@
 
 
     <div>
-        <form action="user?action=confirmUpdate" method="post" class="edit-form">
+        <form action="/user?action=confirmUpdate" method="post" class="edit-form">
             <div class="back-button">
-                <a href="user/listHome.jsp"><i class="fas fa-arrow-left"></i>Quay lại trang chủ</a>
+                <a href="/user/listHome.jsp"><i class="fas fa-arrow-left"></i>Quay lại trang chủ</a>
             </div>
-<%--            <c:forEach var="lists" items="${list}">--%>
-                <div class="form-group">
-                    <input type="hidden" name="id" value="${sessionScope['user'].getId()}">
-                </div>
-                <div class="form-group">
+            <h1 style="width: 70% ;height: 70% ;margin-left: 100px">Cập nhật thông tin </h1>
+            <%--            <c:forEach var="lists" items="${list}">--%>
+            <div class="form-group">
+                <input type="hidden" name="id" value="${sessionScope['user'].getId()}">
+            </div>
+            <div class="form-group">
 
-                    <label for="fullname">Họ và tên:</label>
-                    <input type="text" id="fullname" name="fullName" value="${sessionScope['user'].getFullName()}">
+                <label for="fullname">Họ và tên:</label>
+                <input type="text" id="fullname" name="fullName" value="${sessionScope['user'].getFullName()}">
+            </div>
+            <div class="form-group col-half">
+                <label for="gender" >Giới tính:</label>
+                <select style=" padding: 9px;" id="gender" name="gender" >
+<%--                    <option value="${sessionScope['user'].getGender()}">${sessionScope['user'].getGender()}</option>--%>
+<%--                    <option value="Male">Nam</option>--%>
+<%--                    <option value="Female">Nữ</option>--%>
+<%--                    <option value="Other">Khác</option>--%>
+    <c:choose>
+        <c:when test="${sessionScope['user'].getGender() eq 'Male'}">
+            <option value="Male" selected>Nam</option>
+            <option value="Female">Nữ</option>
+            <option value="Other">Khác</option>
+        </c:when>
+        <c:when test="${sessionScope['user'].getGender() eq 'Female'}">
+            <option value="Male">Nam</option>
+            <option value="Female" selected>Nữ</option>
+            <option value="Other">Khác</option>
+        </c:when>
+        <c:otherwise>
+            <option value="Male">Nam</option>
+            <option value="Female">Nữ</option>
+            <option value="Other" selected>Khác</option>
+        </c:otherwise>
+    </c:choose>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="birthdate">Ngày sinh:</label>
+                <input type="date" id="birthdate" name="birthdate" value="${sessionScope['user'].getBirthdate()}"
+                       required>
+            </div>
+            <div class="form-group">
+                <label for="phoneNumber">Số điện thoại:</label>
+                <input type="tel" id="phoneNumber" name="phoneNumber" value="${sessionScope['user'].getPhoneNumber()}"
+                       required>
+            </div>
+            <div class="form-group">
+                <label for="image">Chọn ảnh đại diện:</label>
+                <input type="text" id="image" name="image" accept="image/*" value="${sessionScope['user'].getImage()}"
+                       required>
+            </div>
+            <form action="/user" method="post">
+                <div class="button-container">
+                    <button class="confirm-button" name="action" value="confirmUpdate">Xác Nhận</button>
                 </div>
-                <div class="form-group col-half">
-                    <label for="gender">Giới tính:</label>
-                    <select id="gender" name="gender">
-                        <option value="${sessionScope['user'].getGender()}">${sessionScope['user'].getGender()}</option>
-                        <option value="male">Nam</option>
-                        <option value="female">Nữ</option>
-                        <option value="other">Khác</option>
-                    </select>
-                </div>
-                <div class="form-group">
-                    <label for="birthdate">Ngày sinh:</label>
-                    <input type="date" id="birthdate" name="birthdate" value="${sessionScope['user'].getBirthdate()}" required>
-                </div>
-                <div class="form-group">
-                    <label for="phoneNumber">Số điện thoại:</label>
-                    <input type="tel" id="phoneNumber" name="phoneNumber" value="${sessionScope['user'].getPhoneNumber()}" required>
-                </div>
-                <div class="form-group">
-                    <label for="image">Chọn ảnh đại diện:</label>
-                    <input type="file" id="image" name="image" accept="image/*" value="${sessionScope['user'].getImage()}" required>
-                </div>
-                <form action="/user" method="post">
-                    <div class="button-container">
-                        <button class="confirm-button" name="action" value="confirmUpdate">Xác Nhận</button>
-                    </div>
-                </form>
-                <a class="button-container" href="user?action=changePassword&id=${sessionScope['user'].getId()}">Đổi Mật khẩu</a>
-<%--            </c:forEach>--%>
+            </form>
+            <a class="button-container" href="/user?action=changePassword&id=${sessionScope['user'].getId()}">Đổi Mật
+                khẩu</a>
+            <%--            </c:forEach>--%>
         </form>
     </div>
 </div>

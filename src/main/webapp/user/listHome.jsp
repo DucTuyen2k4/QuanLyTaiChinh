@@ -172,20 +172,16 @@
 <body>
 <div class="header">
     <h1>Ứng dụng Quản lý Tài chính</h1>
-
-
     <div class="settings">
         <div class="dropdown">
             <button class="drop-ttn" ><i class="fa  fa-cog" ></i> Settings</button>
             <div class="dropdown-content">
-<%--                <c:forEach items="${list}" var="lists">--%>
                     <div>
                         <a href="/user?action=update&id=${sessionScope['user'].getId()}">Cập nhật thông tin</a>
                         <hr width="100%" size="1px" align="center" color="0px 8px 16px 0px rgba(0, 0, 0, 0.2)"/>
                         <a href="/user?action=delete&id=${sessionScope['user'].getId()}">Xóa tài khoản</a>
                         <hr width="100%" size="1px" align="center" color="0px 8px 16px 0px rgba(0, 0, 0, 0.2)"/>
                     </div>
-<%--                </c:forEach>--%>
                 <div method="get">
                     <a href="#" id="logout-link">Đăng xuất</a>
                 </div>
@@ -196,7 +192,7 @@
 
 <div class="container">
     <div class="sidebar">
-        <h2> Chi tiêu </h2>
+        <h2 style="margin-left: 30%"> Chi tiêu </h2>
         <div class="expense-button-container">
 
             <a class="expense-button expense-button-plane" href="/user/updateProfiles.jsp">
@@ -207,20 +203,15 @@
             <a class="expense-button expense-button-hotel" href="/user/updateProfiles.jsp">
                 <i class="fas fa-hotel"></i>
             </a>
-
             <a class="expense-button expense-button-camera" href="/user/updateProfiles.jsp">
                 <i class="fas fa-camera"></i>
             </a>
-
         </div>
-
-
     </div>
+<%--    <div class="content">--%>
+<%--      --%>
 
-    <div class="content">
-        hhh
-
-    </div>
+<%--    </div>--%>
 </div>
 
 <div class="footer">
@@ -230,7 +221,7 @@
     <div class="confirmation-dialog-content">
         <h2>Xác nhận đăng xuất</h2>
         <p>Bạn có chắc chắn muốn đăng xuất?</p>
-        <button id="confirm-logout-btn">Đồng ý</button>
+        <button id="confirm-logout-btn" >Đồng ý</button>
         <button id="cancel-logout-btn">Hủy</button>
     </div>
 </div>
@@ -245,7 +236,6 @@
         event.preventDefault();
         confirmationDialog.style.display = 'block';
     });
-
     confirmLogoutBtn.addEventListener('click', function () {
         console.log("Đăng xuất thành công");
         confirmationDialog.style.display = 'none';
