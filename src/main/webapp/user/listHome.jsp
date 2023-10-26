@@ -4,6 +4,12 @@
 <html>
 <head>
     <title>Ứng dụng Quản lý Tài chính</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://getbootstrap.com/docs/5.3/assets/css/docs.css" rel="stylesheet">
+    <title>Bootstrap Example</title>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://kit.fontawesome.com/9b0347940d.js" crossorigin="anonymous"></script>
+
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
     <style>
         body {
@@ -20,7 +26,7 @@
             padding: 2px;
             text-align: center;
             position: relative;
-            height:100px ;
+            height: 100px;
         }
 
         .settings {
@@ -68,7 +74,8 @@
             flex: 0 0 250px;
             background-color: #f2f2f2;
             width: 100%;
-            height: 1000px;
+            height: 550px;
+            margin-left: 150px;
         }
 
         .content {
@@ -122,9 +129,8 @@
 
         .confirmation-dialog-content button {
             margin-right: 10px;
-
-
         }
+
 
         .expense-button-container {
             display: flex;
@@ -166,66 +172,87 @@
             background-color: #27ae60;
         }
 
+        .header {
+            width: 100%;
+            height: 80px;
+
+        }
+
+        .content {
+            margin-top: 20px;
+            width: 100%;
+            height: 500px;
+        }
+
 
     </style>
 </head>
 <body>
-<div class="header">
-    <h1>Ứng dụng Quản lý Tài chính</h1>
-
-
-    <div class="settings">
-        <div class="dropdown">
-            <button class="drop-ttn" ><i class="fa  fa-cog" ></i> Settings</button>
-            <div class="dropdown-content">
-<%--                <c:forEach items="${list}" var="lists">--%>
-                    <div>
-                        <a href="/user?action=update&id=${sessionScope['user'].getId()}">Cập nhật thông tin</a>
-                        <hr width="100%" size="1px" align="center" color="0px 8px 16px 0px rgba(0, 0, 0, 0.2)"/>
-                        <a href="/user?action=delete&id=${sessionScope['user'].getId()}">Xóa tài khoản</a>
-                        <hr width="100%" size="1px" align="center" color="0px 8px 16px 0px rgba(0, 0, 0, 0.2)"/>
+<div>
+    <div class="header p-3 m-0 border-0 bd-example m-0 border-0">
+        <nav class="navbar navbar-dark bg-dark fixed-top">
+            <div class="container-fluid">
+                <i class="fa-brands fa-cc-visa" style="font-size: 70px; color: springgreen"></i>
+                <h1> Ứng dụng quản lý tài chính</h1>
+                <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas"
+                        data-bs-target="#offcanvasDarkNavbar" aria-controls="offcanvasDarkNavbar"
+                        aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="offcanvas offcanvas-end text-bg-dark" tabindex="-1" id="offcanvasDarkNavbar"
+                     aria-labelledby="offcanvasDarkNavbarLabel">
+                    <div class="offcanvas-header">
+<%--                        <h5 class="offcanvas-title" id="offcanvasDarkNavbarLabel">Dark offcanvas</h5>--%>
+                        <button type="button" class="btn-close btn-close-white" data-bs-dismiss="offcanvas"
+                                aria-label="Close"></button>
                     </div>
-<%--                </c:forEach>--%>
-                <div method="get">
-                    <a href="#" id="logout-link">Đăng xuất</a>
+                    <div class="offcanvas-body">
+                        <ul class="navbar-nav justify-content-end flex-grow-1 pe-3">
+                            <li class="nav-item">
+                                <a class="nav-link active" aria-current="page" href="#">Home</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link active" aria-current="page"
+                                   href="/user?action=update&id=${sessionScope['user'].getId()}"> Câp nhật thông tin </a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link active" aria-current="page"
+                                   href="/user?action=update&id=${sessionScope['user'].getId()}"> Xóa tài khoản </a>
+                            </li>
+                            <li>
+                                <a href="#" id="logout-link">Đăng xuất</a>
+                            </li>
+                        </ul>
+                    </div>
                 </div>
             </div>
+        </nav>
+    </div>
+    <div class="container">
+        <div class="sidebar">
+            <h2> Chi tiêu </h2>
+            <div class="expense-button-container">
+                <a class="expense-button expense-button-plane" href="/user/updateProfiles.jsp">
+                    <i class="fas fa-plane"></i>
+                </a>
+                <a class="expense-button expense-button-hotel" href="/user/updateProfiles.jsp">
+                    <i class="fas fa-hotel"></i>
+                </a>
+                <a class="expense-button expense-button-camera" href="/user/updateProfiles.jsp">
+                    <i class="fas fa-camera"></i>
+                </a>
+            </div>
+        </div>
+        <div class="content">
+            hhh
         </div>
     </div>
 </div>
-
-<div class="container">
-    <div class="sidebar">
-        <h2> Chi tiêu </h2>
-        <div class="expense-button-container">
-
-            <a class="expense-button expense-button-plane" href="/user/updateProfiles.jsp">
-                <i class="fas fa-plane"></i>
-
-            </a>
-
-            <a class="expense-button expense-button-hotel" href="/user/updateProfiles.jsp">
-                <i class="fas fa-hotel"></i>
-            </a>
-
-            <a class="expense-button expense-button-camera" href="/user/updateProfiles.jsp">
-                <i class="fas fa-camera"></i>
-            </a>
-
-        </div>
-
-
-    </div>
-
-    <div class="content">
-        hhh
-
-    </div>
-</div>
-
 <div class="footer">
     <p>Bản quyền &copy; 2023 Ứng dụng Quản lý Tài chính</p>
 </div>
+
+
 <div class="confirmation-dialog" id="confirmation-dialog">
     <div class="confirmation-dialog-content">
         <h2>Xác nhận đăng xuất</h2>
@@ -234,7 +261,6 @@
         <button id="cancel-logout-btn">Hủy</button>
     </div>
 </div>
-
 <script>
     const logoutLink = document.getElementById('logout-link');
     const confirmationDialog = document.getElementById('confirmation-dialog');
@@ -254,7 +280,6 @@
     cancelLogoutBtn.addEventListener('click', function () {
         confirmationDialog.style.display = 'none';
     });
-
 </script>
 </body>
 </html>

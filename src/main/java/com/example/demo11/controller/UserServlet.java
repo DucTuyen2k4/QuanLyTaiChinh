@@ -123,10 +123,6 @@ public class UserServlet extends HttpServlet {
     public void destroy() {
         super.destroy();
     }
-//    public static showHome(HttpServletRequest request,HttpServletResponse response){
-//        request.getRequestDispatcher(us)
-//    }
-
     public void DeleteUsers(HttpServletRequest req, HttpServletResponse resp) throws SQLException, ClassNotFoundException, IOException, ServletException {
         int id = Integer.parseInt(req.getParameter("id"));
         userDAO.DeleteUser(id);
@@ -138,18 +134,13 @@ public class UserServlet extends HttpServlet {
         String userName = req.getParameter("userName");
         String password = req.getParameter("password");
         try {
-
             if (userDAO.checkUser(userName, password)) {
                 List<User> list = userDAO.show(userName, password);
                 req.setAttribute("list", list);
-
-
                 HttpSession session = req.getSession();
                 session.setAttribute("user", list.get(0));
-
-
                 System.out.println("da vao day");
-                req.getRequestDispatcher("user/listHome.jsp").forward(req, resp);
+                req.getRequestDispatcher("user/formChangePassword.jsp").forward(req, resp);
             } else {
                 req.setAttribute("message", "Tài khoản không tồn tại!");
                 req.getRequestDispatcher("users/list.jsp").forward(req, resp);
