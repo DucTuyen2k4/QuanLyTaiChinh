@@ -169,6 +169,9 @@ public class UserServlet extends HttpServlet {
         int phoneNumber = Integer.parseInt(req.getParameter("phoneNumber"));
         String image = req.getParameter("image");
         userDAO.updateProfileUser(id, fullName, gender, birthdate, phoneNumber, image);
+        List<User> list = userDAO.selectUser(id);
+        HttpSession session = req.getSession();
+        session.setAttribute("user", list.get(0));
         req.getRequestDispatcher("user/listHome.jsp").forward(req, resp);
     }
 

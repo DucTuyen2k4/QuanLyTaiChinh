@@ -22,4 +22,5 @@ public interface IUserDAO {
 //    User selectPassword(int id) throws SQLException, ClassNotFoundException;
 
     void updatePassword(int id, String password) throws SQLException, ClassNotFoundException;
+    List<User> selectUser(int idUser) throws SQLException, ClassNotFoundException;
 }
