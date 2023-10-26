@@ -4,10 +4,7 @@ import com.example.demo11.JDBC;
 
 import com.example.demo11.model.User;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.*;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -19,7 +16,6 @@ public class UserDAO implements IUserDAO {
     private static final String UPDATE_PROFILE_USER= "update users set  fullName = ? ,gender = ? ,birthdate = ? , phoneNumber = ?  , image = ? where id = ? ";
 
     private static final String INSERT_USER= "insert into users(image,fullName,userName,password,email,gender,birthdate,phoneNumber) values (?,?,?,?,?,?,?,?)";
-    private static final String SELECT_ALL_USER= "SELEC*FROM user";
 
     private static final String SELECT_PASSWORD = "select password from users where id = ? ";
     private static final String UPDATE_PASSWORD = "update users set password = ? where id = ?";
@@ -59,7 +55,6 @@ public class UserDAO implements IUserDAO {
     @Override
     public boolean checkUser(String userName, String password) {
         try {
-
             PreparedStatement statement = JDBC.connection().prepareStatement(CHECK_USER);
             statement.setString(1, userName);
             statement.setString(2, password);

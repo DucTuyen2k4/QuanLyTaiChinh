@@ -107,9 +107,9 @@ public class UserServlet extends HttpServlet {
                 }
                 break;
 
-            case "confirmPassword"  :
+            case "confirmPassword":
                 try {
-                    confirmPassword(req,resp);
+                    confirmPassword(req, resp);
                     break;
                 } catch (SQLException e) {
                     throw new RuntimeException(e);
