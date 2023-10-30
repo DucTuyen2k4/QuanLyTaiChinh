@@ -1,7 +1,7 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
-    <title>Title</title>
+    <title>Quản Lý Tài Chính Đăng Nhập</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
           integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
     <script src="https://kit.fontawesome.com/9b0347940d.js" crossorigin="anonymous"></script>
@@ -17,6 +17,7 @@
 
         .header {
             height: 80px;
+
         }
 
         .header1 {
@@ -29,11 +30,11 @@
             background-color: #f0f0f0;
             opacity: 0.8;
             max-width: 600px;
-            margin-left: 300px;
+            margin: 0 auto; /* Căn giữa theo chiều ngang */
             margin-top: 30px;
             height: 800px;
             border-radius: 20px 10px;
-
+            position: relative; /* Để căn giữa theo chiều dọc */
         }
 
         .content1 {
@@ -108,7 +109,7 @@
 
         </div>
         <div class="content3" style="text-align: center">
-            <a href=""> Quyên mật khẩu ?</a><br>
+           <br>
             <hr style="color: springgreen">
             <b style="color: #7e8585"> Chưa có tài khoản<a href="/users/Register.jsp">ĐĂNG KÍ</a></b>
         </div>

@@ -20,29 +20,27 @@
             border-radius: 10px;
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
         }
-
-
-        input[type="submit"] {
-            background-color: #007bff;
-            color: #fff;
-            padding: 10px 20px;
+        a{
+            font-size: 84%;
+            background: #3498db;
+            color: white;
+            padding: 10px;
             border: none;
-            border-radius: 5px;
             cursor: pointer;
-
+            border-radius: 5px;
+            width: 150px;
         }
 
-        input[type="submit"]:hover {
-            background-color: #0056b3;
-        }
+
+
 
     </style>
 </head>
 <body>
 <h1>Đăng Ký Thành Công</h1>
-<form method="post" action="user?action=Login">
+<form>
     <div>
-        <input type="submit" value="Đăng nhập">
+        <a href="/users/list.jsp" style="text-decoration: none; text-transform: uppercase;">Đăng nhập</a>
     </div>
 </form>
 </body>

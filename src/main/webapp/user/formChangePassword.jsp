@@ -6,17 +6,15 @@
     <title>Đổi mật khẩu</title>
     <style>
         body {
-            font-family: Arial, sans-serif;
-            background-image: url("https://i.pinimg.com/564x/7e/29/23/7e292374c4294a92b077983559036e1f.jpg");
+            background-image: url('https://images.pexels.com/photos/3943727/pexels-photo-3943727.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1');
             background-size: cover;
-            background-repeat: no-repeat;
-            background-attachment: fixed;
+            font-family: Arial, sans-serif;
             margin: 0;
             padding: 0;
             display: flex;
             justify-content: center;
             align-items: center;
-            height: 100vh;
+            height: 120vh;
         }
 
         .container {
@@ -76,8 +74,6 @@
         <a href="/user?action=update&id=${sessionScope['user'].getId()}"><i class="fas fa-arrow-left"></i>  Quay lại </a>
     </div>
     <h2>Đổi mật khẩu</h2>
-
-
     <form action="/user" method="post">
 
         <div class="form-group">

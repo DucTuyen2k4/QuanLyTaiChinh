@@ -61,12 +61,12 @@ public class UserServlet extends HttpServlet {
             case "Register":
                 req.getRequestDispatcher("users/Register.jsp").forward(req, resp);
                 break;
-
-
             case "changePassword":
                 showFormChangePassword(req, resp);
                 break;
-
+            case "logoutHome":
+                logoutHome(req, resp);
+break;
             default:
                 break;
         }
@@ -98,6 +98,7 @@ public class UserServlet extends HttpServlet {
                 } catch (SQLException e) {
                     throw new RuntimeException(e);
                 }
+                break;
 
 
             case "confirmUpdate":
@@ -127,6 +128,12 @@ public class UserServlet extends HttpServlet {
         super.destroy();
     }
 
+    private void logoutHome(HttpServletRequest request, HttpServletResponse response) throws IOException {
+        request.getSession().invalidate();
+        response.sendRedirect(request.getContextPath() + "/users/list.jsp");
+
+    }
+
 
     public void DeleteUsers(HttpServletRequest req, HttpServletResponse resp) throws SQLException, ClassNotFoundException, IOException, ServletException {
         int id = Integer.parseInt(req.getParameter("id"));
@@ -143,8 +150,6 @@ public class UserServlet extends HttpServlet {
             if (userDAO.checkUser(userName, password)) {
                 List<User> list = userDAO.show(userName, password);
                 req.setAttribute("list", list);
-
-
                 HttpSession session = req.getSession();
                 session.setAttribute("user", list.get(0));
 
@@ -157,8 +162,6 @@ public class UserServlet extends HttpServlet {
             }
         } catch (ServletException e) {
             throw new RuntimeException(e);
-
-
         }
     }
 
@@ -170,6 +173,9 @@ public class UserServlet extends HttpServlet {
         int phoneNumber = Integer.parseInt(req.getParameter("phoneNumber"));
         String image = req.getParameter("image");
         userDAO.updateProfileUser(id, fullName, gender, birthdate, phoneNumber, image);
+        List<User> list = userDAO.selectProfileUser(id);
+        HttpSession session = req.getSession();
+        session.setAttribute("user", list.get(0));
         req.getRequestDispatcher("user/listHome.jsp").forward(req, resp);
     }
 
@@ -239,7 +245,7 @@ public class UserServlet extends HttpServlet {
                         System.out.println(birthdate);
                         if (currentDate.compareTo(birthdate) > 0) {
                             userDAO.addUser(new User(fullName, userName, password, email, gender, image, birthdate, phoneNumber));
-                            request.getRequestDispatcher("/users/list.jsp").forward(request, response);
+                            request.getRequestDispatcher("RegisterSuccess.jsp").forward(request, response);
                         } else {
 
                             request.setAttribute("messageFailureBirthdate", "Ngày tháng năm sinh không thể lớn hơn ngày hiện tại.");

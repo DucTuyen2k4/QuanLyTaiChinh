@@ -4,10 +4,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Quản Lý Tài Chính</title>
+    <title>Quản Lý Tài Chính Đăng Ký</title>
     <style>
         body {
-            background-image: url('https://i.pinimg.com/564x/3f/cd/32/3fcd32e9ad073b475e70d855d459f51c.jpg');
+            background-image: url('https://images.pexels.com/photos/3943727/pexels-photo-3943727.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1');
             background-size: cover;
             font-family: Arial, sans-serif;
             margin: 0;
@@ -95,23 +95,23 @@
     <h1>Đăng ký</h1>
     <form method="post" action="/user?action=addUser">
         <label for="image">Ảnh :</label>
-        <input type="text" name="image" id="image" required pattern=".*\.(jpg|png|gif)" title="Chỉ được nhập đường dẫn ảnh với đuôi .jpg, .png, hoặc .gif">
+        <input type="text" name="image" id="image" required pattern=".*\.(jpg|png|gif)" value="${param.image}" title="Chỉ được nhập đường dẫn ảnh với đuôi .jpg, .png, hoặc .gif">
         <label for="userName">Tên đăng nhập:</label>
         <p style="color: red;font-size: 10px;">${messageFailureUserName}</p>
-        <input type="text" name="userName" id="userName" required>
+        <input type="text" name="userName" id="userName" value="${param.userName}" required>
         <label for="password">Mật khẩu (6-8 ký tự):</label>
-        <input type="password" id="password" name="password" minlength="6" maxlength="8" required>
+        <input type="password" id="password" name="password" value="${param.password}" minlength="6" maxlength="8" required>
 
         <label for="confirmPassword">Xác nhận mật khẩu:</label>
         <p style="color: red;font-size: 10px;">${messageFailurePassword}</p>
-        <input type="password" name="confirmPassword" id="confirmPassword" minlength="6" maxlength="8" required>
+        <input type="password" name="confirmPassword" id="confirmPassword" minlength="6" maxlength="8" value="${param.confirmPassword}" required>
         <label for="fullName">Họ và tên:</label>
-        <input type="text" name="fullName" id="fullName" required>
+        <input type="text" name="fullName" id="fullName" value="${param.fullName}" required>
         <label for="phoneNumber">Số điện thoại (10 số):</label>
         <p style="color: red;font-size: 10px;">${messageFailurePhoneNumber}</p>
-        <input type="text" name="phoneNumber" id="phoneNumber" required pattern="[0-9]{10}" title="${messageFailurePhoneNumber}">
+        <input type="text" name="phoneNumber" id="phoneNumber" required pattern="[0-9]{10}" value="${param.phoneNumber}" title="${messageFailurePhoneNumber}">
         <label >email:</label>
-        <input type="text" name="email" pattern="[^@\s]+@gmail\.com" title="Vui lòng nhập địa chỉ email có định dạng @gmail.com" required>
+        <input type="text" name="email" value="${param.email}" pattern="[^@\s]+@gmail\.com" title="Vui lòng nhập địa chỉ email có định dạng @gmail.com" required>
 
         <label for="gender" >Giới tính: </label>
         <select name="gender" id="gender" style="width: 400px">
@@ -122,7 +122,7 @@
 
         <label for="birthdate">Ngày tháng năm sinh:</label>
         <p style="color: red;font-size: 10px;">${messageFailureBirthdate}</p>
-        <input type="date" name="birthdate" id="birthdate" required>
+        <input type="date" name="birthdate" id="birthdate" value="${param.birthdate}" required>
 
         <div  style="display: flex; justify-content: space-between;margin-top: 40px">
             <input type="submit" value="Đăng ký" style=" width: 165px">
