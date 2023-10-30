@@ -2,47 +2,32 @@ package com.example.demo11.model;
 
 public class Wallet {
     private int idWallet;
-    private String icon;
-    private String nameWallet;
+    private String icon ;
+    private String nameWallet ;
     private double money;
     private String currency;
+    private String description ;
 
-    private String description;
 
-    public Wallet() {
+    public Wallet(int idWallet ,String icon, String nameWallet, Double money, String currency, String description) {
+        this.idWallet = idWallet;
+        this.icon = icon;
+        this.nameWallet = nameWallet ;
+        this.money = money;
+        this.currency = currency;
+        this.description = description;
+    }
 
+    public Wallet(String icon, String nameWallet, Double money, String currency, String description) {
+        this.icon = icon;
+        this.nameWallet = nameWallet ;
+        this.money = money;
+        this.currency = currency;
+        this.description = description;
     }
 
     public Wallet(int idWallet) {
         this.idWallet = idWallet;
-    }
-
-    public Wallet(int idWallet, String icon, String nameWallet, String currency, double money, String description) {
-        this.idWallet = idWallet;
-        this.icon = icon;
-        this.nameWallet = nameWallet;
-        this.currency = currency;
-        this.money = money;
-        this.description = description;
-    }
-
-    public Wallet(String icon, String nameWallet, String currency, double money, String description) {
-        this.icon = icon;
-        this.nameWallet = nameWallet;
-        this.currency = currency;
-        this.money = money;
-        this.description = description;
-    }
-
-
-
-
-    public String getCurrency() {
-        return currency;
-    }
-
-    public void setCurrency(String currency) {
-        this.currency = currency;
     }
 
     public int getIdWallet() {
@@ -75,6 +60,14 @@ public class Wallet {
 
     public void setMoney(double money) {
         this.money = money;
+    }
+
+    public String getCurrency() {
+        return currency;
+    }
+
+    public void setCurrency(String currency) {
+        this.currency = currency;
     }
 
     public String getDescription() {

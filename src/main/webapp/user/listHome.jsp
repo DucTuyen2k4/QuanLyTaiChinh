@@ -34,10 +34,10 @@
         }
 
         .sidebar {
-
+            flex: 0 0 250px;
             background-color: #f2f2f2;
             width: 100%;
-            height: 560px;
+            height: 550px;
             margin-left: 150px;
         }
 
@@ -46,7 +46,6 @@
             color: #fff;
             padding: 20px;
             text-align: center;
-            margin-top: 180px;
         }
 
 
@@ -100,7 +99,7 @@
             border-radius: 50%;
             color: #fff;
             font-size: 24px;
-
+            border: none;
             cursor: pointer;
             transition: background-color 0.3s ease;
             margin-right: 10px;
@@ -130,14 +129,9 @@
             height: 80px;
             color: red;
 
+
         }
 
-        .header {
-            width: 100%;
-            height: 80px;
-            border: 3px;
-            background-color: #1f1f1f;
-        }
 
 
         .footer {
@@ -146,14 +140,18 @@
             height: 80px;
             color: black;
             background-color: white;
-            /*padding: 20px 0 20px;*/
+            padding: 20px 0 20px;
         }
 
-        .logo {
-            margin-left: 10px; /* Điều chỉnh giá trị margin-left theo ý muốn */
+        .head-link {
+            color: #e67e22;
+            height: 30px;
+            width: 100%;
+
         }
-
-
+        .container-fluid{
+            float: right;
+        }
     </style>
 </head>
 <body>
@@ -161,15 +159,26 @@
     <div class="header p-3 m-0 border-0 bd-example m-0 border-0">
         <nav class="navbar navbar-dark bg-dark fixed-top">
             <div class="container-fluid">
-                <i class="fa-brands fa-cc-visa" style="font-size: 70px; color: springgreen"></i>
-                <H1 style="margin-top: 10px">Quản Lý Tài Chính </H1>
-
                 <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas"
-
                         data-bs-target="#offcanvasDarkNavbar" aria-controls="offcanvasDarkNavbar"
                         aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
+                <div class="head-link">
+                    <ul>
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                Ví
+                            </a>
+                            <ul class="dropdown-menu dropdown-menu-dark">
+                                <c:forEach var="list" items="${listWallet}">
+                                    <li><a class="dropdown-item" href="#"> ${list.nameWallet}</a></li>
+                                </c:forEach>
+                                <li><a class="dropdown-item" href="#" style="text-align: center">+</a></li>
+                            </ul>
+                        </li>
+                    </ul>
+                </div>
 
                 <div class="offcanvas offcanvas-end text-bg-dark" tabindex="-1" id="offcanvasDarkNavbar"
                      aria-labelledby="offcanvasDarkNavbarLabel" style="width: 300px">
@@ -201,48 +210,33 @@
             </div>
         </nav>
     </div>
-</div>
-
 
 </div>
-<head-link style="background-color: #007bff;width: 100%;height: 40px">
-    <div style="background-color: #007bff;width: 100%;height: 40px;padding: 10px">
-        <tr>
-            <th>
-                <select style="margin-left: 80px" name="a" >
-                    <option> <a href="/WalletServlet?action=showWallet&idWallet=1"></a></option>
-                    <option> <a href="/WalletServlet?action=showWallet&idWallet=1"></a></option>
-                    <option> <a href="/WalletServlet?action=showWallet&idWallet=1"></a></option>
-                    <option> <a href="/WalletServlet?action=showWallet&idWallet=1"></a></option>
-
-                </select>
-            </th>
-            <th>ggg</th>
-            <th>aaa</th>
-            <th>yyu</th>
-        </tr>
+<div class="container">
+    <div class="sidebar">
+        <h2 style="margin-left: 30%"> Chi tiêu </h2>
+        <div class="expense-button-container">
+            <a class="expense-button expense-button-plane" href="/user/updateProfiles.jsp">
+                <i class="fas fa-plane"></i>
+            </a>
+            <a class="expense-button expense-button-hotel" href="/user/updateProfiles.jsp">
+                <i class="fas fa-hotel"></i>
+            </a>
+            <a class="expense-button expense-button-camera" href="/user/updateProfiles.jsp">
+                <i class="fas fa-camera"></i>
+            </a>
+        </div>
     </div>
-</head-link>
-
-<%--<div class="container">--%>
-<%--    <div class="sidebar">--%>
-<%--        <h2 style="margin-left: 30%"> Chi tiêu </h2>--%>
-<%--&lt;%&ndash;        <div class="expense-button-container">&ndash;%&gt;--%>
-<%--&lt;%&ndash;            <a class="expense-button expense-button-plane" href="/user/updateProfiles.jsp">&ndash;%&gt;--%>
-<%--&lt;%&ndash;                <i class="fas fa-plane"></i>&ndash;%&gt;--%>
-<%--&lt;%&ndash;            </a>&ndash;%&gt;--%>
-<%--&lt;%&ndash;            <a class="expense-button expense-button-hotel" href="/user/updateProfiles.jsp">&ndash;%&gt;--%>
-<%--&lt;%&ndash;                <i class="fas fa-hotel"></i>&ndash;%&gt;--%>
-<%--&lt;%&ndash;            </a>&ndash;%&gt;--%>
-<%--&lt;%&ndash;            <a class="expense-button expense-button-camera" href="/user/updateProfiles.jsp">&ndash;%&gt;--%>
-<%--&lt;%&ndash;                <i class="fas fa-camera"></i>&ndash;%&gt;--%>
-<%--&lt;%&ndash;            </a>&ndash;%&gt;--%>
-<%--&lt;%&ndash;        </div>&ndash;%&gt;--%>
-<%--    </div>--%>
-<%--</div>--%>
-<%--<div class="footer">--%>
-<%--    <p>Bản quyền &copy; 2023 Ứng dụng Quản lý Tài chính</p>--%>
-<%--</div>--%>
+    <div style="background-color: #e67e22">
+        <p>dasdasdsadad</p>
+        <c:forEach var="walletList" items="${walletList}">
+            <p>${walletList.nameWallet}</p>
+        </c:forEach>
+    </div>
+</div>
+<div class="footer">
+    <p>Bản quyền &copy; 2023 Ứng dụng Quản lý Tài chính</p>
+</div>
 
 <div class="confirmation-dialog" id="confirmation-dialog-delete">
     <div class="confirmation-dialog-content">

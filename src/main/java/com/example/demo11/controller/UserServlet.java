@@ -1,7 +1,9 @@
 package com.example.demo11.controller;
 
 import com.example.demo11.model.User;
+import com.example.demo11.model.Wallet;
 import com.example.demo11.sevice.UserDAO;
+import com.example.demo11.sevice.WalletDAO;
 import com.mysql.cj.xdevapi.Session;
 import sun.util.calendar.BaseCalendar;
 
@@ -24,11 +26,13 @@ import static java.lang.Float.isNaN;
 @WebServlet(name = "UserServlet", value = "/user")
 public class UserServlet extends HttpServlet {
     public static UserDAO userDAO;
+    public static WalletDAO walletDAO;
 
 
     @Override
     public void init() throws ServletException {
         userDAO = new UserDAO();
+        walletDAO=new WalletDAO();
     }
 
     @Override
@@ -46,8 +50,6 @@ public class UserServlet extends HttpServlet {
                 } catch (ClassNotFoundException e) {
                     throw new RuntimeException(e);
                 }
-
-
             case "update":
                 try {
                     showFormUpdate(req, resp);
@@ -146,14 +148,14 @@ break;
         String userName = req.getParameter("userName");
         String password = req.getParameter("password");
         try {
-
             if (userDAO.checkUser(userName, password)) {
                 List<User> list = userDAO.show(userName, password);
                 req.setAttribute("list", list);
+
+                List<Wallet> walletList=walletDAO.showAllWallet(userName,password);
+                req.setAttribute("WalletList",walletList);
                 HttpSession session = req.getSession();
                 session.setAttribute("user", list.get(0));
-
-
                 System.out.println("da vao day");
                 req.getRequestDispatcher("user/listHome.jsp").forward(req, resp);
             } else {
@@ -161,6 +163,8 @@ break;
                 req.getRequestDispatcher("users/list.jsp").forward(req, resp);
             }
         } catch (ServletException e) {
+            throw new RuntimeException(e);
+        } catch (ClassNotFoundException e) {
             throw new RuntimeException(e);
         }
     }
@@ -256,7 +260,6 @@ break;
                     } catch (ParseException e) {
                         e.printStackTrace();
                     }
-
 
                 } catch (NumberFormatException e) {
                     request.setAttribute("messageFailurePhoneNumber", "Vui lòng nhập đúng 10 số điện thoại.");
