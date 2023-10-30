@@ -179,7 +179,7 @@
                     <div>
                         <a href="/user?action=update&id=${sessionScope['user'].getId()}">Cập nhật thông tin</a>
                         <hr width="100%" size="1px" align="center" color="0px 8px 16px 0px rgba(0, 0, 0, 0.2)"/>
-                        <a href="/user?action=delete&id=${sessionScope['user'].getId()}">Xóa tài khoản</a>
+                        <a href="#" id="Delete-link">Xóa tài khoản</a>
                         <hr width="100%" size="1px" align="center" color="0px 8px 16px 0px rgba(0, 0, 0, 0.2)"/>
                     </div>
                 <div method="get">
@@ -208,12 +208,7 @@
             </a>
         </div>
     </div>
-<%--    <div class="content">--%>
-<%--      --%>
-
-<%--    </div>--%>
 </div>
-
 <div class="footer">
     <p>Bản quyền &copy; 2023 Ứng dụng Quản lý Tài chính</p>
 </div>
@@ -225,6 +220,32 @@
         <button id="cancel-logout-btn">Hủy</button>
     </div>
 </div>
+<div class="confirmation-dialog" id="confirmation-delete">
+    <div class="confirmation-dialog-content">
+    <h2>Xác nhận xóa</h2>
+    <p>Bạn có muốn xóa tài khoản ?</p>
+    <button id="confirm-De">Xóa</button>
+    <button id="cancel-De">Quay lại</button>
+</div>
+</div>
+<script>
+    const DeleteLink = document.getElementById('Delete-link');
+    const confirmationDelete = document.getElementById('confirmation-delete');
+    const confirmDelete = document.getElementById('confirm-De');
+    const cancelDelete = document.getElementById('cancel-De');
+
+    DeleteLink.addEventListener('click', function (event) {
+        event.preventDefault();
+        confirmationDelete.style.display = 'block';
+    });
+    confirmDelete.addEventListener('click', function () {
+        confirmationDelete.style.display = 'none';
+        window.location.href = "/user?action=delete&id=${sessionScope['user'].getId()}";
+    });
+    cancelDelete.addEventListener('click', function () {
+        confirmationDelete.style.display = 'none';
+    });
+</script>
 
 <script>
     const logoutLink = document.getElementById('logout-link');
@@ -244,6 +265,9 @@
     cancelLogoutBtn.addEventListener('click', function () {
         confirmationDialog.style.display = 'none';
     });
+</script>
+
+<script>
 
 </script>
 </body>
