@@ -19,40 +19,6 @@
             background-image: url("/users/notepad-3316267_1280.jpg");
         }
 
-
-        .header {
-            background-color: #bcf38c;
-            color: #fff;
-            padding: 2px;
-            text-align: center;
-            position: relative;
-            height: 100px;
-        }
-
-        .settings {
-            position: absolute;
-            top: 30px;
-            right: 10px;
-
-        }
-
-        .dropdown {
-            position: relative;
-            display: inline-block;
-            width: 150px; /* Thay đổi độ rộng */
-            height: 40px; /* Thay đổi chiều cao */
-        }
-
-        .dropdown-content {
-            display: none;
-            position: absolute;
-            background-color: #f9f9f9;
-            min-width: 160px;
-            box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
-            z-index: 1;
-            padding: 10px;
-        }
-
         .dropdown-content a {
             color: #333;
             text-decoration: none;
@@ -60,9 +26,6 @@
             padding: 5px 0;
         }
 
-        .dropdown:hover .dropdown-content {
-            display: block;
-        }
 
         .container {
             display: flex;
@@ -78,11 +41,6 @@
             margin-left: 150px;
         }
 
-        .content {
-            flex: 1;
-            padding: 20px;
-        }
-
         .footer {
             background-color: #1d1e1c;
             color: #fff;
@@ -90,12 +48,6 @@
             text-align: center;
         }
 
-        .drop-ttn {
-            width: 100px;
-            height: 40px;
-            font-size: 17px;
-            background-image: url('ProjectManagement-300x300.png');
-        }
 
         .confirmation-dialog {
             display: none;
@@ -175,34 +127,49 @@
         .header {
             width: 100%;
             height: 80px;
+            color: red;
 
         }
 
-        .content {
-            margin-top: 20px;
+        .header {
             width: 100%;
-            height: 500px;
+            height: 80px;
+
         }
 
 
+        .footer {
+            border: 1px solid #318a18;
+            text-align: center;
+            height: 80px;
+            color: black;
+            background-color: white;
+            padding: 20px 0 20px;
+        }
+
+        .head-link {
+            width: 100%;
+            height: 20px;
+            background-color: #e67e22;
+        }
     </style>
 </head>
 <body>
-<div>
+<div class="header">
     <div class="header p-3 m-0 border-0 bd-example m-0 border-0">
         <nav class="navbar navbar-dark bg-dark fixed-top">
+
             <div class="container-fluid">
                 <i class="fa-brands fa-cc-visa" style="font-size: 70px; color: springgreen"></i>
-                <h1> Ứng dụng quản lý tài chính</h1>
                 <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas"
                         data-bs-target="#offcanvasDarkNavbar" aria-controls="offcanvasDarkNavbar"
                         aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
                 <div class="offcanvas offcanvas-end text-bg-dark" tabindex="-1" id="offcanvasDarkNavbar"
-                     aria-labelledby="offcanvasDarkNavbarLabel">
+                     aria-labelledby="offcanvasDarkNavbarLabel" style="width: 300px">
                     <div class="offcanvas-header">
-<%--                        <h5 class="offcanvas-title" id="offcanvasDarkNavbarLabel">Dark offcanvas</h5>--%>
+                        <h5 class="offcanvas-title" id="offcanvasDarkNavbarLabel" >Dark offcanvas</h5>
                         <button type="button" class="btn-close btn-close-white" data-bs-dismiss="offcanvas"
                                 aria-label="Close"></button>
                     </div>
@@ -213,14 +180,13 @@
                             </li>
                             <li class="nav-item">
                                 <a class="nav-link active" aria-current="page"
-                                   href="/user?action=update&id=${sessionScope['user'].getId()}"> Câp nhật thông tin </a>
+                                   href="/user?action=update&id=${sessionScope['user'].getId()}"> Câp nhật thông
+                                    tin </a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link active" aria-current="page"
-                                   href="/user?action=update&id=${sessionScope['user'].getId()}"> Xóa tài khoản </a>
-                            </li>
-                            <li>
-                                <a href="#" id="logout-link">Đăng xuất</a>
+                                <a class="nav-link active" aria-current="page" href="#" onclick="showDialog('confirmation-dialog-delete')">Xóa tài khoản</a>                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link active" aria-current="page" href="#" onclick="showDialog('confirmation-dialog-logout')">Đăng xuất</a>
                             </li>
                         </ul>
                     </div>
@@ -228,23 +194,25 @@
             </div>
         </nav>
     </div>
-    <div class="container">
-        <div class="sidebar">
-            <h2> Chi tiêu </h2>
-            <div class="expense-button-container">
-                <a class="expense-button expense-button-plane" href="/user/updateProfiles.jsp">
-                    <i class="fas fa-plane"></i>
-                </a>
-                <a class="expense-button expense-button-hotel" href="/user/updateProfiles.jsp">
-                    <i class="fas fa-hotel"></i>
-                </a>
-                <a class="expense-button expense-button-camera" href="/user/updateProfiles.jsp">
-                    <i class="fas fa-camera"></i>
-                </a>
-            </div>
-        </div>
-        <div class="content">
-            hhh
+</div>
+<div class="head-link">
+
+</div>
+<div class="container">
+    <div class="sidebar">
+        <h2 style="margin-left: 30%"> Chi tiêu </h2>
+        <div class="expense-button-container">
+
+            <a class="expense-button expense-button-plane" href="/user/updateProfiles.jsp">
+                <i class="fas fa-plane"></i>
+
+            </a>
+            <a class="expense-button expense-button-hotel" href="/user/updateProfiles.jsp">
+                <i class="fas fa-hotel"></i>
+            </a>
+            <a class="expense-button expense-button-camera" href="/user/updateProfiles.jsp">
+                <i class="fas fa-camera"></i>
+            </a>
         </div>
     </div>
 </div>
@@ -252,34 +220,77 @@
     <p>Bản quyền &copy; 2023 Ứng dụng Quản lý Tài chính</p>
 </div>
 
-
-<div class="confirmation-dialog" id="confirmation-dialog">
+<div class="confirmation-dialog" id="confirmation-dialog-delete">
     <div class="confirmation-dialog-content">
-        <h2>Xác nhận đăng xuất</h2>
-        <p>Bạn có chắc chắn muốn đăng xuất?</p>
-        <button id="confirm-logout-btn">Đồng ý</button>
-        <button id="cancel-logout-btn">Hủy</button>
+        <h2 style="font-size: 20px">Xác nhận xóa tài khoản</h2>
+        <p>Bạn có chắc chắn muốn xóa tài khoản?</p>
+        <button onclick="confirmAction('delete')">Đồng ý</button>
+        <button onclick="hideDialog('confirmation-dialog-delete')">Hủy</button>
     </div>
 </div>
+
+<div class="confirmation-dialog" id="confirmation-dialog-logout">
+    <div class="confirmation-dialog-content">
+        <h2 style="font-size: 20px">Xác nhận đăng xuất</h2>
+        <p>Bạn có chắc chắn muốn đăng xuất?</p>
+        <button onclick="confirmAction('logout')">Đồng ý</button>
+        <button onclick="hideDialog('confirmation-dialog-logout')">Hủy</button>
+    </div>
+</div>
+
 <script>
-    const logoutLink = document.getElementById('logout-link');
-    const confirmationDialog = document.getElementById('confirmation-dialog');
-    const confirmLogoutBtn = document.getElementById('confirm-logout-btn');
-    const cancelLogoutBtn = document.getElementById('cancel-logout-btn');
+    function showDialog(dialogId) {
+        const dialog = document.getElementById(dialogId);
+        dialog.style.display = 'block';
+    }
 
-    logoutLink.addEventListener('click', function (event) {
-        event.preventDefault();
-        confirmationDialog.style.display = 'block';
-    });
+    function hideDialog(dialogId) {
+        const dialog = document.getElementById(dialogId);
+        dialog.style.display = 'none';
+    }
 
-    confirmLogoutBtn.addEventListener('click', function () {
-        console.log("Đăng xuất thành công");
-        confirmationDialog.style.display = 'none';
-        window.location.href = "/users/list.jsp";
-    });
-    cancelLogoutBtn.addEventListener('click', function () {
-        confirmationDialog.style.display = 'none';
-    });
+    function confirmAction(action) {
+        console.log(action + " thành công");
+        hideDialog('confirmation-dialog-' + action);
+        switch (action) {
+            case 'delete':
+                window.location.href = "/user?action=delete&id=${sessionScope['user'].getId()}";
+
+                break;
+            case 'logout':
+                window.location.href = "/users/list.jsp";
+                break;
+            default:
+                break;
+        }
+    }
 </script>
+<%--<div class="confirmation-dialog" id="confirmation-dialog">--%>
+<%--    <div class="confirmation-dialog-content">--%>
+<%--        <h2>Xác nhận đăng xuất</h2>--%>
+<%--        <p>Bạn có chắc chắn muốn đăng xuất?</p>--%>
+<%--        <button id="confirm-logout-btn">Đồng ý</button>--%>
+<%--        <button id="cancel-logout-btn">Hủy</button>--%>
+<%--    </div>--%>
+<%--</div>--%>
+<%--<script>--%>
+<%--    const logoutLink = document.getElementById('logout-link');--%>
+<%--    const confirmationDialog = document.getElementById('confirmation-dialog');--%>
+<%--    const confirmLogoutBtn = document.getElementById('confirm-logout-btn');--%>
+<%--    const cancelLogoutBtn = document.getElementById('cancel-logout-btn');--%>
+
+<%--    logoutLink.addEventListener('click', function (event) {--%>
+<%--        event.preventDefault();--%>
+<%--        confirmationDialog.style.display = 'block';--%>
+<%--    });--%>
+<%--    confirmLogoutBtn.addEventListener('click', function () {--%>
+<%--        console.log("Đăng xuất thành công");--%>
+<%--        confirmationDialog.style.display = 'none';--%>
+<%--        window.location.href = "/users/list.jsp";--%>
+<%--    });--%>
+<%--    cancelLogoutBtn.addEventListener('click', function () {--%>
+<%--        confirmationDialog.style.display = 'none';--%>
+<%--    });--%>
+<%--</script>--%>
 </body>
 </html>

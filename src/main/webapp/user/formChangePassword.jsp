@@ -7,16 +7,27 @@
     <style>
         body {
             font-family: Arial, sans-serif;
-
-            background-image: url("https://www.vietnamfineart.com.vn/wp-content/uploads/2023/03/f99a5cc9ebcceba1dd49af0d509732dc.jpg") ;
-
+            background-image: url("https://i.pinimg.com/564x/7e/29/23/7e292374c4294a92b077983559036e1f.jpg");
+            background-size: cover;
+            background-repeat: no-repeat;
+            background-attachment: fixed;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
         }
 
         .container {
-            max-width: 400px;
+            margin-top: 20px;
+            width: 500px;
+            height: 500px;
+            background-color: #f0f0f0;
             margin: 0 auto;
             padding: 20px;
         }
+
 
         .form-group {
             margin-bottom: 20px;
@@ -37,6 +48,7 @@
         }
 
         .btn-submit {
+
             display: block;
             width: 35%;
             padding: 10px;
@@ -61,7 +73,7 @@
 <body>
 <div class="container">
     <div class="back-button">
-        <a href="user/listHome.jsp"><i class="fas fa-arrow-left"></i>  Quay lại trang chủ</a>
+        <a href="/user?action=update&id=${sessionScope['user'].getId()}"><i class="fas fa-arrow-left"></i>  Quay lại </a>
     </div>
     <h2>Đổi mật khẩu</h2>
 
@@ -70,20 +82,20 @@
 
         <div class="form-group">
             <input type="hidden" name="id" value="${id}" />
-            <label for="current-password">Mật khẩu hiện tại:</label>
+            <label for="current-password" style="width: 480px">Mật khẩu hiện tại:</label>
             <p style="color: red">${message}</p>
-            <input type="password" id="current-password" name="oldPassword" required>
+            <input type="password" id="current-password" style="width: 480px" name="oldPassword" required>
         </div>
         <div class="form-group">
             <label for="new-password">Mật khẩu mới(6-8 kí tự):</label>
-            <input type="password" id="new-password" name="newPassword" minlength="6" maxlength="8" required>
+            <input type="password" id="new-password" style="width: 480px" name="newPassword" minlength="6" maxlength="8" required>
         </div>
         <div class="form-group">
-            <label for="confirm-password">Xác nhận mật khẩu mới:</label>
+            <label for="confirm-password" >Xác nhận mật khẩu mới:</label>
             <p style="color: red">${messages}</p>
-            <input type="password" id="confirm-password" name="confirmPassword" minlength="6" maxlength="8" required>
+            <input type="password" id="confirm-password" style="width: 480px" name="confirmPassword" minlength="6" maxlength="8" required>
         </div>
-        <button type="submit" name="action" value="confirmPassword" class="btn-submit">Đổi mật khẩu</button>
+        <button type="submit" name="action" value="confirmPassword" class="btn-submit" >Đổi mật khẩu</button>
     </form>
 </div>
 </body>
