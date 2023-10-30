@@ -148,9 +148,9 @@
         }
 
         .head-link {
-            width: 100%;
-            height: 20px;
             background-color: #e67e22;
+            height: 30px;
+            width: 100%;
         }
     </style>
 </head>
@@ -158,7 +158,6 @@
 <div class="header">
     <div class="header p-3 m-0 border-0 bd-example m-0 border-0">
         <nav class="navbar navbar-dark bg-dark fixed-top">
-
             <div class="container-fluid">
                 <i class="fa-brands fa-cc-visa" style="font-size: 70px; color: springgreen"></i>
                 <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas"
@@ -169,7 +168,7 @@
                 <div class="offcanvas offcanvas-end text-bg-dark" tabindex="-1" id="offcanvasDarkNavbar"
                      aria-labelledby="offcanvasDarkNavbarLabel" style="width: 300px">
                     <div class="offcanvas-header">
-                        <h5 class="offcanvas-title" id="offcanvasDarkNavbarLabel" >Dark offcanvas</h5>
+                        <h5 class="offcanvas-title" id="offcanvasDarkNavbarLabel">Dark offcanvas</h5>
                         <button type="button" class="btn-close btn-close-white" data-bs-dismiss="offcanvas"
                                 aria-label="Close"></button>
                     </div>
@@ -184,9 +183,11 @@
                                     tin </a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link active" aria-current="page" href="#" onclick="showDialog('confirmation-dialog-delete')">Xóa tài khoản</a>                            </li>
+                                <a class="nav-link active" aria-current="page" href="#"
+                                   onclick="showDialog('confirmation-dialog-delete')">Xóa tài khoản</a></li>
                             <li class="nav-item">
-                                <a class="nav-link active" aria-current="page" href="#" onclick="showDialog('confirmation-dialog-logout')">Đăng xuất</a>
+                                <a class="nav-link active" aria-current="page" href="#"
+                                   onclick="showDialog('confirmation-dialog-logout')">Đăng xuất</a>
                             </li>
                         </ul>
                     </div>
@@ -197,15 +198,28 @@
 </div>
 <div class="head-link">
 
+    <ul>
+        <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                Ví
+            </a>
+
+            <ul class="dropdown-menu dropdown-menu-dark">
+                <c:forEach var="list" items="${listWallet}">
+                    <li><a class="dropdown-item" href="#">${list.nameWallet}</a></li>
+                </c:forEach>
+                <li><a class="dropdown-item" href="#" style="text-align: center">+</a></li>
+
+            </ul>
+        </li>
+    </ul>
 </div>
 <div class="container">
     <div class="sidebar">
         <h2 style="margin-left: 30%"> Chi tiêu </h2>
         <div class="expense-button-container">
-
             <a class="expense-button expense-button-plane" href="/user/updateProfiles.jsp">
                 <i class="fas fa-plane"></i>
-
             </a>
             <a class="expense-button expense-button-hotel" href="/user/updateProfiles.jsp">
                 <i class="fas fa-hotel"></i>
@@ -265,32 +279,5 @@
         }
     }
 </script>
-<%--<div class="confirmation-dialog" id="confirmation-dialog">--%>
-<%--    <div class="confirmation-dialog-content">--%>
-<%--        <h2>Xác nhận đăng xuất</h2>--%>
-<%--        <p>Bạn có chắc chắn muốn đăng xuất?</p>--%>
-<%--        <button id="confirm-logout-btn">Đồng ý</button>--%>
-<%--        <button id="cancel-logout-btn">Hủy</button>--%>
-<%--    </div>--%>
-<%--</div>--%>
-<%--<script>--%>
-<%--    const logoutLink = document.getElementById('logout-link');--%>
-<%--    const confirmationDialog = document.getElementById('confirmation-dialog');--%>
-<%--    const confirmLogoutBtn = document.getElementById('confirm-logout-btn');--%>
-<%--    const cancelLogoutBtn = document.getElementById('cancel-logout-btn');--%>
-
-<%--    logoutLink.addEventListener('click', function (event) {--%>
-<%--        event.preventDefault();--%>
-<%--        confirmationDialog.style.display = 'block';--%>
-<%--    });--%>
-<%--    confirmLogoutBtn.addEventListener('click', function () {--%>
-<%--        console.log("Đăng xuất thành công");--%>
-<%--        confirmationDialog.style.display = 'none';--%>
-<%--        window.location.href = "/users/list.jsp";--%>
-<%--    });--%>
-<%--    cancelLogoutBtn.addEventListener('click', function () {--%>
-<%--        confirmationDialog.style.display = 'none';--%>
-<%--    });--%>
-<%--</script>--%>
 </body>
 </html>

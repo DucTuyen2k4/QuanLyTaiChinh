@@ -46,8 +46,6 @@ public class UserServlet extends HttpServlet {
                 } catch (ClassNotFoundException e) {
                     throw new RuntimeException(e);
                 }
-
-
             case "update":
                 try {
                     showFormUpdate(req, resp);
