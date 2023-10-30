@@ -20,7 +20,7 @@
             padding: 2px;
             text-align: center;
             position: relative;
-            height:100px ;
+            height: 100px;
         }
 
         .settings {
@@ -172,20 +172,23 @@
 <body>
 <div class="header">
     <h1>Ứng dụng Quản lý Tài chính</h1>
-
+    <a href="/wallet/formAddWallet.jsp?username=${sessionScope['user'].getUserName()}&password=${sessionScope['user'].getPassword()}&id=${sessionScope['user'].getId()}" >them vi</a>
+    <c:forEach var="list" items="${list}">
+        <a href="">${list.nameWallet}</a>
+    </c:forEach>
 
     <div class="settings">
         <div class="dropdown">
-            <button class="drop-ttn" ><i class="fa  fa-cog" ></i> Settings</button>
+            <button class="drop-ttn"><i class="fa  fa-cog"></i> Settings</button>
             <div class="dropdown-content">
-<%--                <c:forEach items="${list}" var="lists">--%>
-                    <div>
-                        <a href="/user?action=update&id=${sessionScope['user'].getId()}">Cập nhật thông tin</a>
-                        <hr width="100%" size="1px" align="center" color="0px 8px 16px 0px rgba(0, 0, 0, 0.2)"/>
-                        <a href="/user?action=delete&id=${sessionScope['user'].getId()}">Xóa tài khoản</a>
-                        <hr width="100%" size="1px" align="center" color="0px 8px 16px 0px rgba(0, 0, 0, 0.2)"/>
-                    </div>
-<%--                </c:forEach>--%>
+                <%--                <c:forEach items="${list}" var="lists">--%>
+                <div>
+                    <a href="/user?action=update&id=${sessionScope['user'].getId()}">Cập nhật thông tin</a>
+                    <hr width="100%" size="1px" align="center" color="0px 8px 16px 0px rgba(0, 0, 0, 0.2)"/>
+                    <a href="/user?action=delete&id=${sessionScope['user'].getId()}">Xóa tài khoản</a>
+                    <hr width="100%" size="1px" align="center" color="0px 8px 16px 0px rgba(0, 0, 0, 0.2)"/>
+                </div>
+                <%--                </c:forEach>--%>
                 <div method="get">
                     <a href="#" id="logout-link">Đăng xuất</a>
                 </div>

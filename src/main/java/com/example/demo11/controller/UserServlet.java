@@ -1,7 +1,10 @@
 package com.example.demo11.controller;
 
 import com.example.demo11.model.User;
+import com.example.demo11.model.Wallet;
+import com.example.demo11.sevice.IWalletDAO;
 import com.example.demo11.sevice.UserDAO;
+import com.example.demo11.sevice.WalletDAO;
 import com.mysql.cj.xdevapi.Session;
 
 import javax.servlet.RequestDispatcher;
@@ -21,10 +24,12 @@ import java.util.List;
 @WebServlet(name = "UserServlet", value = "/user")
 public class UserServlet extends HttpServlet {
     public static UserDAO userDAO;
+    private static IWalletDAO iWalletDAO;
 
 
     @Override
     public void init() throws ServletException {
+        iWalletDAO = new WalletDAO();
         userDAO = new UserDAO();
     }
 
@@ -143,6 +148,9 @@ public class UserServlet extends HttpServlet {
                 List<User> list = userDAO.show(userName, password);
                 req.setAttribute("list", list);
 
+                List<Wallet> listWallet = iWalletDAO.showAllWallet(userName,password);
+                req.setAttribute("list",listWallet);
+
 
                 HttpSession session = req.getSession();
                 session.setAttribute("user", list.get(0));
@@ -158,6 +166,8 @@ public class UserServlet extends HttpServlet {
             throw new RuntimeException(e);
 
 
+        } catch (ClassNotFoundException e) {
+            throw new RuntimeException(e);
         }
     }
 
