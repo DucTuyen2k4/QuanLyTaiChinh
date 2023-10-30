@@ -129,13 +129,9 @@
             height: 80px;
             color: red;
 
-        }
-
-        .header {
-            width: 100%;
-            height: 80px;
 
         }
+
 
 
         .footer {
@@ -148,10 +144,14 @@
         }
 
         .head-link {
-            background-color: #e67e22;
+            color: #e67e22;
             height: 30px;
             width: 100%;
+
         }
+    .container-fluid{
+        float: right;
+    }
     </style>
 </head>
 <body>
@@ -159,12 +159,27 @@
     <div class="header p-3 m-0 border-0 bd-example m-0 border-0">
         <nav class="navbar navbar-dark bg-dark fixed-top">
             <div class="container-fluid">
-                <i class="fa-brands fa-cc-visa" style="font-size: 70px; color: springgreen"></i>
                 <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas"
                         data-bs-target="#offcanvasDarkNavbar" aria-controls="offcanvasDarkNavbar"
                         aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
+                <div class="head-link">
+                    <ul>
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                Ví
+                            </a>
+                            <ul class="dropdown-menu dropdown-menu-dark">
+                                <c:forEach var="list" items="${listWallet}">
+                                    <li><a class="dropdown-item" href="#"> ${list.nameWallet}</a></li>
+                                </c:forEach>
+                                <li><a class="dropdown-item" href="#" style="text-align: center">+</a></li>
+                            </ul>
+                        </li>
+                    </ul>
+                </div>
+
                 <div class="offcanvas offcanvas-end text-bg-dark" tabindex="-1" id="offcanvasDarkNavbar"
                      aria-labelledby="offcanvasDarkNavbarLabel" style="width: 300px">
                     <div class="offcanvas-header">
@@ -195,24 +210,7 @@
             </div>
         </nav>
     </div>
-</div>
-<div class="head-link">
 
-    <ul>
-        <li class="nav-item dropdown">
-            <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                Ví
-            </a>
-
-            <ul class="dropdown-menu dropdown-menu-dark">
-                <c:forEach var="list" items="${listWallet}">
-                    <li><a class="dropdown-item" href="#">${list.nameWallet}</a></li>
-                </c:forEach>
-                <li><a class="dropdown-item" href="#" style="text-align: center">+</a></li>
-
-            </ul>
-        </li>
-    </ul>
 </div>
 <div class="container">
     <div class="sidebar">
@@ -228,6 +226,12 @@
                 <i class="fas fa-camera"></i>
             </a>
         </div>
+    </div>
+    <div style="background-color: #e67e22">
+        <p>dasdasdsadad</p>
+        <c:forEach var="walletList" items="${walletList}">
+            <p>${walletList.nameWallet}</p>
+        </c:forEach>
     </div>
 </div>
 <div class="footer">

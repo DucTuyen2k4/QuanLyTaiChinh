@@ -1,7 +1,9 @@
 package com.example.demo11.controller;
 
 import com.example.demo11.model.User;
+import com.example.demo11.model.Wallet;
 import com.example.demo11.sevice.UserDAO;
+import com.example.demo11.sevice.WalletDAO;
 import com.mysql.cj.xdevapi.Session;
 import sun.util.calendar.BaseCalendar;
 
@@ -16,6 +18,7 @@ import java.io.IOException;
 import java.sql.SQLException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -24,11 +27,13 @@ import static java.lang.Float.isNaN;
 @WebServlet(name = "UserServlet", value = "/user")
 public class UserServlet extends HttpServlet {
     public static UserDAO userDAO;
+    public static WalletDAO walletDAO;
 
 
     @Override
     public void init() throws ServletException {
         userDAO = new UserDAO();
+        walletDAO = new WalletDAO();
     }
 
     @Override
@@ -118,14 +123,23 @@ public class UserServlet extends HttpServlet {
                 } catch (ClassNotFoundException e) {
                     throw new RuntimeException(e);
                 }
+            case "wallet":
+                showWallet(req, resp);
+                break;
         }
     }
+
 
     @Override
     public void destroy() {
         super.destroy();
     }
 
+    private void showWallet(HttpServletRequest req, HttpServletResponse resp) {
+        List<Wallet> walletList = walletDAO.listWalletHome();
+        req.setAttribute("walletList", walletList);
+        req.getRequestDispatcher("user/listHome.jsp");
+    }
 
     public void DeleteUsers(HttpServletRequest req, HttpServletResponse resp) throws SQLException, ClassNotFoundException, IOException, ServletException {
         int id = Integer.parseInt(req.getParameter("id"));
@@ -141,9 +155,12 @@ public class UserServlet extends HttpServlet {
             if (userDAO.checkUser(userName, password)) {
                 List<User> list = userDAO.show(userName, password);
                 req.setAttribute("list", list);
+
+
+                List<Wallet> walletList = walletDAO.listWallet(userName, password);
+                req.setAttribute("listWallet", walletList);
                 HttpSession session = req.getSession();
                 session.setAttribute("user", list.get(0));
-                System.out.println("da vao day");
                 req.getRequestDispatcher("user/listHome.jsp").forward(req, resp);
             } else {
                 req.setAttribute("message", "Tài khoản không tồn tại!");
