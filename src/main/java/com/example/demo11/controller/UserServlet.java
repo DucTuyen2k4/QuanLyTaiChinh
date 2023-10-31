@@ -18,6 +18,7 @@ import java.io.IOException;
 import java.sql.SQLException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -32,7 +33,9 @@ public class UserServlet extends HttpServlet {
     @Override
     public void init() throws ServletException {
         userDAO = new UserDAO();
+
         walletDAO=new WalletDAO();
+
     }
 
     @Override
@@ -125,16 +128,25 @@ break;
         }
     }
 
+
     @Override
     public void destroy() {
         super.destroy();
     }
+
 
     private void logoutHome(HttpServletRequest request, HttpServletResponse response) throws IOException {
         request.getSession().invalidate();
         response.sendRedirect(request.getContextPath() + "/users/list.jsp");
 
     }
+
+
+//    private void showWallet(HttpServletRequest req, HttpServletResponse resp) {
+//        List<Wallet> walletList = walletDAO.listWalletHome();
+//        req.setAttribute("walletList", walletList);
+//        req.getRequestDispatcher("user/listHome.jsp");
+//    }
 
 
     public void DeleteUsers(HttpServletRequest req, HttpServletResponse resp) throws SQLException, ClassNotFoundException, IOException, ServletException {
@@ -152,11 +164,13 @@ break;
                 List<User> list = userDAO.show(userName, password);
                 req.setAttribute("list", list);
 
+
                 List<Wallet> walletList=walletDAO.showAllWallet(userName,password);
-                req.setAttribute("WalletList",walletList);
+                req.setAttribute("list",walletList);
+
+
                 HttpSession session = req.getSession();
                 session.setAttribute("user", list.get(0));
-                System.out.println("da vao day");
                 req.getRequestDispatcher("user/listHome.jsp").forward(req, resp);
             } else {
                 req.setAttribute("message", "Tài khoản không tồn tại!");
@@ -255,8 +269,6 @@ break;
                             request.setAttribute("messageFailureBirthdate", "Ngày tháng năm sinh không thể lớn hơn ngày hiện tại.");
                             request.getRequestDispatcher("users/Register.jsp").forward(request, response);
                         }
-
-
                     } catch (ParseException e) {
                         e.printStackTrace();
                     }

@@ -9,13 +9,42 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 public class WalletDAO implements IWalletDAO{
-    private static final String INSERT_WALLET = "insert into wallet(icon,nameWallet,money,currency,description) values (?,?,?,?,?)";
-    private static  final String SELECT_ALL_WALLET = "select Wallet.idWallet,Wallet.nameWallet, Wallet.icon,Wallet.money,Wallet.currency,Wallet.description from Wallet inner join intermediate on Wallet.idWallet = intermediate.idWallet inner join users on intermediate.idUser=users.id where username = ? and password = ?";
-    private static final String SELECT_ID_WALLET = "select idWallet from wallet where nameWallet = ? " ;
+    private static final String INSERT_WALLET = "insert into Wallet(icon,nameWallet,money,currency,description) values (?,?,?,?,?)";
+    private static  final String SELECT_ALL_WALLET = "select Wallet.idWallet,Wallet.nameWallet, Wallet.icon,Wallet.money,Wallet.currency,Wallet.description from Wallet inner join user_wallets on Wallet.idWallet = user_wallets.idWallet inner join users on user_wallets.idUser=users.id where username = ? and password = ?";
+    private static final String SELECT_ID_WALLET = "select idWallet from Wallet where nameWallet = ? " ;
     private static final String INSERT_USER_WALLET = "insert into user_wallets (idUser,idWallet)values (?,?)";
+    private static final String UPDATE_WALLET = "update Wallet set icon = ?,nameWallet=?,money=?,currency=?,description=? where idWallet=? ";
+    private static final String SHOW_WALLET = "select * from Wallet where idWallet=? ";
+    @Override
+    public void updateWallet(Wallet wallet) throws SQLException, ClassNotFoundException {
+
+    }
+
+    @Override
+    public List<Wallet> showWallet(int id) throws SQLException, ClassNotFoundException {
+        List<Wallet> list=new ArrayList<>();
+        System.out.println(id);
+        PreparedStatement preparedStatement = JDBC.connection().prepareStatement(SHOW_WALLET);
+        preparedStatement.setInt(1,id);
+        ResultSet resultSet = preparedStatement.executeQuery();
+        while (resultSet.next()){
+            int idWallet = resultSet.getInt("idWallet");
+            String icon = resultSet.getString("icon");
+            String nameWallet = resultSet.getString("nameWallet");
+            double money = resultSet.getDouble("money");
+            String currency = resultSet.getString("currency");
+            String description = resultSet.getString("description");
+            System.out.println(idWallet+money+description);
+            list.add(new Wallet(idWallet,icon,nameWallet,money,currency,description));
+
+        }
+
+        return list;
+    }
     public WalletDAO(){
 
     }
@@ -71,4 +100,6 @@ public class WalletDAO implements IWalletDAO{
         preparedStatement.executeUpdate();
 
     }
+
+
 }

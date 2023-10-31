@@ -148,10 +148,16 @@
             height: 30px;
             width: 100%;
 
+<<<<<<< HEAD
         }
         .container-fluid{
             float: right;
+=======
+>>>>>>> b09015c97dc7899780f8076f09744c927e9abe16
         }
+    .container-fluid{
+        float: right;
+    }
     </style>
 </head>
 <body>
@@ -171,10 +177,10 @@
                                 Ví
                             </a>
                             <ul class="dropdown-menu dropdown-menu-dark">
-                                <c:forEach var="list" items="${listWallet}">
+                                <c:forEach var="list" items="${list}">
                                     <li><a class="dropdown-item" href="#"> ${list.nameWallet}</a></li>
                                 </c:forEach>
-                                <li><a class="dropdown-item" href="#" style="text-align: center">+</a></li>
+                                <li><a class="dropdown-item" href="/wallet/formAddWallet.jsp?username=${sessionScope['user'].getUserName()}&password=${sessionScope['user'].getPassword()}&id=${sessionScope['user'].getId()}" style="text-align: center">+</a></li>
                             </ul>
                         </li>
                     </ul>
@@ -212,6 +218,9 @@
     </div>
 
 </div>
+<c:forEach var="list" items="${listWallet}">
+    <li><a class="dropdown-item" href="/wallet?action=updateWallet&idWallet=${list.idWallet}">updateWallet</a></li>
+</c:forEach>
 <div class="container">
     <div class="sidebar">
         <h2 style="margin-left: 30%"> Chi tiêu </h2>
