@@ -133,7 +133,6 @@
         }
 
 
-
         .footer {
             border: 1px solid #318a18;
             text-align: center;
@@ -149,9 +148,10 @@
             width: 100%;
 
         }
-    .container-fluid{
-        float: right;
-    }
+
+        .container-fluid {
+            float: right;
+        }
     </style>
 </head>
 <body>
@@ -167,12 +167,13 @@
                 <div class="head-link">
                     <ul>
                         <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
+                               aria-expanded="false">
                                 Ví
                             </a>
                             <ul class="dropdown-menu dropdown-menu-dark">
                                 <c:forEach var="list" items="${listWallet}">
-                                    <li><a class="dropdown-item" href="#"> ${list.nameWallet}</a></li>
+                                        <li><a class="dropdown-item" href="/wallet?action=ShowWallet&id=${list.id}"> ${list.nameWallet}</a></li>
                                 </c:forEach>
                                 <li><a class="dropdown-item" href="#" style="text-align: center">+</a></li>
                             </ul>
@@ -228,10 +229,12 @@
         </div>
     </div>
     <div style="background-color: #e67e22">
-        <p>dasdasdsadad</p>
-        <c:forEach var="walletList" items="${walletList}">
-            <p>${walletList.nameWallet}</p>
-        </c:forEach>
+            <p>${wallet.getId()}</p>
+            <p>${wallet.getIcon()}</p>
+            <p>${wallet.getNameWallet()}</p>
+            <p>${wallet.getMoney()}</p>
+            <p>${wallet.getCurrency()}</p>
+            <p>${wallet.getDescription()}</p>
     </div>
 </div>
 <div class="footer">

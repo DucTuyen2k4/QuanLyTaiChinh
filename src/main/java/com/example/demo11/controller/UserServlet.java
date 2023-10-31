@@ -159,8 +159,10 @@ public class UserServlet extends HttpServlet {
 
                 List<Wallet> walletList = walletDAO.listWallet(userName, password);
                 req.setAttribute("listWallet", walletList);
+
                 HttpSession session = req.getSession();
                 session.setAttribute("user", list.get(0));
+
                 req.getRequestDispatcher("user/listHome.jsp").forward(req, resp);
             } else {
                 req.setAttribute("message", "Tài khoản không tồn tại!");
