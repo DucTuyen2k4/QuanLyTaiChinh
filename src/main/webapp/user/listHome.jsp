@@ -146,12 +146,20 @@
             color: #e67e22;
             height: 30px;
             width: 100%;
-
         }
 
         .container-fluid {
             float: right;
         }
+
+        .container-fluid {
+            float: right;
+        }
+        .container1{
+            width: 100%;
+            height: 100%;
+        }
+
     </style>
 </head>
 <body>
@@ -172,10 +180,14 @@
                                 Ví
                             </a>
                             <ul class="dropdown-menu dropdown-menu-dark">
-                                <c:forEach var="list" items="${listWallet}">
-                                        <li><a class="dropdown-item" href="/wallet?action=ShowWallet&id=${list.id}"> ${list.nameWallet}</a></li>
+                                <c:forEach var="list" items="${list}">
+                                    <li><a class="dropdown-item"
+                                           href="/wallet?action=ShowWallet&id=${list.idWallet}&username=${sessionScope['user'].getUserName()}&password=${sessionScope['user'].getPassword()}"> ${list.nameWallet}</a>
+                                    </li>
                                 </c:forEach>
-                                <li><a class="dropdown-item" href="#" style="text-align: center">+</a></li>
+                                <li><a class="dropdown-item"
+                                       href="/Wallet/formAddWallet.jsp?username=${sessionScope['user'].getUserName()}&password=${sessionScope['user'].getPassword()}&id=${sessionScope['user'].getId()}"
+                                       style="text-align: center">+</a></li>
                             </ul>
                         </li>
                     </ul>
@@ -211,8 +223,9 @@
             </div>
         </nav>
     </div>
-
 </div>
+</div>
+
 <div class="container">
     <div class="sidebar">
         <h2 style="margin-left: 30%"> Chi tiêu </h2>
@@ -228,13 +241,18 @@
             </a>
         </div>
     </div>
-    <div style="background-color: #e67e22">
-            <p>${wallet.getId()}</p>
-            <p>${wallet.getIcon()}</p>
-            <p>${wallet.getNameWallet()}</p>
-            <p>${wallet.getMoney()}</p>
-            <p>${wallet.getCurrency()}</p>
-            <p>${wallet.getDescription()}</p>
+    <div  class="container1" style="background-color: #e67e22">
+        <p>${wallet.getIdWallet()}</p>
+        <p>${wallet.getIcon()}</p>
+        <p>${wallet.getNameWallet()}</p>
+        <p>${wallet.getMoney()}</p>
+        <p>${wallet.getCurrency()}</p>
+        <p>${wallet.getDescription()}</p>
+        <a class="dropdown-item"
+           href="/Wallet/updateWallet.jsp?idWallet=${wallet.getIdWallet()}&icon=${wallet.getIcon()}&nameWallet=${wallet.getNameWallet()}&money=${wallet.getMoney()}&currency=${wallet.getCurrency()}&description=${wallet.getDescription()}&username=${sessionScope['user'].getUserName()}&password=${sessionScope['user'].getPassword()}">sua</a>
+        idWallet=${wallet.getIdWallet()}
+        <button value="">Xóa</button>
+
     </div>
 </div>
 <div class="footer">

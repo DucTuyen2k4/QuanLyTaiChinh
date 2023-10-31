@@ -1,41 +1,41 @@
 package com.example.demo11.model;
 
 public class Wallet {
-    private int id;
-    private String icon;
-    private String nameWallet;
+    private int idWallet;
+    private String icon ;
+    private String nameWallet ;
     private double money;
     private String currency;
-    private String description;
+    private String description ;
 
 
-    public Wallet(String icon, String nameWallet, double money, String currency, String description) {
+    public Wallet(int idWallet ,String icon, String nameWallet, Double money, String currency, String description) {
+        this.idWallet = idWallet;
         this.icon = icon;
-        this.nameWallet = nameWallet;
+        this.nameWallet = nameWallet ;
         this.money = money;
         this.currency = currency;
         this.description = description;
     }
 
-    public Wallet(int id, String icon, String nameWallet, double money, String currency, String description) {
-        this.id = id;
+    public Wallet(String icon, String nameWallet, Double money, String currency, String description) {
         this.icon = icon;
-        this.nameWallet= nameWallet;
+        this.nameWallet = nameWallet ;
         this.money = money;
         this.currency = currency;
         this.description = description;
     }
 
-    public Wallet() {
-
+    public Wallet(int idWallet) {
+        this.idWallet = idWallet;
     }
 
-    public int getId() {
-        return id;
+    public int getIdWallet() {
+        return idWallet;
     }
 
-    public void setId(int id) {
-        this.id = id;
+    public void setIdWallet(int idWallet) {
+        this.idWallet = idWallet;
     }
 
     public String getIcon() {
@@ -76,17 +76,5 @@ public class Wallet {
 
     public void setDescription(String description) {
         this.description = description;
-    }
-
-    @Override
-    public String toString() {
-        return "Wallet{" +
-                "id=" + id +
-                ", icon='" + icon + '\'' +
-                ", nameWallet='" + nameWallet + '\'' +
-                ", money=" + money +
-                ", currency='" + currency + '\'' +
-                ", description='" + description + '\'' +
-                '}';
     }
 }

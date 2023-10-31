@@ -33,7 +33,9 @@ public class UserServlet extends HttpServlet {
     @Override
     public void init() throws ServletException {
         userDAO = new UserDAO();
-        walletDAO = new WalletDAO();
+
+        walletDAO=new WalletDAO();
+
     }
 
     @Override
@@ -64,12 +66,12 @@ public class UserServlet extends HttpServlet {
             case "Register":
                 req.getRequestDispatcher("users/Register.jsp").forward(req, resp);
                 break;
-
-
             case "changePassword":
                 showFormChangePassword(req, resp);
                 break;
-
+            case "logoutHome":
+                logoutHome(req, resp);
+break;
             default:
                 break;
         }
@@ -123,9 +125,6 @@ public class UserServlet extends HttpServlet {
                 } catch (ClassNotFoundException e) {
                     throw new RuntimeException(e);
                 }
-            case "wallet":
-                showWallet(req, resp);
-                break;
         }
     }
 
@@ -135,11 +134,20 @@ public class UserServlet extends HttpServlet {
         super.destroy();
     }
 
-    private void showWallet(HttpServletRequest req, HttpServletResponse resp) {
-        List<Wallet> walletList = walletDAO.listWalletHome();
-        req.setAttribute("walletList", walletList);
-        req.getRequestDispatcher("user/listHome.jsp");
+
+    private void logoutHome(HttpServletRequest request, HttpServletResponse response) throws IOException {
+        request.getSession().invalidate();
+        response.sendRedirect(request.getContextPath() + "/users/list.jsp");
+
     }
+
+
+//    private void showWallet(HttpServletRequest req, HttpServletResponse resp) {
+//        List<Wallet> walletList = walletDAO.listWalletHome();
+//        req.setAttribute("walletList", walletList);
+//        req.getRequestDispatcher("user/listHome.jsp");
+//    }
+
 
     public void DeleteUsers(HttpServletRequest req, HttpServletResponse resp) throws SQLException, ClassNotFoundException, IOException, ServletException {
         int id = Integer.parseInt(req.getParameter("id"));
@@ -156,9 +164,8 @@ public class UserServlet extends HttpServlet {
                 List<User> list = userDAO.show(userName, password);
                 req.setAttribute("list", list);
 
-
                 List<Wallet> walletList = walletDAO.listWallet(userName, password);
-                req.setAttribute("listWallet", walletList);
+                req.setAttribute("list", walletList);
 
                 HttpSession session = req.getSession();
                 session.setAttribute("user", list.get(0));
@@ -181,6 +188,9 @@ public class UserServlet extends HttpServlet {
         int phoneNumber = Integer.parseInt(req.getParameter("phoneNumber"));
         String image = req.getParameter("image");
         userDAO.updateProfileUser(id, fullName, gender, birthdate, phoneNumber, image);
+        List<User> list = userDAO.selectProfileUser(id);
+        HttpSession session = req.getSession();
+        session.setAttribute("user", list.get(0));
         req.getRequestDispatcher("user/listHome.jsp").forward(req, resp);
     }
 
@@ -250,14 +260,12 @@ public class UserServlet extends HttpServlet {
                         System.out.println(birthdate);
                         if (currentDate.compareTo(birthdate) > 0) {
                             userDAO.addUser(new User(fullName, userName, password, email, gender, image, birthdate, phoneNumber));
-                            request.getRequestDispatcher("/users/list.jsp").forward(request, response);
+                            request.getRequestDispatcher("RegisterSuccess.jsp").forward(request, response);
                         } else {
 
                             request.setAttribute("messageFailureBirthdate", "Ngày tháng năm sinh không thể lớn hơn ngày hiện tại.");
                             request.getRequestDispatcher("users/Register.jsp").forward(request, response);
                         }
-
-
                     } catch (ParseException e) {
                         e.printStackTrace();
                     }
