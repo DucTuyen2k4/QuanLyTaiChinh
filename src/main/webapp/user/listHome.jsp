@@ -155,7 +155,8 @@
         .container-fluid {
             float: right;
         }
-        .container1{
+
+        .container1 {
             width: 100%;
             height: 100%;
         }
@@ -241,18 +242,30 @@
             </a>
         </div>
     </div>
-    <div  class="container1" style="background-color: #e67e22">
-        <p>${wallet.getIdWallet()}</p>
-        <p>${wallet.getIcon()}</p>
-        <p>${wallet.getNameWallet()}</p>
-        <p>${wallet.getMoney()}</p>
-        <p>${wallet.getCurrency()}</p>
-        <p>${wallet.getDescription()}</p>
-        <a class="dropdown-item"
-           href="/Wallet/updateWallet.jsp?idWallet=${wallet.getIdWallet()}&icon=${wallet.getIcon()}&nameWallet=${wallet.getNameWallet()}&money=${wallet.getMoney()}&currency=${wallet.getCurrency()}&description=${wallet.getDescription()}&username=${sessionScope['user'].getUserName()}&password=${sessionScope['user'].getPassword()}">sua</a>
-        idWallet=${wallet.getIdWallet()}
+    <div class="container1" style="background-color: #e67e22">
+        <table border="1px ">
+            <tr>
+                <td> ID</td>
+                <td> ICON</td>
+                <td> NAMEWALLET</td>
+                <td> MONEY</td>
+                <td> CURRENCY</td>
+                <td> DESCRIPTION</td>
+            </tr>
+            <tr>
+                <td>${wallet.getIdWallet()}</td>
+                <td>${wallet.getIcon()}</td>
+                <td>${wallet.getNameWallet()}</td>
+                <td>${wallet.getMoney()}</td>
+                <td>${wallet.getCurrency()}</td>
+                <td>${wallet.getDescription()}</td>
+            </tr>
+        </table>
+        <form action="/wallet?action=showWalletUpdate&idWallet=${wallet.getIdWallet()}&username=${sessionScope['user'].getUserName()}&password=${sessionScope['user'].getPassword()}"
+              method="post">
+            <input value="update" type="submit">
+        </form>
         <button value="">Xóa</button>
-
     </div>
 </div>
 <div class="footer">
