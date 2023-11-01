@@ -55,7 +55,96 @@ public class WalletServlet extends HttpServlet {
                     throw new RuntimeException(e);
                 }
                 break;
+            case "showFormBanking":
+                try {
+                    formBanking(req, resp);
+                } catch (SQLException e) {
+                    throw new RuntimeException(e);
+                } catch (ClassNotFoundException e) {
+                    throw new RuntimeException(e);
+                }
+                break;
+
+            case "confirmBanking":
+                try {
+                    confirmBanking(req, resp);
+                } catch (SQLException e) {
+                    throw new RuntimeException(e);
+                } catch (ClassNotFoundException e) {
+                    throw new RuntimeException(e);
+                }
+                break;
         }
+    }
+
+    private void confirmBanking(HttpServletRequest req, HttpServletResponse resp) throws SQLException, ClassNotFoundException, ServletException, IOException {
+        String username = req.getParameter("username");
+        String password = req.getParameter("password");
+
+        int idWallet = Integer.parseInt(req.getParameter("idWallet"));
+        String nameWallet = req.getParameter("nameWallet");
+        double money = Double.parseDouble(req.getParameter("money"));
+        String name = req.getParameter("name");
+        double moneyBanking = Double.parseDouble(req.getParameter("moneyBanking"));
+
+
+        if (iWalletDAO.selectWallet(name)) {
+            if (money >= moneyBanking) {
+                Wallet wallet = iWalletDAO.selectMoney(nameWallet);
+                double moneyBank = wallet.getMoney();
+                double result = moneyBank - moneyBanking;
+
+                Wallet wallet1 = iWalletDAO.selectMoneyBanking(name);
+                double receiveMoney = wallet1.getMoney();
+                double sum = receiveMoney + moneyBanking;
+
+
+                iWalletDAO.updateMoney(result, nameWallet);
+                iWalletDAO.updateMoneyBanking(sum, name);
+
+
+            } else {
+                req.setAttribute("messages", "Số dư không đủ để chuyển!");
+                Wallet wallet = new Wallet(idWallet, nameWallet, money);
+                req.setAttribute("wallet", wallet);
+
+                List<User> list = iUserDAO.show(username, password);
+                HttpSession session = req.getSession();
+                session.setAttribute("user", list.get(0));
+                req.getRequestDispatcher("/wallet/formBanking.jsp").forward(req, resp);
+            }
+        } else {
+            req.setAttribute("message", "Tên tài khoản không tồn tại!");
+            Wallet wallet = new Wallet(idWallet, nameWallet, money);
+            req.setAttribute("wallet", wallet);
+
+            List<User> list = iUserDAO.show(username, password);
+            HttpSession session = req.getSession();
+            session.setAttribute("user", list.get(0));
+            req.getRequestDispatcher("/wallet/formBanking.jsp").forward(req, resp);
+        }
+
+
+    }
+
+    private void formBanking(HttpServletRequest req, HttpServletResponse resp) throws SQLException, ClassNotFoundException, ServletException, IOException {
+        int idWallet = Integer.parseInt(req.getParameter("idWallet"));
+        String nameWallet = req.getParameter("nameWallet");
+        double money = Double.parseDouble(req.getParameter("money"));
+
+        String username = req.getParameter("username");
+        String password = req.getParameter("password");
+
+
+        Wallet wallet = new Wallet(idWallet, nameWallet, money);
+        req.setAttribute("wallet", wallet);
+
+        List<User> list = iUserDAO.show(username, password);
+        HttpSession session = req.getSession();
+        session.setAttribute("user", list.get(0));
+
+        req.getRequestDispatcher("/wallet/formBanking.jsp").forward(req, resp);
+
     }
 
 

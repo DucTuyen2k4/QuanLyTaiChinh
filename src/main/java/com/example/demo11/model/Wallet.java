@@ -29,6 +29,16 @@ public class Wallet {
     public Wallet(int idWallet) {
         this.idWallet = idWallet;
     }
+    public Wallet(double money) {
+        this.money = money;
+    }
+
+
+    public Wallet(int idWallet, String nameWallet, double money) {
+        this.idWallet = idWallet;
+        this.nameWallet = nameWallet ;
+        this.money = money;
+    }
 
     public int getIdWallet() {
         return idWallet;

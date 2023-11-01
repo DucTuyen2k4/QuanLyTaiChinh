@@ -266,6 +266,9 @@
             <input value="update" type="submit">
         </form>
         <button value="">Xóa</button>
+        <form action="/wallet?action=showFormBanking&idWallet=${wallet.getIdWallet()}&username=${sessionScope['user'].getUserName()}&password=${sessionScope['user'].getPassword()}&money=${wallet.getMoney()}&nameWallet=${wallet.getNameWallet()}" method="post">
+            <input value="chuyển tiền" type="submit">
+        </form>
     </div>
 </div>
 <div class="footer">
