@@ -23,7 +23,8 @@ public class UserDAO implements IUserDAO {
     private static final String SELECT_PASSWORD = "select password from users where id = ? ";
     private static final String UPDATE_PASSWORD = "update users set password = ? where id = ?";
     private static final String CHECK_USER = "select * from users where userName=? and password=?";
-    private static final String  DELETE_USER="delete from users where id=?";
+    private static final String  DELETE_USER="DELETE users_wallet, users FROM users_wallet LEFT JOIN users ON users_wallet.idUser = users.id WHERE users_wallet.idUser = ?; ";
+
 
 
 

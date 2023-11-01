@@ -18,6 +18,7 @@ public interface IWalletDAO {
      void addToUser_Wallet(int idUser ,int idWallet) throws SQLException, ClassNotFoundException;
     void updateWallet(Wallet wallet) throws SQLException, ClassNotFoundException;
     List<Wallet> showWallet(int id) throws SQLException, ClassNotFoundException;
+    void deleteWallet(int id) throws SQLException, ClassNotFoundException;
 
 
 }

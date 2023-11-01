@@ -66,6 +66,15 @@ public class WalletServlet extends HttpServlet {
             action = "";
         }
         switch (action) {
+            case  "delete":
+                try {
+                    Delete(req,resp);
+                } catch (SQLException e) {
+                    throw new RuntimeException(e);
+                } catch (ClassNotFoundException e) {
+                    throw new RuntimeException(e);
+                }
+                break;
             case "addWallet":
                 try {
                     addWallet(req, resp);
@@ -88,11 +97,22 @@ public class WalletServlet extends HttpServlet {
         }
     }
 
+    private void Delete(HttpServletRequest req, HttpServletResponse resp) throws SQLException, ClassNotFoundException, ServletException, IOException {
+        int idWallet = Integer.parseInt(req.getParameter("idWallet"));
+        iWalletDAO.deleteWallet(idWallet);
+        req.getRequestDispatcher("user/listHome.jsp").forward(req, resp);
+        showWallet(req,resp);
+
+    }
+
     private void showWallet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException, SQLException, ClassNotFoundException {
         int id = Integer.parseInt(req.getParameter("id"));
         String username = req.getParameter("username");
         String password = req.getParameter("password");
         Wallet wallet = iWalletDAO.checkID(id);
+        Wallet wallet1=new Wallet(id);
+        HttpSession httpSession= req.getSession();
+        httpSession.setAttribute("wallet1",wallet1);
         req.setAttribute("wallet", wallet);
         List<Wallet> listWallet = iWalletDAO.showAllWallet(username, password);
         req.setAttribute("list", listWallet);
@@ -109,7 +129,7 @@ public class WalletServlet extends HttpServlet {
         req.setAttribute("listWalletUpdate", wallet);
         HttpSession session = req.getSession();
         session.setAttribute("user", list.get(0));
-        req.getRequestDispatcher("Wallet/updateWallet.jsp").forward(req, resp);
+        req.getRequestDispatcher("wallet/updateWallet.jsp").forward(req, resp);
     }
 
     private void updateWallet(HttpServletRequest request, HttpServletResponse response) throws SQLException, ClassNotFoundException, ServletException, IOException {

@@ -95,8 +95,6 @@ break;
                     throw new RuntimeException(e);
                 }
                 break;
-
-
             case "login":
                 try {
                     loginUSer(req, resp);
@@ -127,8 +125,6 @@ break;
                 }
         }
     }
-
-
     @Override
     public void destroy() {
         super.destroy();

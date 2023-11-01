@@ -18,6 +18,28 @@
             padding: 0;
             background-image: url("/users/notepad-3316267_1280.jpg");
         }
+        .custom-table {
+            width: 100px; /* Đặt chiều rộng của bảng là 100% của phần tử chứa nó */
+            border-collapse: collapse; /* Để bỏ khoảng cách giữa các ô */
+            border: 2px solid #000; /* Đặt viền cho bảng */
+        }
+
+        /* Định nghĩa kiểu dáng cho ô th (header) trong bảng */
+        .custom-table th {
+            background-color: #f2f2f2; /* Màu nền cho ô th */
+            text-align: center; /* Căn giữa nội dung trong ô th */
+            padding: 10px; /* Khoảng cách giữa nội dung và viền của ô th */
+            overflow-wrap: break-word; /* Tự động xuống dòng khi không vừa */
+            white-space: normal;
+        }
+
+        /* Định nghĩa kiểu dáng cho ô td (dữ liệu) trong bảng */
+        .custom-table td {
+            text-align: center; /* Căn giữa nội dung trong ô td */
+            padding: 10px; /* Khoảng cách giữa nội dung và viền của ô td */
+            overflow-wrap: break-word; /* Tự động xuống dòng khi không vừa */
+            white-space: normal;
+        }
 
         .dropdown-content a {
             color: #333;
@@ -187,7 +209,7 @@
                                     </li>
                                 </c:forEach>
                                 <li><a class="dropdown-item"
-                                       href="/Wallet/formAddWallet.jsp?username=${sessionScope['user'].getUserName()}&password=${sessionScope['user'].getPassword()}&id=${sessionScope['user'].getId()}"
+                                       href="/wallet/formAddWallet.jsp?username=${sessionScope['user'].getUserName()}&password=${sessionScope['user'].getPassword()}&id=${sessionScope['user'].getId()}"
                                        style="text-align: center">+</a></li>
                             </ul>
                         </li>
@@ -228,49 +250,47 @@
 </div>
 
 <div class="container">
-    <div class="sidebar">
-        <h2 style="margin-left: 30%"> Chi tiêu </h2>
-        <div class="expense-button-container">
-            <a class="expense-button expense-button-plane" href="/user/updateProfiles.jsp">
-                <i class="fas fa-plane"></i>
-            </a>
-            <a class="expense-button expense-button-hotel" href="/user/updateProfiles.jsp">
-                <i class="fas fa-hotel"></i>
-            </a>
-            <a class="expense-button expense-button-camera" href="/user/updateProfiles.jsp">
-                <i class="fas fa-camera"></i>
-            </a>
-        </div>
-    </div>
-    <div class="container1" style="background-color: #e67e22">
-        <table border="1px ">
+    <div id="wallet" class="container1" style="display: none">
+        <table  class="custom-table"  bgcolor="red">
             <tr>
-                <td> ID</td>
-                <td> ICON</td>
-                <td> NAMEWALLET</td>
-                <td> MONEY</td>
-                <td> CURRENCY</td>
-                <td> DESCRIPTION</td>
+                <th>ID</th>
+                <th>${wallet.getIdWallet()}</th>
             </tr>
+
             <tr>
-                <td>${wallet.getIdWallet()}</td>
+                <td>ICON</td>
                 <td>${wallet.getIcon()}</td>
+            </tr>
+
+            <tr>
+                <td>NAMEWALLET</td>
                 <td>${wallet.getNameWallet()}</td>
+            </tr>
+
+            <tr>
+                <td>MONEY</td>
                 <td>${wallet.getMoney()}</td>
+            </tr>
+
+            <tr>
+                <td>CURRENCY</td>
                 <td>${wallet.getCurrency()}</td>
+            </tr>
+
+            <tr>
+                <td>DESCRIPTION</td>
                 <td>${wallet.getDescription()}</td>
             </tr>
+
         </table>
         <form action="/wallet?action=showWalletUpdate&idWallet=${wallet.getIdWallet()}&username=${sessionScope['user'].getUserName()}&password=${sessionScope['user'].getPassword()}"
               method="post">
             <input value="update" type="submit">
         </form>
-        <button value="">Xóa</button>
+        <a href="#"  id="Delete-link"><button>Xoa Vi</button></a>
     </div>
 </div>
-<div class="footer">
-    <p>Bản quyền &copy; 2023 Ứng dụng Quản lý Tài chính</p>
-</div>
+
 
 <div class="confirmation-dialog" id="confirmation-dialog-delete">
     <div class="confirmation-dialog-content">
@@ -280,7 +300,6 @@
         <button onclick="hideDialog('confirmation-dialog-delete')">Hủy</button>
     </div>
 </div>
-
 <div class="confirmation-dialog" id="confirmation-dialog-logout">
     <div class="confirmation-dialog-content">
         <h2 style="font-size: 20px">Xác nhận đăng xuất</h2>
@@ -293,7 +312,7 @@
 <script>
     function showDialog(dialogId) {
         const dialog = document.getElementById(dialogId);
-        dialog.style.display = 'block';
+        dialog.style.display ='block';
     }
 
     function hideDialog(dialogId) {
@@ -307,7 +326,6 @@
         switch (action) {
             case 'delete':
                 window.location.href = "/user?action=delete&id=${sessionScope['user'].getId()}";
-
                 break;
             case 'logout':
                 window.location.href = "/users/list.jsp";
@@ -316,6 +334,41 @@
                 break;
         }
     }
+</script>
+<script>
+    let id = ${wallet.getIdWallet()};
+    let walletDiv = document.getElementById('wallet');
+    if (id === null || id === undefined) {
+        walletDiv.style.display = 'none';
+    } else {
+        walletDiv.style.display = 'block';
+    }
+</script>
+<div class="confirmation-dialog" id="confirmation-deleteW">
+    <div class="confirmation-dialog-content">
+        <h2>Xác nhận xóa</h2>
+        <p>Bạn có muốn xóa ?</p>
+        <button id="confirm-De">Xóa</button>
+        <button id="cancel-De">Quay lại</button>
+    </div>
+</div>
+<script>
+    const DeleteLink = document.getElementById('Delete-link');
+    const confirmationDelete = document.getElementById('confirmation-deleteW');
+    const confirmDelete = document.getElementById('confirm-De');
+    const cancelDelete = document.getElementById('cancel-De');
+
+    DeleteLink.addEventListener('click', function (event) {
+        event.preventDefault();
+        confirmationDelete.style.display = 'block';
+    });
+    confirmDelete.addEventListener('click', function () {
+        confirmationDelete.style.display = 'none';
+        window.location.href = "/wallet?action=delete&idWallet=${wallet.getIdWallet()}";
+    });
+    cancelDelete.addEventListener('click', function () {
+        confirmationDelete.style.display = 'none';
+    });
 </script>
 </body>
 </html>

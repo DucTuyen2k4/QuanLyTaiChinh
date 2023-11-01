@@ -24,4 +24,5 @@ public interface IUserDAO {
 
     void updatePassword(int id, String password) throws SQLException, ClassNotFoundException;
 
+
 }
