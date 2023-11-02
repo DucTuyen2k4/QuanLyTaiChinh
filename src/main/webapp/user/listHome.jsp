@@ -303,7 +303,7 @@
     });
     confirmDelete.addEventListener('click', function () {
         confirmationDelete.style.display = 'none';
-        window.location.href = "/wallet?action=delete&idWallet=${wallet.getIdWallet()}";
+        window.location.href = "/wallet?action=delete&idWallet=${wallet.getIdWallet()}&username=${sessionScope['user'].getUserName()}&password=${sessionScope['user'].getPassword()}";
     });
     cancelDelete.addEventListener('click', function () {
         confirmationDelete.style.display = 'none';

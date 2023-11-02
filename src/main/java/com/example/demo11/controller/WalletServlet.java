@@ -173,7 +173,6 @@ public class WalletServlet extends HttpServlet {
     private void Delete(HttpServletRequest req, HttpServletResponse resp) throws SQLException, ClassNotFoundException, ServletException, IOException {
         String username = req.getParameter("username");
         String password = req.getParameter("password");
-        System.out.println(username+password);
         int idWallet = Integer.parseInt(req.getParameter("idWallet"));
         iWalletDAO.deleteWallet(idWallet);
         List<Wallet> listWallet = iWalletDAO.showAllWallet(username, password);

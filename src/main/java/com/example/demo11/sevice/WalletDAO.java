@@ -85,7 +85,6 @@ public class WalletDAO implements IWalletDAO {
             System.out.println(idWallet + money + description);
             list.add(new Wallet(idWallet, icon, nameWallet, money, currency, description));
         }
-
         return list;
     }
 
