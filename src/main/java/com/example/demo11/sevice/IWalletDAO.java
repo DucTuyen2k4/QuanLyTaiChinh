@@ -14,6 +14,7 @@ public interface IWalletDAO {
      void addWallet(Wallet wallet) throws SQLException, ClassNotFoundException;
      List<Wallet> showAllWallet(String username , String password) throws SQLException, ClassNotFoundException;
 
+
      Wallet selectId(String userWallet) throws SQLException, ClassNotFoundException;
      void addToUser_Wallet(int idUser ,int idWallet) throws SQLException, ClassNotFoundException;
     void updateWallet(Wallet wallet) throws SQLException, ClassNotFoundException;

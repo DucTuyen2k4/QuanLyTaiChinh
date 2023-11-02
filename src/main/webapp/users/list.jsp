@@ -8,6 +8,7 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
     <style>
         body {
+
             background-image: url("https://images.pexels.com/photos/3943727/pexels-photo-3943727.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1");
             background-size: cover;
             background-position: center;
@@ -93,25 +94,25 @@
     </div>
     <div class="content">
         <div class="content1">
-            <b><h1>Đăng nhập</h1></b>
+            <b><h1>Log in</h1></b>
         </div>
         <div class="content2" style="color: aliceblue">
             <form action="/user" method="post">
-                <p>Tên đăng nhâp :</p>
+                <p>Username :</p>
                 <input type="text" name="userName" placeholder="UserName" id="username"
                        style="border-radius: 10px 10px"><br><br>
-                <p>Mật khẩu :</p>
+                <p>Password :</p>
                 <input type="password" name="password" placeholder="Password" id="password"
                        style="border-radius: 10px 10px"><br><br>
                 <p style="margin-left: 180px ; color: red" >${message}</p>
-                <button name="action" value="login">Đăng nhập</button>
+                <button name="action" value="login">SIGN IN</button>
             </form>
 
         </div>
         <div class="content3" style="text-align: center">
            <br>
             <hr style="color: springgreen">
-            <b style="color: #7e8585"> Chưa có tài khoản<a href="/users/Register.jsp">ĐĂNG KÍ</a></b>
+            <b style="color: #7e8585"> No account ?    <a href="/users/Register.jsp">  SIGN UP</a></b>
         </div>
     </div>
     <div class="footer">

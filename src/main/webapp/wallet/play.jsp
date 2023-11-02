@@ -9,6 +9,7 @@
 <html>
 <head>
     <title>$Title$</title>
+
 </head>
 <body>
 <form action="/wallet?action=showWalletUpdate&id=1" method="post">

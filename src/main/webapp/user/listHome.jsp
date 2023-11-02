@@ -9,19 +9,22 @@
     <title>Bootstrap Example</title>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
     <script src="https://kit.fontawesome.com/9b0347940d.js" crossorigin="anonymous"></script>
-
+    <script src="https://kit.fontawesome.com/442033bc4b.js" crossorigin="anonymous"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
     <style>
         body {
+
             font-family: Arial, sans-serif;
             margin: 0;
             padding: 0;
             background-image: url("/users/notepad-3316267_1280.jpg");
         }
         .custom-table {
-            width: 100px; /* Đặt chiều rộng của bảng là 100% của phần tử chứa nó */
+            width: 100%; /* Đặt chiều rộng của bảng là 100% của phần tử chứa nó */
             border-collapse: collapse; /* Để bỏ khoảng cách giữa các ô */
             border: 2px solid #000; /* Đặt viền cho bảng */
+            white-space: nowrap; /* Ngăn văn bản tự động xuống dòng */
+            overflow-x: auto; /* Tạo thanh trượt ngang khi bảng tràn ra khỏi màn hình */
         }
 
         /* Định nghĩa kiểu dáng cho ô th (header) trong bảng */
@@ -31,6 +34,7 @@
             padding: 10px; /* Khoảng cách giữa nội dung và viền của ô th */
             overflow-wrap: break-word; /* Tự động xuống dòng khi không vừa */
             white-space: normal;
+            width: 20%;
         }
 
         /* Định nghĩa kiểu dáng cho ô td (dữ liệu) trong bảng */
@@ -39,6 +43,13 @@
             padding: 10px; /* Khoảng cách giữa nội dung và viền của ô td */
             overflow-wrap: break-word; /* Tự động xuống dòng khi không vừa */
             white-space: normal;
+            width: 20%;
+        }
+        .custom-table tr{
+            text-align: center; /* Căn giữa nội dung trong ô td */
+            padding: 10px; /* Khoảng cách giữa nội dung và viền của ô td */
+            white-space: normal; /* Bình thường - không giữ nguyên khoảng trắng */
+            word-wrap: break-word;
         }
 
         .dropdown-content a {
@@ -47,29 +58,6 @@
             display: block;
             padding: 5px 0;
         }
-
-
-        .container {
-            display: flex;
-            max-width: 1200px;
-            margin: 0 auto;
-        }
-
-        .sidebar {
-            flex: 0 0 250px;
-            background-color: #f2f2f2;
-            width: 100%;
-            height: 550px;
-            margin-left: 150px;
-        }
-
-        .footer {
-            background-color: #1d1e1c;
-            color: #fff;
-            padding: 20px;
-            text-align: center;
-        }
-
 
         .confirmation-dialog {
             display: none;
@@ -106,46 +94,6 @@
         }
 
 
-        .expense-button-container {
-            display: flex;
-            justify-content: center;
-            flex-wrap: wrap;
-        }
-
-        .expense-button {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            width: 60px;
-            height: 60px;
-            border-radius: 50%;
-            color: #fff;
-            font-size: 24px;
-            border: none;
-            cursor: pointer;
-            transition: background-color 0.3s ease;
-            margin-right: 10px;
-            margin-bottom: 10px;
-        }
-
-
-        .expense-button:hover {
-            opacity: 0.8;
-        }
-
-        .expense-button-plane {
-            background-color: #3498db;
-        }
-
-        .expense-button-hotel {
-            background-color: #e67e22;
-        }
-
-
-        .expense-button-camera {
-            background-color: #27ae60;
-        }
-
         .header {
             width: 100%;
             height: 80px;
@@ -155,14 +103,6 @@
         }
 
 
-        .footer {
-            border: 1px solid #318a18;
-            text-align: center;
-            height: 80px;
-            color: black;
-            background-color: white;
-            padding: 20px 0 20px;
-        }
 
         .head-link {
             color: #e67e22;
@@ -200,7 +140,7 @@
                         <li class="nav-item dropdown">
                             <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
                                aria-expanded="false">
-                                Ví
+                                Wallet
                             </a>
                             <ul class="dropdown-menu dropdown-menu-dark">
                                 <c:forEach var="list" items="${list}">
@@ -230,15 +170,14 @@
                             </li>
                             <li class="nav-item">
                                 <a class="nav-link active" aria-current="page"
-                                   href="/user?action=update&id=${sessionScope['user'].getId()}"> Câp nhật thông
-                                    tin </a>
+                                   href="/user?action=update&id=${sessionScope['user'].getId()}"> Update profile</a>
                             </li>
                             <li class="nav-item">
                                 <a class="nav-link active" aria-current="page" href="#"
-                                   onclick="showDialog('confirmation-dialog-delete')">Xóa tài khoản</a></li>
+                                   onclick="showDialog('confirmation-dialog-delete')">Delete the account</a></li>
                             <li class="nav-item">
                                 <a class="nav-link active" aria-current="page" href="#"
-                                   onclick="showDialog('confirmation-dialog-logout')">Đăng xuất</a>
+                                   onclick="showDialog('confirmation-dialog-logout')">Log out</a>
                             </li>
                         </ul>
                     </div>
@@ -287,25 +226,25 @@
               method="post">
             <input value="update" type="submit">
         </form>
-        <a href="#"  id="Delete-link"><button>Xoa Vi</button></a>
+        <a href="#"  id="Delete-link"><button>delete wallet</button></a>
     </div>
 </div>
 
 
 <div class="confirmation-dialog" id="confirmation-dialog-delete">
     <div class="confirmation-dialog-content">
-        <h2 style="font-size: 20px">Xác nhận xóa tài khoản</h2>
-        <p>Bạn có chắc chắn muốn xóa tài khoản?</p>
-        <button onclick="confirmAction('delete')">Đồng ý</button>
-        <button onclick="hideDialog('confirmation-dialog-delete')">Hủy</button>
+        <h2 style="font-size: 20px">Confirm account deletion</h2>
+        <p>Are you sure you want to delete your account?</p>
+        <button onclick="confirmAction('delete')">Yes</button>
+        <button onclick="hideDialog('confirmation-dialog-delete')">Cancel</button>
     </div>
 </div>
 <div class="confirmation-dialog" id="confirmation-dialog-logout">
     <div class="confirmation-dialog-content">
-        <h2 style="font-size: 20px">Xác nhận đăng xuất</h2>
-        <p>Bạn có chắc chắn muốn đăng xuất?</p>
-        <button onclick="confirmAction('logout')">Đồng ý</button>
-        <button onclick="hideDialog('confirmation-dialog-logout')">Hủy</button>
+        <h2 style="font-size: 20px">Confirm logout</h2>
+        <p>Are you sure you want to sign out?</p>
+        <button onclick="confirmAction('logout')">Yes</button>
+        <button onclick="hideDialog('confirmation-dialog-logout')">Cancel</button>
     </div>
 </div>
 
@@ -321,7 +260,7 @@
     }
 
     function confirmAction(action) {
-        console.log(action + " thành công");
+        console.log(action + " success");
         hideDialog('confirmation-dialog-' + action);
         switch (action) {
             case 'delete':
@@ -346,10 +285,10 @@
 </script>
 <div class="confirmation-dialog" id="confirmation-deleteW">
     <div class="confirmation-dialog-content">
-        <h2>Xác nhận xóa</h2>
-        <p>Bạn có muốn xóa ?</p>
-        <button id="confirm-De">Xóa</button>
-        <button id="cancel-De">Quay lại</button>
+        <h2>Confirm deletion</h2>
+        <p>Do you want to delete ?</p>
+        <button id="confirm-De">Yes</button>
+        <button id="cancel-De">Cancel</button>
     </div>
 </div>
 <script>

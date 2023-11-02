@@ -51,8 +51,10 @@
             </div>
             <div class="form-group">
                 <label >Money</label>
-                <input name="money" type="text" class="form-control" value="${wallet.getMoney()}">
+                <input name="money" type="text" class="form-control" value="${wallet.getMoney()}"
+                       oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');">
             </div>
+
             <div class="form-group">
                 <label >Currency</label>
                 <select name="currency" class="form-control">

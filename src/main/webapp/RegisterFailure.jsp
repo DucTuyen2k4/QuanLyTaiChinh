@@ -12,9 +12,10 @@
 </head>
 
 
+
 <body>
 <body>
-<h1>Đăng Ký Thất Bại</h1>
+<h1>Registration failed</h1>
 <form method="get" action="user?action=Login">
     <div>
         <input type="submit" value="Đăng nhập">

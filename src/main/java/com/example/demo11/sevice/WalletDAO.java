@@ -20,6 +20,7 @@ public class WalletDAO implements IWalletDAO {
     private static final String CHECK_ID = "select*from Wallet where idWallet like ?";
     private static final String INSERT_WALLET = "insert into Wallet(icon,nameWallet,money,currency,description) values (?,?,?,?,?)";
     private static final String SELECT_ID_WALLET = "select idWallet from Wallet where nameWallet = ? ";
+
     private static final String INSERT_USER_WALLET = "insert into users_wallet (idUser,idWallet)values (?,?)";
     private static final String UPDATE_WALLET = "update Wallet set icon = ?,nameWallet=?,money=?,currency=?,description=? where idWallet=? ";
     private static final String SHOW_WALLET = "select * from Wallet where idWallet=? ";

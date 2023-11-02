@@ -11,6 +11,7 @@ public interface IUserDAO {
     List<User> selectProfileUser(int idUser) throws SQLException, ClassNotFoundException;
 
 
+
     void updateProfileUser(int idUser, String fullNameUser, String gender, String birthdate, int phoneNumberUser, String imageUser) throws SQLException, ClassNotFoundException;
 
 

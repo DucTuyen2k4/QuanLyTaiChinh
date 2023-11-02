@@ -7,6 +7,7 @@
     <title>Quản Lý Tài Chính Đăng Ký</title>
     <style>
         body {
+
             background-image: url('https://images.pexels.com/photos/3943727/pexels-photo-3943727.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1');
             background-size: cover;
             font-family: Arial, sans-serif;
@@ -92,41 +93,41 @@
 <body>
 <div class="container">
 
-    <h1>Đăng ký</h1>
+    <h1>Register</h1>
     <form method="post" action="/user?action=addUser">
-        <label for="image">Ảnh :</label>
-        <input type="text" name="image" id="image" required pattern=".*\.(jpg|png|gif)" value="${param.image}" title="Chỉ được nhập đường dẫn ảnh với đuôi .jpg, .png, hoặc .gif">
-        <label for="userName">Tên đăng nhập:</label>
+        <label for="image">Avatar :</label>
+        <input type="text" name="image" id="image" required pattern=".*\.(jpg|png|gif)" value="${param.image}" title="Only enter image paths with the extension .jpg, .png, or .gif">
+        <label for="userName">Username:</label>
         <p style="color: red;font-size: 10px;">${messageFailureUserName}</p>
         <input type="text" name="userName" id="userName" value="${param.userName}" required>
-        <label for="password">Mật khẩu (6-8 ký tự):</label>
+        <label for="password">Password (6-8 characters):</label>
         <input type="password" id="password" name="password" value="${param.password}" minlength="6" maxlength="8" required>
 
-        <label for="confirmPassword">Xác nhận mật khẩu:</label>
+        <label for="confirmPassword">Confirm password:</label>
         <p style="color: red;font-size: 10px;">${messageFailurePassword}</p>
         <input type="password" name="confirmPassword" id="confirmPassword" minlength="6" maxlength="8" value="${param.confirmPassword}" required>
-        <label for="fullName">Họ và tên:</label>
+        <label for="fullName">Full Name:</label>
         <input type="text" name="fullName" id="fullName" value="${param.fullName}" required>
-        <label for="phoneNumber">Số điện thoại (10 số):</label>
+        <label for="phoneNumber">PhoneNumber(Only enter 10 numbers):</label>
         <p style="color: red;font-size: 10px;">${messageFailurePhoneNumber}</p>
         <input type="text" name="phoneNumber" id="phoneNumber" required pattern="[0-9]{10}" value="${param.phoneNumber}" title="${messageFailurePhoneNumber}">
         <label >email:</label>
         <input type="text" name="email" value="${param.email}" pattern="[^@\s]+@gmail\.com" title="Vui lòng nhập địa chỉ email có định dạng @gmail.com" required>
 
-        <label for="gender" >Giới tính: </label>
+        <label for="gender" >Gender: </label>
         <select name="gender" id="gender" style="width: 400px">
-            <option value="Male">Nam</option>
-            <option value="Female">Nữ</option>
-            <option value="Other">Khác</option>
+            <option value="Male">Male</option>
+            <option value="Female">Female</option>
+            <option value="Other">Other</option>
         </select>
 
-        <label for="birthdate">Ngày tháng năm sinh:</label>
+        <label for="birthdate">Birthdate:</label>
         <p style="color: red;font-size: 10px;">${messageFailureBirthdate}</p>
         <input type="date" name="birthdate" id="birthdate" value="${param.birthdate}" required>
 
         <div  style="display: flex; justify-content: space-between;margin-top: 40px">
-            <input type="submit" value="Đăng ký" style=" width: 165px">
-            <a href="/users/list.jsp" class="login">Đăng nhập</a>
+            <input type="submit" value="SIGN UP" style=" width: 165px">
+            <a href="/users/list.jsp" class="login">SIGN IN</a>
         </div>
 
     </form>

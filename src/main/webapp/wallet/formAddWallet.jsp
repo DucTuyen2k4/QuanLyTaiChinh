@@ -1,7 +1,7 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
-    <title>Thêm mới ví</title>
+    <title>Add a new wallet</title>
 
     <!-- Bao gồm Bootstrap 5 CSS -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css">
@@ -54,7 +54,7 @@
 <%--            <li><i class="fas fa-poo"></i></li>--%>
 <%--        </ul>--%>
         <div class="setting">
-            <h2>Thêm mới một ví</h2>
+            <h2>Add a new wallet</h2>
             <div class="form-group">
                 <label >Icon</label>
                 <input type="text" name="icon" class="form-control">
@@ -65,8 +65,10 @@
             </div>
             <div class="form-group">
                 <label >Money</label>
-                <input type="number" name="money" class="form-control">
+                <input name="money" type="text" class="form-control" value="${wallet.getMoney()}"
+                       oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');">
             </div>
+
             <div class="form-group">
                 <label >Currency</label>
                 <select name="currency" class="form-control">
@@ -82,7 +84,7 @@
             <input type="hidden" name="id" value="${sessionScope['user'].getId()}"/>
             <input type="hidden" name="username" value="${sessionScope['user'].getUserName()}"/>
             <input type="hidden" name="password" value="${sessionScope['user'].getPassword()}"/>
-            <button name="action" value="addWallet" class="btn btn-primary">Xác nhận</button>
+            <button name="action" value="addWallet" class="btn btn-primary">Confirm</button>
         </div>
     </form>
 </div>

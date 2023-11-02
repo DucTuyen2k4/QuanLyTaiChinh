@@ -18,6 +18,7 @@ public class Wallet {
         this.description = description;
     }
 
+
     public Wallet(String icon, String nameWallet, Double money, String currency, String description) {
         this.icon = icon;
         this.nameWallet = nameWallet ;

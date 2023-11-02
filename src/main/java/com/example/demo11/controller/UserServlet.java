@@ -94,6 +94,7 @@ break;
                 } catch (ClassNotFoundException e) {
                     throw new RuntimeException(e);
                 }
+
                 break;
             case "login":
                 try {

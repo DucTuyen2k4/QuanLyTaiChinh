@@ -97,13 +97,7 @@ public class WalletServlet extends HttpServlet {
         }
     }
 
-    private void Delete(HttpServletRequest req, HttpServletResponse resp) throws SQLException, ClassNotFoundException, ServletException, IOException {
-        int idWallet = Integer.parseInt(req.getParameter("idWallet"));
-        iWalletDAO.deleteWallet(idWallet);
-        req.getRequestDispatcher("user/listHome.jsp").forward(req, resp);
-        showWallet(req,resp);
 
-    }
 
     private void showWallet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException, SQLException, ClassNotFoundException {
         int id = Integer.parseInt(req.getParameter("id"));
@@ -124,7 +118,6 @@ public class WalletServlet extends HttpServlet {
         String username = req.getParameter("username");
         String password = req.getParameter("password");
         List<User> list = iUserDAO.show(username, password);
-
         List<Wallet> wallet = iWalletDAO.showWallet(idWallet);
         req.setAttribute("listWalletUpdate", wallet);
         HttpSession session = req.getSession();
@@ -135,21 +128,20 @@ public class WalletServlet extends HttpServlet {
     private void updateWallet(HttpServletRequest request, HttpServletResponse response) throws SQLException, ClassNotFoundException, ServletException, IOException {
         String username = request.getParameter("username");
         String password = request.getParameter("password");
-
         int idWallet = Integer.parseInt(request.getParameter("idWallet"));
         String nameWallet = request.getParameter("nameWallet");
         String icon = request.getParameter("icon");
         Double money = Double.valueOf(request.getParameter("money"));
-        String description = request.getParameter("description");
         String currency = request.getParameter("currency");
-        System.out.println(idWallet + nameWallet + icon + money + description + currency);
+        String description = request.getParameter("description");
+//        System.out.println(idWallet + nameWallet + icon + money + description + currency);
         iWalletDAO.updateWallet(new Wallet(idWallet, icon, nameWallet, money, currency, description));
 
         List<Wallet> listWallet = iWalletDAO.showAllWallet(username, password);
         request.setAttribute("list", listWallet);
 
 
-        Wallet wallet = new Wallet(idWallet, nameWallet, icon, money, description, currency);
+        Wallet wallet = new Wallet(idWallet, nameWallet, icon, money, currency, description);
         request.setAttribute("wallet", wallet);
 
 
@@ -159,9 +151,7 @@ public class WalletServlet extends HttpServlet {
     private void addWallet(HttpServletRequest req, HttpServletResponse resp) throws SQLException, ClassNotFoundException, ServletException, IOException {
         int idUser = Integer.parseInt(req.getParameter("id"));
         System.out.println(idUser);
-        String username = req.getParameter("username");
-        System.out.println(username);
-        String password = req.getParameter("password");
+
         String icon = req.getParameter("icon");
         String nameWallet = req.getParameter("nameWallet");
         Double money = Double.valueOf(req.getParameter("money"));
@@ -173,7 +163,19 @@ public class WalletServlet extends HttpServlet {
         int idWallet = wallet1.getIdWallet();
         System.out.println(idWallet);
         iWalletDAO.addToUser_Wallet(idUser, idWallet);
-
+        String username = req.getParameter("username");
+        String password = req.getParameter("password");
+        //show ra tất cả USerName của ví
+        List<Wallet> listWallet = iWalletDAO.showAllWallet(username, password);
+        req.setAttribute("list", listWallet);
+        req.getRequestDispatcher("user/listHome.jsp").forward(req, resp);
+    }
+    private void Delete(HttpServletRequest req, HttpServletResponse resp) throws SQLException, ClassNotFoundException, ServletException, IOException {
+        String username = req.getParameter("username");
+        String password = req.getParameter("password");
+        System.out.println(username+password);
+        int idWallet = Integer.parseInt(req.getParameter("idWallet"));
+        iWalletDAO.deleteWallet(idWallet);
         List<Wallet> listWallet = iWalletDAO.showAllWallet(username, password);
         req.setAttribute("list", listWallet);
         req.getRequestDispatcher("user/listHome.jsp").forward(req, resp);

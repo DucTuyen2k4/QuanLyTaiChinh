@@ -1,7 +1,7 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
-    <title>Đăng Ký Thành Công</title>
+    <title>Sign Up Success</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -12,6 +12,7 @@
         h1 {
             color: #333;
         }
+
 
         form {
             margin: 20px;
@@ -37,10 +38,10 @@
     </style>
 </head>
 <body>
-<h1>Đăng Ký Thành Công</h1>
+<h1>Sign Up Success</h1>
 <form>
     <div>
-        <a href="/users/list.jsp" style="text-decoration: none; text-transform: uppercase;">Đăng nhập</a>
+        <a href="/users/list.jsp" style="text-decoration: none; text-transform: uppercase;">Login</a>
     </div>
 </form>
 </body>
