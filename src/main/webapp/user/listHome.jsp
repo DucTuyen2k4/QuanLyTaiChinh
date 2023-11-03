@@ -192,6 +192,10 @@
                             </ul>
                         </li>
                     </ul>
+                    <c:forEach var="listCategory" items="${listCategory}">
+                        <p>${listCategory.nameCategory}</p>
+                    </c:forEach>
+                    <a href="/category/formAddCategory.jsp?username=${sessionScope['user'].getUserName()}&password=${sessionScope['user'].getPassword()}&id=${sessionScope['user'].getId()}">them danh muc </a>
                 </div>
 
                 <div class="offcanvas offcanvas-end text-bg-dark" tabindex="-1" id="offcanvasDarkNavbar"

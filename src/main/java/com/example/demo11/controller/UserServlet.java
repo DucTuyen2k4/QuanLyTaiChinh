@@ -1,7 +1,10 @@
 package com.example.demo11.controller;
 
+import com.example.demo11.model.Category;
 import com.example.demo11.model.User;
 import com.example.demo11.model.Wallet;
+import com.example.demo11.sevice.CategoryDAO;
+import com.example.demo11.sevice.ICategoryDAO;
 import com.example.demo11.sevice.UserDAO;
 import com.example.demo11.sevice.WalletDAO;
 import com.mysql.cj.xdevapi.Session;
@@ -29,12 +32,17 @@ public class UserServlet extends HttpServlet {
     public static UserDAO userDAO;
     public static WalletDAO walletDAO;
 
+    private ICategoryDAO iCategoryDAO;
+
 
     @Override
     public void init() throws ServletException {
         userDAO = new UserDAO();
 
-        walletDAO=new WalletDAO();
+        walletDAO = new WalletDAO();
+
+        iCategoryDAO = new CategoryDAO();
+
 
     }
 
@@ -71,7 +79,7 @@ public class UserServlet extends HttpServlet {
                 break;
             case "logoutHome":
                 logoutHome(req, resp);
-break;
+                break;
             default:
                 break;
         }
@@ -170,12 +178,17 @@ break;
                 HttpSession session = req.getSession();
                 session.setAttribute("user", list.get(0));
 
+                List<Category> categoryList = iCategoryDAO.selectCategory(userName,password);
+                req.setAttribute("listCategory",categoryList);
+
                 req.getRequestDispatcher("user/listHome.jsp").forward(req, resp);
             } else {
                 req.setAttribute("message", "Tài khoản không tồn tại!");
                 req.getRequestDispatcher("users/list.jsp").forward(req, resp);
             }
         } catch (ServletException e) {
+            throw new RuntimeException(e);
+        } catch (ClassNotFoundException e) {
             throw new RuntimeException(e);
         }
     }
