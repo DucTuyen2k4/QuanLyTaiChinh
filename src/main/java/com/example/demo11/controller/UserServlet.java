@@ -142,13 +142,6 @@ break;
     }
 
 
-//    private void showWallet(HttpServletRequest req, HttpServletResponse resp) {
-//        List<Wallet> walletList = walletDAO.listWalletHome();
-//        req.setAttribute("walletList", walletList);
-//        req.getRequestDispatcher("user/listHome.jsp");
-//    }
-
-
     public void DeleteUsers(HttpServletRequest req, HttpServletResponse resp) throws SQLException, ClassNotFoundException, IOException, ServletException {
         int id = Integer.parseInt(req.getParameter("id"));
         userDAO.DeleteUser(id);
@@ -170,7 +163,7 @@ break;
                 HttpSession session = req.getSession();
                 session.setAttribute("user", list.get(0));
 
-                req.getRequestDispatcher("user/listHome.jsp").forward(req, resp);
+                req.getRequestDispatcher("test.jsp").forward(req, resp);
             } else {
                 req.setAttribute("message", "Tài khoản không tồn tại!");
                 req.getRequestDispatcher("users/list.jsp").forward(req, resp);
@@ -191,14 +184,14 @@ break;
         List<User> list = userDAO.selectProfileUser(id);
         HttpSession session = req.getSession();
         session.setAttribute("user", list.get(0));
-        req.getRequestDispatcher("user/listHome.jsp").forward(req, resp);
+        req.getRequestDispatcher("test.jsp").forward(req, resp);
     }
 
     private void showFormUpdate(HttpServletRequest req, HttpServletResponse resp) throws SQLException, ClassNotFoundException, ServletException, IOException {
         int id = Integer.parseInt(req.getParameter("id"));
         List<User> list = userDAO.selectProfileUser(id);
         req.setAttribute("list", list);
-        req.getRequestDispatcher("user/updateProfile.jsp").forward(req, resp);
+        req.getRequestDispatcher("test.jsp").forward(req, resp);
     }
 
     private void confirmPassword(HttpServletRequest req, HttpServletResponse resp) throws SQLException, ClassNotFoundException, ServletException, IOException {

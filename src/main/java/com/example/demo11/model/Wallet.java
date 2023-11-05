@@ -8,8 +8,17 @@ public class Wallet {
     private String currency;
     private String description ;
 
+    private boolean locked;
 
-    public Wallet(int idWallet ,String icon, String nameWallet, Double money, String currency, String description) {
+    public boolean isLocked() {
+        return locked;
+    }
+
+    public void setLocked(boolean locked) {
+        this.locked = locked;
+    }
+
+    public Wallet(int idWallet , String icon, String nameWallet, Double money, String currency, String description) {
         this.idWallet = idWallet;
         this.icon = icon;
         this.nameWallet = nameWallet ;

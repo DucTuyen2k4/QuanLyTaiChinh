@@ -120,3 +120,4 @@
 </div>
 </body>
 </html>
+<%--code lại giao diện như trong hình hảnh trên bằng html--%>

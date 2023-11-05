@@ -15,14 +15,14 @@ import java.util.List;
 
 public class WalletDAO implements IWalletDAO {
 
-    private static final String SELECT_ALL_WALLET = "select wallet.idWallet,wallet.nameWallet, wallet.icon,wallet.money,wallet.currency,wallet.description from wallet inner join users_wallet on Wallet.idWallet = users_wallet.idWallet inner join users on users_wallet.idUser=users.id where userName = ? and password = ?";
-    private static final String SELECT_ALL_WALLET_HOME = "select*from wallet";
-    private static final String CHECK_ID = "select*from wallet where idWallet like ?";
-    private static final String INSERT_WALLET = "insert into wallet(icon,nameWallet,money,currency,description) values (?,?,?,?,?)";
+    private static final String SELECT_ALL_WALLET = "select Wallet.idWallet,Wallet.nameWallet, Wallet.icon,Wallet.money,Wallet.currency,Wallet.description from Wallet inner join user_wallets on Wallet.idWallet = user_wallets.idWallet inner join users on user_wallets.idUser=users.id where username = ? and password = ?";
+    private static final String SELECT_ALL_WALLET_HOME = "select*from Wallet";
+    private static final String CHECK_ID = "select*from Wallet where idWallet like ?";
+    private static final String INSERT_WALLET = "insert into Wallet(icon,nameWallet,money,currency,description) values (?,?,?,?,?)";
     private static final String SELECT_ID_WALLET = "select idWallet from Wallet where nameWallet = ? ";
-    private static final String INSERT_USER_WALLET = "insert into users_wallet (idUser,idWallet)values (?,?)";
-    private static final String UPDATE_WALLET = "update wallet set icon = ?,nameWallet=?,money=?,currency=?,description=? where idWallet=? ";
-    private static final String SHOW_WALLET = "select * from wallet where idWallet=? ";
+    private static final String INSERT_USER_WALLET = "insert into user_wallets (idUser,idWallet)values (?,?)";
+    private static final String UPDATE_WALLET = "update Wallet set icon = ?,nameWallet=?,money=?,currency=?,description=? where idWallet=? ";
+    private static final String SHOW_WALLET = "select * from Wallet where idWallet=? ";
 
 
     @Override

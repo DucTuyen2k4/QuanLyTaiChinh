@@ -6,7 +6,7 @@
     <title>Ứng dụng Quản lý Tài chính</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://getbootstrap.com/docs/5.3/assets/css/docs.css" rel="stylesheet">
-    <title>Bootstrap Example</title>
+
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
     <script src="https://kit.fontawesome.com/9b0347940d.js" crossorigin="anonymous"></script>
 
@@ -159,7 +159,9 @@
             width: 100%;
             height: 100%;
         }
-
+    ul,li{
+        color: white;
+    }
     </style>
 </head>
 <body>
@@ -186,7 +188,7 @@
                                     </li>
                                 </c:forEach>
                                 <li><a class="dropdown-item"
-                                       href="/Wallet/formAddWallet.jsp?username=${sessionScope['user'].getUserName()}&password=${sessionScope['user'].getPassword()}&id=${sessionScope['user'].getId()}"
+                                       href="/wallet/formAddWallet.jsp?username=${sessionScope['user'].getUserName()}&password=${sessionScope['user'].getPassword()}&id=${sessionScope['user'].getId()}"
                                        style="text-align: center">+</a></li>
                             </ul>
                         </li>
@@ -248,15 +250,20 @@
         <p>${wallet.getMoney()}</p>
         <p>${wallet.getCurrency()}</p>
         <p>${wallet.getDescription()}</p>
-        <a class="dropdown-item"
-           href="/Wallet/updateWallet.jsp?idWallet=${wallet.getIdWallet()}&icon=${wallet.getIcon()}&nameWallet=${wallet.getNameWallet()}&money=${wallet.getMoney()}&currency=${wallet.getCurrency()}&description=${wallet.getDescription()}&username=${sessionScope['user'].getUserName()}&password=${sessionScope['user'].getPassword()}">sua</a>
-        idWallet=${wallet.getIdWallet()}
-        <button value="">Xóa</button>
-
+        <%-- Check if wallet is locked and it is Wallet 1 --%>
+        <c:if test="${isLocked && wallet.idWallet == 1}">
+            Locked
+        </c:if>
+        <c:if test="${!isLocked || wallet.idWallet != 1}">
+            <a class="dropdown-item"
+               href="/wallet/updateWallet.jsp?idWallet=${wallet.getIdWallet()}&icon=${wallet.getIcon()}&nameWallet=${wallet.getNameWallet()}&money=${wallet.getMoney()}&currency=${wallet.getCurrency()}&description=${wallet.getDescription()}&username=${sessionScope['user'].getUserName()}&password=${sessionScope['user'].getPassword()}">Edit</a>
+            <a href="wallet?action=deleteWallet&idWallet=${wallet.idWallet}">Delete</a>
+        </c:if>
+<button><a href="wallet?action=storageWallet&idWallet=${wallet.idWallet}&username=${sessionScope['user'].getUserName()}&password=${sessionScope['user'].getPassword()}">luu tru</a></button>
     </div>
 </div>
 <div class="footer">
-    <p>Bản quyền &copy; 2023 Ứng dụng Quản lý Tài chính</p>
+
 </div>
 
 <div class="confirmation-dialog" id="confirmation-dialog-delete">
@@ -284,7 +291,8 @@
     }
 
     function hideDialog(dialogId) {
-        const dialog = document.getElementById(dialogId);
+        const elementById = document.getElementById(dialogId);
+        const dialog = elementById;
         dialog.style.display = 'none';
     }
 
