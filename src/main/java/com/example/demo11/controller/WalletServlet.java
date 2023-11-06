@@ -65,7 +65,7 @@ public class WalletServlet extends HttpServlet {
         List<Wallet> listWallet = iWalletDAO.showAllWallet(username, password);
         req.setAttribute("list", listWallet);
 
-        req.getRequestDispatcher("demo.jsp").forward(req, resp);
+        req.getRequestDispatcher("WalletHome.jsp").forward(req, resp);
     }
 
     @Override
@@ -134,7 +134,7 @@ public class WalletServlet extends HttpServlet {
 
         List<Wallet> listWallet = iWalletDAO.showAllWallet(username, password);
         request.setAttribute("list", listWallet);
-        request.getRequestDispatcher("test.jsp").forward(request, response);
+        request.getRequestDispatcher("ListHome.jsp").forward(request, response);
     }
 
     private void addWallet(HttpServletRequest req, HttpServletResponse resp) throws SQLException, ClassNotFoundException, ServletException, IOException {
@@ -164,6 +164,6 @@ public class WalletServlet extends HttpServlet {
 
         List<Wallet> listWallet = iWalletDAO.showAllWallet(username, password);
         req.setAttribute("list", listWallet);
-        req.getRequestDispatcher("test.jsp").forward(req, resp);
+        req.getRequestDispatcher("ListHome.jsp").forward(req, resp);
     }
 }

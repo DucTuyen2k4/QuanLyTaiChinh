@@ -228,9 +228,11 @@
     .confirmation-dialog-content button {
         margin-right: 10px;
     }
+
     button.navbar-toggler:focus {
         outline: none;
     }
+
     .red-square {
         position: absolute;
         width: 155px;
@@ -239,12 +241,23 @@
         z-index: 2; /* Ensure it's above other elements */
 
     }
+
+    .square-100x100 {
+        position: absolute;
+        width: 700px;
+        height: 450px;
+        background-color: #f8f6f6; /* Màu nền của hình vuông */
+        top: 120px; /* Lùi xuống dưới 30px từ phía trên */
+        left: 50%; /* Đặt vị trí theo giữa chiều ngang */
+        transform: translateX(-50%); /* Dịch chuyển lùi 50% chiều rộng để căn giữa */
+    }
 </style>
 <body>
 <header>
     <div class="square"></div>
     <div class="red-square">
-        <img src="https://i.pinimg.com/564x/81/93/33/819333bd2b8d3284385017549dafc84e.jpg" alt="Logo" width="155" height="90">
+        <img src="https://i.pinimg.com/564x/81/93/33/819333bd2b8d3284385017549dafc84e.jpg" alt="Logo" width="155"
+             height="90">
     </div>
     <div class="circle" style="right: 100px">
         <div class="settings-button" style="margin-top: -30px ">
@@ -254,7 +267,8 @@
                         <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas"
                                 data-bs-target="#offcanvasDarkNavbar" aria-controls="offcanvasDarkNavbar"
                                 aria-label="Toggle navigation" style="border: none;">
-                            <img src="https://antimatter.vn/wp-content/uploads/2022/10/hinh-anh-gai-xinh-de-thuong.jpg" alt="Settings" style="width: 80px; height: 80px; border-radius: 50%;">
+                            <img src="https://antimatter.vn/wp-content/uploads/2022/10/hinh-anh-gai-xinh-de-thuong.jpg"
+                                 alt="Settings" style="width: 80px; height: 80px; border-radius: 50%;">
                         </button>
 
                         <div class="offcanvas offcanvas-end text-bg-dark" id="offcanvasDarkNavbar"
@@ -291,12 +305,12 @@
 
     </div>
     <div class="rectangles">
-        <a style="color: #1d1e1c; font-size: 20px;  margin-left: 90px; width: 100%;">Hi.Name</a>
+        <a style="color: #1d1e1c; font-size: 20px;  margin-left: 90px; width: 100%;">Hi.${sessionScope['user'].getFullName()}</a>
     </div>
     <div class="rectangles-bottom">
         <ul>
             <li>
-                <a href="test.jsp">Home</a>
+                <a href="listHome.jsp">Home</a>
 
             </li>
             <div class="dropdown">
@@ -318,13 +332,15 @@
             <div class="dropdown">
                 <li><a href="#">Categories</a>
                     <ul class="dropdown-menu dropdown-menu-dark">
-                        <li><a class="dropdown-item" style=" padding: 10px;" href="#"><span style="color: black;">Khoản thu</span></a>
+                        <li><a class="dropdown-item" style=" padding: 10px;" href="../Categories/revenue.jsp"><span
+                                style="color: black;">Khoản thu</span></a>
 
                         </li>
-                        <li><a class="dropdown-item" style=" padding: 10px;" href="#"> <span style="color: black;">Khoản chi</span></a>
+                        <li><a class="dropdown-item" style=" padding: 10px;" href="../Categories/revenue.jsp"> <span
+                                style="color: black;">Khoản chi</span></a>
                         </li>
 
-                        <li><a class="dropdown-item" style=" padding: 10px;" href="#"> <span
+                        <li><a class="dropdown-item" style=" padding: 10px;" href="../Categories/revenue.jsp"> <span
                                 style="color: black;">Mục</span></a>
                         </li>
 
@@ -347,6 +363,19 @@
     <div class="left-pane">
     </div>
     <div class="middle-pane">
+        <div class="square-100x100">
+            <a hidden="hidden"><p>${wallet.getIdWallet()}</p></a>
+            <p>Icon : ${wallet.getIcon()}</p><br>
+            <p>Tên Ví : ${wallet.getNameWallet()}</p><br>
+            <p>Số Tiền : ${wallet.getMoney()} ${wallet.getCurrency()}</p><br>
+            <p>Miêu Tả :${wallet.getDescription()}</p><br>
+            <button><a
+                    href="../wallet/updateWallet.jsp?idWallet=${wallet.getIdWallet()}&icon=${wallet.getIcon()}&nameWallet=${wallet.getNameWallet()}&money=${wallet.getMoney()}&currency=${wallet.getCurrency()}&description=${wallet.getDescription()}&username=${sessionScope['user'].getUserName()}&password=${sessionScope['user'].getPassword()}">Sửa</a>
+            </button>
+            <button><a href="../wallet?action=deleteWallet&idWallet=${wallet.idWallet}">Xóa</a></button>
+            <button><a href="">luu tru</a></button>
+        </div>
+    </div>
     </div>
     <div class="right-pane"></div>
 </main>
@@ -392,7 +421,7 @@
 
                 break;
             case 'logout':
-                window.location.href = "/users/list.jsp";
+                window.location.href = "../users/list.jsp";
                 break;
             default:
                 break;

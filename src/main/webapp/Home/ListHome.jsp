@@ -228,11 +228,9 @@
     .confirmation-dialog-content button {
         margin-right: 10px;
     }
-
     button.navbar-toggler:focus {
         outline: none;
     }
-
     .red-square {
         position: absolute;
         width: 155px;
@@ -241,52 +239,96 @@
         z-index: 2; /* Ensure it's above other elements */
 
     }
-
-    .rectangles-right {
-        position: absolute;
-        top: 9px;
-        right: 40px; /* Khoảng cách từ bên phải */
-    }
-
-    .btn-login, .btn-register {
-        background-color: #454546; /* Màu nền */
-        color: #fff; /* Màu chữ */
-        padding: 6px 10px; /* Kích thước nút */
-        text-decoration: none; /* Loại bỏ gạch chân cho liên kết */
-        border-radius: 5px; /* Bo tròn góc */
-    }
-
-    .btn-register {
-        background-color: #4f5050; /* Màu nền cho nút đăng kí */
-    }
 </style>
 <body>
 <header>
     <div class="square"></div>
     <div class="red-square">
-        <img src="https://i.pinimg.com/564x/81/93/33/819333bd2b8d3284385017549dafc84e.jpg" alt="Logo" width="155"
-             height="90">
+        <img src="https://i.pinimg.com/564x/81/93/33/819333bd2b8d3284385017549dafc84e.jpg" alt="Logo" width="155" height="90">
+    </div>
+    <div class="circle" style="right: 100px">
+        <div class="settings-button" style="margin-top: -30px ">
+            <div class="header p-3 m-0 border-0 bd-example m-0 border-0" style="">
+                <nav class="navbar" style="background-color: #819759">
+                    <div class="container-fluid">
+                        <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas"
+                                data-bs-target="#offcanvasDarkNavbar" aria-controls="offcanvasDarkNavbar"
+                                aria-label="Toggle navigation" style="border: none;">
+                            <img src="https://antimatter.vn/wp-content/uploads/2022/10/hinh-anh-gai-xinh-de-thuong.jpg" alt="Settings" style="width: 80px; height: 80px; border-radius: 50%;">
+                        </button>
+
+                        <div class="offcanvas offcanvas-end text-bg-dark" id="offcanvasDarkNavbar"
+                             aria-labelledby="offcanvasDarkNavbarLabel" style="width: 300px">
+                            <div class="offcanvas-header">
+                                <h5 class="offcanvas-title" id="offcanvasDarkNavbarLabel">Settings</h5>
+                                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="offcanvas"
+                                        aria-label="Close"></button>
+                            </div>
+                            <div class="offcanvas-body">
+                                <ul class="navbar-nav justify-content-end flex-grow-1 pe-3">
+
+                                    <li class="nav-item">
+                                        <a style="color: #ffffff" class="nav-link active" aria-current="page"
+                                           href="/user?action=update&id=${sessionScope['user'].getId()}"> Câp nhật
+                                            thông
+                                            tin </a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a style="color: #ffffff" class="nav-link active" aria-current="page" href="#"
+                                           onclick="showDialog('confirmation-dialog-delete')">Xóa tài khoản</a></li>
+                                    <li class="nav-item">
+                                        <a style="color: #ffffff" class="nav-link active" aria-current="page" href="#"
+                                           onclick="showDialog('confirmation-dialog-logout')">Đăng xuất</a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </nav>
+            </div>
+        </div>
+    </div>
+
     </div>
     <div class="rectangles">
-        <div class="rectangles-right">
-            <a href="/dang-nhap" class="btn-login">Đăng nhập</a>
-            <a href="/dang-ki" class="btn-register">Đăng kí</a>
-        </div>
+        <a style="color: #1d1e1c; font-size: 20px;  margin-left: 90px; width: 100%;">Hi.${sessionScope['user'].getFullName()}</a>
     </div>
     <div class="rectangles-bottom">
         <ul>
             <li>
-                <a href="#">Home</a>
+                <a href="ListHome.jsp">Home</a>
 
             </li>
             <div class="dropdown">
                 <li><a href="#">Wallet</a>
-
+                    <ul class="dropdown-menu dropdown-menu-dark">
+                        <c:forEach var="list" items="${list}">
+                            <li><a class="dropdown-item"
+                                   href="/wallet?action=ShowWallet&id=${list.idWallet}&username=${sessionScope['user'].getUserName()}&password=${sessionScope['user'].getPassword()}">
+                                <span style="color: black;">${list.nameWallet}</span>
+                            </a>
+                            </li>
+                        </c:forEach>
+                        <li><a class="dropdown-item"
+                               href="/wallet/formAddWallet.jsp?username=${sessionScope['user'].getUserName()}&password=${sessionScope['user'].getPassword()}&id=${sessionScope['user'].getId()}"
+                               style="text-align: center ; color: #1d1e1c">+</a></li>
+                    </ul>
                 </li>
             </div>
             <div class="dropdown">
                 <li><a href="#">Categories</a>
+                    <ul class="dropdown-menu dropdown-menu-dark">
+                        <li><a class="dropdown-item" style=" padding: 10px;" href="../Categories/revenue.jsp"><span style="color: black;">Khoản thu</span></a>
 
+                        </li>
+                        <li><a class="dropdown-item" style=" padding: 10px;" href="../Categories/expense.jsp"> <span style="color: black;">Khoản chi</span></a>
+                        </li>
+
+                        <li><a class="dropdown-item" style=" padding: 10px;" href="../Categories/spendingItem.jsp"> <span
+                                style="color: black;">Mục Chi Tiêu</span></a>
+                        </li>
+
+                    </ul>
                 </li>
             </div>
             <div class="dropdown">
@@ -303,19 +345,59 @@
 <nav></nav>
 <main>
     <div class="left-pane">
-        <a>jj</a>
-        <img src="https://cdn-www.bluestacks.com/bs-images/long-chien-truyen-ky-news-vi-1.jpeg" alt="Tên của hình ảnh"
-             style="max-width: 100%;height: 46%;">
-
-        <img src="https://gamek.mediacdn.vn/133514250583805952/2022/3/2/photo-1-16461981526061189012229.jpg"
-             alt="Tên của hình ảnh" style="max-width: 100%; height: 50%;">
     </div>
+    <div class="middle-pane">
     </div>
-    <div class="middle-pane"></div>
     <div class="right-pane"></div>
 </main>
 <form>
     <p style="text-align: center"> Copyright &copy; 2023 Financial Management Application</p>
 </form>
+<div class="confirmation-dialog" id="confirmation-dialog-delete">
+    <div class="confirmation-dialog-content">
+        <h2 style="font-size: 20px">Confirm account deletion</h2>
+        <p>Are you sure you want to delete your account?</p>
+        <button onclick="confirmAction('delete')">Agree</button>
+        <button onclick="hideDialog('confirmation-dialog-delete')">Cancel</button>
+    </div>
+</div>
+
+<div class="confirmation-dialog" id="confirmation-dialog-logout">
+    <div class="confirmation-dialog-content">
+        <h2 style="font-size: 20px">Confirm logout</h2>
+        <p>Are you sure you want to sign out?</p>
+        <button onclick="confirmAction('logout')">Agree</button>
+        <button onclick="hideDialog('confirmation-dialog-logout')">Cancel</button>
+    </div>
+</div>
+
+<script>
+    function showDialog(dialogId) {
+        const dialog = document.getElementById(dialogId);
+        dialog.style.display = 'block';
+    }
+
+    function hideDialog(dialogId) {
+        const elementById = document.getElementById(dialogId);
+        const dialog = elementById;
+        dialog.style.display = 'none';
+    }
+
+    function confirmAction(action) {
+        console.log(action + " thành công");
+        hideDialog('confirmation-dialog-' + action);
+        switch (action) {
+            case 'delete':
+                window.location.href = "/user?action=delete&id=${sessionScope['user'].getId()}";
+
+                break;
+            case 'logout':
+                window.location.href = "../users/list.jsp";
+                break;
+            default:
+                break;
+        }
+    }
+</script>
 </body>
 </html>

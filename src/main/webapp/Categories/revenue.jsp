@@ -239,12 +239,12 @@
         height: 90px;
         left: 10px; /* Adjust the left position to align it within the square */
         z-index: 2; /* Ensure it's above other elements */
-
     }
+
     .square-100x100 {
         position: absolute;
         width: 900px;
-        height: 350px;
+        height: 600px;
         background-color: #ff0000; /* Màu nền của hình vuông */
         top: 100px; /* Lùi xuống dưới 30px từ phía trên */
         left: 50%; /* Đặt vị trí theo giữa chiều ngang */
@@ -304,12 +304,12 @@
 
     </div>
     <div class="rectangles">
-        <a style="color: #1d1e1c; font-size: 20px;  margin-left: 90px; width: 100%;">Hi.Name</a>
+        <a style="color: #1d1e1c; font-size: 20px;  margin-left: 90px; width: 100%;">Hi.${sessionScope['user'].getFullName()}</a>
     </div>
     <div class="rectangles-bottom">
         <ul>
             <li>
-                <a href="test.jsp">Home</a>
+                <a href="../Home/ListHome.jsp">Home</a>
 
             </li>
             <div class="dropdown">
@@ -331,14 +331,14 @@
             <div class="dropdown">
                 <li><a href="#">Categories</a>
                     <ul class="dropdown-menu dropdown-menu-dark">
-                        <li><a class="dropdown-item" style=" padding: 10px;" href="#"><span style="color: black;">Khoản thu</span></a>
+                        <li><a class="dropdown-item" style=" padding: 10px;" href="revenue.jsp"><span style="color: black;">Khoản thu</span></a>
 
                         </li>
-                        <li><a class="dropdown-item" style=" padding: 10px;" href="#"> <span style="color: black;">Khoản chi</span></a>
+                        <li><a class="dropdown-item" style=" padding: 10px;" href="expense.jsp"> <span style="color: black;">Khoản chi</span></a>
                         </li>
 
-                        <li><a class="dropdown-item" style=" padding: 10px;" href="#"> <span
-                                style="color: black;">Mục</span></a>
+                        <li><a class="dropdown-item" style=" padding: 10px;" href="spendingItem.jsp"> <span
+                                style="color: black;">Mục Chi Tiêu</span></a>
                         </li>
 
                     </ul>
@@ -357,27 +357,10 @@
 </header>
 <nav></nav>
 <main>
-    <div class="left-pane">
-    </div>
+    <div class="left-pane"></div>
     <div class="middle-pane">
         <div class="square-100x100">
-            <p>${wallet.getIdWallet()}</p>
-            <p>${wallet.getIcon()}</p>
-            <p>${wallet.getNameWallet()}</p>
-            <p>${wallet.getMoney()}</p>
-            <p>${wallet.getCurrency()}</p>
-            <p>${wallet.getDescription()}</p>
-            <%-- Check if wallet is locked and it is Wallet 1 --%>
-            <c:if test="${isLocked && wallet.idWallet == 1}">
-                Locked
-            </c:if>
-            <c:if test="${!isLocked || wallet.idWallet != 1}">
-                <a class="dropdown-item"
-                   href="/wallet/updateWallet.jsp?idWallet=${wallet.getIdWallet()}&icon=${wallet.getIcon()}&nameWallet=${wallet.getNameWallet()}&money=${wallet.getMoney()}&currency=${wallet.getCurrency()}&description=${wallet.getDescription()}&username=${sessionScope['user'].getUserName()}&password=${sessionScope['user'].getPassword()}">Edit</a>
-                <a href="wallet?action=deleteWallet&idWallet=${wallet.idWallet}">Delete</a>
-            </c:if>
-            <button><a href="wallet?action=storageWallet&idWallet=${wallet.idWallet}&username=${sessionScope['user'].getUserName()}&password=${sessionScope['user'].getPassword()}">luu tru</a></button>
-        </div>
+
         </div>
     </div>
     <div class="right-pane"></div>
@@ -424,7 +407,7 @@
 
                 break;
             case 'logout':
-                window.location.href = "/users/list.jsp";
+                window.location.href = "../users/list.jsp";
                 break;
             default:
                 break;
