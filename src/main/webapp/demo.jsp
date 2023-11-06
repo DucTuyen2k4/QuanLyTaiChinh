@@ -228,9 +228,11 @@
     .confirmation-dialog-content button {
         margin-right: 10px;
     }
+
     button.navbar-toggler:focus {
         outline: none;
     }
+
     .red-square {
         position: absolute;
         width: 155px;
@@ -239,12 +241,22 @@
         z-index: 2; /* Ensure it's above other elements */
 
     }
+    .square-100x100 {
+        position: absolute;
+        width: 900px;
+        height: 350px;
+        background-color: #ff0000; /* Màu nền của hình vuông */
+        top: 100px; /* Lùi xuống dưới 30px từ phía trên */
+        left: 50%; /* Đặt vị trí theo giữa chiều ngang */
+        transform: translateX(-50%); /* Dịch chuyển lùi 50% chiều rộng để căn giữa */
+    }
 </style>
 <body>
 <header>
     <div class="square"></div>
     <div class="red-square">
-        <img src="https://i.pinimg.com/564x/81/93/33/819333bd2b8d3284385017549dafc84e.jpg" alt="Logo" width="155" height="90">
+        <img src="https://i.pinimg.com/564x/81/93/33/819333bd2b8d3284385017549dafc84e.jpg" alt="Logo" width="155"
+             height="90">
     </div>
     <div class="circle" style="right: 100px">
         <div class="settings-button" style="margin-top: -30px ">
@@ -254,7 +266,8 @@
                         <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas"
                                 data-bs-target="#offcanvasDarkNavbar" aria-controls="offcanvasDarkNavbar"
                                 aria-label="Toggle navigation" style="border: none;">
-                            <img src="https://antimatter.vn/wp-content/uploads/2022/10/hinh-anh-gai-xinh-de-thuong.jpg" alt="Settings" style="width: 80px; height: 80px; border-radius: 50%;">
+                            <img src="https://antimatter.vn/wp-content/uploads/2022/10/hinh-anh-gai-xinh-de-thuong.jpg"
+                                 alt="Settings" style="width: 80px; height: 80px; border-radius: 50%;">
                         </button>
 
                         <div class="offcanvas offcanvas-end text-bg-dark" id="offcanvasDarkNavbar"
@@ -296,7 +309,7 @@
     <div class="rectangles-bottom">
         <ul>
             <li>
-                <a href="#">Home</a>
+                <a href="test.jsp">Home</a>
 
             </li>
             <div class="dropdown">
@@ -346,7 +359,27 @@
 <main>
     <div class="left-pane">
     </div>
-    <div class="middle-pane"></div>
+    <div class="middle-pane">
+        <div class="square-100x100">
+            <p>${wallet.getIdWallet()}</p>
+            <p>${wallet.getIcon()}</p>
+            <p>${wallet.getNameWallet()}</p>
+            <p>${wallet.getMoney()}</p>
+            <p>${wallet.getCurrency()}</p>
+            <p>${wallet.getDescription()}</p>
+            <%-- Check if wallet is locked and it is Wallet 1 --%>
+            <c:if test="${isLocked && wallet.idWallet == 1}">
+                Locked
+            </c:if>
+            <c:if test="${!isLocked || wallet.idWallet != 1}">
+                <a class="dropdown-item"
+                   href="/wallet/updateWallet.jsp?idWallet=${wallet.getIdWallet()}&icon=${wallet.getIcon()}&nameWallet=${wallet.getNameWallet()}&money=${wallet.getMoney()}&currency=${wallet.getCurrency()}&description=${wallet.getDescription()}&username=${sessionScope['user'].getUserName()}&password=${sessionScope['user'].getPassword()}">Edit</a>
+                <a href="wallet?action=deleteWallet&idWallet=${wallet.idWallet}">Delete</a>
+            </c:if>
+            <button><a href="wallet?action=storageWallet&idWallet=${wallet.idWallet}&username=${sessionScope['user'].getUserName()}&password=${sessionScope['user'].getPassword()}">luu tru</a></button>
+        </div>
+        </div>
+    </div>
     <div class="right-pane"></div>
 </main>
 <form>

@@ -65,7 +65,7 @@ public class WalletServlet extends HttpServlet {
         List<Wallet> listWallet = iWalletDAO.showAllWallet(username, password);
         req.setAttribute("list", listWallet);
 
-        req.getRequestDispatcher("test.jsp").forward(req, resp);
+        req.getRequestDispatcher("demo.jsp").forward(req, resp);
     }
 
     @Override

@@ -296,7 +296,7 @@
     <div class="rectangles-bottom">
         <ul>
             <li>
-                <a href="#">Home</a>
+                <a href="test.jsp">Home</a>
 
             </li>
             <div class="dropdown">
@@ -346,7 +346,8 @@
 <main>
     <div class="left-pane">
     </div>
-    <div class="middle-pane"></div>
+    <div class="middle-pane">
+    </div>
     <div class="right-pane"></div>
 </main>
 <form>
