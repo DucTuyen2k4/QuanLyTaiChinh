@@ -207,8 +207,14 @@
 
 <%--giao diện--%>
 <main>
-    <form method="post" action="user?action=confirmUpdate&id=${sessionScope['user'].getId()}">
+    <form action="user?action=login&userName=${sessionScope['user'].getUserName()}&password=${sessionScope['user'].getPassword()}" method="post">
+
+        <input type="submit" value="Quay lại trang chủ">
+    </form>
+    <form method="post" action="user?action=confirmUpdate&id=${sessionScope['user'].getId()}&userName=${sessionScope['user'].getUserName()}&password=${sessionScope['user'].getPassword()}">
+
         <div class="middle-pane">
+
             <H1 style="text-align: center">Thông tin người dùng </H1>
             <div class="centered-text">
                 <h5 style="float: left">Ảnh :</h5>
@@ -231,6 +237,7 @@
                 <input class="no-border " type="date" name="birthdate" id="birthdate" value="${sessionScope['user'].getBirthdate()}" required>
 
             </div>
+
             <div class="function-text">
                 <input type="submit" style="margin-top: 40px" value="Register" class="register-button">
 

@@ -182,6 +182,8 @@ public class UserServlet extends HttpServlet {
     }
 
     private void confirmUpdate(HttpServletRequest req, HttpServletResponse resp) throws SQLException, ClassNotFoundException, ServletException, IOException {
+        String userName = req.getParameter("userName");
+        String password = req.getParameter("password");
         int id = Integer.parseInt(req.getParameter("id"));
         String fullName = req.getParameter("fullName");
         String gender = req.getParameter("gender");
@@ -190,8 +192,15 @@ public class UserServlet extends HttpServlet {
         String image = req.getParameter("image");
         userDAO.updateProfileUser(id, fullName, gender, birthdate, phoneNumber, image);
         List<User> list = userDAO.selectProfileUser(id);
+        List<Wallet> walletList = walletDAO.listWallet(userName, password);
+        req.setAttribute("list", walletList);
+
         HttpSession session = req.getSession();
         session.setAttribute("user", list.get(0));
+
+        List<Category> categoryList = icategoryDao.selectCategory(userName,password);
+        req.setAttribute("listCategory",categoryList);
+
         req.getRequestDispatcher("users/listHome.jsp").forward(req, resp);
     }
 

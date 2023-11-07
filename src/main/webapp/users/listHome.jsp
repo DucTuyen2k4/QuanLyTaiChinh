@@ -273,13 +273,18 @@
 
                                     <li class="nav-item">
                                         <a style="color: #ffffff" class="nav-link active" aria-current="page"
-                                           href="/user?action=update&id=${sessionScope['user'].getId()}"> Câp nhật
+                                           href="/user?action=update&id=${sessionScope['user'].getId()}&username=${sessionScope['user'].getUserName()}&password=${sessionScope['user'].getPassword()}"> Câp nhật
                                             thông
                                             tin </a>
                                     </li>
                                     <li class="nav-item">
+                                        <a style="color: #ffffff" class="nav-link active" aria-current="page"
+                                           href="/user?action=changePassword&id=${sessionScope['user'].getId()}&username=${sessionScope['user'].getUserName()}&password=${sessionScope['user'].getPassword()}">Đổi mật khẩu </a>
+                                    </li>
+                                    <li class="nav-item">
                                         <a style="color: #ffffff" class="nav-link active" aria-current="page" href="#"
-                                           onclick="showDialog('confirmation-dialog-delete')">Xóa tài khoản</a></li>
+                                           onclick="showDialog('confirmation-dialog-delete')">Xóa tài khoản</a>
+                                    </li>
                                     <li class="nav-item">
                                         <a style="color: #ffffff" class="nav-link active" aria-current="page" href="#"
                                            onclick="showDialog('confirmation-dialog-logout')">Đăng xuất</a>
@@ -321,11 +326,11 @@
             <div class="dropdown">
                 <li><a href="#">Categories</a>
                     <ul class="dropdown-menu dropdown-menu-dark">
-                            <c:forEach var="listCategory" items="${listCategory}">
-                                <li>
-                                 <a href=""><span>${listCategory.nameCategory}</span></a>
-                                </li>
-                            </c:forEach>
+                        <c:forEach var="listCategory" items="${listCategory}">
+                            <li>
+                                <a href=""><span>${listCategory.nameCategory}</span></a>
+                            </li>
+                        </c:forEach>
                         <a href="/category/formAddCategory.jsp?username=${sessionScope['user'].getUserName()}&password=${sessionScope['user'].getPassword()}&id=${sessionScope['user'].getId()}">+</a>
                     </ul>
                 </li>
