@@ -16,4 +16,3 @@ public interface ICategoryDao {
     public boolean selectNameCategory(String nameCategory) throws SQLException, ClassNotFoundException;
 
 }
-

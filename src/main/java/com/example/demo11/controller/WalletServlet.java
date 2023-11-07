@@ -25,7 +25,7 @@ public class WalletServlet extends HttpServlet {
 
     @Override
     public void init() {
-       iUserDAO = new UserDAO();
+        iUserDAO = new UserDAO();
         iWalletDAO = new WalletDAO();
     }
 
@@ -234,10 +234,10 @@ public class WalletServlet extends HttpServlet {
         String description = req.getParameter("description");
         Wallet wallet = new Wallet(icon, nameWallet, money, currency, description);
 
-            iWalletDAO.addWallet(wallet);
-            Wallet wallet1 = iWalletDAO.selectId(nameWallet);
-            int idWallet = wallet1.getIdWallet();
-            iWalletDAO.addToUser_Wallet(idUser, idWallet);
+        iWalletDAO.addWallet(wallet);
+        Wallet wallet1 = iWalletDAO.selectId(nameWallet);
+        int idWallet = wallet1.getIdWallet();
+        iWalletDAO.addToUser_Wallet(idUser, idWallet);
 
         List<Wallet> listWallet = iWalletDAO.showAllWallet(username, password);
         req.setAttribute("list", listWallet);

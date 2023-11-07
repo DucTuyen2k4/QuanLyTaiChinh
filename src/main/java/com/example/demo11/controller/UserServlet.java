@@ -76,7 +76,7 @@ public class UserServlet extends HttpServlet {
                 break;
             case "logoutHome":
                 logoutHome(req, resp);
-break;
+                break;
             default:
                 break;
         }

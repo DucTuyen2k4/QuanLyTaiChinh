@@ -1,123 +1,242 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
-    <title>Quản Lý Tài Chính Đăng Nhập</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
-          integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
-    <script src="https://kit.fontawesome.com/9b0347940d.js" crossorigin="anonymous"></script>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
-    <style>
-        body {
-            background-image: url("https://images.pexels.com/photos/3943727/pexels-photo-3943727.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1");
-            background-size: cover;
-            background-position: center;
-            background-attachment: fixed;
-            background-repeat: no-repeat;
-        }
-
-        .header {
-            height: 80px;
-
-        }
-
-        .header1 {
-
-            width: 100px;
-            height: 60px;
-        }
-
-        .content {
-            background-color: #f0f0f0;
-            opacity: 0.8;
-            max-width: 600px;
-            margin: 0 auto; /* Căn giữa theo chiều ngang */
-            margin-top: 30px;
-            height: 800px;
-            border-radius: 20px 10px;
-            position: relative; /* Để căn giữa theo chiều dọc */
-        }
-
-        .content1 {
-            color: black;
-            text-align: center;
-            padding: 30px 0 20px;
-
-
-        }
-
-        #password {
-            width: 300px;
-            height: 50px;
-
-        }
-
-        #username {
-            width: 300px;
-            height: 50px;
-
-        }
-
-        .content2 {
-            text-align: center;
-            margin: 50px;
-        }
-        button{
-            border-radius: 10px 10px;
-            color: #318a18;
-        }
-
-
-        p {
-            display: flex;
-            margin-left: 100px;
-            color: #bb4fbb;
-        }
-
-        .footer {
-            border: 1px solid #318a18;
-            text-align: right;
-            height: 80px;
-            background-color: white;
-            padding: 20px 0 20px;
-
-        }
-
-    </style>
+    <title>[------------------------]</title>
 </head>
+<style>
+    body {
+        height: 1200px;
+        margin: 0;
+        padding: 0;
+        /*overflow: hidden;*/
+    }
+
+    header {
+
+        width: 100%;
+        height: 78px;
+
+
+    }
+
+    header .left-pane {
+        float: left;
+        width: 10%;
+        height: 100%;
+        background-image: url("https://i.pinimg.com/564x/81/93/33/819333bd2b8d3284385017549dafc84e.jpg");
+        background-size: 100% 100%; /* Điều chỉnh kích thước hình ảnh để nó vừa với phần tử */
+    }
+
+    header .middle-pane {
+        float: left;
+        width: 70%;
+        height: 100%;
+        background-color: #819759;
+        font-family: "Arial Black";
+        font-size: 30px;
+        text-align: center;
+        vertical-align: center;
+        align-items: center;
+    }
+
+
+    header .right-pane {
+        float: left;
+        width: 20%;
+        height: 100%;
+        background-color: #819759;
+    }
+
+    /*thanh chức năng*/
+    /*nav {*/
+    /*    display: flex;*/
+    /*    justify-content: space-between; !* Các mục sẽ cách nhau cùng 1 dòng *!*/
+
+    /*    width: 100%;*/
+    /*    height: 6.5%;*/
+
+    /*}*/
+    nav div {
+        display: flex;
+        width: 15%;
+        height: 100%;
+        align-items: center;
+        justify-content: center;
+    }
+
+    /*giao diện*/
+    main {
+
+        width: 100%;
+        height: 100%;
+    }
+
+    /*!* giao diện ở trái *!*/
+    /*main .left-pane {*/
+    /*    width: 35%; !* Chiếm 25% chiều rộng *!*/
+    /*    float: left;*/
+    /*    height: 100%;*/
+
+
+    /*}*/
+
+    /* giao diện ở giữa */
+    main .middle-pane {
+        border-radius: 20px 20px;
+        margin-top: 120px;
+
+        width: 30%; /* Chiếm 50% chiều rộng */
+        text-align: center;
+        margin-left: 35%;
+        height: 85%;
+        /*background-color: #f0f0f0;*/
+        text-align: center;
+        border: 1px solid #4e5647;
+        background-color: #FFFFFF;
+    }
+
+    .register-button {
+        margin-left: 20px;
+        background-color: #45a049;
+        color: #ffffff;
+        border: none;
+        padding: 10px 20px;
+        border-radius: 15px;
+        margin-top: 10px;
+    }
+
+    .login-button {
+
+        background-color: transparent;
+        color: #ffffff;
+        border: none;
+        padding: 10px 20px;
+        border-radius: 15px;
+        margin-top: 10px;
+
+    }
+
+    .function-text .no-border {
+        margin-top: 30px;
+        background-color: #1d1e1c;
+        width: 70px;
+        height: 40px;
+        border-radius: 10%;
+    }
+
+    .centered-text {
+        text-align: center; /* Căn giữa theo chiều ngang */
+
+    }
+
+    .centered-text .no-border {
+        border: 1px solid #333431;
+        height: 30px;
+        width: 120%;
+        border-radius: 10px 10px;
+        margin-left: -20px;
+    }
+
+    h5 {
+        margin-left: -20px;
+    }
+
+    .centered-text {
+        display: inline-block;
+        width: 50%;
+    }
+
+    .function-text {
+
+        text-align: center;
+    }
+
+    .function-text .no-border {
+        background-color: #45a049;
+        text-align: center;
+        border-radius: 15px 15px;
+    }
+
+    /* giao diện ở phải */
+    main .right-pane {
+        width: 35%; /* Chiếm 25% chiều rộng */
+        float: left;
+        height: 100%;
+
+
+    }
+
+
+    /*form {*/
+    /*    !*border: 1px solid #4e5647;*!*/
+    /*    background-color: #f0f0f0;*/
+    /*    width: 100%;*/
+    /*    height: 20%;*/
+
+    /*}*/
+    .button-container {
+        display: flex; /* Sử dụng flexbox để đặt chúng cùng một dòng */
+        justify-content: space-between; /* Căn chỉnh chúng về hai phía */
+    }
+
+    .btn-signup,
+    .btn-login {
+        padding: 10px 20px; /* Điều chỉnh khoảng cách và kích thước nút */
+    }
+
+
+</style>
 <body>
-<div class="root">
-    <div class="header">
-        <div class="header1">
-            <i class="fa-brands fa-cc-visa" style="font-size: 90px; color: springgreen"></i>
-        </div>
+<header>
+    <div class="left-pane"></div>
+    <div class="middle-pane">
+        <div style="margin-left: 150px">Budget</div>
     </div>
-    <div class="content">
-        <div class="content1">
-            <b><h1>Đăng nhập</h1></b>
-        </div>
-        <div class="content2" style="color: aliceblue">
-            <form action="/user" method="post">
-                <p>Tên đăng nhâp :</p>
-                <input type="text" name="userName" placeholder="UserName" id="username"
+    <div class="right-pane">
+        <form>
+            <div class="function-text">
+                <input type="submit" value="Register" class="register-button">
+
+                <button class="no-border login-button" style="width: 90px; height: 35px;">
+                    <a href="/users/list.jsp" style="color: #ffffff; text-decoration: none;">Login</a></button>
+            </div>
+        </form>
+    </div>
+</header>
+
+
+<%--thanh chức năng--%>
+<nav>
+</nav>
+
+<%--giao diện--%>
+<main>
+    <form action="/user" method="post">
+        <div class="middle-pane">
+            <H1 style="text-align: center">Register</H1>
+            <div class="centered-text">
+                <%--                <h5 style="float: left">Ảnh :</h5>--%>
+                <%--                <input class="no-border " type="text" name="image" id="image" required pattern=".*\.(jpg|png|gif)" value="${param.image}" title="Chỉ được nhập đường dẫn ảnh với đuôi .jpg, .png, hoặc .gif">--%>
+                <h5 style="float: left">Tên đăng nhâp :</h5>
+                <input class="no-border " type="text" name="userName" placeholder="UserName" id="username"
                        style="border-radius: 10px 10px"><br><br>
-                <p>Mật khẩu :</p>
-                <input type="password" name="password" placeholder="Password" id="password"
+                <h5 style="float: left">Mật khẩu :</h5>
+                <input class="no-border " type="password" name="password" placeholder="Password" id="password"
                        style="border-radius: 10px 10px"><br><br>
-                <p style="margin-left: 180px ; color: red" >${message}</p>
-                <button name="action" value="login">Đăng nhập</button>
-            </form>
+                <h5 style=" color: red">${message}</h5>
+            </div>
+            <div class="function-text">
+                <%--                <input name="action" type="submit" style="margin-top: 40px" value="Register" class="register-button">--%>
+                <button style="margin-left: 5px" class="register-button" name="action" value="login">Đăng nhập</button>
+
+            </div>
+            <%--        <hr style="background-color: #4CAF50">--%>
+
 
         </div>
-        <div class="content3" style="text-align: center">
-           <br>
-            <hr style="color: springgreen">
-            <b style="color: #7e8585"> Chưa có tài khoản<a href="/users/Register.jsp">ĐĂNG KÍ</a></b>
-        </div>
-    </div>
-    <div class="footer">
-        <h6> Hotline :0848123085 <i class="fa-solid fa-phone"></i></h6>
-    </div>
-</div>
+    </form>
+</main>
+<%--<form>--%>
+<%--</form>--%>
 </body>
 </html>
-<%--code lại giao diện như trong hình hảnh trên bằng html--%>

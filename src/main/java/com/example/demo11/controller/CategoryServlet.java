@@ -70,13 +70,13 @@ public class CategoryServlet extends HttpServlet {
         }
         switch (action) {
             case "showCategory":
-                    try {
-                        showCategory(req, resp);
-                    } catch (SQLException e) {
-                        throw new RuntimeException(e);
-                    } catch (ClassNotFoundException e) {
-                        throw new RuntimeException(e);
-                    }
+                try {
+                    showCategory(req, resp);
+                } catch (SQLException e) {
+                    throw new RuntimeException(e);
+                } catch (ClassNotFoundException e) {
+                    throw new RuntimeException(e);
+                }
 
         }
     }
