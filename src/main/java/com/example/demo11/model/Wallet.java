@@ -95,4 +95,17 @@ public class Wallet {
     public void setDescription(String description) {
         this.description = description;
     }
+
+    @Override
+    public String toString() {
+        return "Wallet{" +
+                "idWallet=" + idWallet +
+                ", icon='" + icon + '\'' +
+                ", nameWallet='" + nameWallet + '\'' +
+                ", money=" + money +
+                ", currency='" + currency + '\'' +
+                ", description='" + description + '\'' +
+                ", locked=" + locked +
+                '}';
+    }
 }

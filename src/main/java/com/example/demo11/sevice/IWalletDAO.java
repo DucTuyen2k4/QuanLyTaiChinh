@@ -1,5 +1,6 @@
 package com.example.demo11.sevice;
 
+import com.example.demo11.model.User;
 import com.example.demo11.model.Wallet;
 
 import java.sql.SQLException;
@@ -23,4 +24,8 @@ public interface IWalletDAO {
     Wallet selectMoneyBanking(String name) throws SQLException, ClassNotFoundException;
     void updateMoney(double money ,String nameWallet) throws SQLException, ClassNotFoundException;
     void updateMoneyBanking(double money ,String name) throws SQLException, ClassNotFoundException;
+    void shareWallet(int idUser, int idWallet, String permission) throws SQLException, ClassNotFoundException;
+
+    boolean checkEmailUser_Wallet(String email) throws SQLException, ClassNotFoundException;
+    User user_wallet(String email)throws SQLException, ClassNotFoundException;
 }

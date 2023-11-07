@@ -143,6 +143,8 @@
             </div>
             <form action="/user" method="post">
                 <div class="button-container">
+                    <input type="hidden" name="username" value="${sessionScope['user'].getUserName()}"/>
+                    <input type="hidden" name="password" value="${sessionScope['user'].getPassword()}"/>
                     <button class="confirm-button" name="action" value="confirmUpdate">Xác Nhận</button>
                 </div>
             </form>

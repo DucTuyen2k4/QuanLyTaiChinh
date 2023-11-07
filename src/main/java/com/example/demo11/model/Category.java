@@ -52,4 +52,13 @@ public class Category {
     public void setNote(String note) {
         this.note = note;
     }
+
+    @Override
+    public String toString() {
+        return "Category{" +
+                "idCategory=" + idCategory +
+                ", nameCategory='" + nameCategory + '\'' +
+                ", note='" + note + '\'' +
+                '}';
+    }
 }

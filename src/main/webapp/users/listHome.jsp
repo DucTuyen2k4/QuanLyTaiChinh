@@ -46,9 +46,10 @@
     }
 
     .middle-pane {
+        margin-top: 3%;
         width: 73%; /* Chiếm 70% chiều rộng */
         float: left;
-        height: 100%;
+        height: 90%;
         display: flex;
         justify-content: space-between;
         background-color: #f5f6f3;
@@ -241,6 +242,15 @@
         z-index: 2; /* Ensure it's above other elements */
 
     }
+    .square-100x100 {
+        position: absolute;
+        width: 700px;
+        height: 445px;
+
+        top: 120px; /* Lùi xuống dưới 30px từ phía trên */
+        left: 50%; /* Đặt vị trí theo giữa chiều ngang */
+        transform: translateX(-50%); /* Dịch chuyển lùi 50% chiều rộng để căn giữa */
+    }
 </style>
 <body>
 <header>
@@ -273,7 +283,7 @@
 
                                     <li class="nav-item">
                                         <a style="color: #ffffff" class="nav-link active" aria-current="page"
-                                           href="/user?action=update&id=${sessionScope['user'].getId()}"> Câp nhật
+                                           href="/user?action=update&id=${sessionScope['user'].getId()}&username=${sessionScope['user'].getUserName()}&password=${sessionScope['user'].getPassword()}"> Câp nhật
                                             thông
                                             tin </a>
                                     </li>
@@ -308,7 +318,7 @@
                         <c:forEach var="list" items="${list}">
                             <li><a class="dropdown-item"
                                    href="/wallet?action=ShowWallet&id=${list.idWallet}&username=${sessionScope['user'].getUserName()}&password=${sessionScope['user'].getPassword()}">
-                                <span style="color: black;">${list.nameWallet}</span>
+                                <span style="color: black; text-align: center">${list.nameWallet}</span>
                             </a>
                             </li>
                         </c:forEach>
@@ -346,6 +356,26 @@
     <div class="left-pane">
     </div>
     <div class="middle-pane">
+        <div class="square-100x100">
+            <c:if test="${not empty wallet.getIdWallet()}">
+            <a hidden="hidden"><p>${wallet.getIdWallet()}</p></a>
+            <p>Icon : ${wallet.getIcon()}</p><br>
+            <p>Tên Ví : ${wallet.getNameWallet()}</p><br>
+            <p>Số Tiền : ${wallet.getMoney()} ${wallet.getCurrency()}</p><br>
+            <p>Miêu Tả :${wallet.getDescription()}</p><br>
+            <form action="/wallet?action=showWalletUpdate&idWallet=${wallet.getIdWallet()}&username=${sessionScope['user'].getUserName()}&password=${sessionScope['user'].getPassword()}"
+                  method="post">
+                <input value="update" type="submit">
+            </form>
+            <form action="/wallet?action=showFormBanking&idWallet=${wallet.getIdWallet()}&username=${sessionScope['user'].getUserName()}&password=${sessionScope['user'].getPassword()}&money=${wallet.getMoney()}&nameWallet=${wallet.getNameWallet()}" method="post">
+                <input value="chuyển tiền" type="submit">
+            </form>
+            <form action="/wallet?action=showShare&idWallet=${wallet.getIdWallet()}&username=${sessionScope['user'].getUserName()}&password=${sessionScope['user'].getPassword()}&id=${sessionScope['user'].getId()}"
+                  method="post">
+                <input type="submit" value="share">
+            </form>
+            </c:if>
+        </div>
     </div>
     <div class="right-pane"></div>
 </main>
@@ -392,7 +422,7 @@
 
                 break;
             case 'logout':
-                window.location.href = "Home.jsp";
+                window.location.href = "users/Home.jsp";
                 break;
             default:
                 break;
