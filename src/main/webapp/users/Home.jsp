@@ -34,7 +34,7 @@
     main {
         background-color: #4CAF50; /* Màu xanh lá */
         width: 100%;
-        height: calc(70% - 5px); /* Đặt chiều cao là 80% - 5px */
+        height: calc(85% - 5px); /* Đặt chiều cao là 80% - 5px */
     }
 
     /* giao diện ở trái */
@@ -269,15 +269,14 @@
     </div>
     <div class="rectangles">
         <div class="rectangles-right">
-            <a href="/dang-nhap" class="btn-login">Đăng nhập</a>
-            <a href="/dang-ki" class="btn-register">Đăng kí</a>
+            <a href="list.jsp" class="btn-login">Đăng nhập</a>
+            <a href="Register.jsp" class="btn-register">Đăng kí</a>
         </div>
     </div>
     <div class="rectangles-bottom">
         <ul>
             <li>
                 <a href="#">Home</a>
-
             </li>
             <div class="dropdown">
                 <li><a href="#">Wallet</a>
@@ -286,7 +285,6 @@
             </div>
             <div class="dropdown">
                 <li><a href="#">Categories</a>
-
                 </li>
             </div>
             <div class="dropdown">

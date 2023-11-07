@@ -1,7 +1,10 @@
 package com.example.demo11.controller;
 
+import com.example.demo11.model.Category;
 import com.example.demo11.model.User;
 import com.example.demo11.model.Wallet;
+import com.example.demo11.sevice.CategoryDao;
+import com.example.demo11.sevice.ICategoryDao;
 import com.example.demo11.sevice.UserDAO;
 import com.example.demo11.sevice.WalletDAO;
 import com.mysql.cj.xdevapi.Session;
@@ -28,6 +31,7 @@ import static java.lang.Float.isNaN;
 public class UserServlet extends HttpServlet {
     public static UserDAO userDAO;
     public static WalletDAO walletDAO;
+    public static ICategoryDao icategoryDao;
 
 
     @Override
@@ -35,6 +39,7 @@ public class UserServlet extends HttpServlet {
         userDAO = new UserDAO();
 
         walletDAO=new WalletDAO();
+        icategoryDao=new CategoryDao();
 
     }
 
@@ -104,8 +109,6 @@ break;
                     throw new RuntimeException(e);
                 }
                 break;
-
-
             case "confirmUpdate":
                 try {
                     confirmUpdate(req, resp);
@@ -163,12 +166,17 @@ break;
                 HttpSession session = req.getSession();
                 session.setAttribute("user", list.get(0));
 
-                req.getRequestDispatcher("test.jsp").forward(req, resp);
+                List<Category> categoryList = icategoryDao.selectCategory(userName,password);
+                req.setAttribute("listCategory",categoryList);
+
+                req.getRequestDispatcher("users/listHome.jsp").forward(req, resp);
             } else {
                 req.setAttribute("message", "Tài khoản không tồn tại!");
                 req.getRequestDispatcher("users/list.jsp").forward(req, resp);
             }
         } catch (ServletException e) {
+            throw new RuntimeException(e);
+        } catch (ClassNotFoundException e) {
             throw new RuntimeException(e);
         }
     }
@@ -184,14 +192,14 @@ break;
         List<User> list = userDAO.selectProfileUser(id);
         HttpSession session = req.getSession();
         session.setAttribute("user", list.get(0));
-        req.getRequestDispatcher("test.jsp").forward(req, resp);
+        req.getRequestDispatcher("users/listHome.jsp").forward(req, resp);
     }
 
     private void showFormUpdate(HttpServletRequest req, HttpServletResponse resp) throws SQLException, ClassNotFoundException, ServletException, IOException {
         int id = Integer.parseInt(req.getParameter("id"));
         List<User> list = userDAO.selectProfileUser(id);
         req.setAttribute("list", list);
-        req.getRequestDispatcher("test.jsp").forward(req, resp);
+        req.getRequestDispatcher("user/updateProfile.jsp").forward(req, resp);
     }
 
     private void confirmPassword(HttpServletRequest req, HttpServletResponse resp) throws SQLException, ClassNotFoundException, ServletException, IOException {
@@ -207,7 +215,7 @@ break;
                 userDAO.updatePassword(id, newPassword);
                 req.setAttribute("id", id);
 
-                req.getRequestDispatcher("user/listHome.jsp").forward(req, resp);
+                req.getRequestDispatcher("users/listHome.jsp").forward(req, resp);
             } else {
                 req.setAttribute("id", id);
                 req.setAttribute("messages", "Mật khẩu không khớp ! ");

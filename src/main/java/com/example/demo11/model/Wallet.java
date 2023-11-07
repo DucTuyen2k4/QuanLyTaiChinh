@@ -10,6 +10,15 @@ public class Wallet {
 
     private boolean locked;
 
+    public Wallet(int idWallet, String nameWallet, double money) {
+        this.idWallet = idWallet;
+        this.nameWallet = nameWallet;
+        this.money = money;
+    }
+    public Wallet(double money){
+        this.money=money;
+    }
+
     public boolean isLocked() {
         return locked;
     }

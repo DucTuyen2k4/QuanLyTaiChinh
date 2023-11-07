@@ -34,7 +34,7 @@
     main {
         background-color: #4CAF50; /* Màu xanh lá */
         width: 100%;
-        height: calc(70% - 5px); /* Đặt chiều cao là 80% - 5px */
+        height: calc(85% - 5px); /* Đặt chiều cao là 80% - 5px */
     }
 
     /* giao diện ở trái */
@@ -228,9 +228,11 @@
     .confirmation-dialog-content button {
         margin-right: 10px;
     }
+
     button.navbar-toggler:focus {
         outline: none;
     }
+
     .red-square {
         position: absolute;
         width: 155px;
@@ -239,12 +241,21 @@
         z-index: 2; /* Ensure it's above other elements */
 
     }
-</style>
+    .square-100x100 {
+        position: absolute;
+        width: 700px;
+        height: 450px;
+        background-color: #f8f6f6; /* Màu nền của hình vuông */
+        top: 120px; /* Lùi xuống dưới 30px từ phía trên */
+        left: 50%; /* Đặt vị trí theo giữa chiều ngang */
+        transform: translateX(-50%); /* Dịch chuyển lùi 50% chiều rộng để căn giữa */
+    }</style>
 <body>
 <header>
     <div class="square"></div>
     <div class="red-square">
-        <img src="https://i.pinimg.com/564x/81/93/33/819333bd2b8d3284385017549dafc84e.jpg" alt="Logo" width="155" height="90">
+        <img src="https://i.pinimg.com/564x/81/93/33/819333bd2b8d3284385017549dafc84e.jpg" alt="Logo" width="155"
+             height="90">
     </div>
     <div class="circle" style="right: 100px">
         <div class="settings-button" style="margin-top: -30px ">
@@ -254,7 +265,8 @@
                         <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas"
                                 data-bs-target="#offcanvasDarkNavbar" aria-controls="offcanvasDarkNavbar"
                                 aria-label="Toggle navigation" style="border: none;">
-                            <img src="https://antimatter.vn/wp-content/uploads/2022/10/hinh-anh-gai-xinh-de-thuong.jpg" alt="Settings" style="width: 80px; height: 80px; border-radius: 50%;">
+                            <img src="https://antimatter.vn/wp-content/uploads/2022/10/hinh-anh-gai-xinh-de-thuong.jpg"
+                                 alt="Settings" style="width: 80px; height: 80px; border-radius: 50%;">
                         </button>
 
                         <div class="offcanvas offcanvas-end text-bg-dark" id="offcanvasDarkNavbar"
@@ -296,7 +308,7 @@
     <div class="rectangles-bottom">
         <ul>
             <li>
-                <a href="test.jsp">Home</a>
+                <a href="../users/listHome.jsp">Home</a>
 
             </li>
             <div class="dropdown">
@@ -347,7 +359,22 @@
     <div class="left-pane">
     </div>
     <div class="middle-pane">
-    </div>
+        <div class="square-100x100">
+            <a hidden="hidden"><p>${wallet.getIdWallet()}</p></a>
+            <p>Icon : ${wallet.getIcon()}</p><br>
+            <p>Tên Ví : ${wallet.getNameWallet()}</p><br>
+            <p>Số Tiền : ${wallet.getMoney()} ${wallet.getCurrency()}</p><br>
+            <p>Miêu Tả :${wallet.getDescription()}</p><br>
+
+            <form action="/wallet?action=showWalletUpdate&idWallet=${wallet.getIdWallet()}&username=${sessionScope['user'].getUserName()}&password=${sessionScope['user'].getPassword()}"
+                  method="post">
+                <input value="update" type="submit">
+            </form>
+            <form action="/wallet?action=showFormBanking&idWallet=${wallet.getIdWallet()}&username=${sessionScope['user'].getUserName()}&password=${sessionScope['user'].getPassword()}&money=${wallet.getMoney()}&nameWallet=${wallet.getNameWallet()}" method="post">
+                <input value="chuyển tiền" type="submit">
+            </form>
+        </div>
+        </div>
     <div class="right-pane"></div>
 </main>
 <form>
@@ -392,7 +419,7 @@
 
                 break;
             case 'logout':
-                window.location.href = "/users/list.jsp";
+                window.location.href = "../users/list.jsp";
                 break;
             default:
                 break;

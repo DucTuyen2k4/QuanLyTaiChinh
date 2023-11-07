@@ -3,6 +3,10 @@
 <!DOCTYPE html>
 <html>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 <style>
     body {
         background-image: url('https://images.pexels.com/photos/3943727/pexels-photo-3943727.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1');
@@ -105,7 +109,7 @@
     <div>
         <form action="user?action=confirmUpdate" method="post" class="edit-form">
             <div class="back-button">
-                <a href="user/listHome.jsp"><i class="fas fa-arrow-left"></i>Quay lại trang chủ</a>
+                <a href="users/listHome.jsp"><i class="fas fa-arrow-left"></i>Quay lại trang chủ</a>
             </div>
             <%--            <c:forEach var="lists" items="${list}">--%>
             <div class="form-group">

@@ -15,15 +15,65 @@ import java.util.List;
 
 public class WalletDAO implements IWalletDAO {
 
-    private static final String SELECT_ALL_WALLET = "select Wallet.idWallet,Wallet.nameWallet, Wallet.icon,Wallet.money,Wallet.currency,Wallet.description from Wallet inner join user_wallets on Wallet.idWallet = user_wallets.idWallet inner join users on user_wallets.idUser=users.id where username = ? and password = ?";
+    private static final String SELECT_ALL_WALLET = "select Wallet.idWallet,Wallet.nameWallet, Wallet.icon,Wallet.money,Wallet.currency,Wallet.description from Wallet inner join users_wallet on Wallet.idWallet = users_wallet.idWallet inner join users on users_wallet.idUser=users.id where username = ? and password = ?";
     private static final String SELECT_ALL_WALLET_HOME = "select*from Wallet";
     private static final String CHECK_ID = "select*from Wallet where idWallet like ?";
     private static final String INSERT_WALLET = "insert into Wallet(icon,nameWallet,money,currency,description) values (?,?,?,?,?)";
     private static final String SELECT_ID_WALLET = "select idWallet from Wallet where nameWallet = ? ";
-    private static final String INSERT_USER_WALLET = "insert into user_wallets (idUser,idWallet)values (?,?)";
+    private static final String INSERT_USER_WALLET = "insert into users_wallet (idUser,idWallet)values (?,?)";
     private static final String UPDATE_WALLET = "update Wallet set icon = ?,nameWallet=?,money=?,currency=?,description=? where idWallet=? ";
     private static final String SHOW_WALLET = "select * from Wallet where idWallet=? ";
+    private static final String SELECT_WALLET = "select nameWallet from Wallet where nameWallet = ?";
+    private static final String SELECT_MONEY = "select money from Wallet where nameWallet = ?";
+    private static final String UPDATE_MONEY = "update Wallet set money = ? where nameWallet = ? ";
 
+    @Override
+    public boolean selectWallet(String nameWallet) throws SQLException, ClassNotFoundException {
+        PreparedStatement preparedStatement = JDBC.connection().prepareStatement(SELECT_WALLET);
+        preparedStatement.setString(1, nameWallet);
+        ResultSet resultSet = preparedStatement.executeQuery();
+        return resultSet.next();
+    }
+
+    @Override
+    public Wallet selectMoney(String nameWallet) throws SQLException, ClassNotFoundException {
+        Wallet wallet = null;
+        PreparedStatement preparedStatement = JDBC.connection().prepareStatement(SELECT_MONEY);
+        preparedStatement.setString(1, nameWallet);
+        ResultSet resultSet = preparedStatement.executeQuery();
+        while (resultSet.next()) {
+            double money = resultSet.getDouble("money");
+            wallet = new Wallet(money);
+        }
+        return wallet;
+    }
+    @Override
+    public Wallet selectMoneyBanking(String name) throws SQLException, ClassNotFoundException {
+        Wallet wallet = null;
+        PreparedStatement preparedStatement = JDBC.connection().prepareStatement(SELECT_MONEY);
+        preparedStatement.setString(1, name);
+        ResultSet resultSet = preparedStatement.executeQuery();
+        while (resultSet.next()) {
+            double money = resultSet.getDouble("money");
+            wallet = new Wallet(money);
+        }
+        return wallet;
+    }
+    @Override
+    public void updateMoney(double money, String nameWallet) throws SQLException, ClassNotFoundException {
+        PreparedStatement preparedStatement = JDBC.connection().prepareStatement(UPDATE_MONEY);
+        preparedStatement.setDouble(1, money);
+        preparedStatement.setString(2, nameWallet);
+        preparedStatement.executeUpdate();
+    }
+
+    @Override
+    public void updateMoneyBanking(double money, String name) throws SQLException, ClassNotFoundException {
+        PreparedStatement preparedStatement = JDBC.connection().prepareStatement(UPDATE_MONEY);
+        preparedStatement.setDouble(1, money);
+        preparedStatement.setString(2, name);
+        preparedStatement.executeUpdate();
+    }
 
     @Override
     public List<Wallet> listWallet(String name, String password) {
@@ -77,12 +127,12 @@ public class WalletDAO implements IWalletDAO {
     @Override
     public void updateWallet(Wallet wallet) throws SQLException, ClassNotFoundException {
         PreparedStatement preparedStatement = JDBC.connection().prepareStatement(UPDATE_WALLET);
-        preparedStatement.setString(1,wallet.getIcon());
-        preparedStatement.setString(2,wallet.getNameWallet());
-        preparedStatement.setDouble(3,wallet.getMoney());
-        preparedStatement.setString(4,wallet.getCurrency());
-        preparedStatement.setString(5,wallet.getDescription());
-        preparedStatement.setInt(6,wallet.getIdWallet());
+        preparedStatement.setString(1, wallet.getIcon());
+        preparedStatement.setString(2, wallet.getNameWallet());
+        preparedStatement.setDouble(3, wallet.getMoney());
+        preparedStatement.setString(4, wallet.getCurrency());
+        preparedStatement.setString(5, wallet.getDescription());
+        preparedStatement.setInt(6, wallet.getIdWallet());
         preparedStatement.executeUpdate();
     }
 
@@ -134,36 +184,36 @@ public class WalletDAO implements IWalletDAO {
     }
 
 
-    public WalletDAO(){
+    public WalletDAO() {
 
     }
 
     @Override
     public void addWallet(Wallet wallet) throws SQLException, ClassNotFoundException {
         PreparedStatement preparedStatement = JDBC.connection().prepareStatement(INSERT_WALLET);
-        preparedStatement.setString(1,wallet.getIcon());
-        preparedStatement.setString(2,wallet.getNameWallet());
-        preparedStatement.setDouble(3,wallet.getMoney());
-        preparedStatement.setString(4,wallet.getCurrency());
-        preparedStatement.setString(5,wallet.getDescription());
+        preparedStatement.setString(1, wallet.getIcon());
+        preparedStatement.setString(2, wallet.getNameWallet());
+        preparedStatement.setDouble(3, wallet.getMoney());
+        preparedStatement.setString(4, wallet.getCurrency());
+        preparedStatement.setString(5, wallet.getDescription());
         preparedStatement.executeUpdate();
     }
 
     @Override
-    public List<Wallet> showAllWallet(String username , String password) throws SQLException, ClassNotFoundException {
+    public List<Wallet> showAllWallet(String username, String password) throws SQLException, ClassNotFoundException {
         List<Wallet> list = new ArrayList<>();
         PreparedStatement preparedStatement = JDBC.connection().prepareStatement(SELECT_ALL_WALLET);
-        preparedStatement.setString(1,username);
-        preparedStatement.setString(2,password);
+        preparedStatement.setString(1, username);
+        preparedStatement.setString(2, password);
         ResultSet resultSet = preparedStatement.executeQuery();
-        while (resultSet.next()){
+        while (resultSet.next()) {
             int idWallet = resultSet.getInt("idWallet");
             String icon = resultSet.getString("icon");
             String nameWallet = resultSet.getString("nameWallet");
             double money = resultSet.getDouble("money");
             String currency = resultSet.getString("currency");
             String description = resultSet.getString("description");
-            list.add(new Wallet(idWallet,icon,nameWallet,money,currency,description));
+            list.add(new Wallet(idWallet, icon, nameWallet, money, currency, description));
         }
         return list;
     }
@@ -172,9 +222,9 @@ public class WalletDAO implements IWalletDAO {
     public Wallet selectId(String nameWallet) throws SQLException, ClassNotFoundException {
         Wallet wallet = null;
         PreparedStatement preparedStatement = JDBC.connection().prepareStatement(SELECT_ID_WALLET);
-        preparedStatement.setString(1,nameWallet);
+        preparedStatement.setString(1, nameWallet);
         ResultSet resultSet = preparedStatement.executeQuery();
-        while (resultSet.next()){
+        while (resultSet.next()) {
             int idWallet = resultSet.getInt("idWallet");
             wallet = new Wallet(idWallet);
         }
@@ -182,10 +232,10 @@ public class WalletDAO implements IWalletDAO {
     }
 
     @Override
-    public void addToUser_Wallet(int idUser , int idWallet) throws SQLException, ClassNotFoundException {
+    public void addToUser_Wallet(int idUser, int idWallet) throws SQLException, ClassNotFoundException {
         PreparedStatement preparedStatement = JDBC.connection().prepareStatement(INSERT_USER_WALLET);
-        preparedStatement.setInt(1,idUser);
-        preparedStatement.setInt(2,idWallet);
+        preparedStatement.setInt(1, idUser);
+        preparedStatement.setInt(2, idWallet);
         preparedStatement.executeUpdate();
 
     }
