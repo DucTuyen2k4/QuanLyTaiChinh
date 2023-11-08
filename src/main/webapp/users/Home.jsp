@@ -108,7 +108,7 @@
     }
 
     .rectangles-bottom > ul li {
-        margin-right: 130px;
+
     }
 
     .rectangles-bottom > ul li a {
@@ -136,7 +136,6 @@
 
     .rectangles-bottom > ul li ul {
         display: none;
-        min-width: 230px;
         position: absolute;
     }
 
@@ -149,8 +148,8 @@
     }
 
     .rectangles-bottom > ul li > ul li:first-child a {
-        border-bottom-left-radius: 0px;
-        border-top-left-radius: 0px;
+        border-bottom-left-radius: 0;
+        border-top-left-radius: 0;
     }
 
     .rectangles-bottom > ul li > ul li:last-child {
@@ -168,7 +167,7 @@
     }
 
     .rectangles-bottom > ul li > ul li > ul {
-        margin-left: 352px;
+
         margin-top: -50px;
     }
 
@@ -182,40 +181,6 @@
         list-style: none;
     }
 
-    .circle {
-        width: 80px;
-        height: 80px;
-        border-radius: 50%;
-
-        background-size: 100%;
-        background-repeat: no-repeat;
-        position: absolute;
-        top: 1px;
-        right: 50px;
-        z-index: 2;
-    }
-
-    .confirmation-dialog {
-        display: none;
-        position: fixed;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        background-color: rgba(0, 0, 0, 0.5);
-        z-index: 9999;
-    }
-
-    .confirmation-dialog-content {
-        background-color: #fff;
-        width: 300px;
-        padding: 20px;
-        text-align: center;
-        position: absolute;
-        top: 50%;
-        left: 50%;
-        transform: translate(-50%, -50%);
-    }
 
     .confirmation-dialog-content h2 {
         margin-top: 0;
@@ -229,9 +194,6 @@
         margin-right: 10px;
     }
 
-    button.navbar-toggler:focus {
-        outline: none;
-    }
 
     .red-square {
         position: absolute;
@@ -269,30 +231,30 @@
     </div>
     <div class="rectangles">
         <div class="rectangles-right">
-            <a href="list.jsp" class="btn-login">Đăng nhập</a>
-            <a href="Register.jsp" class="btn-register">Đăng kí</a>
+            <a href="list.jsp" class="btn-login" style="border-radius: 10px; background-color: #0bc905">Đăng nhập</a>
+            <a href="Register.jsp" class="btn-register " style="border-radius: 10px; background-color: #0bc905">Đăng kí</a>
         </div>
     </div>
     <div class="rectangles-bottom">
         <ul>
             <li>
-                <a href="#">Home</a>
+                <a href="#">Trang chủ</a>
             </li>
             <div class="dropdown">
-                <li><a href="#">Wallet</a>
+                <li><a href="#">Ví</a>
 
                 </li>
             </div>
             <div class="dropdown">
-                <li><a href="#">Categories</a>
+                <li><a href="#">Danh mục</a>
                 </li>
             </div>
             <div class="dropdown">
-                <li><a href="#">History</a>
+                <li><a href="#">Lịch sử</a>
                 </li>
             </div>
             <div class="dropdown">
-                <li><a href="#">Bank</a>
+                <li><a href="#">Ngân hàng</a>
                 </li>
             </div>
         </ul>
@@ -301,13 +263,6 @@
 <nav></nav>
 <main>
     <div class="left-pane">
-        <a>jj</a>
-        <img src="https://cdn-www.bluestacks.com/bs-images/long-chien-truyen-ky-news-vi-1.jpeg" alt="Tên của hình ảnh"
-             style="max-width: 100%;height: 46%;">
-
-        <img src="https://gamek.mediacdn.vn/133514250583805952/2022/3/2/photo-1-16461981526061189012229.jpg"
-             alt="Tên của hình ảnh" style="max-width: 100%; height: 50%;">
-    </div>
     </div>
     <div class="middle-pane"></div>
     <div class="right-pane"></div>

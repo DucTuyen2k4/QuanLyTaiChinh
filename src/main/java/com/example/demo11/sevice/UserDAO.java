@@ -26,10 +26,33 @@ public class UserDAO implements IUserDAO {
     private static final String  DELETE_USER="delete from users where id=?";
 
 
+    private static final String FIND_EMAIL="select email from users where email=?";
+    private static final String CHANGE_PASSWORD_BY_EMAIL="UPDATE users set password=? where email=?";
+
 
     @Override
+    public void ChangePassword(String email, String password) throws SQLException, ClassNotFoundException {
+        PreparedStatement preparedStatement = JDBC.connection().prepareStatement(CHANGE_PASSWORD_BY_EMAIL);
+        preparedStatement.setString(1,password);
+        preparedStatement.setString(2,email);
+        preparedStatement.executeUpdate();
+    }
 
-
+    @Override
+    public boolean XAC_NHAN_EMAIL(String email) throws SQLException, ClassNotFoundException {
+        PreparedStatement preparedStatement=JDBC.connection().prepareStatement(FIND_EMAIL);
+        preparedStatement.setString(1,email);
+        ResultSet resultSet=preparedStatement.executeQuery();
+        boolean gay=false;
+        while (resultSet.next()){
+            String Pan=resultSet.getString("email");
+            if (email.equals(Pan)){
+                gay=true;
+            }
+        }
+        return gay;
+    }
+    @Override
     public void addUser(User user) throws SQLException, ClassNotFoundException {
 
 

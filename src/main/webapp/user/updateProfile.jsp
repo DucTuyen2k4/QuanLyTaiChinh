@@ -108,9 +108,7 @@
 <div class="edit-product">
     <div>
         <form action="user?action=confirmUpdate" method="post" class="edit-form">
-            <div class="back-button">
-                <a href="users/listHome.jsp"><i class="fas fa-arrow-left"></i>Quay lại trang chủ</a>
-            </div>
+
             <%--            <c:forEach var="lists" items="${list}">--%>
             <div class="form-group">
                 <input type="hidden" name="id" value="${sessionScope['user'].getId()}">

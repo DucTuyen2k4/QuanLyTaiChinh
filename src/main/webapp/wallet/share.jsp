@@ -28,6 +28,8 @@
             <input type="hidden" name="idWallet" value="${idWallet}" />
             <input type="hidden" name="username" value="${sessionScope['user'].getUserName()}"/>
             <input type="hidden" name="password" value="${sessionScope['user'].getPassword()}"/>
+
+
         </form>
     </div>
 </div>

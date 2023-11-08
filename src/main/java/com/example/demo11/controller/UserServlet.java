@@ -67,7 +67,6 @@ public class UserServlet extends HttpServlet {
                     throw new RuntimeException(e);
                 }
                 break;
-
             case "Register":
                 req.getRequestDispatcher("users/Register.jsp").forward(req, resp);
                 break;

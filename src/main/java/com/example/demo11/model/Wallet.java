@@ -7,6 +7,34 @@ public class Wallet {
     private double money;
     private String currency;
     private String description ;
+    private String permission ;
+
+    public Wallet(int idWallet,String icon, String nameWallet, Double money, String currency, String description) {
+        this.icon = icon;
+        this.nameWallet = nameWallet ;
+        this.money = money;
+        this.currency = currency;
+        this.description = description;
+        this.idWallet= idWallet;
+    }
+
+
+    public Wallet(String icon, String nameWallet, Double money, String currency, String description, String permission) {
+        this.icon = icon;
+        this.nameWallet = nameWallet ;
+        this.money = money;
+        this.currency = currency;
+        this.description = description;
+        this.permission=permission;
+    }
+
+    public String getPermission() {
+        return permission;
+    }
+
+    public void setPermission(String permission) {
+        this.permission = permission;
+    }
 
     private boolean locked;
 
@@ -27,14 +55,16 @@ public class Wallet {
         this.locked = locked;
     }
 
-    public Wallet(int idWallet , String icon, String nameWallet, Double money, String currency, String description) {
+    public Wallet(int idWallet , String icon, String nameWallet, Double money, String currency, String description,String permission) {
         this.idWallet = idWallet;
         this.icon = icon;
         this.nameWallet = nameWallet ;
         this.money = money;
         this.currency = currency;
         this.description = description;
+        this.permission=permission;
     }
+
 
     public Wallet(String icon, String nameWallet, Double money, String currency, String description) {
         this.icon = icon;
@@ -42,6 +72,7 @@ public class Wallet {
         this.money = money;
         this.currency = currency;
         this.description = description;
+        this.permission=permission;
     }
 
     public Wallet(int idWallet) {

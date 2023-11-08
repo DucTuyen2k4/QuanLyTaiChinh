@@ -169,7 +169,7 @@
     }
 
     .rectangles-bottom > ul li > ul li > ul {
-        margin-left: 352px;
+        margin-left: 230px;
         margin-top: -50px;
     }
 
@@ -242,6 +242,7 @@
         z-index: 2; /* Ensure it's above other elements */
 
     }
+
     .square-100x100 {
         position: absolute;
         width: 700px;
@@ -283,7 +284,8 @@
 
                                     <li class="nav-item">
                                         <a style="color: #ffffff" class="nav-link active" aria-current="page"
-                                           href="/user?action=update&id=${sessionScope['user'].getId()}&username=${sessionScope['user'].getUserName()}&password=${sessionScope['user'].getPassword()}"> Câp nhật
+                                           href="/user?action=update&id=${sessionScope['user'].getId()}&username=${sessionScope['user'].getUserName()}&password=${sessionScope['user'].getPassword()}">
+                                            Câp nhật
                                             thông
                                             tin </a>
                                     </li>
@@ -310,15 +312,16 @@
     <div class="rectangles-bottom">
         <ul>
             <li>
-                <a href="listHones.jsp">Home</a>
+                <a href="listHones.jsp">Trang chủ</a>
             </li>
             <div class="dropdown">
-                <li><a href="#">Wallet</a>
+                <li><a href="#">Ví</a>
                     <ul class="dropdown-menu dropdown-menu-dark">
                         <c:forEach var="list" items="${list}">
-                            <li><a class="dropdown-item"
-                                   href="/wallet?action=ShowWallet&id=${list.idWallet}&username=${sessionScope['user'].getUserName()}&password=${sessionScope['user'].getPassword()}">
-                                <span style="color: black; text-align: center">${list.nameWallet}</span>
+                            <li>
+                                <a class="dropdown-item"
+                                   href="/wallet?action=ShowWallet&permission=${list.permission}&id=${list.idWallet}&username=${sessionScope['user'].getUserName()}&password=${sessionScope['user'].getPassword()}">
+                                <span style="color: black; text-align: center">${list.nameWallet}${list.permission}</span>
                             </a>
                             </li>
                         </c:forEach>
@@ -329,27 +332,40 @@
                 </li>
             </div>
             <div class="dropdown">
-                <li><a href="#">Categories</a>
+                <li><a href="#">Danh mục</a>
                     <ul class="dropdown-menu dropdown-menu-dark">
-                            <c:forEach var="listCategory" items="${listCategory}">
-                                <li>
-                                 <a href=""><span>${listCategory.nameCategory}</span></a>
-                                </li>
-                            </c:forEach>
-                        <a href="/category/formAddCategory.jsp?username=${sessionScope['user'].getUserName()}&password=${sessionScope['user'].getPassword()}&id=${sessionScope['user'].getId()}">+</a>
+                        <li><a class="dropdown-item" style=" padding: 10px;" href="#"><span style="color: black;">Khoản thu</span></a>
+                        </li>
+                        <li><a class="dropdown-item" style=" padding: 10px;" href="#"> <span style="color: black;">Khoản chi</span>
+                            <ul class="dropdown-menu dropdown-menu-dark">
+
+                                <c:forEach var="listCategory" items="${listCategory}">
+                                    <li>
+                                        <a href="category?action=showCategorys&idCategory=${listCategory.idCategory}&username=${sessionScope['user'].getUserName()}&password=${sessionScope['user'].getPassword()}"><span>${listCategory.nameCategory}</span></a>
+                                    </li>
+                                </c:forEach>
+                                <a style="text-align: center ; color: #1d1e1c"
+                                   href="/category/formAddCategory.jsp?username=${sessionScope['user'].getUserName()}&password=${sessionScope['user'].getPassword()}&id=${sessionScope['user'].getId()}">+</a>
+                            </ul>
+                        </a>
+                        </li>
+                        <li><a class="dropdown-item" style=" padding: 10px;" href="#"> <span
+                                style="color: black;">Mục chi tiêu</span></a>
+                        </li>
+
                     </ul>
+            </div>
+            <div class="dropdown">
+                <li><a href="#">Lịch sử</a>
                 </li>
             </div>
             <div class="dropdown">
-                <li><a href="#">History</a>
-                </li>
-            </div>
-            <div class="dropdown">
-                <li><a href="#">Bank</a>
+                <li><a href="#">Ngân hàng</a>
                 </li>
             </div>
         </ul>
     </div>
+
 </header>
 <nav></nav>
 <main>
@@ -358,26 +374,52 @@
     <div class="middle-pane">
         <div class="square-100x100">
             <c:if test="${not empty wallet.getIdWallet()}">
-            <a hidden="hidden"><p>${wallet.getIdWallet()}</p></a>
-            <p>Icon : ${wallet.getIcon()}</p><br>
-            <p>Tên Ví : ${wallet.getNameWallet()}</p><br>
-            <p>Số Tiền : ${wallet.getMoney()} ${wallet.getCurrency()}</p><br>
-            <p>Miêu Tả :${wallet.getDescription()}</p><br>
-            <form action="/wallet?action=showWalletUpdate&idWallet=${wallet.getIdWallet()}&username=${sessionScope['user'].getUserName()}&password=${sessionScope['user'].getPassword()}"
-                  method="post">
-                <input value="update" type="submit">
-            </form>
-            <form action="/wallet?action=showFormBanking&idWallet=${wallet.getIdWallet()}&username=${sessionScope['user'].getUserName()}&password=${sessionScope['user'].getPassword()}&money=${wallet.getMoney()}&nameWallet=${wallet.getNameWallet()}" method="post">
-                <input value="chuyển tiền" type="submit">
-            </form>
-            <form action="/wallet?action=showShare&idWallet=${wallet.getIdWallet()}&username=${sessionScope['user'].getUserName()}&password=${sessionScope['user'].getPassword()}&id=${sessionScope['user'].getId()}"
-                  method="post">
-                <input type="submit" value="share">
-            </form>
+                <a hidden="hidden"><p>${wallet.getIdWallet()}</p></a>
+                <p>Icon : ${wallet.getIcon()}</p><br>
+                <p>Tên Ví : ${wallet.getNameWallet()}</p><br>
+                <p>Số Tiền : ${wallet.getMoney()} ${wallet.getCurrency()}</p><br>
+                <p>Miêu Tả :${wallet.getDescription()}</p><br>
+                <c:if test="${not empty send}">
+                    <form action="/wallet?action=showWalletUpdate&idWallet=${wallet.getIdWallet()}&username=${sessionScope['user'].getUserName()}&password=${sessionScope['user'].getPassword()}"
+                          method="post">
+                        <input value="Cap nhat" type="submit">
+                    </form>
+                    <form action="/wallet?action=showFormBanking&idWallet=${wallet.getIdWallet()}&username=${sessionScope['user'].getUserName()}&password=${sessionScope['user'].getPassword()}&money=${wallet.getMoney()}&nameWallet=${wallet.getNameWallet()}"
+                          method="post">
+                        <input value="chuyển tiền" type="submit">
+                    </form>
+                    <form action="/wallet?action=showShare&idWallet=${wallet.getIdWallet()}&username=${sessionScope['user'].getUserName()}&password=${sessionScope['user'].getPassword()}&id=${sessionScope['user'].getId()}"
+                          method="post">
+                        <input type="submit" value="share">
+                    </form>
+                    <a href="#" id="Delete-link"><button>delete wallet</button></a>
+                </c:if>
+
+            </c:if>
+            <c:if test="${not empty category}">
+                <c:forEach var="list" items="${category}">
+                    <form method="post" action="/category?action=showCategoryUpdate&idCategory=${list.idCategory}">
+                        <div class="form-group">
+                            <label>Tên Danh Mục :</label><br>
+                            <input name="categoryName" value="${list.nameCategory}">
+                        </div>
+                        <div class="form-group">
+                            <label>Ghi chú :</label><br>
+                            <input name="categoryNote" value="${list.note}">
+                            <input type="hidden" name="username" value="${sessionScope['user'].getUserName()}"/>
+                            <input type="hidden" name="password" value="${sessionScope['user'].getPassword()}"/>
+                        </div>
+                        <button type="submit">Cập Nhật</button>
+                    </form>
+                    <br><br><br><br><br>
+                    <a href="/category?action=delete&idCategory=${list.idCategory}&username=${sessionScope['user'].getUserName()}&password=${sessionScope['user'].getPassword()}"><button>delete</button></a>
+                </c:forEach>
             </c:if>
         </div>
     </div>
-    <div class="right-pane"></div>
+    <div class="right-pane">
+
+    </div>
 </main>
 
 <form>
@@ -400,7 +442,6 @@
         <button onclick="hideDialog('confirmation-dialog-logout')">Cancel</button>
     </div>
 </div>
-
 <script>
     function showDialog(dialogId) {
         const dialog = document.getElementById(dialogId);
@@ -428,6 +469,32 @@
                 break;
         }
     }
+</script>
+<div class="confirmation-dialog" id="confirmation-deleteW">
+    <div class="confirmation-dialog-content">
+        <h2>Confirm deletion</h2>
+        <p>Do you want to delete ?</p>
+        <button id="confirm-De">Yes</button>
+        <button id="cancel-De">Cancel</button>
+    </div>
+</div>
+<script>
+    const DeleteLink = document.getElementById('Delete-link');
+    const confirmationDelete = document.getElementById('confirmation-deleteW');
+    const confirmDelete = document.getElementById('confirm-De');
+    const cancelDelete = document.getElementById('cancel-De');
+
+    DeleteLink.addEventListener('click', function (event) {
+        event.preventDefault();
+        confirmationDelete.style.display = 'block';
+    });
+    confirmDelete.addEventListener('click', function () {
+        confirmationDelete.style.display = 'none';
+        window.location.href = "/wallet?action=delete&idWallet=${wallet.getIdWallet()}&username=${sessionScope['user'].getUserName()}&password=${sessionScope['user'].getPassword()}";
+    });
+    cancelDelete.addEventListener('click', function () {
+        confirmationDelete.style.display = 'none';
+    });
 </script>
 </body>
 </html>

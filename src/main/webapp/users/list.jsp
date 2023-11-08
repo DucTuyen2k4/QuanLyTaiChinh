@@ -173,15 +173,15 @@
 <header>
     <div class="left-pane"></div>
     <div class="middle-pane">
-        <div style="margin-left: 150px">Budget</div>
+        <div style="margin-left: 150px">Quản lí ngân sách</div>
     </div>
     <div class="right-pane">
         <form>
             <div class="function-text">
-                <input type="submit" value="Register" class="register-button">
+                <button><a href="/users/Register.jsp">Đăng kí</a></button>
 
                 <button class="no-border login-button" style="width: 90px; height: 35px;">
-                    <a href="/users/list.jsp" style="color: #ffffff; text-decoration: none;">Login</a></button>
+                    <a href="/users/list.jsp" style="color: #ffffff; text-decoration: none"> Đăng nhập</a></button>
             </div>
         </form>
     </div>
@@ -196,15 +196,15 @@
 <main>
     <form action="/user" method="post">
         <div class="middle-pane">
-            <H1 style="text-align: center">Login</H1>
+            <H1 style="text-align: center">Đăng nhập</H1>
             <div class="centered-text">
                 <%--                <h5 style="float: left">Ảnh :</h5>--%>
                 <%--                <input class="no-border " type="text" name="image" id="image" required pattern=".*\.(jpg|png|gif)" value="${param.image}" title="Chỉ được nhập đường dẫn ảnh với đuôi .jpg, .png, hoặc .gif">--%>
-                <h5 style="float: left">Username :</h5>
-                <input class="no-border " type="text" name="userName" placeholder="UserName" id="username"
+                <h5 style="float: left">Tên đăng nhập :</h5>
+                <input class="no-border " type="text" name="userName" placeholder="Tên đăng nhập" id="username"
                        style="border-radius: 10px 10px"><br><br>
-                <h5 style="float: left">Password :</h5>
-                <input class="no-border " type="password" name="password" placeholder="Password" id="password"
+                <h5 style="float: left">Mật khẩu :</h5>
+                <input class="no-border " type="password" name="password" placeholder="Mật khẩu" id="password"
                        style="border-radius: 10px 10px"><br><br>
                 <p style="margin-left: 180px ; color: red">${message}</p>
             </div>

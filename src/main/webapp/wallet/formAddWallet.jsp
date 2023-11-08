@@ -37,16 +37,6 @@
 <body>
 <div class="container">
     <form action="/wallet" method="get">
-        <div class="dropdown">
-            <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-                Dropdown button
-            </button>
-            <ul class="dropdown-menu">
-                <li><i class="fas fa-poo"></i></li>
-                <li><i class="fas fa-poo"></i></li>
-                <li><i class="fas fa-poo"></i></li>
-            </ul>
-        </div>
         <div class="setting">
             <h2>Thêm mới một ví</h2>
             <div class="form-group">

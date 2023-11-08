@@ -14,6 +14,7 @@ public interface ICategoryDao {
     public Category selectIdCategory(String nameCategory , String note) throws SQLException, ClassNotFoundException;
     public void insertNewCategory(int idUser,int idCategory) throws SQLException, ClassNotFoundException;
     public boolean selectNameCategory(String nameCategory) throws SQLException, ClassNotFoundException;
-
+    public List<Category> selectAllCategorys(int idCategory) throws SQLException, ClassNotFoundException;
+    public void deleteCategory(int id) throws SQLException, ClassNotFoundException;
 }
 
