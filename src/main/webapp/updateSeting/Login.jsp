@@ -11,12 +11,13 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
     <style>
         body {
-            background-image: url("/users/hình-nền-ấn-tượng.jpg");
+            /*background-image: url("/users/hình-nền-ấn-tượng.jpg");*/
+            background-color: #eee4e4;
         }
 
         .header {
             width: 100%;
-            height: 15%;
+            height: 5%;
         }
 
         .logo {
@@ -24,6 +25,8 @@
             width: 20%;
             height: 10%;
             float: left;
+            display: flex;
+            margin-top: 5px;
         }
 
         .menu {
@@ -33,15 +36,15 @@
         }
 
         .menu1 {
-            margin-left: 10%;
+            margin-left: 5%;
             display: flex;
-            margin-top: 40px;
+            margin-top: 20px;
 
 
         }
 
         .general {
-            height: 75%;
+            height: 80%;
         }
 
         .left {
@@ -54,7 +57,7 @@
             float: left;
             width: 60%;
             height: 100%;
-
+            box-shadow: 0 0 6px 5px #646e6e;
         }
 
         .right {
@@ -64,7 +67,7 @@
         }
 
         .footer {
-            background-color: #7a7474;
+            background-color: #c4b4b4;
             width: 100%;
             height: 10%;
             border-radius: 10px 10px 0 0;
@@ -79,7 +82,7 @@
         .headers {
             float: right;
             margin-right: 25px;
-            margin-top: 25px;
+            margin-top: 10px;
         }
 
         button {
@@ -101,7 +104,7 @@
 
         .dropdown-content a {
             color: #dccfcf;
-            background-color: #8030c9;
+            background-color: #7a7474;
             padding: 12px 16px;
             text-decoration: none;
             display: block;
@@ -118,9 +121,11 @@
         .dropdown-content{
             overflow: auto;
             width: 100px;
-            height: 100px;
+            height: 200px;
         }
-
+        ::-webkit-scrollbar {
+            width: 0;
+        }
 
     </style>
 </head>
@@ -128,17 +133,19 @@
 <div class="all">
     <div class="header">
         <div class="logo">
-            <i class="fa-brands fa-wordpress" style="font-size: 100px; color: #8030c9"></i>
+            <i class="fa-brands fa-wordpress" style="font-size: 60px; color: #8030c9"></i>
+            <h5 style="margin-top: 6px">wallet <br>manage</h5>
         </div>
+
         <div class="menu">
             <div class="menu1">
                 <div>
-                    <a href="" style="color: #ffffff ; text-decoration: none; ">Home</a>
+                    <a href="" style="color: #0a0101 ; text-decoration: none; ">Home</a>
                 </div>
                 <div class="w" style="margin-left: 20px">
                     <ul>
                         <li class="dropdown">
-                            <a href="#" class="dropbtn" style="color: #ffffff ; text-decoration: none">Wallet </a>
+                            <a href="#" class="dropbtn" style="color: #0a0101 ; text-decoration: none">Wallet </a>
                             <div class="dropdown-content">
                                 <a href="#" style=""> a</a>
                                 <a href="#"> b</a>
@@ -149,7 +156,7 @@
                 <div class="Category" style="margin-left: 20px">
                     <ul>
                         <li class="dropdown">
-                            <a href="#" class="dropbtn" style="color: #ffffff ; text-decoration: none">Category </a>
+                            <a href="#" class="dropbtn" style="color: #0a0101 ; text-decoration: none">Category </a>
                             <div class="dropdown-content">
                                 <a href="#"> a</a>
                                 <a href="#"> b</a>
@@ -164,13 +171,13 @@
                     </ul>
                 </div>
                 <div>
-                    <a href="" style="margin-left: 40px; color: #ffffff; text-decoration: none">History</a>
+                    <a href="" style="margin-left: 40px; color: #0a0101; text-decoration: none">History</a>
                 </div>
                 <div>
-                    <a href="" style="margin-left: 40px; color: #ffffff ; text-decoration: none">Bank</a>
+                    <a href="" style="margin-left: 40px; color: #0a0101 ; text-decoration: none">Bank</a>
                 </div>
                 <div>
-                    <a href="" style="margin-left: 40px; color: #ffffff ; text-decoration: none">Spending</a>
+                    <a href="" style="margin-left: 40px; color: #0a0101 ; text-decoration: none">Spending</a>
                 </div>
             </div>
         </div>
@@ -181,14 +188,13 @@
                 <a href="/users/Register.jsp" style=" text-decoration: none; color: #8030c9">Login</a></button>
         </div>
     </div>
-
+    <hr style="color: black; width: 70%; margin-left: 15%; margin-top: 35px">
     <div class="general">
-        <div class="left">left</div>
+        <div class="left"></div>
         <div class="content">
 
-           dsadsa
         </div>
-        <div class="right">right</div>
+        <div class="right"></div>
     </div>
     <div class="footer">
         <div style="padding:  15px 0 0 0">
