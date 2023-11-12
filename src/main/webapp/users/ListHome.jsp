@@ -82,7 +82,7 @@
         .headers {
             float: right;
             margin-right: 25px;
-
+            margin-top: 10px;
         }
 
         button {
@@ -136,6 +136,7 @@
             <i class="fa-brands fa-wordpress" style="font-size: 60px; color: #8030c9"></i>
             <h5 style="margin-top: 6px">wallet <br>manage</h5>
         </div>
+
         <div class="menu">
             <div class="menu1">
                 <div>
@@ -157,14 +158,6 @@
                         <li class="dropdown">
                             <a href="#" class="dropbtn" style="color: #0a0101 ; text-decoration: none">Category </a>
                             <div class="dropdown-content">
-                                <a href="#"> a</a>
-                                <a href="#"> b</a>
-                                <a href="#"> b</a>
-                                <a href="#"> b</a>
-                                <a href="#"> b</a>
-                                <a href="#"> b</a>
-                                <a href="#"> b</a>
-
                             </div>
                         </li>
                     </ul>
@@ -181,44 +174,11 @@
             </div>
         </div>
         <div class="headers">
-            <nav class="navbar" >
-                <div class="container-fluid">
-                    <button class="navbar-toggler" data-bs-toggle="offcanvas"
-                            data-bs-target="#offcanvasDarkNavbar"
-                            style="border: none; border-radius: 50%">
-                        <img src="https://antimatter.vn/wp-content/uploads/2022/10/hinh-anh-gai-xinh-de-thuong.jpg"
-                             alt="Settings" style="width: 80px; height: 80px; border-radius: 50%;">
-                    </button>
+            <button class="no-border login-button" style="width: 90px; height: 35px; ; background-color: lightpink">
+                <a href="/users/Login.jsp" style=" text-decoration: none; color: #8030c9">Login</a></button>
+            <button class="no-border login-button" style="width: 90px; height: 35px;  background-color: lightpink">
+                <a href="/users/Registers.jsp" style=" text-decoration: none;color: #8030c9">Register</a></button>
 
-                    <div class="offcanvas offcanvas-end text-bg-dark" id="offcanvasDarkNavbar"
-                         aria-labelledby="offcanvasDarkNavbarLabel" style="width: 300px">
-                        <div class="offcanvas-header">
-                            <h5 class="offcanvas-title" id="offcanvasDarkNavbarLabel">Settings</h5>
-                            <button type="button" class="btn-close btn-close-white" data-bs-dismiss="offcanvas"
-                                    aria-label="Close"></button>
-                        </div>
-                        <div class="offcanvas-body">
-                            <ul class="navbar-nav justify-content-end flex-grow-1 pe-3">
-
-                                <li class="nav-item">
-                                    <a style="color: #ffffff" class="nav-link active" aria-current="page"
-                                       href="/user?action=update&id=${sessionScope['user'].getId()}&username=${sessionScope['user'].getUserName()}&password=${sessionScope['user'].getPassword()}">
-                                        Câp nhật
-                                        thông
-                                        tin </a>
-                                </li>
-                                <li class="nav-item">
-                                    <a style="color: #ffffff" class="nav-link active" aria-current="page" href="#"
-                                       onclick="showDialog('confirmation-dialog-delete')">Xóa tài khoản</a></li>
-                                <li class="nav-item">
-                                    <a style="color: #ffffff" class="nav-link active" aria-current="page" href="#"
-                                       onclick="showDialog('confirmation-dialog-logout')">Đăng xuất</a>
-                                </li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-            </nav>
         </div>
     </div>
     <hr style="color: black; width: 70%; margin-left: 15%; margin-top: 35px">

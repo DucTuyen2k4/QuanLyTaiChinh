@@ -132,7 +132,7 @@ public class WalletServlet extends HttpServlet {
             List<User> list = iUserDAO.show(username, password);
             HttpSession session = req.getSession();
             session.setAttribute("user", list.get(0));
-            req.getRequestDispatcher("users/listHome.jsp").forward(req, resp);
+            req.getRequestDispatcher("users/q.jsp").forward(req, resp);
         } else {
 
             req.setAttribute("message", "vi chỉ được chia sẻ 1 lần!");
@@ -168,7 +168,7 @@ public class WalletServlet extends HttpServlet {
             List<Wallet> listWallet = iWalletDAO.showAllWallet(username, password);
             req.setAttribute("list", listWallet);
             req.setAttribute("send", "send");
-            req.getRequestDispatcher("users/listHome.jsp").forward(req, resp);
+            req.getRequestDispatcher("users/Home.jsp").forward(req, resp);
         } else {
             List<User> list = iUserDAO.show(username, password);
             req.setAttribute("list", list);
@@ -187,7 +187,7 @@ public class WalletServlet extends HttpServlet {
             req.setAttribute("list", listWallet);
             req.setAttribute("send", "");
 
-            req.getRequestDispatcher("users/listHome.jsp").forward(req, resp);
+            req.getRequestDispatcher("users/Home.jsp").forward(req, resp);
         }
 
 
@@ -242,7 +242,7 @@ public class WalletServlet extends HttpServlet {
         req.setAttribute("list", listWallet);
         List<Category> categoryList = icategoryDao.selectCategory(username, password);
         req.setAttribute("listCategory", categoryList);
-        req.getRequestDispatcher("users/listHome.jsp").forward(req, resp);
+        req.getRequestDispatcher("users/q.jsp").forward(req, resp);
     }
 
     private void confirmBanking(HttpServletRequest req, HttpServletResponse resp) throws SQLException, ClassNotFoundException, ServletException, IOException {
@@ -272,7 +272,7 @@ public class WalletServlet extends HttpServlet {
 
                 List<Wallet> listWallet = iWalletDAO.showAllWallet(username, password);
                 req.setAttribute("list", listWallet);
-                req.getRequestDispatcher("users/listHome.jsp").forward(req, resp);
+                req.getRequestDispatcher("users/q.jsp").forward(req, resp);
 
             } else {
                 req.setAttribute("messages", "Số dư không đủ để chuyển!");
@@ -336,8 +336,8 @@ public class WalletServlet extends HttpServlet {
         String password = request.getParameter("password");
 
         int idWallet = Integer.parseInt(request.getParameter("idWallet"));
-        String nameWallet = request.getParameter("nameWallet");
         String icon = request.getParameter("icon");
+        String nameWallet = request.getParameter("nameWallet");
         Double money = Double.valueOf(request.getParameter("money"));
         String description = request.getParameter("description");
         String currency = request.getParameter("currency");
@@ -347,13 +347,13 @@ public class WalletServlet extends HttpServlet {
         List<Wallet> listWallet = iWalletDAO.showAllWallet(username, password);
         request.setAttribute("list", listWallet);
 
-        Wallet wallet = new Wallet(idWallet, nameWallet, icon, money, description, currency);
+        Wallet wallet = new Wallet(idWallet, icon,nameWallet , money, description, currency);
         request.setAttribute("wallet", wallet);
 
         List<Category> categoryList = icategoryDao.selectCategory(username, password);
         request.setAttribute("listCategory", categoryList);
 
-        request.getRequestDispatcher("/users/listHome.jsp").forward(request, response);
+        request.getRequestDispatcher("/users/Home.jsp").forward(request, response);
     }
 
     private void addWallet(HttpServletRequest req, HttpServletResponse resp) throws SQLException, ClassNotFoundException, ServletException, IOException {
@@ -379,6 +379,6 @@ public class WalletServlet extends HttpServlet {
         List<Category> categoryList = icategoryDao.selectCategory(username, password);
         req.setAttribute("listCategory", categoryList);
 
-        req.getRequestDispatcher("/users/listHome.jsp").forward(req, resp);
+        req.getRequestDispatcher("/users/Home.jsp").forward(req, resp);
     }
 }

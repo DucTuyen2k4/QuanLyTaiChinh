@@ -188,18 +188,11 @@
 </header>
 
 
-<%--thanh chức năng--%>
-<nav>
-</nav>
-
-<%--giao diện--%>
 <main>
     <form action="/user" method="post">
         <div class="middle-pane">
             <H1 style="text-align: center">Đăng nhập</H1>
             <div class="centered-text">
-                <%--                <h5 style="float: left">Ảnh :</h5>--%>
-                <%--                <input class="no-border " type="text" name="image" id="image" required pattern=".*\.(jpg|png|gif)" value="${param.image}" title="Chỉ được nhập đường dẫn ảnh với đuôi .jpg, .png, hoặc .gif">--%>
                 <h5 style="float: left">Tên đăng nhập :</h5>
                 <input class="no-border " type="text" name="userName" placeholder="Tên đăng nhập" id="username"
                        style="border-radius: 10px 10px"><br><br>
@@ -209,18 +202,10 @@
                 <p style="margin-left: 180px ; color: red">${message}</p>
             </div>
             <div class="function-text">
-                <%--                <input name="action" type="submit" style="margin-top: 40px" value="Register" class="register-button">--%>
                 <button style="margin-left: 5px" class="register-button" name="action" value="login">Đăng nhập</button>
-
             </div>
-            <%--        <hr style="background-color: #4CAF50">--%>
-
-
         </div>
     </form>
 </main>
-<%--<form>--%>
-<%--</form>--%>
 </body>
 </html>
-<%--code lại giao diện như trong hình hảnh trên bằng html--%>

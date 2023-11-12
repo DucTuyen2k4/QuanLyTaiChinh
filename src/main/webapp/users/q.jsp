@@ -318,19 +318,22 @@
                 <li><a href="#">Ví</a>
                     <ul class="dropdown-menu dropdown-menu-dark">
                         <c:forEach var="list" items="${list}">
-                            <li>
                                 <a class="dropdown-item"
                                    href="/wallet?action=ShowWallet&permission=${list.permission}&id=${list.idWallet}&username=${sessionScope['user'].getUserName()}&password=${sessionScope['user'].getPassword()}">
                                 <span style="color: black; text-align: center">${list.nameWallet}${list.permission}</span>
                             </a>
-                            </li>
                         </c:forEach>
-                        <li><a class="dropdown-item"
+                        <a class="dropdown-item"
                                href="/wallet/formAddWallet.jsp?username=${sessionScope['user'].getUserName()}&password=${sessionScope['user'].getPassword()}&id=${sessionScope['user'].getId()}"
-                               style="text-align: center ; color: #1d1e1c">+</a></li>
+                               style="text-align: center ; color: #1d1e1c">+</a>
                     </ul>
                 </li>
             </div>
+<%--            dsadsadsadasdasdasdasdas--%>
+
+            <a class="dropdown-item"
+               href="/wallet/formAddWallet.jsp?username=${sessionScope['user'].getUserName()}&password=${sessionScope['user'].getPassword()}&id=${sessionScope['user'].getId()}"
+               style="text-align: center ; color: #1d1e1c">+</a>
             <div class="dropdown">
                 <li><a href="#">Danh mục</a>
                     <ul class="dropdown-menu dropdown-menu-dark">
@@ -394,7 +397,6 @@
                     </form>
                     <a href="#" id="Delete-link"><button>delete wallet</button></a>
                 </c:if>
-
             </c:if>
             <c:if test="${not empty category}">
                 <c:forEach var="list" items="${category}">
@@ -463,7 +465,7 @@
 
                 break;
             case 'logout':
-                window.location.href = "users/Home.jsp";
+                window.location.href = "a.jsp";
                 break;
             default:
                 break;

@@ -41,7 +41,9 @@
             <h2>Thêm mới một ví</h2>
             <div class="form-group">
                 <label >Icon</label>
-                <input type="text" name="icon" class="form-control">
+<%--                <input type="text" name="icon" class="form-control">--%>
+                <a href="#" ><i class="fa-brands fa-tiktok"></i></a>
+                <a href="#"><i class="fa-brands fa-cc-visa"></i></a>
             </div>
             <div class="form-group">
                 <label >Name</label>

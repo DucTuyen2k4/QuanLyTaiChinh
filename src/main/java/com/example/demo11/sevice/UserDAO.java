@@ -79,12 +79,11 @@ public class UserDAO implements IUserDAO {
     @Override
     public boolean checkUser(String userName, String password) {
         try {
-
             PreparedStatement statement = JDBC.connection().prepareStatement(CHECK_USER);
             statement.setString(1, userName);
             statement.setString(2, password);
             ResultSet resultSet = statement.executeQuery();
-          return resultSet.next();
+            return resultSet.next();
         } catch (SQLException e) {
             throw new RuntimeException(e);
         } catch (ClassNotFoundException e) {
@@ -142,13 +141,8 @@ public class UserDAO implements IUserDAO {
         PreparedStatement preparedStatement = JDBC.connection().prepareStatement(CHECK_INF_USER);
         preparedStatement.setString(1,username);
         ResultSet resultSet = preparedStatement.executeQuery();
-        if (resultSet.next()) {
-            // userName đã tồn tại trong cơ sở dữ liệu
-            return true;
-        } else {
-            // userName chưa tồn tại trong cơ sở dữ liệu
-            return false;
-        }
+        return resultSet.next();
+
     }
 
     @Override

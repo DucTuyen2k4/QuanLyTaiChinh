@@ -8,10 +8,12 @@
     <title>Update Wallet</title>
 
     <!-- Bao gồm các tệp CSS và JavaScript của Bootstrap -->
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://getbootstrap.com/docs/5.3/assets/css/docs.css" rel="stylesheet">
+    <title>Bootstrap Example</title>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://kit.fontawesome.com/9b0347940d.js" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
 
     <style>
         body {
@@ -40,9 +42,13 @@
 <body>
 <div class="container">
     <c:forEach var="wallet" items="${listWalletUpdate}">
+        <a href="#" ><i class="fa-brands fa-tiktok"></i></a>
+        <a href="#"><i class="fa-brands fa-tiktok"></i></a>
+        <a href="#"><i class="fa-brands fa-tiktok"></i></a>
+        <a href="#"><i class="fa-brands fa-tiktok"></i></a>
+
         <form action="/wallet?action=updateWallet&idWallet=${wallet.getIdWallet()}" method="post">
             <div class="form-group">
-                <label >Icon</label>
                 <input name="icon" type="text" class="form-control" value="${wallet.getIcon()}">
             </div>
             <div class="form-group">

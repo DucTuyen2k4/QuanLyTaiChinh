@@ -170,10 +170,10 @@ break;
                 req.setAttribute("listCategory",categoryList);
 
 
-                req.getRequestDispatcher("users/listHome.jsp").forward(req, resp);
+                req.getRequestDispatcher("users/Home.jsp").forward(req, resp);
             } else {
                 req.setAttribute("message", "Tài khoản không tồn tại!");
-                req.getRequestDispatcher("users/list.jsp").forward(req, resp);
+                req.getRequestDispatcher("users/Login.jsp").forward(req, resp);
             }
         } catch (ServletException e) {
             throw new RuntimeException(e);
@@ -210,7 +210,7 @@ break;
         req.setAttribute("listCategory",categoryList);
         System.out.println(categoryList);
 
-        req.getRequestDispatcher("users/listHome.jsp").forward(req, resp);
+        req.getRequestDispatcher("users/q.jsp").forward(req, resp);
     }
 
     private void showFormUpdate(HttpServletRequest req, HttpServletResponse resp) throws SQLException, ClassNotFoundException, ServletException, IOException {
@@ -242,7 +242,7 @@ break;
                 userDAO.updatePassword(id, newPassword);
                 req.setAttribute("id", id);
 
-                req.getRequestDispatcher("users/listHome.jsp").forward(req, resp);
+                req.getRequestDispatcher("users/q.jsp").forward(req, resp);
             } else {
                 req.setAttribute("id", id);
                 req.setAttribute("messages", "Mật khẩu không khớp ! ");
