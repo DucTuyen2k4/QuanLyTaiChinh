@@ -67,7 +67,6 @@ public class UserServlet extends HttpServlet {
                     throw new RuntimeException(e);
                 }
                 break;
-
             case "Register":
                 req.getRequestDispatcher("users/Register.jsp").forward(req, resp);
                 break;
@@ -92,6 +91,7 @@ public class UserServlet extends HttpServlet {
         System.out.println(action);
         switch (action) {
             case "addUser":
+
                 try {
                     addUser(req, resp);
                 } catch (SQLException e) {
@@ -99,6 +99,7 @@ public class UserServlet extends HttpServlet {
                 } catch (ClassNotFoundException e) {
                     throw new RuntimeException(e);
                 }
+
                 break;
 
 
@@ -158,21 +159,16 @@ public class UserServlet extends HttpServlet {
         try {
             if (userDAO.checkUser(userName, password)) {
                 List<User> list = userDAO.show(userName, password);
-                req.setAttribute("list", list);
-
                 List<Wallet> walletList = walletDAO.listWallet(userName, password);
                 req.setAttribute("list", walletList);
-
                 HttpSession session = req.getSession();
                 session.setAttribute("user", list.get(0));
-
                 List<Category> categoryList = icategoryDao.selectCategory(userName,password);
                 req.setAttribute("listCategory",categoryList);
-
-                req.getRequestDispatcher("users/listHome.jsp").forward(req, resp);
+                req.getRequestDispatcher("users/Home.jsp").forward(req, resp);
             } else {
                 req.setAttribute("message", "Tài khoản không tồn tại!");
-                req.getRequestDispatcher("users/list.jsp").forward(req, resp);
+                req.getRequestDispatcher("users/Login.jsp").forward(req, resp);
             }
         } catch (ServletException e) {
             throw new RuntimeException(e);
@@ -182,8 +178,9 @@ public class UserServlet extends HttpServlet {
     }
 
     private void confirmUpdate(HttpServletRequest req, HttpServletResponse resp) throws SQLException, ClassNotFoundException, ServletException, IOException {
-        String userName = req.getParameter("userName");
+        String userName = req.getParameter("username");
         String password = req.getParameter("password");
+        System.out.println(userName+password);
         int id = Integer.parseInt(req.getParameter("id"));
         String fullName = req.getParameter("fullName");
         String gender = req.getParameter("gender");
@@ -192,22 +189,38 @@ public class UserServlet extends HttpServlet {
         String image = req.getParameter("image");
         userDAO.updateProfileUser(id, fullName, gender, birthdate, phoneNumber, image);
         List<User> list = userDAO.selectProfileUser(id);
-        List<Wallet> walletList = walletDAO.listWallet(userName, password);
-        req.setAttribute("list", walletList);
+
+
+        List<User> listUser = userDAO.show(userName, password);
 
         HttpSession session = req.getSession();
-        session.setAttribute("user", list.get(0));
+        session.setAttribute("user", listUser.get(0));
+
+
+        List<Wallet> walletList = walletDAO.listWallet(userName, password);
+        req.setAttribute("list", walletList);
+        System.out.println(walletList);
 
         List<Category> categoryList = icategoryDao.selectCategory(userName,password);
         req.setAttribute("listCategory",categoryList);
+        System.out.println(categoryList);
 
-        req.getRequestDispatcher("users/listHome.jsp").forward(req, resp);
+        req.getRequestDispatcher("users/q.jsp").forward(req, resp);
     }
 
     private void showFormUpdate(HttpServletRequest req, HttpServletResponse resp) throws SQLException, ClassNotFoundException, ServletException, IOException {
+        String userName = req.getParameter("username");
+        System.out.println(userName);
+        String password = req.getParameter("password");
+        System.out.println(password);
         int id = Integer.parseInt(req.getParameter("id"));
+        System.out.println(id);
         List<User> list = userDAO.selectProfileUser(id);
         req.setAttribute("list", list);
+
+        List<User> listUser = userDAO.show(userName, password);
+        HttpSession session = req.getSession();
+        session.setAttribute("user", listUser.get(0));
         req.getRequestDispatcher("user/updateProfile.jsp").forward(req, resp);
     }
 
@@ -224,7 +237,7 @@ public class UserServlet extends HttpServlet {
                 userDAO.updatePassword(id, newPassword);
                 req.setAttribute("id", id);
 
-                req.getRequestDispatcher("users/listHome.jsp").forward(req, resp);
+                req.getRequestDispatcher("users/q.jsp").forward(req, resp);
             } else {
                 req.setAttribute("id", id);
                 req.setAttribute("messages", "Mật khẩu không khớp ! ");
@@ -246,7 +259,7 @@ public class UserServlet extends HttpServlet {
 
 
     public static void addUser(HttpServletRequest request, HttpServletResponse response) throws SQLException, ClassNotFoundException, ServletException, IOException {
-        String fullName = request.getParameter("fullName");
+
         String userName = request.getParameter("userName");
         userDAO.CheckUserName(userName);
         if (!userDAO.CheckUserName(userName)) {
@@ -256,11 +269,9 @@ public class UserServlet extends HttpServlet {
                 String gender = request.getParameter("gender");
                 String email = request.getParameter("email");
                 String birthdateString = request.getParameter("birthdate");
-                String image = request.getParameter("image");
-                String phoneNumberSt = request.getParameter("phoneNumber");
-                int phoneNumber = 0;
-                try {
-                    phoneNumber = Integer.parseInt(phoneNumberSt);
+
+
+
                     SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
                     Date birthdate = null;
                     Date currentDate = new Date();
@@ -268,22 +279,15 @@ public class UserServlet extends HttpServlet {
                     try {
                         birthdate = sdf.parse(birthdateString);
                         System.out.println(birthdate);
-                        if (currentDate.compareTo(birthdate) > 0) {
-                            userDAO.addUser(new User(fullName, userName, password, email, gender, image, birthdate, phoneNumber));
-                            request.getRequestDispatcher("RegisterSuccess.jsp").forward(request, response);
-                        } else {
 
-                            request.setAttribute("messageFailureBirthdate", "Ngày tháng năm sinh không thể lớn hơn ngày hiện tại.");
-                            request.getRequestDispatcher("users/Register.jsp").forward(request, response);
-                        }
+                            userDAO.addUser(new User( userName, password, email, gender, birthdate));
+                            request.getRequestDispatcher("RegisterSuccess.jsp").forward(request, response);
+
                     } catch (ParseException e) {
                         e.printStackTrace();
                     }
 
-                } catch (NumberFormatException e) {
-                    request.setAttribute("messageFailurePhoneNumber", "Vui lòng nhập đúng 10 số điện thoại.");
-                    request.getRequestDispatcher("users/Register.jsp").forward(request, response);
-                }
+
 
 
             } else {

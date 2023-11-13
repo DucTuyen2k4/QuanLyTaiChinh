@@ -12,8 +12,8 @@
 </head>
 <body>
 <form action="/wallet?action=showWalletUpdate&id=1" method="post">
-  <input type="hidden" name="idWallet" value="1" />
-  <input type="submit" value="play">
+    <input type="hidden" name="idWallet" value="1" />
+    <input type="submit" value="play">
 </form>
 
 </body>

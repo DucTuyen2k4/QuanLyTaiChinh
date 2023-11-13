@@ -127,7 +127,7 @@
                            pattern="^(?=.*[A-Z])(?=.*[0-9]).{6,8}$">
                     <p style="color: red;font-size: 10px;margin-left: 17%">${messageFailurePassword}</p>
                     <p style="margin-left: 17%; top: 20px">Xác nhận mật khẩu :</p>
-                    <input type="password" name="confirmPassword"
+                    <input type="confirmPassword" name="confirmPassword"
                            style="border-radius: 10px;width: 70%; margin-left: 17%; padding-left: 10px">
                     <p></p>
 
@@ -167,12 +167,12 @@
             </div>
             <div class="right"></div>
         </div>
-<%--        <div class="footer">--%>
-<%--            <div style="padding:  15px 0 0 0">--%>
-<%--                <p style="text-align: center"> Copyright &copy; 2023 Financial Management Application</p>--%>
-<%--            </div>--%>
+        <div class="footer">
+            <div style="padding:  15px 0 0 0">
+                <p style="text-align: center"> Copyright &copy; 2023 Financial Management Application</p>
+            </div>
 
-<%--        </div>--%>
+        </div>
     </div>
 </form>
 </body>

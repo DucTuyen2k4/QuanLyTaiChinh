@@ -17,7 +17,7 @@ public class User {
     private int phoneNumber;
 
     public User(int id, String fullName, String email, Date birthdate, String gender, int phoneNumber, String image) {
-        this.id= id;
+        this.id = id;
         this.fullName = fullName;
         this.email = email;
         this.gender = gender;
@@ -31,7 +31,14 @@ public class User {
 
     }
 
-    public User() {
+    public User(String userName, String password, String email, String gender, Date birthdate) {
+
+        this.userName = userName;
+        this.password = password;
+        this.email = email;
+        this.gender = gender;
+        this.birthdate = birthdate;
+
 
     }
 
@@ -43,7 +50,6 @@ public class User {
     public void setImage(String image) {
         this.image = image;
     }
-
 
 
     public User(int id, String image, String fullName, String userName, String password, String email, String gender, Date birthdate, int phoneNumber) {
@@ -88,6 +94,10 @@ public class User {
         this.phoneNumber = phoneNumber;
     }
 
+    public User(int id) {
+        this.id = id;
+    }
+
     public String getEmail() {
         return email;
     }
@@ -128,7 +138,6 @@ public class User {
     public void setPassword(String password) {
         this.password = password;
     }
-
 
 
     public String getGender() {

@@ -18,7 +18,7 @@ public class UserDAO implements IUserDAO {
     private static  final String SELECT_PROFILE_USER = "select*from users where id = ? ";
     private static final String UPDATE_PROFILE_USER= "update users set  fullName = ? ,gender = ? ,birthdate = ? , phoneNumber = ?  , image = ? where id = ? ";
 
-    private static final String INSERT_USER= "insert into users(image,fullName,userName,password,email,gender,birthdate,phoneNumber) values (?,?,?,?,?,?,?,?)";
+    private static final String INSERT_USER= "insert into users(userName,password,email,gender,birthdate) values (?,?,?,?,?)";
     private static final String CHECK_INF_USER = "SELECT userName FROM users where userName=?";
     private static final String SELECT_PASSWORD = "select password from users where id = ? ";
     private static final String UPDATE_PASSWORD = "update users set password = ? where id = ?";
@@ -26,25 +26,44 @@ public class UserDAO implements IUserDAO {
     private static final String  DELETE_USER="delete from users where id=?";
 
 
+    private static final String FIND_EMAIL="select email from users where email=?";
+    private static final String CHANGE_PASSWORD_BY_EMAIL="UPDATE users set password=? where email=?";
+
 
     @Override
+    public void ChangePassword(String email, String password) throws SQLException, ClassNotFoundException {
+        PreparedStatement preparedStatement = JDBC.connection().prepareStatement(CHANGE_PASSWORD_BY_EMAIL);
+        preparedStatement.setString(1,password);
+        preparedStatement.setString(2,email);
+        preparedStatement.executeUpdate();
+    }
 
-
-    public void addUser(User user) throws SQLException, ClassNotFoundException {
-
-
-            PreparedStatement preparedStatement = JDBC.connection().prepareStatement(INSERT_USER);
-            preparedStatement.setString(1, user.getImage());
-            preparedStatement.setString(2, user.getFullName());
-            preparedStatement.setString(3, user.getUserName());
-
-            preparedStatement.setString(4, user.getPassword());
-            preparedStatement.setString(5, user.getEmail());
-            preparedStatement.setString(6, user.getGender());
-            preparedStatement.setDate(7, new java.sql.Date(user.getBirthdate().getTime()));
-            preparedStatement.setInt(8, user.getPhoneNumber());
-            preparedStatement.executeUpdate();
+    @Override
+    public boolean XAC_NHAN_EMAIL(String email) throws SQLException, ClassNotFoundException {
+        PreparedStatement preparedStatement=JDBC.connection().prepareStatement(FIND_EMAIL);
+        preparedStatement.setString(1,email);
+        ResultSet resultSet=preparedStatement.executeQuery();
+        boolean gay=false;
+        while (resultSet.next()){
+            String Pan=resultSet.getString("email");
+            if (email.equals(Pan)){
+                gay=true;
+            }
         }
+        return gay;
+    }
+
+
+    @Override
+    public void addUser(User user) throws SQLException, ClassNotFoundException {
+        PreparedStatement preparedStatement = JDBC.connection().prepareStatement(INSERT_USER);
+        preparedStatement.setString(1, user.getUserName());
+        preparedStatement.setString(2, user.getPassword());
+        preparedStatement.setString(3, user.getEmail());
+        preparedStatement.setString(4, user.getGender());
+        preparedStatement.setDate(5, new java.sql.Date(user.getBirthdate().getTime()));
+        preparedStatement.executeUpdate();
+    }
 
 
 
@@ -56,12 +75,11 @@ public class UserDAO implements IUserDAO {
     @Override
     public boolean checkUser(String userName, String password) {
         try {
-
             PreparedStatement statement = JDBC.connection().prepareStatement(CHECK_USER);
             statement.setString(1, userName);
             statement.setString(2, password);
             ResultSet resultSet = statement.executeQuery();
-          return resultSet.next();
+            return resultSet.next();
         } catch (SQLException e) {
             throw new RuntimeException(e);
         } catch (ClassNotFoundException e) {
@@ -75,10 +93,10 @@ public class UserDAO implements IUserDAO {
 
         List<User> list = new ArrayList<>();
         try {
-           PreparedStatement statement=JDBC.connection().prepareStatement(CHECK_USER);
-           statement.setString(1,name);
-           statement.setString(2,userPassword);
-           ResultSet resultSet=statement.executeQuery();
+            PreparedStatement statement=JDBC.connection().prepareStatement(CHECK_USER);
+            statement.setString(1,name);
+            statement.setString(2,userPassword);
+            ResultSet resultSet=statement.executeQuery();
             while (resultSet.next()) {
                 int id=resultSet.getInt("id");
                 String image=resultSet.getString("image");
@@ -119,13 +137,8 @@ public class UserDAO implements IUserDAO {
         PreparedStatement preparedStatement = JDBC.connection().prepareStatement(CHECK_INF_USER);
         preparedStatement.setString(1,username);
         ResultSet resultSet = preparedStatement.executeQuery();
-        if (resultSet.next()) {
-            // userName đã tồn tại trong cơ sở dữ liệu
-            return true;
-        } else {
-            // userName chưa tồn tại trong cơ sở dữ liệu
-            return false;
-        }
+        return resultSet.next();
+
     }
 
     @Override
@@ -180,4 +193,3 @@ public class UserDAO implements IUserDAO {
 
 
 }
-

@@ -24,4 +24,9 @@ public interface IUserDAO {
 
     void updatePassword(int id, String password) throws SQLException, ClassNotFoundException;
 
+
+
+    void ChangePassword(String email, String password) throws SQLException, ClassNotFoundException;
+    boolean XAC_NHAN_EMAIL(String email) throws SQLException, ClassNotFoundException;
+
 }
