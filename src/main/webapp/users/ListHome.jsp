@@ -177,7 +177,7 @@
             <button class="no-border login-button" style="width: 90px; height: 35px; ; background-color: lightpink">
                 <a href="/users/Login.jsp" style=" text-decoration: none; color: #8030c9">Login</a></button>
             <button class="no-border login-button" style="width: 90px; height: 35px;  background-color: lightpink">
-                <a href="/users/Registers.jsp" style=" text-decoration: none;color: #8030c9">Register</a></button>
+                <a href="/users/Register.jsp" style=" text-decoration: none;color: #8030c9">Register</a></button>
 
         </div>
     </div>

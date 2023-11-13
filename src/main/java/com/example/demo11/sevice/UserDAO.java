@@ -18,8 +18,7 @@ public class UserDAO implements IUserDAO {
     private static  final String SELECT_PROFILE_USER = "select*from users where id = ? ";
     private static final String UPDATE_PROFILE_USER= "update users set  fullName = ? ,gender = ? ,birthdate = ? , phoneNumber = ?  , image = ? where id = ? ";
 
-    private static final String INSERT_USER= "insert into users(image,fullName,userName,password,email,gender,birthdate,phoneNumber) values (?,?,?,?,?,?,?,?)";
-    private static final String CHECK_INF_USER = "SELECT userName FROM users where userName=?";
+    private static final String INSERT_USER= "insert into users(userName,password,email,gender,birthdate) values (?,?,?,?,?)";    private static final String CHECK_INF_USER = "SELECT userName FROM users where userName=?";
     private static final String SELECT_PASSWORD = "select password from users where id = ? ";
     private static final String UPDATE_PASSWORD = "update users set password = ? where id = ?";
     private static final String CHECK_USER = "select * from users where userName=? and password=?";
@@ -52,22 +51,18 @@ public class UserDAO implements IUserDAO {
         }
         return gay;
     }
+
+
     @Override
     public void addUser(User user) throws SQLException, ClassNotFoundException {
-
-
-            PreparedStatement preparedStatement = JDBC.connection().prepareStatement(INSERT_USER);
-            preparedStatement.setString(1, user.getImage());
-            preparedStatement.setString(2, user.getFullName());
-            preparedStatement.setString(3, user.getUserName());
-
-            preparedStatement.setString(4, user.getPassword());
-            preparedStatement.setString(5, user.getEmail());
-            preparedStatement.setString(6, user.getGender());
-            preparedStatement.setDate(7, new java.sql.Date(user.getBirthdate().getTime()));
-            preparedStatement.setInt(8, user.getPhoneNumber());
-            preparedStatement.executeUpdate();
-        }
+        PreparedStatement preparedStatement = JDBC.connection().prepareStatement(INSERT_USER);
+        preparedStatement.setString(1, user.getUserName());
+        preparedStatement.setString(2, user.getPassword());
+        preparedStatement.setString(3, user.getEmail());
+        preparedStatement.setString(4, user.getGender());
+        preparedStatement.setDate(5, new java.sql.Date(user.getBirthdate().getTime()));
+        preparedStatement.executeUpdate();
+    }
 
 
 

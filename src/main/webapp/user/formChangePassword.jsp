@@ -1,3 +1,4 @@
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <!DOCTYPE html>
 <html>
@@ -70,8 +71,8 @@
 </head>
 <body>
 <div class="container">
-    <div class="back-button">
-        <a href="/user?action=update&id=${sessionScope['user'].getId()}"><i class="fas fa-arrow-left"></i>  Quay lại </a>
+    <div>
+        <a href="/user?action=Home&username=${sessionScope['user'].getUserName()}&password=${sessionScope['user'].getPassword()}" style="color: #0a0101 ; text-decoration: none; ">Quay lại</a>
     </div>
     <h2>Đổi mật khẩu</h2>
     <form action="/user" method="post">
@@ -79,7 +80,9 @@
         <div class="form-group">
             <input type="hidden" name="id" value="${id}" />
             <label for="current-password" style="width: 480px">Mật khẩu hiện tại:</label>
-            <p style="color: red">${message}</p>
+            <c:if test="${not empty message}">
+                <p style="color: red">${message}</p>
+            </c:if>
             <input type="password" id="current-password" style="width: 480px" name="oldPassword" required>
         </div>
         <div class="form-group">
@@ -88,9 +91,14 @@
         </div>
         <div class="form-group">
             <label for="confirm-password" >Xác nhận mật khẩu mới:</label>
-            <p style="color: red">${messages}</p>
+            <c:if test="${not empty messages}">
+                <p style="color: red">${messages}</p>
+            </c:if>
             <input type="password" id="confirm-password" style="width: 480px" name="confirmPassword" minlength="6" maxlength="8" required>
         </div>
+
+        <input type="hidden" name="username" value="${sessionScope['user'].getUserName()}"/>
+        <input type="hidden" name="password" value="${sessionScope['user'].getPassword()}"/>
         <button type="submit" name="action" value="confirmPassword" class="btn-submit" >Đổi mật khẩu</button>
     </form>
 </div>

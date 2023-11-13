@@ -30,13 +30,53 @@ public class WalletDAO implements IWalletDAO {
     private static final String SHARE_WALLET = "insert into users_wallet(idUser,idWallet,permission)values(?,?,?)";
     private static final String CHECK = "select id from users where email= ? ";
     private static final String DELETE_WALLET = " DELETE users_wallet, Wallet FROM users_wallet INNER JOIN Wallet ON users_wallet.idWallet = Wallet.idWallet WHERE users_wallet.idWallet = ?";
+    private static final String SELECT_ID = "select id from users where email = ? " ;
+    private static final String CHECK_EMAIL = "select * from users where email = ? " ;
+    private static final String CHECK_USER_WALLET = "select * from users_wallet where idUser = ? and idWallet = ?  " ;
+    private static final String INSERT_SHARE_WALLET = "insert into users_wallet (idUser,idWallet,permission)values(?,?,?) " ;
+    @Override
+    public boolean checkEmail(String email) throws SQLException, ClassNotFoundException {
+        PreparedStatement preparedStatement = JDBC.connection().prepareStatement(CHECK_EMAIL);
+        preparedStatement.setString(1,email);
+        ResultSet resultSet = preparedStatement.executeQuery();
+        return resultSet.next();
+    }
+    @Override
+    public Wallet selectIdWallet(String email) throws SQLException, ClassNotFoundException {
+        PreparedStatement preparedStatement = JDBC.connection().prepareStatement(SELECT_ID);
+        Wallet wallet = null;
+        preparedStatement.setString(1,email);
+        ResultSet resultSet = preparedStatement.executeQuery();
+        while (resultSet.next()){
+            int id = resultSet.getInt("id");
+            wallet=new Wallet(id);
+        }
+        return wallet;
+    }
 
+    @Override
+    public boolean checkUserWallet(int idUser, int idWallet) throws SQLException, ClassNotFoundException {
+        PreparedStatement preparedStatement = JDBC.connection().prepareStatement(CHECK_USER_WALLET);
+        preparedStatement.setInt(1,idUser);
+        preparedStatement.setInt(2,idWallet);
+        ResultSet resultSet = preparedStatement.executeQuery();
+        return resultSet.next();
+    }
+    @Override
+    public void insertShareWallet(int idUser, int idWallet, String permission) throws SQLException, ClassNotFoundException {
+        PreparedStatement preparedStatement = JDBC.connection().prepareStatement(INSERT_SHARE_WALLET);
+        preparedStatement.setInt(1,idUser);
+        preparedStatement.setInt(2,idWallet);
+        preparedStatement.setString(3,permission);
+        preparedStatement.executeUpdate();
+    }
     @Override
     public void deleteWallet(int id) throws SQLException, ClassNotFoundException {
         PreparedStatement preparedStatement = JDBC.connection().prepareStatement(DELETE_WALLET);
         preparedStatement.setInt(1, id);
         preparedStatement.executeUpdate();
     }
+
 
     @Override
     public void shareWallet(int idUser, int idWallet, String permission) throws SQLException, ClassNotFoundException {

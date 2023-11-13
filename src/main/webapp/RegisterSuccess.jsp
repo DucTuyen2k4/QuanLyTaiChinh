@@ -40,7 +40,7 @@
 <h1>Đăng Ký Thành Công</h1>
 <form>
     <div>
-        <a href="/users/list.jsp" style="text-decoration: none; text-transform: uppercase;">Đăng nhập</a>
+        <a href="/users/Login.jsp" style="text-decoration: none; text-transform: uppercase;">Đăng nhập</a>
     </div>
 </form>
 </body>

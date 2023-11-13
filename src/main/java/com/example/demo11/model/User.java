@@ -87,6 +87,14 @@ public class User {
         this.phoneNumber = phoneNumber;
     }
 
+    public User(String userName, String password, String email, String gender, Date birthdate) {
+        this.userName = userName;
+        this.password = password;
+        this.email = email;
+        this.gender = gender;
+        this.birthdate = birthdate;
+    }
+
     public User(int id) {
         this.id = id;
     }

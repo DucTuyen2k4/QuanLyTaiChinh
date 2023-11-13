@@ -1,244 +1,179 @@
-<%--
-  Created by IntelliJ IDEA.
-  User: acer
-  Date: 11/1/2023
-  Time: 4:19 PM
-  To change this template use File | Settings | File Templates.
---%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <html>
 <head>
-    <title>[------------------------]</title>
+    <title>Title</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://getbootstrap.com/docs/5.3/assets/css/docs.css" rel="stylesheet">
+    <title>Bootstrap Example</title>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://kit.fontawesome.com/9b0347940d.js" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <style>
+        body {
+            background-color: #eee4e4;
+        }
+
+        .header {
+            width: 100%;
+            height: 5%;
+        }
+
+        .logo {
+            margin-left: 40px;
+            width: 20%;
+            height: 10%;
+            float: left;
+            display: flex;
+            margin-top: 5px;
+        }
+
+        .menu {
+            width: 60%;
+            height: 10%;
+            float: left;
+        }
+
+
+        .general {
+            height: 80%;
+        }
+
+        .left {
+            float: left;
+            width: 20%;
+            height: 100%;
+        }
+
+        .content {
+            float: left;
+            width: 60%;
+            height: 100%;
+        }
+
+        .right {
+            float: left;
+            width: 20%;
+            height: 100%;
+        }
+
+        .footer {
+            background-color: #c4b4b4;
+            width: 100%;
+            height: 10%;
+            border-radius: 10px 10px 0 0;
+            text-align: center;
+            color: white;
+        }
+
+        p.footer {
+            vertical-align: middle;
+        }
+
+
+        .headers {
+            float: right;
+            margin-right: 25px;
+            margin-top: 10px;
+        }
+
+        button {
+            border-radius: 20px;
+        }
+
+        .register {
+            height: 100%;
+            width: 50%;
+            margin-left: 25%;
+            border-radius: 10px;
+            box-shadow: 0 0 6px 5px #646e6e;
+        }
+    </style>
 </head>
-<style>
-    body {
-        height: 1200px;
-        margin: 0;
-        padding: 0;
-        /*overflow: hidden;*/
-    }
-
-    header {
-
-        width: 100%;
-        height: 78px;
-
-
-    }
-
-    header .left-pane {
-        float: left;
-        width: 10%;
-        height: 100%;
-        background-image: url("https://i.pinimg.com/564x/81/93/33/819333bd2b8d3284385017549dafc84e.jpg");
-        background-size: 100% 100%; /* Điều chỉnh kích thước hình ảnh để nó vừa với phần tử */
-    }
-
-    header .middle-pane {
-        float: left;
-        width: 80%;
-        height: 100%;
-        background-color: #819759;
-        font-family: "Arial Black";
-        font-size: 30px;
-        text-align: center;
-        vertical-align: center;
-        align-items: center;
-    }
-
-
-    header .right-pane {
-        float: left;
-        width: 10%;
-        height: 100%;
-        background-color: #819759;
-    }
-
-    /*thanh chức năng*/
-    /*nav {*/
-    /*    display: flex;*/
-    /*    justify-content: space-between; !* Các mục sẽ cách nhau cùng 1 dòng *!*/
-
-    /*    width: 100%;*/
-    /*    height: 6.5%;*/
-
-    /*}*/
-    nav div {
-        display: flex;
-        width: 15%;
-        height: 100%;
-        align-items: center;
-        justify-content: center;
-    }
-
-    /*giao diện*/
-    main {
-
-        width: 100%;
-        height: 100%;
-    }
-
-    /*!* giao diện ở trái *!*/
-    /*main .left-pane {*/
-    /*    width: 35%; !* Chiếm 25% chiều rộng *!*/
-    /*    float: left;*/
-    /*    height: 100%;*/
-
-
-    /*}*/
-
-    /* giao diện ở giữa */
-    main .middle-pane {
-        border-radius: 20px 20px;
-        margin-top: 120px;
-
-        width: 30%; /* Chiếm 50% chiều rộng */
-        text-align: center;
-        margin-left: 35%;
-        height: 85%;
-        /*background-color: #f0f0f0;*/
-        text-align: center;
-        border: 1px solid #4e5647;
-        background-color: #FFFFFF;
-    }
-    .register-button {
-        background-color: #45a049;
-        color: #ffffff;
-        border: none;
-        padding: 10px 20px;
-        border-radius: 15px;
-        margin-top: 10px;
-    }
-
-    .login-button {
-        margin-left: 50px;
-        background-color: transparent;
-        color: #ffffff;
-        border: none;
-        padding: 10px 20px;
-        border-radius: 15px;
-        margin-top: 10px;
-
-    }
-
-    .function-text .no-border {
-        margin-top: 30px;
-        background-color: #1d1e1c;
-        width: 70px;
-        height: 40px;
-        border-radius: 10%;
-    }
-
-    .centered-text {
-        text-align: center; /* Căn giữa theo chiều ngang */
-
-    }
-
-    .centered-text .no-border {
-        border: 1px solid #333431;
-        height: 30px;
-        width: 120%;
-        border-radius: 10px 10px;
-        margin-left: -20px;
-    }
-    h5{
-        margin-left: -20px;
-    }
-
-    .centered-text {
-        display: inline-block;
-        width: 50%;
-    }
-    .function-text {
-
-        text-align: center;
-    }
-
-    .function-text .no-border {
-        background-color: #45a049;
-        text-align: center;
-        border-radius: 15px 15px;
-    }
-
-    /* giao diện ở phải */
-    main .right-pane {
-        width: 35%; /* Chiếm 25% chiều rộng */
-        float: left;
-        height: 100%;
-
-
-    }
-
-
-    /*form {*/
-    /*    !*border: 1px solid #4e5647;*!*/
-    /*    background-color: #f0f0f0;*/
-    /*    width: 100%;*/
-    /*    height: 20%;*/
-
-    /*}*/
-
-</style>
 <body>
-<header>
-    <div class="left-pane"></div>
-    <div class="middle-pane">Budget</div>
-    <div class="right-pane"></div>
-</header>
-
-
-<%--thanh chức năng--%>
-<nav>
-</nav>
-
-<%--giao diện--%>
-<main>
-    <form method="post" action="/user?action=addUser">
-        <div class="middle-pane">
-            <H1 style="text-align: center">Login</H1>
-            <div class="centered-text">
-                <h5 style="float: left">Image :</h5>
-                <input class="no-border " type="text" name="image" id="image" required pattern=".*\.(jpg|png|gif)" value="${param.image}" title="Chỉ được nhập đường dẫn ảnh với đuôi .jpg, .png, hoặc .gif">
-                <h5 style="float: left"  for="userName">Tên đăng nhập:</h5>
-                <p style="color: red;font-size: 10px;">${messageFailureUserName}</p>
-
-                <input type="text" class="no-border " name="userName" id="userName" value="${param.userName}" required>
-                <h5 style="float: left" for="password">Mật khẩu (6-8 ký tự):</h5>
-                <input  class="no-border " type="password" id="password" name="password" value="${param.password}" minlength="6" maxlength="8" required>
-                <h5 style="float: left"  for="confirmPassword">Xác nhận mật khẩu:</h5>
-                <p style="color: red;font-size: 10px;">${messageFailurePassword}</p>
-                <input class="no-border " type="password" name="confirmPassword" id="confirmPassword" minlength="6" maxlength="8" value="${param.confirmPassword}" required>
-                <h5 style="float: left" for="fullName">Họ và tên:</h5>
-                <input class="no-border " type="text" name="fullName" id="fullName" value="${param.fullName}" required>
-                <h5 style="float: left" for="phoneNumber">Số điện thoại (10 số):</h5>
-                <p style="color: red;font-size: 10px;">${messageFailurePhoneNumber}</p>
-                <input class="no-border " type="text" name="phoneNumber" id="phoneNumber" required pattern="[0-9]{10}" value="${param.phoneNumber}" title="${messageFailurePhoneNumber}">
-                <h5 style="float: left"  >email:</h5>
-                <input class="no-border" type="text" name="email" value="${param.email}" pattern="[^@\s]+@gmail\.com" title="Vui lòng nhập địa chỉ email có định dạng @gmail.com" required>
-                <h5 style="float: left" for="gender" >Giới tính: </h5>
-                <select name="gender" class="no-border "  id="gender" style="width: 265px">
-                    <option value="Male">Nam</option>
-                    <option value="Female">Nữ</option>
-                    <option value="Other">Khác</option>
-                </select>
-                <h5 style="float: left" for="birthdate">Ngày tháng năm sinh:</h5>
-                <p style="color: red;font-size: 10px;">${messageFailureBirthdate}</p>
-                <input class="no-border " type="date" name="birthdate" id="birthdate" value="${param.birthdate}" required>
-
+<form method="post" action="/user">
+    <div class="all">
+        <div class="header">
+            <div class="logo">
+                <i class="fa-brands fa-wordpress" style="font-size: 60px; color: #8030c9"></i>
+                <h5 style="margin-top: 6px">wallet <br>manage</h5>
             </div>
-            <div class="function-text">
-                <input type="submit" value="Register" class="register-button">
-
-                <button  class="no-border login-button" style="width: 90px; height: 35px;">
-                    <a href="/users/list.jsp" style="color: #ffffff; text-decoration: none;">Login</a></button>
+            <div class="menu">
             </div>
-            <%--        <hr style="background-color: #4CAF50">--%>
-
-
+            <div class="headers">
+            </div>
         </div>
-    </form>
-</main>
-<%--<form>--%>
-<%--</form>--%>
+        <hr style="color: black; width: 70%; margin-left: 15%; margin-top: 35px">
+        <div class="general">
+            <div class="left"></div>
+            <div class="content">
+                <div class="register">
+
+
+                    <h1 style="text-align: center">Đăng ký </h1><br>
+
+
+                    <p style="margin-left: 17%">Tên đăng nhập:</p>
+                    <p style="color: red;font-size: 10px;margin-left: 17%">${messageFailureUserName}</p>
+                    <input type="text" name="userName"
+                           style="border-radius: 10px;width: 70%; margin-left: 17%;padding-left: 10px"
+                           value="${param.userName}">
+                    <p style="margin-left: 17%; top: 20px">Mật khẩu :</p>
+                    <p style="color: red; font-size: 10px;margin-left: 17%">Mật khẩu phải chứa ít nhất 1 chữ hoa và 1
+                        số.</p>
+                    <input type="password" name="password"
+                           style="border-radius: 10px;width: 70%; margin-left: 17%; padding-left: 10px"
+                           minlength="6" maxlength="8" required
+                           pattern="^(?=.*[A-Z])(?=.*[0-9]).{6,8}$">
+                    <p style="color: red;font-size: 10px;margin-left: 17%">${messageFailurePassword}</p>
+                    <p style="margin-left: 17%; top: 20px">Xác nhận mật khẩu :</p>
+                    <input type="password" name="confirmPassword"
+                           style="border-radius: 10px;width: 70%; margin-left: 17%; padding-left: 10px">
+                    <p></p>
+
+
+                    <p style="margin-left: 17%; top: 20px">Email :</p>
+                    <input type="text" name="email" placeholder="Email "
+                           style="border-radius: 10px;width: 70%; margin-left: 17%; padding-left: 10px"
+                           pattern="[^@\s]+@gmail\.com" title="Vui lòng nhập địa chỉ email có định dạng @gmail.com"
+                           required value="${param.email}">
+                    <p></p>
+
+
+                    <input name="gender" type="hidden" value="Male">
+
+
+                    <input type="hidden" name="birthdate" id="birthdate" type="hidden" value="" required>
+                    <script>
+                        // Lấy ngày tháng hiện tại
+                        var currentDate = new Date();
+
+                        // Định dạng ngày tháng hiện tại thành chuỗi yyyy-MM-dd
+                        var formattedDate = currentDate.toISOString().slice(0, 10);
+
+                        // Gán giá trị mặc định cho trường input
+                        document.getElementById("birthdate").value = formattedDate;
+                    </script>
+                    <div style="display: flex;">
+                        <button style="width: 100px; height: 30px;margin-left:17%; ">
+                            login
+                        </button>
+                        <button style="width: 100px; height: 30px; margin-left:16%;" name="action" value="addUser">
+                            Register
+                        </button>
+                    </div>
+
+                </div>
+            </div>
+            <div class="right"></div>
+        </div>
+        <%--        <div class="footer">--%>
+        <%--            <div style="padding:  15px 0 0 0">--%>
+        <%--                <p style="text-align: center"> Copyright &copy; 2023 Financial Management Application</p>--%>
+        <%--            </div>--%>
+
+        <%--        </div>--%>
+    </div>
+</form>
 </body>
 </html>

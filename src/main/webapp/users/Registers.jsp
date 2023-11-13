@@ -112,6 +112,10 @@
                 <input type="text" name="username" placeholder="Username"
                        style="border-radius: 10px;width: 70%; margin-left: 17%;padding-left: 10px">
                 <p></p>
+                <label for="password" style="margin-left: 17%; top: 20px">Password(6-8 ký tự):</label>
+                <p style="color: red; font-size: 10px;">Mật khẩu phải chứa ít nhất 1 chữ hoa và 1 số.</p>
+                <input type="password" id="password" name="password" value="${param.password}" minlength="6" maxlength="8" required
+                       pattern="^(?=.*[A-Z])(?=.*[0-9]).{6,8}$"   style="border-radius: 10px;width: 70%; margin-left: 17%; padding-left: 10px">
                 <p style="margin-left: 17%; top: 20px">Password :</p>
                 <input type="password" name="password" placeholder="Password"
                        style="border-radius: 10px;width: 70%; margin-left: 17%; padding-left: 10px">

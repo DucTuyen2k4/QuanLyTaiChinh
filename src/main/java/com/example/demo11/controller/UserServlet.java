@@ -38,8 +38,8 @@ public class UserServlet extends HttpServlet {
     public void init() throws ServletException {
         userDAO = new UserDAO();
 
-        walletDAO=new WalletDAO();
-        icategoryDao=new CategoryDao();
+        walletDAO = new WalletDAO();
+        icategoryDao = new CategoryDao();
 
     }
 
@@ -75,11 +75,39 @@ public class UserServlet extends HttpServlet {
                 break;
             case "logoutHome":
                 logoutHome(req, resp);
-break;
+                break;
+            case "Home":
+                try {
+                    Home(req, resp);
+                } catch (SQLException e) {
+                    throw new RuntimeException(e);
+                } catch (ClassNotFoundException e) {
+                    throw new RuntimeException(e);
+                }
             default:
                 break;
         }
 
+    }
+
+    private void Home(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException, SQLException, ClassNotFoundException {
+        String userName = req.getParameter("username");
+        String password = req.getParameter("password");
+        List<User> list = userDAO.show(userName, password);
+
+
+        List<Wallet> walletList = walletDAO.listWallet(userName, password);
+        req.setAttribute("list", walletList);
+
+
+        HttpSession session = req.getSession();
+        session.setAttribute("user", list.get(0));
+
+        List<Category> categoryList = icategoryDao.selectCategory(userName, password);
+        req.setAttribute("listCategory", categoryList);
+
+
+        req.getRequestDispatcher("users/Home.jsp").forward(req, resp);
     }
 
     @Override
@@ -166,8 +194,8 @@ break;
                 HttpSession session = req.getSession();
                 session.setAttribute("user", list.get(0));
 
-                List<Category> categoryList = icategoryDao.selectCategory(userName,password);
-                req.setAttribute("listCategory",categoryList);
+                List<Category> categoryList = icategoryDao.selectCategory(userName, password);
+                req.setAttribute("listCategory", categoryList);
 
 
                 req.getRequestDispatcher("users/Home.jsp").forward(req, resp);
@@ -185,7 +213,7 @@ break;
     private void confirmUpdate(HttpServletRequest req, HttpServletResponse resp) throws SQLException, ClassNotFoundException, ServletException, IOException {
         String userName = req.getParameter("username");
         String password = req.getParameter("password");
-        System.out.println(userName+password);
+        System.out.println(userName + password);
         int id = Integer.parseInt(req.getParameter("id"));
         String fullName = req.getParameter("fullName");
         String gender = req.getParameter("gender");
@@ -206,11 +234,11 @@ break;
         req.setAttribute("list", walletList);
         System.out.println(walletList);
 
-        List<Category> categoryList = icategoryDao.selectCategory(userName,password);
-        req.setAttribute("listCategory",categoryList);
+        List<Category> categoryList = icategoryDao.selectCategory(userName, password);
+        req.setAttribute("listCategory", categoryList);
         System.out.println(categoryList);
 
-        req.getRequestDispatcher("users/q.jsp").forward(req, resp);
+        req.getRequestDispatcher("users/Home.jsp").forward(req, resp);
     }
 
     private void showFormUpdate(HttpServletRequest req, HttpServletResponse resp) throws SQLException, ClassNotFoundException, ServletException, IOException {
@@ -230,6 +258,10 @@ break;
     }
 
     private void confirmPassword(HttpServletRequest req, HttpServletResponse resp) throws SQLException, ClassNotFoundException, ServletException, IOException {
+        String userName = req.getParameter("username");
+        String password = req.getParameter("password");
+        System.out.println(userName+password);
+
         int id = Integer.parseInt(req.getParameter("id"));
         String oldPassword = req.getParameter("oldPassword");
         String newPassword = req.getParameter("newPassword");
@@ -242,7 +274,20 @@ break;
                 userDAO.updatePassword(id, newPassword);
                 req.setAttribute("id", id);
 
-                req.getRequestDispatcher("users/q.jsp").forward(req, resp);
+                List<User> list = userDAO.show(userName, password);
+
+
+                List<Wallet> walletList = walletDAO.listWallet(userName, password);
+                req.setAttribute("list", walletList);
+
+
+                HttpSession session = req.getSession();
+                session.setAttribute("user", list.get(0));
+
+                List<Category> categoryList = icategoryDao.selectCategory(userName, password);
+                req.setAttribute("listCategory", categoryList);
+
+                req.getRequestDispatcher("users/Home.jsp").forward(req, resp);
             } else {
                 req.setAttribute("id", id);
                 req.setAttribute("messages", "Mật khẩu không khớp ! ");
@@ -257,14 +302,24 @@ break;
     }
 
     private void showFormChangePassword(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        String userName = req.getParameter("username");
+        String password = req.getParameter("password");
         int id = Integer.parseInt(req.getParameter("id"));
+
+
+        List<User> list = userDAO.show(userName, password);
+
+
+        HttpSession session = req.getSession();
+        session.setAttribute("user", list.get(0));
+
         req.setAttribute("id", id);
         req.getRequestDispatcher("user/formChangePassword.jsp").forward(req, resp);
     }
 
 
     public static void addUser(HttpServletRequest request, HttpServletResponse response) throws SQLException, ClassNotFoundException, ServletException, IOException {
-        String fullName = request.getParameter("fullName");
+
         String userName = request.getParameter("userName");
         userDAO.CheckUserName(userName);
         if (!userDAO.CheckUserName(userName)) {
@@ -274,33 +329,21 @@ break;
                 String gender = request.getParameter("gender");
                 String email = request.getParameter("email");
                 String birthdateString = request.getParameter("birthdate");
-                String image = request.getParameter("image");
-                String phoneNumberSt = request.getParameter("phoneNumber");
-                int phoneNumber = 0;
+
+
+                SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+                Date birthdate = null;
+                Date currentDate = new Date();
+                System.out.println(currentDate);
                 try {
-                    phoneNumber = Integer.parseInt(phoneNumberSt);
-                    SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-                    Date birthdate = null;
-                    Date currentDate = new Date();
-                    System.out.println(currentDate);
-                    try {
-                        birthdate = sdf.parse(birthdateString);
-                        System.out.println(birthdate);
-                        if (currentDate.compareTo(birthdate) > 0) {
-                            userDAO.addUser(new User(fullName, userName, password, email, gender, image, birthdate, phoneNumber));
-                            request.getRequestDispatcher("RegisterSuccess.jsp").forward(request, response);
-                        } else {
+                    birthdate = sdf.parse(birthdateString);
+                    System.out.println(birthdate);
 
-                            request.setAttribute("messageFailureBirthdate", "Ngày tháng năm sinh không thể lớn hơn ngày hiện tại.");
-                            request.getRequestDispatcher("users/Register.jsp").forward(request, response);
-                        }
-                    } catch (ParseException e) {
-                        e.printStackTrace();
-                    }
+                    userDAO.addUser(new User(userName, password, email, gender, birthdate));
+                    request.getRequestDispatcher("RegisterSuccess.jsp").forward(request, response);
 
-                } catch (NumberFormatException e) {
-                    request.setAttribute("messageFailurePhoneNumber", "Vui lòng nhập đúng 10 số điện thoại.");
-                    request.getRequestDispatcher("users/Register.jsp").forward(request, response);
+                } catch (ParseException e) {
+                    e.printStackTrace();
                 }
 
 

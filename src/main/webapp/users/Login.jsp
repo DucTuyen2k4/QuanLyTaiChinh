@@ -122,11 +122,12 @@
                         login
                     </button>
                     <hr>
-                    <button style="width: 100px; height: 30px; margin-left:37%">
-                        Register
-                    </button>
+
                 </div>
             </form>
+            <button style="width: 100px; height: 30px; margin-left:37%">
+                <a href="/users/Register.jsp">Register</a>
+            </button>
         </div>
         <div class="right"></div>
     </div>

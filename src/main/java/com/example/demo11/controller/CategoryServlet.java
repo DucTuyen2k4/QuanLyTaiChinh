@@ -72,14 +72,7 @@ public class CategoryServlet extends HttpServlet {
             action = "";
         }
         switch (action) {
-//            case "showCategory":
-//                    try {
-//                        showCategory(req, resp);
-//                    } catch (SQLException e) {
-//                        throw new RuntimeException(e);
-//                    } catch (ClassNotFoundException e) {
-//                        throw new RuntimeException(e);
-//                    }
+
             case "showCategorys":
                 try {
                     showCategorys(req, resp);
@@ -108,7 +101,7 @@ public class CategoryServlet extends HttpServlet {
         req.setAttribute("listCategory",categoryList);
         List<Wallet> listWallet = iWalletDAO.showAllWallet(username, password);
         req.setAttribute("list", listWallet);
-        req.getRequestDispatcher("users/q.jsp").forward(req, resp);
+        req.getRequestDispatcher("users/Home.jsp").forward(req, resp);
     }
     private void showCategorys(HttpServletRequest req, HttpServletResponse resp) throws SQLException, ClassNotFoundException, ServletException, IOException {
         int idCategory = Integer.parseInt(req.getParameter("idCategory"));
@@ -132,7 +125,7 @@ public class CategoryServlet extends HttpServlet {
         List<Category> listCategory = iCategoryDAO.selectAllCategorys(idCategory);
         req.setAttribute("category", listCategory);
 
-        req.getRequestDispatcher("/users/q.jsp").forward(req, resp);
+        req.getRequestDispatcher("/users/Home.jsp").forward(req, resp);
     }
     private void addCategory(HttpServletRequest req, HttpServletResponse resp) throws SQLException, ClassNotFoundException, ServletException, IOException {
         int id = Integer.parseInt(req.getParameter("id"));
@@ -157,7 +150,7 @@ public class CategoryServlet extends HttpServlet {
             List<Wallet> walletList = walletDAO.listWallet(username, password);
             req.setAttribute("list", walletList);
 
-            req.getRequestDispatcher("/users/q.jsp").forward(req, resp);
+            req.getRequestDispatcher("/users/Home.jsp").forward(req, resp);
         }
     }
     private void showCategoryUpdate(HttpServletRequest req, HttpServletResponse resp) throws SQLException, ClassNotFoundException, ServletException, IOException {
@@ -170,7 +163,7 @@ public class CategoryServlet extends HttpServlet {
         req.setAttribute("listCategory",categoryList);
         req.setAttribute("listCategoryUpdate", category);
 
-        req.getRequestDispatcher("users/q.jsp").forward(req, resp);
+        req.getRequestDispatcher("users/Home.jsp").forward(req, resp);
     }
 
 //    private void showCategory(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException, SQLException, ClassNotFoundException {
@@ -209,6 +202,6 @@ public class CategoryServlet extends HttpServlet {
 
         List<Wallet> listWallet = iWalletDAO.showAllWallet(username, password);
         request.setAttribute("list", listWallet);
-        request.getRequestDispatcher("users/q.jsp").forward(request, response);
+        request.getRequestDispatcher("users/Home.jsp").forward(request, response);
     }
 }

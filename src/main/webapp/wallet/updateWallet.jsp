@@ -42,12 +42,16 @@
 <body>
 <div class="container">
     <c:forEach var="wallet" items="${listWalletUpdate}">
-        <a href="#" ><i class="fa-brands fa-tiktok"></i></a>
-        <a href="#"><i class="fa-brands fa-tiktok"></i></a>
-        <a href="#"><i class="fa-brands fa-tiktok"></i></a>
-        <a href="#"><i class="fa-brands fa-tiktok"></i></a>
+<%--        <a href="#" ><i class="fa-brands fa-tiktok"></i></a>--%>
+<%--        <a href="#"><i class="fa-brands fa-tiktok"></i></a>--%>
+<%--        <a href="#"><i class="fa-brands fa-tiktok"></i></a>--%>
+<%--        <a href="#"><i class="fa-brands fa-tiktok"></i></a>--%>
+<%--        --%>
 
         <form action="/wallet?action=updateWallet&idWallet=${wallet.getIdWallet()}" method="post">
+<%--            <div class="form-group">--%>
+<%--                <input name="icon" type="text" class="form-control" value="${wallet.get()}">--%>
+<%--            </div>--%>
             <div class="form-group">
                 <input name="icon" type="text" class="form-control" value="${wallet.getIcon()}">
             </div>

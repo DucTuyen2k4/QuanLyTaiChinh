@@ -132,17 +132,59 @@
         }
 
         .icon {
-            width: 80px;
-            height: 80px;
+            width: 11%;
+            height: 60px;
             float: left;
         }
 
-        .nameWallet {
-            float: left;
-        }
-        .money{
+        .money {
             float: left;
             background-color: white;
+            width: 89%;
+            height: 8%;
+            display: flex;
+            border-radius: 10px;
+        }
+
+        .function {
+            float: left;
+        }
+
+        .describe {
+
+        }
+        .confirmation-dialog {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            z-index: 9999;
+        }
+
+        .confirmation-dialog-content {
+            background-color: #fff;
+            width: 300px;
+            padding: 20px;
+            text-align: center;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+        }
+
+        .confirmation-dialog-content h2 {
+            margin-top: 0;
+        }
+
+        .confirmation-dialog-ccloudflareontent p {
+            margin-bottom: 20px;
+        }
+
+        .confirmation-dialog-content button {
+            margin-right: 10px;
         }
     </style>
 </head>
@@ -156,7 +198,7 @@
         <div class="menu">
             <div class="menu1">
                 <div>
-                    <a href="" style="color: #0a0101 ; text-decoration: none; ">Home</a>
+                    <a href="/user?action=Home&username=${sessionScope['user'].getUserName()}&password=${sessionScope['user'].getPassword()}" style="color: #0a0101 ; text-decoration: none; ">Home</a>
                 </div>
                 <div class="w" style="margin-left: 20px">
                     <ul>
@@ -181,13 +223,11 @@
                         <li class="dropdown">
                             <a href="#" class="dropbtn" style="color: #0a0101 ; text-decoration: none">Category </a>
                             <div class="dropdown-content">
-                                <a href="#"> a</a>
-                                <a href="#"> b</a>
-                                <a href="#"> b</a>
-                                <a href="#"> b</a>
-                                <a href="#"> b</a>
-                                <a href="#"> b</a>
-                                <a href="#"> b</a>
+                                <c:forEach var="listCategory" items="${listCategory}">
+                                        <a class="dropdown-item" href="/category?action=showCategorys&idCategory=${listCategory.idCategory}&username=${sessionScope['user'].getUserName()}&password=${sessionScope['user'].getPassword()}"><span>${listCategory.nameCategory}</span></a>
+                                </c:forEach>
+                                <a class="dropdown-item" style="text-align: center ; color: #1d1e1c"
+                                   href="/category/formAddCategory.jsp?username=${sessionScope['user'].getUserName()}&password=${sessionScope['user'].getPassword()}&id=${sessionScope['user'].getId()}">+</a>
                             </div>
                         </li>
                     </ul>
@@ -223,13 +263,10 @@
                         </div>
                         <div class="offcanvas-body">
                             <ul class="navbar-nav justify-content-end flex-grow-1 pe-3">
-
                                 <li class="nav-item">
                                     <a style="color: #ffffff" class="nav-link active" aria-current="page"
                                        href="/user?action=update&id=${sessionScope['user'].getId()}&username=${sessionScope['user'].getUserName()}&password=${sessionScope['user'].getPassword()}">
-                                        Câp nhật
-                                        thông
-                                        tin </a>
+                                        Câp nhật thông tin </a>
                                 </li>
                                 <li class="nav-item">
                                     <a style="color: #ffffff" class="nav-link active" aria-current="page" href="#"
@@ -249,38 +286,48 @@
     <div class="general">
         <div class="left"></div>
         <div class="content">
-            <div>
+            <div class="category">
                 <c:if test="${not empty wallet.getIdWallet()}">
                     <a hidden="hidden"><p>${wallet.getIdWallet()}</p></a>
                     <div class="icon">
-                        <i class="${wallet.getIcon()}" style="font-size: 90px"></i>
-                    </div>
-                    <div class="nameWallet">
+                        <i class="${wallet.getIcon()}" style="font-size: 50px"></i>
                         <p>${wallet.getNameWallet()}</p>
                     </div>
                     <div class="money">
-                        <p>${wallet.getMoney()} ${wallet.getCurrency()}</p><br>
+                        <div style="width: 80%">
+                            <p>${wallet.getMoney()} ${wallet.getCurrency()}</p><br>
+                        </div>
+                        <c:if test="${not empty send}">
+                            <div class="function" style="margin-left: 20px" >
+                                <ul>
+                                    <li class="dropdown" >
+                                        <a href="#" class="dropbtn" style="color: #0a0101 ; text-decoration: none">function</a>
+                                        <div class="dropdown-content" style="background-color: #9d9292; ">
+                                            <form action="/wallet?action=showWalletUpdate&idWallet=${wallet.getIdWallet()}&username=${sessionScope['user'].getUserName()}&password=${sessionScope['user'].getPassword()}"
+                                                  method="post" >
+                                                <input value="Update" type="submit">
+                                            </form>
+                                            <form action="/wallet?action=showFormBanking&idWallet=${wallet.getIdWallet()}&username=${sessionScope['user'].getUserName()}&password=${sessionScope['user'].getPassword()}&money=${wallet.getMoney()}&nameWallet=${wallet.getNameWallet()}"
+                                                  method="post">
+                                                <input value="Transfer money" type="submit">
+                                            </form>
+                                            <form action="/wallet?action=showFormShare&idWallet=${wallet.getIdWallet()}&username=${sessionScope['user'].getUserName()}&password=${sessionScope['user'].getPassword()}&id=${sessionScope['user'].getId()}"
+                                                  method="post">
+                                                <input type="submit" value="Share">
+                                            </form>
+
+                                            <a href="#" id="Delete-link">
+                                                <input type="submit" value="Delete wallet">
+                                            </a>
+                                        </div>
+                                    </li>
+                                </ul>
+                            </div>
+                        </c:if>
                     </div>
-                    <div>
-                        <p>Miêu Tả :${wallet.getDescription()}</p>
+                    <div class="describe">
+                        <p>Describe :${wallet.getDescription()}</p>
                     </div>
-                    <c:if test="${not empty send}">
-                        <form action="/wallet?action=showWalletUpdate&idWallet=${wallet.getIdWallet()}&username=${sessionScope['user'].getUserName()}&password=${sessionScope['user'].getPassword()}"
-                              method="post">
-                            <input value="Cap nhat" type="submit">
-                        </form>
-                        <form action="/wallet?action=showFormBanking&idWallet=${wallet.getIdWallet()}&username=${sessionScope['user'].getUserName()}&password=${sessionScope['user'].getPassword()}&money=${wallet.getMoney()}&nameWallet=${wallet.getNameWallet()}"
-                              method="post">
-                            <input value="chuyển tiền" type="submit">
-                        </form>
-                        <form action="/wallet?action=showShare&idWallet=${wallet.getIdWallet()}&username=${sessionScope['user'].getUserName()}&password=${sessionScope['user'].getPassword()}&id=${sessionScope['user'].getId()}"
-                              method="post">
-                            <input type="submit" value="share">
-                        </form>
-                        <a href="#" id="Delete-link">
-                            <button>delete wallet</button>
-                        </a>
-                    </c:if>
                 </c:if>
                 <c:if test="${not empty category}">
                     <c:forEach var="list" items="${category}">
@@ -297,7 +344,6 @@
                             </div>
                             <button type="submit">Cập Nhật</button>
                         </form>
-                        <br><br><br><br><br>
                         <a href="/category?action=delete&idCategory=${list.idCategory}&username=${sessionScope['user'].getUserName()}&password=${sessionScope['user'].getPassword()}">
                             <button>delete</button>
                         </a>
@@ -311,8 +357,81 @@
         <div style="padding:  15px 0 0 0">
             <p style="text-align: center"> Copyright &copy; 2023 Financial Management Application</p>
         </div>
-
     </div>
 </div>
+
+
+<div class="confirmation-dialog" id="confirmation-dialog-delete">
+    <div class="confirmation-dialog-content">
+        <h2 style="font-size: 20px">Confirm account deletion</h2>
+        <p>Are you sure you want to delete your account?</p>
+        <button onclick="confirmAction('delete')">Agree</button>
+        <button onclick="hideDialog('confirmation-dialog-delete')">Cancel</button>
+    </div>
+</div>
+
+<div class="confirmation-dialog" id="confirmation-dialog-logout">
+    <div class="confirmation-dialog-content">
+        <h2 style="font-size: 20px">Confirm logout</h2>
+        <p>Are you sure you want to sign out?</p>
+        <button onclick="confirmAction('logout')">Agree</button>
+        <button onclick="hideDialog('confirmation-dialog-logout')">Cancel</button>
+    </div>
+</div>
+<script>
+    function showDialog(dialogId) {
+        const dialog = document.getElementById(dialogId);
+        dialog.style.display = 'block';
+    }
+
+    function hideDialog(dialogId) {
+        const elementById = document.getElementById(dialogId);
+        const dialog = elementById;
+        dialog.style.display = 'none';
+    }
+
+    function confirmAction(action) {
+        console.log(action + " thành công");
+        hideDialog('confirmation-dialog-' + action);
+        switch (action) {
+            case 'delete':
+                window.location.href = "/user?action=delete&id=${sessionScope['user'].getId()}";
+
+                break;
+            case 'logout':
+                window.location.href = "users/ListHome.jsp";
+                break;
+            default:
+                break;
+        }
+    }
+</script>
+<div class="confirmation-dialog" id="confirmation-deleteW">
+    <div class="confirmation-dialog-content">
+        <h2>Confirm deletion</h2>
+        <p>Do you want to delete ?</p>
+        <button id="confirm-De">Yes</button>
+        <button id="cancel-De">Cancel</button>
+    </div>
+</div>
+
+<script>
+    const DeleteLink = document.getElementById('Delete-link');
+    const confirmationDelete = document.getElementById('confirmation-deleteW');
+    const confirmDelete = document.getElementById('confirm-De');
+    const cancelDelete = document.getElementById('cancel-De');
+
+    DeleteLink.addEventListener('click', function (event) {
+        event.preventDefault();
+        confirmationDelete.style.display = 'block';
+    });
+    confirmDelete.addEventListener('click', function () {
+        confirmationDelete.style.display = 'none';
+        window.location.href = "/wallet?action=delete&idWallet=${wallet.getIdWallet()}&username=${sessionScope['user'].getUserName()}&password=${sessionScope['user'].getPassword()}";
+    });
+    cancelDelete.addEventListener('click', function () {
+        confirmationDelete.style.display = 'none';
+    });
+</script>
 </body>
 </html>

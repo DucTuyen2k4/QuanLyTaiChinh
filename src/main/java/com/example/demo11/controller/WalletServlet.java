@@ -17,8 +17,7 @@ import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.sql.SQLException;
 import java.util.List;
-;import static com.example.demo11.controller.UserServlet.icategoryDao;
-import static com.example.demo11.controller.UserServlet.walletDAO;
+;import static com.example.demo11.controller.UserServlet.*;
 
 @WebServlet(name = "WalletServlet", value = "/wallet")
 public class WalletServlet extends HttpServlet {
@@ -76,78 +75,89 @@ public class WalletServlet extends HttpServlet {
                     throw new RuntimeException(e);
                 }
                 break;
+            case "showFormShare":
+                formShare(req, resp);
+                break;
             case "share":
                 try {
-                    share(req, resp);
+                    shareWallet(req, resp);
                 } catch (SQLException e) {
                     throw new RuntimeException(e);
                 } catch (ClassNotFoundException e) {
                     throw new RuntimeException(e);
                 }
                 break;
-            case "showShare":
-                try {
-                    showShare(req, resp);
-                } catch (SQLException e) {
-                    throw new RuntimeException(e);
-                } catch (ClassNotFoundException e) {
-                    throw new RuntimeException(e);
-                }
         }
     }
 
-    private void showShare(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException, SQLException, ClassNotFoundException {
-        int idWallet = Integer.parseInt(req.getParameter("idWallet"));
+    private void shareWallet(HttpServletRequest req, HttpServletResponse resp) throws SQLException, ClassNotFoundException, ServletException, IOException {
+        int id = Integer.parseInt(req.getParameter("idWallet"));
         String username = req.getParameter("username");
         String password = req.getParameter("password");
-
-
-        List<User> list = iUserDAO.show(username, password);
-        req.setAttribute("list", list);
-        HttpSession session = req.getSession();
-        session.setAttribute("user", list.get(0));
-
-        System.out.println(idWallet);
-        req.setAttribute("idWallet", idWallet);
-        req.getRequestDispatcher("wallet/share.jsp").forward(req, resp);
-    }
-
-
-    private void share(HttpServletRequest req, HttpServletResponse resp) throws SQLException, ClassNotFoundException, ServletException, IOException {
         String email = req.getParameter("email");
-        System.out.println(email);
-        int idWallet = Integer.parseInt(req.getParameter("idWallet"));
         String permission = req.getParameter("permission");
-        String username = req.getParameter("username");
-        String password = req.getParameter("password");
-        if (iWalletDAO.checkEmailUser_Wallet(email)) {
-            User user = iWalletDAO.user_wallet(email);
-            int idUser = user.getId();
-            iWalletDAO.shareWallet(idUser, idWallet, permission);
+        if (iWalletDAO.checkEmail(email)) {
+            System.out.println("ok");
+            Wallet wallet = iWalletDAO.selectIdWallet(email);
+            int idUser = wallet.getIdWallet();
 
-            List<Wallet> walletList = iWalletDAO.listWallet(username, password);
-            req.setAttribute("list", walletList);
+            if (iWalletDAO.checkUserWallet(idUser, id) == false) {
+                iWalletDAO.insertShareWallet(idUser, id, permission);
 
+                List<User> list = iUserDAO.show(username, password);
+                req.setAttribute("list", list);
 
+                List<Wallet> walletList = iWalletDAO.listWallet(username, password);
+                req.setAttribute("list", walletList);
+
+                HttpSession session = req.getSession();
+                session.setAttribute("user", list.get(0));
+
+                List<Category> categoryList = icategoryDao.selectCategory(username, password);
+                req.setAttribute("listCategory", categoryList);
+
+                req.getRequestDispatcher("users/Home.jsp").forward(req, resp);
+
+            } else {
+                req.setAttribute("messages", "Tài khoản đã được chia sẻ");
+                List<User> list = iUserDAO.show(username, password);
+                HttpSession session = req.getSession();
+                session.setAttribute("user", list.get(0));
+                req.setAttribute("id", id);
+                req.getRequestDispatcher("/wallet/share.jsp").forward(req, resp);
+
+            }
+        } else {
+            req.setAttribute("message", "tai khoan khong ton tai");
+            req.getRequestDispatcher("/wallet/share.jsp").forward(req, resp);
             List<User> list = iUserDAO.show(username, password);
             HttpSession session = req.getSession();
             session.setAttribute("user", list.get(0));
-            req.getRequestDispatcher("users/q.jsp").forward(req, resp);
-        } else {
+            req.setAttribute("id", id);
 
-            req.setAttribute("message", "vi chỉ được chia sẻ 1 lần!");
-            req.getRequestDispatcher("wallet/share.jsp").forward(req, resp);
         }
+
+    }
+
+    private void formShare(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        int id = Integer.parseInt(req.getParameter("idWallet"));
+        String username = req.getParameter("username");
+        String password = req.getParameter("password");
+
+        List<User> list = iUserDAO.show(username, password);
+        HttpSession session = req.getSession();
+        session.setAttribute("user", list.get(0));
+        req.setAttribute("id", id);
+        req.getRequestDispatcher("/wallet/share.jsp").forward(req, resp);
+
 
     }
 
     private void showWallet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException, SQLException, ClassNotFoundException {
         int id = Integer.parseInt(req.getParameter("id"));
-        System.out.println(id);
         String username = req.getParameter("username");
         String password = req.getParameter("password");
         String permission = req.getParameter("permission");
-        System.out.println(permission);
         Wallet wallet = iWalletDAO.checkID(id);
         req.setAttribute("wallet", wallet);
 
@@ -157,7 +167,6 @@ public class WalletServlet extends HttpServlet {
 
             List<Wallet> walletList = walletDAO.listWallet(username, password);
             req.setAttribute("list", walletList);
-
 
             HttpSession session = req.getSession();
             session.setAttribute("user", list.get(0));
@@ -242,7 +251,7 @@ public class WalletServlet extends HttpServlet {
         req.setAttribute("list", listWallet);
         List<Category> categoryList = icategoryDao.selectCategory(username, password);
         req.setAttribute("listCategory", categoryList);
-        req.getRequestDispatcher("users/q.jsp").forward(req, resp);
+        req.getRequestDispatcher("users/Home.jsp").forward(req, resp);
     }
 
     private void confirmBanking(HttpServletRequest req, HttpServletResponse resp) throws SQLException, ClassNotFoundException, ServletException, IOException {
@@ -269,10 +278,20 @@ public class WalletServlet extends HttpServlet {
 
                 iWalletDAO.updateMoney(result, nameWallet);
                 iWalletDAO.updateMoneyBanking(sum, name);
+                List<User> list = userDAO.show(username, password);
 
-                List<Wallet> listWallet = iWalletDAO.showAllWallet(username, password);
-                req.setAttribute("list", listWallet);
-                req.getRequestDispatcher("users/q.jsp").forward(req, resp);
+
+                List<Wallet> walletList = walletDAO.listWallet(username, password);
+                req.setAttribute("list", walletList);
+
+
+                HttpSession session = req.getSession();
+                session.setAttribute("user", list.get(0));
+
+                List<Category> categoryList = icategoryDao.selectCategory(username,password);
+                req.setAttribute("listCategory",categoryList);
+
+                req.getRequestDispatcher("users/Home.jsp").forward(req,resp);
 
             } else {
                 req.setAttribute("messages", "Số dư không đủ để chuyển!");
@@ -297,7 +316,6 @@ public class WalletServlet extends HttpServlet {
 
 
     }
-
     private void formBanking(HttpServletRequest req, HttpServletResponse resp) throws SQLException, ClassNotFoundException, ServletException, IOException {
         int idWallet = Integer.parseInt(req.getParameter("idWallet"));
         String nameWallet = req.getParameter("nameWallet");
@@ -317,7 +335,6 @@ public class WalletServlet extends HttpServlet {
         req.getRequestDispatcher("/wallet/formBanking.jsp").forward(req, resp);
 
     }
-
     private void showWalletUpdate(HttpServletRequest req, HttpServletResponse resp) throws SQLException, ClassNotFoundException, ServletException, IOException {
         int idWallet = Integer.parseInt(req.getParameter("idWallet"));
         String username = req.getParameter("username");
@@ -347,7 +364,7 @@ public class WalletServlet extends HttpServlet {
         List<Wallet> listWallet = iWalletDAO.showAllWallet(username, password);
         request.setAttribute("list", listWallet);
 
-        Wallet wallet = new Wallet(idWallet, icon,nameWallet , money, description, currency);
+        Wallet wallet = new Wallet(idWallet, icon, nameWallet, money, description, currency);
         request.setAttribute("wallet", wallet);
 
         List<Category> categoryList = icategoryDao.selectCategory(username, password);
