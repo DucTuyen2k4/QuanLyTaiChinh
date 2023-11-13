@@ -136,6 +136,7 @@ public class WalletServlet extends HttpServlet {
 
         }
     }
+
     private void showShare(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException, SQLException, ClassNotFoundException {
         int idWallet = Integer.parseInt(req.getParameter("idWallet"));
         String username = req.getParameter("username");
@@ -348,7 +349,7 @@ public class WalletServlet extends HttpServlet {
         List<Wallet> listWallet = iWalletDAO.showAllWallet(username, password);
         request.setAttribute("list", listWallet);
 
-        Wallet wallet = new Wallet(idWallet, icon,nameWallet , money, description, currency);
+        Wallet wallet = new Wallet(idWallet, icon, nameWallet, money, description, currency);
         request.setAttribute("wallet", wallet);
 
         List<Category> categoryList = icategoryDao.selectAllCategory(username, password);

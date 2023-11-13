@@ -9,6 +9,7 @@ public class Wallet {
     private String description ;
     private String permission ;
 
+
     public Wallet(int idWallet,String icon, String nameWallet, Double money, String currency, String description) {
         this.icon = icon;
         this.nameWallet = nameWallet ;
@@ -43,6 +44,7 @@ public class Wallet {
         this.nameWallet = nameWallet;
         this.money = money;
     }
+
     public Wallet(double money){
         this.money=money;
     }

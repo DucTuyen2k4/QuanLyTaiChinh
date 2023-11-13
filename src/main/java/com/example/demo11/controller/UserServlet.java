@@ -38,8 +38,8 @@ public class UserServlet extends HttpServlet {
     public void init() throws ServletException {
         userDAO = new UserDAO();
 
-        walletDAO=new WalletDAO();
-        icategoryDao=new CategoryDao();
+        walletDAO = new WalletDAO();
+        icategoryDao = new CategoryDao();
 
     }
 
@@ -88,7 +88,7 @@ public class UserServlet extends HttpServlet {
         if (action == null) {
             action = "";
         }
-        System.out.println(action);
+
         switch (action) {
             case "addUser":
 
@@ -158,13 +158,15 @@ public class UserServlet extends HttpServlet {
         String password = req.getParameter("password");
         try {
             if (userDAO.checkUser(userName, password)) {
+                List<Wallet> walletShowMoney = walletDAO.showMoney(userName);
+                req.setAttribute("money", walletShowMoney);
                 List<User> list = userDAO.show(userName, password);
                 List<Wallet> walletList = walletDAO.listWallet(userName, password);
                 req.setAttribute("list", walletList);
                 HttpSession session = req.getSession();
                 session.setAttribute("user", list.get(0));
-                List<Category> categoryList = icategoryDao.selectAllCategory(userName,password);
-                req.setAttribute("showNameCategory",categoryList);
+                List<Category> categoryList = icategoryDao.selectAllCategory(userName, password);
+                req.setAttribute("showNameCategory", categoryList);
                 req.getRequestDispatcher("users/Home.jsp").forward(req, resp);
             } else {
                 req.setAttribute("message", "Tài khoản không tồn tại!");
@@ -180,7 +182,6 @@ public class UserServlet extends HttpServlet {
     private void confirmUpdate(HttpServletRequest req, HttpServletResponse resp) throws SQLException, ClassNotFoundException, ServletException, IOException {
         String userName = req.getParameter("username");
         String password = req.getParameter("password");
-        System.out.println(userName+password);
         int id = Integer.parseInt(req.getParameter("id"));
         String fullName = req.getParameter("fullName");
         String gender = req.getParameter("gender");
@@ -201,8 +202,8 @@ public class UserServlet extends HttpServlet {
         req.setAttribute("list", walletList);
         System.out.println(walletList);
 
-        List<Category> categoryList = icategoryDao.selectAllCategory(userName,password);
-        req.setAttribute("listCategory",categoryList);
+        List<Category> categoryList = icategoryDao.selectAllCategory(userName, password);
+        req.setAttribute("listCategory", categoryList);
         System.out.println(categoryList);
 
         req.getRequestDispatcher("users/q.jsp").forward(req, resp);
@@ -271,23 +272,20 @@ public class UserServlet extends HttpServlet {
                 String birthdateString = request.getParameter("birthdate");
 
 
+                SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+                Date birthdate = null;
+                Date currentDate = new Date();
+                System.out.println(currentDate);
+                try {
+                    birthdate = sdf.parse(birthdateString);
+                    System.out.println(birthdate);
 
-                    SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-                    Date birthdate = null;
-                    Date currentDate = new Date();
-                    System.out.println(currentDate);
-                    try {
-                        birthdate = sdf.parse(birthdateString);
-                        System.out.println(birthdate);
+                    userDAO.addUser(new User(userName, password, email, gender, birthdate));
+                    request.getRequestDispatcher("RegisterSuccess.jsp").forward(request, response);
 
-                            userDAO.addUser(new User( userName, password, email, gender, birthdate));
-                            request.getRequestDispatcher("RegisterSuccess.jsp").forward(request, response);
-
-                    } catch (ParseException e) {
-                        e.printStackTrace();
-                    }
-
-
+                } catch (ParseException e) {
+                    e.printStackTrace();
+                }
 
 
             } else {

@@ -7,14 +7,12 @@ import com.example.demo11.model.Wallet;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Statement;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 
 public class WalletDAO implements IWalletDAO {
-
+    private static final String SHOW_MONEY_All_WALLET = "SELECT u.id, u.fullName, w.nameWallet, SUM(w.money) AS totalMoney FROM users u JOIN users_wallet uw ON u.id = uw.idUser JOIN wallet w ON uw.idWallet = w.idWallet WHERE u.userName=? GROUP BY u.id, u.userName, w.nameWallet";
     private static final String SELECT_ALL_WALLET = "select users_wallet.permission, Wallet.idWallet,Wallet.nameWallet, Wallet.icon,Wallet.money,Wallet.currency,Wallet.description from Wallet inner join users_wallet on Wallet.idWallet = users_wallet.idWallet inner join users on users_wallet.idUser=users.id where username = ? and password = ?";
     private static final String SELECT_ALL_WALLET_HOME = "select*from Wallet";
     private static final String CHECK_ID = "select*from Wallet where idWallet like ?";
@@ -37,6 +35,24 @@ public class WalletDAO implements IWalletDAO {
         preparedStatement.setInt(1, id);
         preparedStatement.executeUpdate();
     }
+
+    @Override
+    public List<Wallet> showMoney(String userName) throws SQLException, ClassNotFoundException {
+        List<Wallet> list = new ArrayList<>();
+
+        PreparedStatement preparedStatement = JDBC.connection().prepareStatement(SHOW_MONEY_All_WALLET);
+        preparedStatement.setString(1, userName);
+        ResultSet dataResult = preparedStatement.executeQuery();
+        while (dataResult.next()) {
+            String walletName = dataResult.getString("nameWallet");
+            double money = dataResult.getDouble("totalMoney");
+            list.add(new Wallet(money));
+        }
+
+
+        return list;
+    }
+
 
     @Override
     public void shareWallet(int idUser, int idWallet, String permission) throws SQLException, ClassNotFoundException {
@@ -137,8 +153,7 @@ public class WalletDAO implements IWalletDAO {
                 String currency = resultSet.getString("currency");
                 String description = resultSet.getString("description");
                 String permission = resultSet.getString("permission");
-                System.out.println(permission);
-                walletList.add(new Wallet(id, icon, nameWallet, money, currency, description,permission));
+                walletList.add(new Wallet(id, icon, nameWallet, money, currency, description, permission));
             }
         } catch (SQLException e) {
             throw new RuntimeException(e);
@@ -187,7 +202,6 @@ public class WalletDAO implements IWalletDAO {
     @Override
     public List<Wallet> showWallet(int id) throws SQLException, ClassNotFoundException {
         List<Wallet> list = new ArrayList<>();
-        System.out.println(id);
         PreparedStatement preparedStatement = JDBC.connection().prepareStatement(SHOW_WALLET);
         preparedStatement.setInt(1, id);
         ResultSet resultSet = preparedStatement.executeQuery();
@@ -244,7 +258,7 @@ public class WalletDAO implements IWalletDAO {
         preparedStatement.setDouble(3, wallet.getMoney());
         preparedStatement.setString(4, wallet.getCurrency());
         preparedStatement.setString(5, wallet.getDescription());
-        preparedStatement.setString(6,wallet.getPermission());
+        preparedStatement.setString(6, wallet.getPermission());
         preparedStatement.executeUpdate();
     }
 
@@ -263,7 +277,7 @@ public class WalletDAO implements IWalletDAO {
             String currency = resultSet.getString("currency");
             String description = resultSet.getString("description");
             String permission = resultSet.getString("permission");
-            list.add(new Wallet(idWallet, icon, nameWallet, money, currency, description,permission));
+            list.add(new Wallet(idWallet, icon, nameWallet, money, currency, description, permission));
         }
         return list;
     }
@@ -282,11 +296,11 @@ public class WalletDAO implements IWalletDAO {
     }
 
     @Override
-    public void addToUser_Wallet(int idUser, int idWallet,String permission) throws SQLException, ClassNotFoundException {
+    public void addToUser_Wallet(int idUser, int idWallet, String permission) throws SQLException, ClassNotFoundException {
         PreparedStatement preparedStatement = JDBC.connection().prepareStatement(INSERT_USER_WALLET);
         preparedStatement.setInt(1, idUser);
         preparedStatement.setInt(2, idWallet);
-        preparedStatement.setString(3,permission);
+        preparedStatement.setString(3, permission);
         preparedStatement.executeUpdate();
 
     }

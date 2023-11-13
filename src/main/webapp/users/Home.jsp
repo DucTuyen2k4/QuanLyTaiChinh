@@ -251,6 +251,15 @@
     <div class="general">
         <div class="left"></div>
         <div class="content">
+                    <div class="left">
+                        <c:set var="totalMoney" value="0" />
+
+                        <c:forEach items="${money}" var="wallet">
+                            <c:set var="totalMoney" value="${totalMoney + wallet.money}" />
+                        </c:forEach>
+
+                        <p>Total Money All Wallet: ${totalMoney}</p>
+                    </div>
             <div>
                 <c:if test="${not empty wallet.getIdWallet()}">
                     <a hidden="hidden"><p>${wallet.getIdWallet()}</p></a>

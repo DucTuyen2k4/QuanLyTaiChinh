@@ -13,7 +13,7 @@ public interface IWalletDAO {
     Wallet checkID(int id);
     void addWallet(Wallet wallet) throws SQLException, ClassNotFoundException;
     List<Wallet> showAllWallet(String username , String password) throws SQLException, ClassNotFoundException;
-
+    List<Wallet> showMoney(String userName) throws SQLException, ClassNotFoundException;
     Wallet selectId(String userWallet) throws SQLException, ClassNotFoundException;
     void addToUser_Wallet(int idUser ,int idWallet,String permission) throws SQLException, ClassNotFoundException;
     void updateWallet(Wallet wallet) throws SQLException, ClassNotFoundException;
