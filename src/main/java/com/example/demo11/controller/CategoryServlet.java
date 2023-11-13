@@ -173,7 +173,7 @@ public class CategoryServlet extends HttpServlet {
         req.getRequestDispatcher("users/q.jsp").forward(req, resp);
     }
 
-    //    private void showCategory(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException, SQLException, ClassNotFoundException {
+//        private void showCategory(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException, SQLException, ClassNotFoundException {
 //        int idCategory = Integer.parseInt(req.getParameter("id"));
 //        Category category = iCategoryDAO.showCategory(idCategory);
 //        System.out.println(category);

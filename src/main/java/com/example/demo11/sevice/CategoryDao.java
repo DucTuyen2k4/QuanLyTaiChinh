@@ -18,8 +18,6 @@ public class CategoryDao implements ICategoryDao {
     private static final String SHOW_CATEGORY_WHERE_ID = "select * from category where idCategory=? ";
     public static final String SELECT_CATEGORY_UPDATE = "UPDATE Category set nameCategory=?,note=? where idCategory=?";
     private static final String SELECT_ALL_CATEGORY = "select * from category where idCategory = ? ";
-
-
     public static final String DELETE_CATEGORY = "DELETE user_category, category FROM user_category LEFT JOIN category ON user_category.idCategory = category.idCategory WHERE user_category.idCategory = ?";
 
     @Override
