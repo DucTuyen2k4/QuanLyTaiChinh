@@ -97,7 +97,7 @@ public class CategoryServlet extends HttpServlet {
         String password = req.getParameter("password");
         int id = Integer.parseInt(req.getParameter("idCategory"));
         iCategoryDAO.deleteCategory(id);
-        List<Category> categoryList = iCategoryDAO.selectAllCategory(username,password);
+        List<Category> categoryList = iCategoryDAO.selectCategory(username,password);
         req.setAttribute("showNameCategory",categoryList);
         List<Wallet> listWallet = iWalletDAO.showAllWallet(username, password);
         req.setAttribute("list", listWallet);
@@ -115,7 +115,7 @@ public class CategoryServlet extends HttpServlet {
         HttpSession session = req.getSession();
 
         session.setAttribute("user", list.get(0));
-        List<Category> categoryList = iCategoryDAO.selectAllCategory(username, password);
+        List<Category> categoryList = iCategoryDAO.selectCategory(username, password);
         req.setAttribute("listCategory", categoryList);
 
 
@@ -142,7 +142,7 @@ public class CategoryServlet extends HttpServlet {
 
             iCategoryDAO.insertNewCategory(id, idCategory);
 
-            List<Category> list = iCategoryDAO.selectAllCategory(username, password);
+            List<Category> list = iCategoryDAO.selectCategory(username, password);
             req.setAttribute("listCategory", list);
 
             List<Wallet> walletList = walletDAO.listWallet(username, password);
@@ -156,7 +156,7 @@ public class CategoryServlet extends HttpServlet {
         String username = req.getParameter("username");
         String password = req.getParameter("password");
         List<Category> category = iCategoryDAO.showCategory1(idCategory);
-        List<Category> categoryList = icategoryDao.selectAllCategory(username,password);
+        List<Category> categoryList = icategoryDao.selectCategory(username,password);
 
         req.setAttribute("listCategory",categoryList);
         req.setAttribute("listCategoryUpdate", category);
@@ -183,7 +183,7 @@ public class CategoryServlet extends HttpServlet {
         System.out.println(idCategory + categoryName + categoryNote);
 
         iCategoryDAO.CategoryUpdate(new Category(idCategory, categoryName, categoryNote));
-        List<Category> listCategory = iCategoryDAO.selectAllCategory(username, password);
+        List<Category> listCategory = iCategoryDAO.selectCategory(username, password);
         request.setAttribute("listCategory", listCategory);
 
         Category category = new Category(idCategory, categoryName, categoryNote);
@@ -194,7 +194,7 @@ public class CategoryServlet extends HttpServlet {
         HttpSession session = request.getSession();
         session.setAttribute("user", listUser.get(0));
 
-        List<Category> categoryList = icategoryDao.selectAllCategory(username,password);
+        List<Category> categoryList = icategoryDao.selectCategory(username,password);
         request.setAttribute("listCategory",categoryList);
         System.out.println(categoryList);
 

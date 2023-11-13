@@ -203,7 +203,7 @@ public class WalletServlet extends HttpServlet {
             HttpSession session = req.getSession();
             session.setAttribute("user", list.get(0));
 
-            List<Category> categoryList = icategoryDao.selectAllCategory(username, password);
+            List<Category> categoryList = icategoryDao.selectCategory(username, password);
             req.setAttribute("showNameCategory", categoryList);
 
 
@@ -222,7 +222,7 @@ public class WalletServlet extends HttpServlet {
             HttpSession session = req.getSession();
             session.setAttribute("user", list.get(0));
 
-            List<Category> categoryList = icategoryDao.selectAllCategory(username, password);
+            List<Category> categoryList = icategoryDao.selectCategory(username, password);
             req.setAttribute("showNameCategory", categoryList);
 
             List<Wallet> listWallet = iWalletDAO.showAllWallet(username, password);
@@ -242,7 +242,7 @@ public class WalletServlet extends HttpServlet {
         iWalletDAO.deleteWallet(idWallet);
         List<Wallet> listWallet = iWalletDAO.showAllWallet(username, password);
         req.setAttribute("list", listWallet);
-        List<Category> categoryList = icategoryDao.selectAllCategory(username, password);
+        List<Category> categoryList = icategoryDao.selectCategory(username, password);
         req.setAttribute("listCategory", categoryList);
         req.getRequestDispatcher("users/q.jsp").forward(req, resp);
     }
@@ -352,7 +352,7 @@ public class WalletServlet extends HttpServlet {
         Wallet wallet = new Wallet(idWallet, icon, nameWallet, money, description, currency);
         request.setAttribute("wallet", wallet);
 
-        List<Category> categoryList = icategoryDao.selectAllCategory(username, password);
+        List<Category> categoryList = icategoryDao.selectCategory(username, password);
         request.setAttribute("listCategory", categoryList);
 
         request.getRequestDispatcher("/users/Home.jsp").forward(request, response);
@@ -378,7 +378,7 @@ public class WalletServlet extends HttpServlet {
         List<Wallet> listWallet = iWalletDAO.showAllWallet(username, password);
         req.setAttribute("list", listWallet);
 
-        List<Category> categoryList = icategoryDao.selectAllCategory(username, password);
+        List<Category> categoryList = icategoryDao.selectCategory(username, password);
         req.setAttribute("showNameCategory", categoryList);
 
         req.getRequestDispatcher("/users/Home.jsp").forward(req, resp);

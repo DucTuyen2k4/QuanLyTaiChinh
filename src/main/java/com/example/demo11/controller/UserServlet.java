@@ -76,6 +76,15 @@ public class UserServlet extends HttpServlet {
             case "logoutHome":
                 logoutHome(req, resp);
                 break;
+            case "Home":
+                try {
+                    Home(req, resp);
+                } catch (SQLException e) {
+                    throw new RuntimeException(e);
+                } catch (ClassNotFoundException e) {
+                    throw new RuntimeException(e);
+                }
+                break;
             default:
                 break;
         }
@@ -123,12 +132,22 @@ public class UserServlet extends HttpServlet {
             case "confirmPassword":
                 try {
                     confirmPassword(req, resp);
-                    break;
+
                 } catch (SQLException e) {
                     throw new RuntimeException(e);
                 } catch (ClassNotFoundException e) {
                     throw new RuntimeException(e);
                 }
+                break;
+            case "Home":
+                try {
+                    Home(req, resp);
+                } catch (SQLException e) {
+                    throw new RuntimeException(e);
+                } catch (ClassNotFoundException e) {
+                    throw new RuntimeException(e);
+                }
+                break;
         }
     }
 
@@ -138,7 +157,26 @@ public class UserServlet extends HttpServlet {
         super.destroy();
     }
 
+    private void Home(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException, SQLException, ClassNotFoundException {
+        String userName = req.getParameter("username");
+        String password = req.getParameter("password");
+        List<User> list = userDAO.show(userName, password);
+        List<Wallet> walletShowMoney = walletDAO.showMoney(userName);
+        req.setAttribute("money", walletShowMoney);
 
+        List<Wallet> walletList = walletDAO.listWallet(userName, password);
+        req.setAttribute("list", walletList);
+
+
+        HttpSession session = req.getSession();
+        session.setAttribute("user", list.get(0));
+
+        List<Category> categoryList = icategoryDao.selectCategory(userName, password);
+        req.setAttribute("listCategory", categoryList);
+
+
+        req.getRequestDispatcher("users/Home.jsp").forward(req, resp);
+    }
     private void logoutHome(HttpServletRequest request, HttpServletResponse response) throws IOException {
         request.getSession().invalidate();
         response.sendRedirect(request.getContextPath() + "/users/list.jsp");
@@ -165,7 +203,7 @@ public class UserServlet extends HttpServlet {
                 req.setAttribute("list", walletList);
                 HttpSession session = req.getSession();
                 session.setAttribute("user", list.get(0));
-                List<Category> categoryList = icategoryDao.selectAllCategory(userName, password);
+                List<Category> categoryList = icategoryDao.selectCategory(userName, password);
                 req.setAttribute("showNameCategory", categoryList);
                 req.getRequestDispatcher("users/Home.jsp").forward(req, resp);
             } else {
@@ -202,7 +240,7 @@ public class UserServlet extends HttpServlet {
         req.setAttribute("list", walletList);
         System.out.println(walletList);
 
-        List<Category> categoryList = icategoryDao.selectAllCategory(userName, password);
+        List<Category> categoryList = icategoryDao.selectCategory(userName, password);
         req.setAttribute("listCategory", categoryList);
         System.out.println(categoryList);
 

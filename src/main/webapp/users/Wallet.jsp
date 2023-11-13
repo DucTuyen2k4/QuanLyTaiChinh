@@ -161,8 +161,7 @@
 
 <%--          Home--%>
         <div>
-          <a href="" style="color: #0a0101 ; text-decoration: none; ">
-              <form action="/user?action=login&username=${sessionScope['user'].getUserName()}&password=${sessionScope['user'].getPassword()}">Home</form></a>
+            <a href="/user?action=Home&username=${sessionScope['user'].getUserName()}&password=${sessionScope['user'].getPassword()}" style="color: #0a0101 ; text-decoration: none; ">Home</a>
         </div>
         <div class="w" style="margin-left: 20px">
           <ul>
@@ -311,6 +310,7 @@
     }
   </script>
 </div>
-
+<input type="hidden" name="username" value="${sessionScope['user'].getUserName()}"/>
+<input type="hidden" name="password" value="${sessionScope['user'].getPassword()}"/>
 </body>
 </html>

@@ -42,7 +42,7 @@ public class CategoryDao implements ICategoryDao {
     }
 
     @Override
-    public List<Category> selectAllCategory(String userName, String password) throws SQLException, ClassNotFoundException {
+    public List<Category> selectCategory(String userName, String password) throws SQLException, ClassNotFoundException {
         PreparedStatement statement = JDBC.connection().prepareStatement(SELECT_CATEGORY);
         statement.setString(1, userName);
         statement.setString(2, password);
