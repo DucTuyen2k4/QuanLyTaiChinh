@@ -184,14 +184,14 @@ public class WalletServlet extends HttpServlet {
 
     private void showWallet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException, SQLException, ClassNotFoundException {
         int id = Integer.parseInt(req.getParameter("id"));
-        System.out.println(id);
         String username = req.getParameter("username");
         String password = req.getParameter("password");
         String permission = req.getParameter("permission");
         System.out.println(permission);
         Wallet wallet = iWalletDAO.checkID(id);
         req.setAttribute("wallet", wallet);
-
+        List<Wallet> walletShowMoney = walletDAO.showMoney(username);
+        req.setAttribute("money", walletShowMoney);
         if ("owner".equalsIgnoreCase(permission)) {
             List<User> list = iUserDAO.show(username, password);
             req.setAttribute("list", list);
@@ -210,7 +210,7 @@ public class WalletServlet extends HttpServlet {
             List<Wallet> listWallet = iWalletDAO.showAllWallet(username, password);
             req.setAttribute("list", listWallet);
             req.setAttribute("send", "send");
-            req.getRequestDispatcher("users/Home.jsp").forward(req, resp);
+            req.getRequestDispatcher("users/Wallet.jsp").forward(req, resp);
         } else {
             List<User> list = iUserDAO.show(username, password);
             req.setAttribute("list", list);
@@ -229,7 +229,7 @@ public class WalletServlet extends HttpServlet {
             req.setAttribute("list", listWallet);
             req.setAttribute("send", "");
 
-            req.getRequestDispatcher("users/Home.jsp").forward(req, resp);
+            req.getRequestDispatcher("users/Wallet.jsp").forward(req, resp);
         }
 
 

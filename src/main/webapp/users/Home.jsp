@@ -172,6 +172,7 @@
                                 <a class="dropdown-item"
                                    href="/wallet/formAddWallet.jsp?username=${sessionScope['user'].getUserName()}&password=${sessionScope['user'].getPassword()}&id=${sessionScope['user'].getId()}"
                                    style="text-align: center ; color: #1d1e1c">+</a>
+
                             </div>
                         </li>
                     </ul>
@@ -182,7 +183,7 @@
                             <a href="#" class="dropbtn" style="color: #0a0101 ; text-decoration: none">Category </a>
                             <div class="dropdown-content">
                               <c:forEach var="list" items="${showNameCategory}">
-                                  <a class="dropdown-item"
+                                  <a class="dropdown-item" onclick="showWallet()"
                                      href="/category?action=showCategory&idCategory=${list.idCategory}&username=${sessionScope['user'].getUserName()}&password=${sessionScope['user'].getPassword()}">
                                       <span style="color: black; text-align: center">${list.nameCategory}</span>
                                   </a>
@@ -251,7 +252,7 @@
     <div class="general">
         <div class="left"></div>
         <div class="content">
-                    <div class="left">
+                    <div class="left" >
                         <c:set var="totalMoney" value="0" />
 
                         <c:forEach items="${money}" var="wallet">
@@ -259,42 +260,15 @@
                         </c:forEach>
 
                         <p>Total Money All Wallet: ${totalMoney}</p>
-                    </div>
-            <div>
-                <c:if test="${not empty wallet.getIdWallet()}">
-                    <a hidden="hidden"><p>${wallet.getIdWallet()}</p></a>
-                    <div class="icon">
-                        <i class="${wallet.getIcon()}" style="font-size: 90px"></i>
-                    </div>
-                    <div class="nameWallet">
-                        <p>${wallet.getNameWallet()}</p>
-                    </div>
-                    <div class="money">
-                        <p>${wallet.getMoney()} ${wallet.getCurrency()}</p><br>
-                    </div>
-                    <div>
-                        <p>Miêu Tả :${wallet.getDescription()}</p>
-                    </div>
-                    <c:if test="${not empty send}">
-                        <form action="/wallet?action=showWalletUpdate&idWallet=${wallet.getIdWallet()}&username=${sessionScope['user'].getUserName()}&password=${sessionScope['user'].getPassword()}"
-                              method="post">
-                            <input value="Cap nhat" type="submit">
-                        </form>
-                        <form action="/wallet?action=showFormBanking&idWallet=${wallet.getIdWallet()}&username=${sessionScope['user'].getUserName()}&password=${sessionScope['user'].getPassword()}&money=${wallet.getMoney()}&nameWallet=${wallet.getNameWallet()}"
-                              method="post">
-                            <input value="chuyển tiền" type="submit">
-                        </form>
-                        <form action="/wallet?action=showShare&idWallet=${wallet.getIdWallet()}&username=${sessionScope['user'].getUserName()}&password=${sessionScope['user'].getPassword()}&id=${sessionScope['user'].getId()}"
-                              method="post">
-                            <input type="submit" value="share">
-                        </form>
-                        <a href="#" id="Delete-link">
-                            <button>delete wallet</button>
-                        </a>
-                    </c:if>
-                </c:if>
 
-            </div>
+                        <c:forEach var="list" items="${list}">
+                            <a class="dropdown-item"
+                               href="/wallet?action=ShowWallet&permission=${list.permission}&id=${list.idWallet}&username=${sessionScope['user'].getUserName()}&password=${sessionScope['user'].getPassword()}">
+                                <span style="color: black; text-align: center">${list.nameWallet}${list.permission}${list.money}</span>
+                            </a>
+                        </c:forEach>
+                    </div>
+
             <c:if test="${not empty category.getIdCategory}">
                 <a hidden="hidden"><p>${category.getIdCategory}</p></a>
                 <div class="icon">
@@ -314,6 +288,11 @@
         </div>
 
     </div>
+    <script>
+        function showWallet(){
+
+        }
+    </script>
 </div>
 </body>
 </html>

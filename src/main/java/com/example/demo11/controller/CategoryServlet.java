@@ -121,6 +121,7 @@ public class CategoryServlet extends HttpServlet {
 
         List<Category> listCategory = iCategoryDAO.selectAllCategorys(idCategory);
         req.setAttribute("category", listCategory);
+
         System.out.println(password);
         req.getRequestDispatcher("users/Home.jsp").forward(req, resp);
     }
