@@ -96,6 +96,46 @@ public class WalletServlet extends HttpServlet {
         }
     }
 
+
+    @Override
+    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        String action = req.getParameter("action");
+        if (action == null) {
+            action = "";
+        }
+
+        switch (action) {
+            case "ShowWallet":
+                try {
+                    showWallet(req, resp);
+                } catch (SQLException e) {
+                    throw new RuntimeException(e);
+                } catch (ClassNotFoundException e) {
+                    throw new RuntimeException(e);
+                }
+                break;
+
+            case "addWallet":
+                try {
+                    addWallet(req, resp);
+                } catch (SQLException e) {
+                    throw new RuntimeException(e);
+                } catch (ClassNotFoundException e) {
+                    throw new RuntimeException(e);
+                }
+                break;
+            case "delete":
+                try {
+                    Delete(req, resp);
+                } catch (SQLException e) {
+                    throw new RuntimeException(e);
+                } catch (ClassNotFoundException e) {
+                    throw new RuntimeException(e);
+                }
+                break;
+
+        }
+    }
     private void showShare(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException, SQLException, ClassNotFoundException {
         int idWallet = Integer.parseInt(req.getParameter("idWallet"));
         String username = req.getParameter("username");
@@ -162,8 +202,9 @@ public class WalletServlet extends HttpServlet {
             HttpSession session = req.getSession();
             session.setAttribute("user", list.get(0));
 
-            List<Category> categoryList = icategoryDao.selectCategory(username, password);
-            req.setAttribute("listCategory", categoryList);
+            List<Category> categoryList = icategoryDao.selectAllCategory(username, password);
+            req.setAttribute("showNameCategory", categoryList);
+
 
             List<Wallet> listWallet = iWalletDAO.showAllWallet(username, password);
             req.setAttribute("list", listWallet);
@@ -180,8 +221,8 @@ public class WalletServlet extends HttpServlet {
             HttpSession session = req.getSession();
             session.setAttribute("user", list.get(0));
 
-            List<Category> categoryList = icategoryDao.selectCategory(username, password);
-            req.setAttribute("listCategory", categoryList);
+            List<Category> categoryList = icategoryDao.selectAllCategory(username, password);
+            req.setAttribute("showNameCategory", categoryList);
 
             List<Wallet> listWallet = iWalletDAO.showAllWallet(username, password);
             req.setAttribute("list", listWallet);
@@ -193,46 +234,6 @@ public class WalletServlet extends HttpServlet {
 
     }
 
-    @Override
-    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        String action = req.getParameter("action");
-        if (action == null) {
-            action = "";
-        }
-
-        switch (action) {
-            case "ShowWallet":
-                try {
-                    showWallet(req, resp);
-                } catch (SQLException e) {
-                    throw new RuntimeException(e);
-                } catch (ClassNotFoundException e) {
-                    throw new RuntimeException(e);
-                }
-                break;
-
-            case "addWallet":
-                try {
-                    addWallet(req, resp);
-                } catch (SQLException e) {
-                    throw new RuntimeException(e);
-                } catch (ClassNotFoundException e) {
-                    throw new RuntimeException(e);
-                }
-                break;
-            case "delete":
-                try {
-                    Delete(req, resp);
-                } catch (SQLException e) {
-                    throw new RuntimeException(e);
-                } catch (ClassNotFoundException e) {
-                    throw new RuntimeException(e);
-                }
-                break;
-
-        }
-    }
-
     private void Delete(HttpServletRequest req, HttpServletResponse resp) throws SQLException, ClassNotFoundException, ServletException, IOException {
         String username = req.getParameter("username");
         String password = req.getParameter("password");
@@ -240,7 +241,7 @@ public class WalletServlet extends HttpServlet {
         iWalletDAO.deleteWallet(idWallet);
         List<Wallet> listWallet = iWalletDAO.showAllWallet(username, password);
         req.setAttribute("list", listWallet);
-        List<Category> categoryList = icategoryDao.selectCategory(username, password);
+        List<Category> categoryList = icategoryDao.selectAllCategory(username, password);
         req.setAttribute("listCategory", categoryList);
         req.getRequestDispatcher("users/q.jsp").forward(req, resp);
     }
@@ -350,7 +351,7 @@ public class WalletServlet extends HttpServlet {
         Wallet wallet = new Wallet(idWallet, icon,nameWallet , money, description, currency);
         request.setAttribute("wallet", wallet);
 
-        List<Category> categoryList = icategoryDao.selectCategory(username, password);
+        List<Category> categoryList = icategoryDao.selectAllCategory(username, password);
         request.setAttribute("listCategory", categoryList);
 
         request.getRequestDispatcher("/users/Home.jsp").forward(request, response);
@@ -376,8 +377,8 @@ public class WalletServlet extends HttpServlet {
         List<Wallet> listWallet = iWalletDAO.showAllWallet(username, password);
         req.setAttribute("list", listWallet);
 
-        List<Category> categoryList = icategoryDao.selectCategory(username, password);
-        req.setAttribute("listCategory", categoryList);
+        List<Category> categoryList = icategoryDao.selectAllCategory(username, password);
+        req.setAttribute("showNameCategory", categoryList);
 
         req.getRequestDispatcher("/users/Home.jsp").forward(req, resp);
     }

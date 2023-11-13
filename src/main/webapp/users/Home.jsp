@@ -181,14 +181,15 @@
                         <li class="dropdown">
                             <a href="#" class="dropbtn" style="color: #0a0101 ; text-decoration: none">Category </a>
                             <div class="dropdown-content">
-
-                                <a href="#"> a</a>
-                                <a href="#"> b</a>
-                                <a href="#"> b</a>
-                                <a href="#"> b</a>
-                                <a href="#"> b</a>
-                                <a href="#"> b</a>
-                                <a href="#"> b</a>
+                              <c:forEach var="list" items="${showNameCategory}">
+                                  <a class="dropdown-item"
+                                     href="/category?action=showCategory&idCategory=${list.idCategory}&username=${sessionScope['user'].getUserName()}&password=${sessionScope['user'].getPassword()}">
+                                      <span style="color: black; text-align: center">${list.nameCategory}</span>
+                                  </a>
+                              </c:forEach>
+                                <a class="dropdown-item"
+                                   href="/category/formAddCategory.jsp?username=${sessionScope['user'].getUserName()}&password=${sessionScope['user'].getPassword()}&id=${sessionScope['user'].getId()}"
+                                   style="text-align: center ; color: #1d1e1c">+</a>
                             </div>
                         </li>
                     </ul>
@@ -283,31 +284,21 @@
                         </a>
                     </c:if>
                 </c:if>
-                <c:if test="${not empty category}">
-                    <c:forEach var="list" items="${category}">
-                        <form method="post" action="/category?action=showCategoryUpdate&idCategory=${list.idCategory}">
-                            <div class="form-group">
-                                <label>Tên Danh Mục :</label><br>
-                                <input name="categoryName" value="${list.nameCategory}">
-                            </div>
-                            <div class="form-group">
-                                <label>Ghi chú :</label><br>
-                                <input name="categoryNote" value="${list.note}">
-                                <input type="hidden" name="username" value="${sessionScope['user'].getUserName()}"/>
-                                <input type="hidden" name="password" value="${sessionScope['user'].getPassword()}"/>
-                            </div>
-                            <button type="submit">Cập Nhật</button>
-                        </form>
-                        <br><br><br><br><br>
-                        <a href="/category?action=delete&idCategory=${list.idCategory}&username=${sessionScope['user'].getUserName()}&password=${sessionScope['user'].getPassword()}">
-                            <button>delete</button>
-                        </a>
-                    </c:forEach>
-                </c:if>
+
             </div>
+            <c:if test="${not empty category.getIdCategory}">
+                <a hidden="hidden"><p>${category.getIdCategory}</p></a>
+                <div class="icon">
+                    <i class="${category.getNameCategory()}" style="font-size: 90px"></i>
+                </div>
+                <div class="nameWallet">
+                    <p>${category.getNote()}</p>
+                </div>
+            </c:if>
         </div>
         <div class="right"></div>
     </div>
+
     <div class="footer">
         <div style="padding:  15px 0 0 0">
             <p style="text-align: center"> Copyright &copy; 2023 Financial Management Application</p>

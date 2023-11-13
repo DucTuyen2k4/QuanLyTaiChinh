@@ -42,7 +42,7 @@ public class CategoryDao implements ICategoryDao {
     }
 
     @Override
-    public List<Category> selectCategory(String userName, String password) throws SQLException, ClassNotFoundException {
+    public List<Category> selectAllCategory(String userName, String password) throws SQLException, ClassNotFoundException {
         PreparedStatement statement = JDBC.connection().prepareStatement(SELECT_CATEGORY);
         statement.setString(1, userName);
         statement.setString(2, password);
@@ -97,17 +97,17 @@ public class CategoryDao implements ICategoryDao {
 
 
     @Override
-    public Category showCategory(int idCategory) throws SQLException, ClassNotFoundException {
-        Category category = null;
+    public List<Category> showCategory(int idCategory) throws SQLException, ClassNotFoundException {
+      List<Category> category = new ArrayList<>();
         PreparedStatement preparedStatement = JDBC.connection().prepareStatement(SHOW_CATEGORY_WHERE_ID);
         preparedStatement.setInt(1, idCategory);
         ResultSet resultSet = preparedStatement.executeQuery();
         while (resultSet.next()) {
-            String categoryName = resultSet.getString("categoryName");
-            String categoryNote = resultSet.getString("categoryNote");
+            String nameCategory= resultSet.getString("nameCategory");
+            String note = resultSet.getString("note");
 
-            System.out.println(idCategory + categoryName + categoryNote);
-            category = new Category(idCategory, categoryName, categoryNote);
+            System.out.println(idCategory + nameCategory + note);
+             category.add(new Category(idCategory, nameCategory, note));
         }
 
         return category;

@@ -163,8 +163,8 @@ public class UserServlet extends HttpServlet {
                 req.setAttribute("list", walletList);
                 HttpSession session = req.getSession();
                 session.setAttribute("user", list.get(0));
-                List<Category> categoryList = icategoryDao.selectCategory(userName,password);
-                req.setAttribute("listCategory",categoryList);
+                List<Category> categoryList = icategoryDao.selectAllCategory(userName,password);
+                req.setAttribute("showNameCategory",categoryList);
                 req.getRequestDispatcher("users/Home.jsp").forward(req, resp);
             } else {
                 req.setAttribute("message", "Tài khoản không tồn tại!");
@@ -201,7 +201,7 @@ public class UserServlet extends HttpServlet {
         req.setAttribute("list", walletList);
         System.out.println(walletList);
 
-        List<Category> categoryList = icategoryDao.selectCategory(userName,password);
+        List<Category> categoryList = icategoryDao.selectAllCategory(userName,password);
         req.setAttribute("listCategory",categoryList);
         System.out.println(categoryList);
 
