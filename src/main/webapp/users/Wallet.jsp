@@ -166,7 +166,7 @@
         <div class="w" style="margin-left: 20px">
           <ul>
             <li class="dropdown">
-              <a href="#" class="dropbtn" style="color: #0a0101 ; text-decoration: none">Wallet </a>
+              <a href="#" class="dropbtn" style="color:royalblue ; text-decoration: none">Wallet </a>
               <div class="dropdown-content">
                 <c:forEach var="list" items="${list}">
                   <a class="dropdown-item"

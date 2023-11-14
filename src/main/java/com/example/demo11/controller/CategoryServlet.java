@@ -105,25 +105,27 @@ public class CategoryServlet extends HttpServlet {
     }
     private void showCategory(HttpServletRequest req, HttpServletResponse resp) throws SQLException, ClassNotFoundException, ServletException, IOException {
         int idCategory = Integer.parseInt(req.getParameter("idCategory"));
-        String username = req.getParameter("username");
-        String password = req.getParameter("password");
         System.out.println(idCategory);
+        String username = req.getParameter("username");
+        System.out.println(username);
+        String password = req.getParameter("password");
+        System.out.println(password);
         List<User> list = userDAO.show(username, password);
         req.setAttribute("list", list);
+
         List<Wallet> walletList = walletDAO.listWallet(username, password);
         req.setAttribute("list", walletList);
-        HttpSession session = req.getSession();
 
+        HttpSession session = req.getSession();
         session.setAttribute("user", list.get(0));
+
         List<Category> categoryList = iCategoryDAO.selectCategory(username, password);
         req.setAttribute("listCategory", categoryList);
-
 
         List<Category> listCategory = iCategoryDAO.selectAllCategorys(idCategory);
         req.setAttribute("category", listCategory);
 
-        System.out.println(password);
-        req.getRequestDispatcher("users/Home.jsp").forward(req, resp);
+        req.getRequestDispatcher("/users/Category.jsp").forward(req, resp);
     }
     private void addCategory(HttpServletRequest req, HttpServletResponse resp) throws SQLException, ClassNotFoundException, ServletException, IOException {
         int id = Integer.parseInt(req.getParameter("id"));
@@ -143,7 +145,7 @@ public class CategoryServlet extends HttpServlet {
             iCategoryDAO.insertNewCategory(id, idCategory);
 
             List<Category> list = iCategoryDAO.selectCategory(username, password);
-            req.setAttribute("listCategory", list);
+            req.setAttribute("showNameCategory", list);
 
             List<Wallet> walletList = walletDAO.listWallet(username, password);
             req.setAttribute("list", walletList);

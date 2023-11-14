@@ -172,7 +172,7 @@ public class UserServlet extends HttpServlet {
         session.setAttribute("user", list.get(0));
 
         List<Category> categoryList = icategoryDao.selectCategory(userName, password);
-        req.setAttribute("listCategory", categoryList);
+        req.setAttribute("showNameCategory", categoryList);
 
 
         req.getRequestDispatcher("users/Home.jsp").forward(req, resp);

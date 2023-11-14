@@ -360,7 +360,7 @@ public class WalletServlet extends HttpServlet {
 
     private void addWallet(HttpServletRequest req, HttpServletResponse resp) throws SQLException, ClassNotFoundException, ServletException, IOException {
         int idUser = Integer.parseInt(req.getParameter("id"));
-        String username = req.getParameter("username");
+        String userName = req.getParameter("username");
         String password = req.getParameter("password");
         String icon = req.getParameter("icon");
         String nameWallet = req.getParameter("nameWallet");
@@ -375,11 +375,13 @@ public class WalletServlet extends HttpServlet {
         int idWallet = wallet1.getIdWallet();
         iWalletDAO.addToUser_Wallet(idUser, idWallet, permission);
 
-        List<Wallet> listWallet = iWalletDAO.showAllWallet(username, password);
+        List<Wallet> listWallet = iWalletDAO.showAllWallet(userName, password);
         req.setAttribute("list", listWallet);
 
-        List<Category> categoryList = icategoryDao.selectCategory(username, password);
+        List<Category> categoryList = icategoryDao.selectCategory(userName, password);
         req.setAttribute("showNameCategory", categoryList);
+        List<Wallet> walletShowMoney = walletDAO.showMoney(userName);
+        req.setAttribute("money", walletShowMoney);
 
         req.getRequestDispatcher("/users/Home.jsp").forward(req, resp);
     }

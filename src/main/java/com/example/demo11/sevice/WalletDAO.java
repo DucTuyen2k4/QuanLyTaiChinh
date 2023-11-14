@@ -141,7 +141,7 @@ public class WalletDAO implements IWalletDAO {
     public List<Wallet> listWallet(String name, String password) {
         List<Wallet> walletList = new ArrayList<>();
         try {
-            PreparedStatement statement = JDBC.connection().prepareStatement(SELECT_ALL_WALLET);
+            PreparedStatement statement = JDBC.connection().prepareStatement( SELECT_ALL_WALLET);
             statement.setString(1, name);
             statement.setString(2, password);
             ResultSet resultSet = statement.executeQuery();

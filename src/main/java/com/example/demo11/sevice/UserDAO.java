@@ -22,7 +22,7 @@ public class UserDAO implements IUserDAO {
     private static final String CHECK_INF_USER = "SELECT userName FROM users where userName=?";
     private static final String SELECT_PASSWORD = "select password from users where id = ? ";
     private static final String UPDATE_PASSWORD = "update users set password = ? where id = ?";
-    private static final String CHECK_USER = "select * from users where userName=? and password=?";
+    private static final String CHECK_USER = "select * from Users where userName=? and password=?";
     private static final String  DELETE_USER="delete from users where id=?";
 
 
