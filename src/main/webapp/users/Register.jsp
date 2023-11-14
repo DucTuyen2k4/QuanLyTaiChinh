@@ -155,10 +155,10 @@
                         document.getElementById("birthdate").value = formattedDate;
                     </script>
                     <div style="display: flex;">
-                        <button style="width: 100px; height: 30px;margin-left:17%; ">
+                        <button style="width: 100px; height: 30px;margin-left:17%;background-color: #0735ea;color: white ">
                             login
                         </button>
-                        <button style="width: 100px; height: 30px; margin-left:16%;" name="action" value="addUser">
+                        <button  style="width: 100px; height: 30px; margin-left:16%;background-color: #0735ea;color: white" name="action" value="addUser">
                             Register
                         </button>
                     </div>

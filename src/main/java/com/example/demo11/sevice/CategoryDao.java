@@ -2,10 +2,12 @@ package com.example.demo11.sevice;
 
 import com.example.demo11.JDBC;
 import com.example.demo11.model.Category;
+import com.example.demo11.model.Expense;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -22,6 +24,34 @@ public class CategoryDao implements ICategoryDao {
 
     public static final String DELETE_CATEGORY = "DELETE user_category, category FROM user_category LEFT JOIN category ON user_category.idCategory = category.idCategory WHERE user_category.idCategory = ?";
 
+    private static final String INSERT_EXPENSE = "insert into expense (nameExpense,money,time,note)values(?,?,?,?)";
+    private static final String SHOW_EXPENSE = "select * from expense ";
+
+
+    @Override
+    public void insertExpense(Expense expense) throws SQLException, ClassNotFoundException {
+        PreparedStatement preparedStatement = JDBC.connection().prepareStatement(INSERT_EXPENSE);
+        preparedStatement.setString(1,expense.getNameExpense());
+        preparedStatement.setString(2,expense.getMoney());
+        preparedStatement.setString(3,expense.getTime());
+        preparedStatement.setString(4, expense.getNote());
+        preparedStatement.executeUpdate();
+    }
+
+    @Override
+    public List<Expense> showExpense() throws SQLException, ClassNotFoundException {
+        List<Expense> list = new ArrayList<>();
+        Statement statement = JDBC.connection().createStatement();
+        ResultSet resultSet = statement.executeQuery(SHOW_EXPENSE);
+        while (resultSet.next()){
+            String nameExpense = resultSet.getString("nameExpense");
+            String money = resultSet.getString("money");
+            String time = resultSet.getString("time");
+            String note = resultSet.getString("note");
+            list.add(new Expense(nameExpense,money,time,note));
+        }
+        return list;
+    }
     @Override
     public void deleteCategory(int id) throws SQLException, ClassNotFoundException {
         PreparedStatement preparedStatement = JDBC.connection().prepareStatement(DELETE_CATEGORY);

@@ -1,6 +1,7 @@
 package com.example.demo11.controller;
 
 import com.example.demo11.model.Category;
+import com.example.demo11.model.Expense;
 import com.example.demo11.model.User;
 import com.example.demo11.model.Wallet;
 import com.example.demo11.sevice.*;
@@ -13,6 +14,9 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.sql.SQLException;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.time.format.FormatStyle;
 import java.util.List;
 
 import static com.example.demo11.controller.UserServlet.*;
@@ -38,6 +42,15 @@ public class CategoryServlet extends HttpServlet {
             action = "";
         }
         switch (action) {
+            case "addExpense" :
+                try {
+                    addExpense(req,resp);
+                } catch (SQLException e) {
+                    throw new RuntimeException(e);
+                } catch (ClassNotFoundException e) {
+                    throw new RuntimeException(e);
+                }
+                break;
             case "confirmCategory":
                 try {
                     addCategory(req, resp);
@@ -64,6 +77,43 @@ public class CategoryServlet extends HttpServlet {
                     throw new RuntimeException(e);
                 }
         }
+    }
+
+    private void addExpense(HttpServletRequest req, HttpServletResponse resp) throws SQLException, ClassNotFoundException, ServletException, IOException {
+        int id = Integer.parseInt(req.getParameter("id"));
+        String username = req.getParameter("username");
+        String password = req.getParameter("password");
+        String name = req.getParameter("name");
+        String money = req.getParameter("money");
+        String note = req.getParameter("note");
+
+        // hien thi thoi gian
+        LocalDateTime localDateTime = LocalDateTime.now();
+        DateTimeFormatter formatter =  DateTimeFormatter.ofLocalizedDateTime(FormatStyle.MEDIUM);
+        String time = localDateTime.format(formatter);
+        System.out.println("\n\nNgày giờ hiện tại: " + time);
+
+        Expense expense = new Expense(name,money,time,note);
+        iCategoryDAO.insertExpense(expense);
+
+        List<Expense> listExpense = iCategoryDAO.showExpense();
+        req.setAttribute("listExpense",listExpense);
+
+
+        List<User> list = userDAO.show(username, password);
+        req.setAttribute("list", list);
+
+        List<Wallet> walletList = walletDAO.listWallet(username, password);
+        req.setAttribute("list", walletList);
+
+        HttpSession session = req.getSession();
+        session.setAttribute("user", list.get(0));
+
+        List<Category> categoryList = iCategoryDAO.selectCategory(username,password);
+        req.setAttribute("listCategory",categoryList);
+
+        req.getRequestDispatcher("users/Home.jsp").forward(req, resp);
+
     }
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -135,7 +185,7 @@ public class CategoryServlet extends HttpServlet {
         String note = req.getParameter("note");
         if (iCategoryDAO.selectNameCategory(nameCategory)) {
             req.setAttribute("message","Tên danh mục đã tồn tại !");
-            req.getRequestDispatcher("/category/formAddCategory.jsp").forward(req,resp);
+            req.getRequestDispatcher("/category /formAddCategory.jsp").forward(req,resp);
         } else {
             iCategoryDAO.insertCategory(new Category(nameCategory, note));
 

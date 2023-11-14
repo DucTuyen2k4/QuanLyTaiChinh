@@ -143,7 +143,7 @@
                 <div class="button-container">
                     <input type="hidden" name="username" value="${sessionScope['user'].getUserName()}"/>
                     <input type="hidden" name="password" value="${sessionScope['user'].getPassword()}"/>
-                    <button class="confirm-button" name="action" value="confirmUpdate">Xác Nhận</button>
+                    <button style="background-color: blue ;color: white" class="confirm-button" name="action" value="confirmUpdate">Xác Nhận</button>
                     <a class="button-container" href="user?action=changePassword&id=${sessionScope['user'].getId()}&username=${sessionScope['user'].getUserName()}&password=${sessionScope['user'].getPassword()}">Đổi Mật khẩu</a>
                 </div>
             </form>

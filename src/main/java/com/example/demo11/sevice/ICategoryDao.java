@@ -1,11 +1,15 @@
 package com.example.demo11.sevice;
 
 import com.example.demo11.model.Category;
+import com.example.demo11.model.Expense;
 
 import java.sql.SQLException;
 import java.util.List;
 
 public interface ICategoryDao {
+
+    public void insertExpense(Expense expense) throws SQLException, ClassNotFoundException;
+    public List<Expense> showExpense() throws SQLException, ClassNotFoundException;
     Category showCategory(int idCategory) throws SQLException, ClassNotFoundException;
     void CategoryUpdate(Category category) throws SQLException, ClassNotFoundException;
     List<Category> showCategory1(int idCategory) throws SQLException, ClassNotFoundException;

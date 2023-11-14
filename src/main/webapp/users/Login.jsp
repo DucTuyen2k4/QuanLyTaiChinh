@@ -118,16 +118,16 @@
                            style="border-radius: 10px;width: 70%; margin-left: 17%; padding-left: 10px">
                     <p style="margin-left: 30% ; color: red">${message}</p>
                     <br>
-                    <button style="width: 100px; height: 30px; margin-left:37%" name="action" value="login">
+                    <button style="width: 100px; height: 30px; margin-left:37%;background-color: #0735ea;color: white" name="action" value="login">
                         login
                     </button>
                     <hr>
-
+                    <button style="width: 100px; height: 30px; margin-left:37%;background-color: #0735ea;color: white">
+                        <a href="/users/Register.jsp">Register</a>
+                    </button>
                 </div>
             </form>
-            <button style="width: 100px; height: 30px; margin-left:37%">
-                <a href="/users/Register.jsp">Register</a>
-            </button>
+
         </div>
         <div class="right"></div>
     </div>

@@ -153,6 +153,7 @@
         .describe {
 
         }
+
         .confirmation-dialog {
             display: none;
             position: fixed;
@@ -198,7 +199,8 @@
         <div class="menu">
             <div class="menu1">
                 <div>
-                    <a href="/user?action=Home&username=${sessionScope['user'].getUserName()}&password=${sessionScope['user'].getPassword()}" style="color: #0a0101 ; text-decoration: none; ">Home</a>
+                    <a href="/user?action=Home&username=${sessionScope['user'].getUserName()}&password=${sessionScope['user'].getPassword()}"
+                       style="color: #0a0101 ; text-decoration: none; ">Home</a>
                 </div>
                 <div class="w" style="margin-left: 20px">
                     <ul>
@@ -224,7 +226,8 @@
                             <a href="#" class="dropbtn" style="color: #0a0101 ; text-decoration: none">Category </a>
                             <div class="dropdown-content">
                                 <c:forEach var="listCategory" items="${listCategory}">
-                                        <a class="dropdown-item" href="/category?action=showCategorys&idCategory=${listCategory.idCategory}&username=${sessionScope['user'].getUserName()}&password=${sessionScope['user'].getPassword()}"><span>${listCategory.nameCategory}</span></a>
+                                    <a class="dropdown-item"
+                                       href="/category?action=showCategorys&idCategory=${listCategory.idCategory}&username=${sessionScope['user'].getUserName()}&password=${sessionScope['user'].getPassword()}"><span>${listCategory.nameCategory}</span></a>
                                 </c:forEach>
                                 <a class="dropdown-item" style="text-align: center ; color: #1d1e1c"
                                    href="/category/formAddCategory.jsp?username=${sessionScope['user'].getUserName()}&password=${sessionScope['user'].getPassword()}&id=${sessionScope['user'].getId()}">+</a>
@@ -298,13 +301,13 @@
                             <p>${wallet.getMoney()} ${wallet.getCurrency()}</p><br>
                         </div>
                         <c:if test="${not empty send}">
-                            <div class="function" style="margin-left: 20px" >
+                            <div class="function" style="margin-left: 20px">
                                 <ul>
-                                    <li class="dropdown" >
+                                    <li class="dropdown">
                                         <a href="#" class="dropbtn" style="color: #0a0101 ; text-decoration: none">function</a>
                                         <div class="dropdown-content" style="background-color: #9d9292; ">
                                             <form action="/wallet?action=showWalletUpdate&idWallet=${wallet.getIdWallet()}&username=${sessionScope['user'].getUserName()}&password=${sessionScope['user'].getPassword()}"
-                                                  method="post" >
+                                                  method="post">
                                                 <input value="Update" type="submit">
                                             </form>
                                             <form action="/wallet?action=showFormBanking&idWallet=${wallet.getIdWallet()}&username=${sessionScope['user'].getUserName()}&password=${sessionScope['user'].getPassword()}&money=${wallet.getMoney()}&nameWallet=${wallet.getNameWallet()}"
@@ -347,8 +350,17 @@
                         <a href="/category?action=delete&idCategory=${list.idCategory}&username=${sessionScope['user'].getUserName()}&password=${sessionScope['user'].getPassword()}">
                             <button>delete</button>
                         </a>
+                        <a href="/expense?action=search&id=${expense.idExpense}">
+                            <button>search</button>
+                        </a>
+                        <div style=" margin-left: 20%; width: 50%;height: 30px ; background-color:red " class="conter">
+                            <a class="dropdown-item"
+                               href="/formAddExpense.jsp?username=${sessionScope['user'].getUserName()}&password=${sessionScope['user'].getPassword()}&id=${sessionScope['user'].getId()}" style="text-align: center ; color: #1d1e1c">+</a>
+                        </div>
                     </c:forEach>
                 </c:if>
+
+
             </div>
         </div>
         <div class="right"></div>

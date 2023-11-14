@@ -25,7 +25,7 @@
                 <option value="viewer">viewer</option>
             </select>
 
-            <button name="action" value="share">share</button>
+            <button style="background-color: blue ;color: white" name="action" value="share">share</button>
             <input type="text" name="idWallet" value="${id}"/>
             <input type="hidden" name="username" value="${sessionScope['user'].getUserName()}"/>
             <input type="hidden" name="password" value="${sessionScope['user'].getPassword()}"/>

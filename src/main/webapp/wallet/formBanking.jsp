@@ -17,7 +17,7 @@
     <input type="hidden" name="id" value="${sessionScope['user'].getId()}"/>
     <input type="hidden" name="username" value="${sessionScope['user'].getUserName()}"/>
     <input type="hidden" name="password" value="${sessionScope['user'].getPassword()}"/>
-    <button name="action" value="confirmBanking" onclick="onclick()">chuyển tiền</button>
+    <button style="background-color: blue ;color: white" name="action" value="confirmBanking" onclick="onclick()">chuyển tiền</button>
 </form>
 
 <script>

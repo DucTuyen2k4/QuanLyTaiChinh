@@ -99,7 +99,7 @@
 
         <input type="hidden" name="username" value="${sessionScope['user'].getUserName()}"/>
         <input type="hidden" name="password" value="${sessionScope['user'].getPassword()}"/>
-        <button type="submit" name="action" value="confirmPassword" class="btn-submit" >Đổi mật khẩu</button>
+        <button style="background-color: blue ;color: white" type="submit" name="action" value="confirmPassword" class="btn-submit" >Đổi mật khẩu</button>
     </form>
 </div>
 </body>

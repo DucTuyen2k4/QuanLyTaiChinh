@@ -78,7 +78,7 @@
             <!-- Thêm các trường ẩn khác ở đây -->
             <input type="hidden" name="username" value="${sessionScope['user'].getUserName()}"/>
             <input type="hidden" name="password" value="${sessionScope['user'].getPassword()}"/>
-            <button type="submit" class="btn btn-primary">Update</button>
+            <button style="background-color: blue ;color: white" type="submit" class="btn btn-primary">Update</button>
         </form>
     </c:forEach>
 </div>
