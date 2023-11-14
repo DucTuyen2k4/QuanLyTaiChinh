@@ -95,7 +95,8 @@ public class UserServlet extends HttpServlet {
         String password = req.getParameter("password");
         List<User> list = userDAO.show(userName, password);
 
-
+        List<Wallet> walletShowMoney = walletDAO.showMoney(userName);
+        req.setAttribute("money", walletShowMoney);
         List<Wallet> walletList = walletDAO.listWallet(userName, password);
         req.setAttribute("list", walletList);
 
@@ -136,6 +137,7 @@ public class UserServlet extends HttpServlet {
                     throw new RuntimeException(e);
                 }
                 break;
+
             case "confirmUpdate":
                 try {
                     confirmUpdate(req, resp);
@@ -182,10 +184,12 @@ public class UserServlet extends HttpServlet {
     private void loginUSer(HttpServletRequest req, HttpServletResponse resp) throws SQLException, IOException {
         String userName = req.getParameter("userName");
         String password = req.getParameter("password");
+
         try {
             if (userDAO.checkUser(userName, password)) {
                 List<User> list = userDAO.show(userName, password);
-
+                List<Wallet> walletShowMoney = walletDAO.showMoney(userName);
+                req.setAttribute("money", walletShowMoney);
 
                 List<Wallet> walletList = walletDAO.listWallet(userName, password);
                 req.setAttribute("list", walletList);
@@ -260,7 +264,6 @@ public class UserServlet extends HttpServlet {
     private void confirmPassword(HttpServletRequest req, HttpServletResponse resp) throws SQLException, ClassNotFoundException, ServletException, IOException {
         String userName = req.getParameter("username");
         String password = req.getParameter("password");
-        System.out.println(userName+password);
 
         int id = Integer.parseInt(req.getParameter("id"));
         String oldPassword = req.getParameter("oldPassword");
@@ -272,19 +275,18 @@ public class UserServlet extends HttpServlet {
         if (passwordUser.equals(oldPassword)) {
             if (confirmPassword.equals(newPassword)) {
                 userDAO.updatePassword(id, newPassword);
-                req.setAttribute("id", id);
 
-                List<User> list = userDAO.show(userName, password);
+                List<User> list = userDAO.show(userName, newPassword);
 
 
-                List<Wallet> walletList = walletDAO.listWallet(userName, password);
+                List<Wallet> walletList = walletDAO.listWallet(userName, newPassword);
                 req.setAttribute("list", walletList);
 
 
                 HttpSession session = req.getSession();
                 session.setAttribute("user", list.get(0));
 
-                List<Category> categoryList = icategoryDao.selectCategory(userName, password);
+                List<Category> categoryList = icategoryDao.selectCategory(userName, newPassword);
                 req.setAttribute("listCategory", categoryList);
 
                 req.getRequestDispatcher("users/Home.jsp").forward(req, resp);

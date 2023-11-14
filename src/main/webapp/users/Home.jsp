@@ -286,6 +286,15 @@
     <div class="general">
         <div class="left"></div>
         <div class="content">
+            <div class="">
+                <c:set var="totalMoney" value="0" />
+                <c:forEach items="${money}" var="wallet">
+                    <c:set var="totalMoney" value="${totalMoney + wallet.money}"/>
+                </c:forEach>
+
+                <p id="wallet" style="display: block" >Total Money All Wallet: ${totalMoney}</p>
+
+            </div>
             <div class="category">
                 <c:if test="${not empty wallet.getIdWallet()}">
                     <a hidden="hidden"><p>${wallet.getIdWallet()}</p></a>
@@ -379,6 +388,15 @@
     </div>
 </div>
 <script>
+    let id${wallet.getIdWallet()};
+    let WalletDiv =document.getElementById(wallet)
+    if (id === null || id === undefined){
+        walletDiv.style.display='block';
+    }else {
+        walletDiv.style.display='none';
+    }
+</script>
+<script>
     function showDialog(dialogId) {
         const dialog = document.getElementById(dialogId);
         dialog.style.display = 'block';
@@ -414,7 +432,13 @@
         <button id="cancel-De">Cancel</button>
     </div>
 </div>
-
+<%--<script>--%>
+<%--    console.log(--%>
+<%--        new Intl.NumberFormat('VND', { style: 'currency', currency: 'VND' }).format(--%>
+<%--            ${totalMoney}--%>
+<%--        ),--%>
+<%--    );--%>
+<%--</script>--%>
 <script>
     const DeleteLink = document.getElementById('Delete-link');
     const confirmationDelete = document.getElementById('confirmation-deleteW');
