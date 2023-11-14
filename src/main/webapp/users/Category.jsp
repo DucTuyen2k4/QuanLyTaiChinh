@@ -208,7 +208,7 @@
                                 <c:forEach var="list" items="${list}">
                                     <a class="dropdown-item"
                                        href="/wallet?action=ShowWallet&permission=${list.permission}&id=${list.idWallet}&username=${sessionScope['user'].getUserName()}&password=${sessionScope['user'].getPassword()}">
-                                        <span style="color: black; text-align: center">${list.nameWallet}${list.permission}</span>
+                                        <span style="color: black; text-align: center">${list.nameWallet}</span>
                                     </a>
                                 </c:forEach>
                                 <a class="dropdown-item"
@@ -223,8 +223,11 @@
                         <li class="dropdown">
                             <a href="#" class="dropbtn" style="color:royalblue ; text-decoration: none">Category </a>
                             <div class="dropdown-content">
-                                <c:forEach var="listCategory" items="${listCategory}">
-                                    <a class="dropdown-item" href="/category?action=showCategorys&idCategory=${listCategory.idCategory}&username=${sessionScope['user'].getUserName()}&password=${sessionScope['user'].getPassword()}"><span>${listCategory.nameCategory}</span></a>
+                                <c:forEach var="list" items="${showNameCategory}">
+                                    <a class="dropdown-item" onclick="showWallet()"
+                                       href="/category?action=showCategory&idCategory=${list.idCategory}&username=${sessionScope['user'].getUserName()}&password=${sessionScope['user'].getPassword()}">
+                                        <span style="color: black; text-align: center">${list.nameCategory}</span>
+                                    </a>
                                 </c:forEach>
                                 <a class="dropdown-item" style="text-align: center ; color: #1d1e1c"
                                    href="/category/formAddCategory.jsp?username=${sessionScope['user'].getUserName()}&password=${sessionScope['user'].getPassword()}&id=${sessionScope['user'].getId()}">+</a>
@@ -301,7 +304,13 @@
                                 <input type="hidden" name="username" value="${sessionScope['user'].getUserName()}"/>
                                 <input type="hidden" name="password" value="${sessionScope['user'].getPassword()}"/>
                             </div>
-                            <button type="submit">Cập Nhật</button>
+                            <form method="post" action="/category">
+                                <button type="submit" name="action" value="showCategoryUpdate" >Cập Nhật</button>
+                                <input type="hidden" name="username" value="${sessionScope['user'].getUserName()}"/>
+                                <input type="hidden" name="idCategory" value="${list.idCategory}"/>
+                                <input type="hidden" name="password" value="${sessionScope['user'].getPassword()}"/>
+                            </form>
+
                         </form>
                         <a href="/category?action=delete&idCategory=${list.idCategory}&username=${sessionScope['user'].getUserName()}&password=${sessionScope['user'].getPassword()}">
                             <button>delete</button>
@@ -319,51 +328,8 @@
     </div>
 </div>
 
-
-<div class="confirmation-dialog" id="confirmation-dialog-delete">
-    <div class="confirmation-dialog-content">
-        <h2 style="font-size: 20px">Confirm account deletion</h2>
-        <p>Are you sure you want to delete your account?</p>
-        <button onclick="confirmAction('delete')">Agree</button>
-        <button onclick="hideDialog('confirmation-dialog-delete')">Cancel</button>
-    </div>
-</div>
-
-<div class="confirmation-dialog" id="confirmation-dialog-logout">
-    <div class="confirmation-dialog-content">
-        <h2 style="font-size: 20px">Confirm logout</h2>
-        <p>Are you sure you want to sign out?</p>
-        <button onclick="confirmAction('logout')">Agree</button>
-        <button onclick="hideDialog('confirmation-dialog-logout')">Cancel</button>
-    </div>
-</div>
-<script>
-    function showDialog(dialogId) {
-        const dialog = document.getElementById(dialogId);
-        dialog.style.display = 'block';
-    }
-
-    function hideDialog(dialogId) {
-        const elementById = document.getElementById(dialogId);
-        const dialog = elementById;
-        dialog.style.display = 'none';
-    }
-
-    function confirmAction(action) {
-        console.log(action + " thành công");
-        hideDialog('confirmation-dialog-' + action);
-        switch (action) {
-            case 'delete':
-                window.location.href = "/user?action=delete&id=${sessionScope['user'].getId()}";
-
-                break;
-            case 'logout':
-                window.location.href = "users/ListHome.jsp";
-                break;
-            default:
-                break;
-        }
-    }
+<input type="hidden" name="username" value="${sessionScope['user'].getUserName()}"/>
+<input type="hidden" name="password" value="${sessionScope['user'].getPassword()}"/>
 </script>
 <div class="confirmation-dialog" id="confirmation-deleteW">
     <div class="confirmation-dialog-content">
@@ -374,23 +340,6 @@
     </div>
 </div>
 
-<script>
-    const DeleteLink = document.getElementById('Delete-link');
-    const confirmationDelete = document.getElementById('confirmation-deleteW');
-    const confirmDelete = document.getElementById('confirm-De');
-    const cancelDelete = document.getElementById('cancel-De');
 
-    DeleteLink.addEventListener('click', function (event) {
-        event.preventDefault();
-        confirmationDelete.style.display = 'block';
-    });
-    confirmDelete.addEventListener('click', function () {
-        confirmationDelete.style.display = 'none';
-        window.location.href = "/wallet?action=delete&idWallet=${wallet.getIdWallet()}&username=${sessionScope['user'].getUserName()}&password=${sessionScope['user'].getPassword()}";
-    });
-    cancelDelete.addEventListener('click', function () {
-        confirmationDelete.style.display = 'none';
-    });
-</script>
 </body>
 </html>

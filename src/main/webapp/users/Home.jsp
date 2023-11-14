@@ -166,7 +166,7 @@
                                 <c:forEach var="list" items="${list}">
                                     <a class="dropdown-item"
                                        href="/wallet?action=ShowWallet&permission=${list.permission}&id=${list.idWallet}&username=${sessionScope['user'].getUserName()}&password=${sessionScope['user'].getPassword()}">
-                                        <span style="color: black; text-align: center">${list.nameWallet}${list.permission}</span>
+                                        <span style="color: black; text-align: center">${list.nameWallet}</span>
                                     </a>
                                 </c:forEach>
                                 <a class="dropdown-item"
@@ -182,7 +182,7 @@
                             <a href="#" class="dropbtn" style="color: #0a0101 ; text-decoration: none">Category </a>
                             <div class="dropdown-content">
                               <c:forEach var="list" items="${showNameCategory}">
-                                  <a class="dropdown-item" onclick="showWallet()"
+                                  <a class="dropdown-item"
                                      href="/category?action=showCategory&idCategory=${list.idCategory}&username=${sessionScope['user'].getUserName()}&password=${sessionScope['user'].getPassword()}">
                                       <span style="color: black; text-align: center">${list.nameCategory}</span>
                                   </a>
@@ -268,15 +268,6 @@
                         </c:forEach>
                     </div>
 
-<%--            <c:if test="${not empty category.getIdCategory}">--%>
-<%--                <a hidden="hidden"><p>${category.getIdCategory}</p></a>--%>
-<%--                <div class="icon">--%>
-<%--                    <i class="${category.getNameCategory()}" style="font-size: 90px"></i>--%>
-<%--                </div>--%>
-<%--                <div class="nameWallet">--%>
-<%--                    <p>${category.getNote()}</p>--%>
-<%--                </div>--%>
-<%--            </c:if>--%>
         </div>
         <div class="right"></div>
     </div>
@@ -287,12 +278,9 @@
         </div>
 
     </div>
-    <script>
-        function showWallet(){
 
-        }
-    </script>
 </div>
+
 <input type="hidden" name="username" value="${sessionScope['user'].getUserName()}"/>
 <input type="hidden" name="password" value="${sessionScope['user'].getPassword()}"/>
 </body>

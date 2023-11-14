@@ -171,7 +171,7 @@
                 <c:forEach var="list" items="${list}">
                   <a class="dropdown-item"
                      href="/wallet?action=ShowWallet&permission=${list.permission}&id=${list.idWallet}&username=${sessionScope['user'].getUserName()}&password=${sessionScope['user'].getPassword()}">
-                    <span style="color: black; text-align: center">${list.nameWallet}${list.permission}</span>
+                    <span style="color: black; text-align: center">${list.nameWallet}</span>
                   </a>
                 </c:forEach>
                 <a class="dropdown-item"

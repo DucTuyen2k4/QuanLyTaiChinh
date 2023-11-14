@@ -365,7 +365,7 @@
 
 <%--giao diện--%>
 <main>
-    <form method="post" action="user?action=confirmUpdate&id=${sessionScope['user'].getId()}">
+    <form method="post" action="user?action=confirmUpdate">
         <div class="middle-pane">
             <H1 style="text-align: center">Thông tin người dùng </H1>
             <div class="centered-text">
@@ -375,7 +375,7 @@
                 <input class="no-border " type="text" name="fullName" id="fullName" value="${sessionScope['user'].getFullName()}" required>
                 <h5 style="float: left" for="phoneNumber">Số điện thoại (10 số):</h5>
                 <p style="color: red;font-size: 10px;">${messageFailurePhoneNumber}</p>
-                <input class="no-border " type="text" name="phoneNumber" id="phoneNumber" required pattern="[0-9]{10}" value="${sessionScope['user'].getPhoneNumber()}" title="${messageFailurePhoneNumber}">
+                <input class="no-border " type="text" name="phoneNumber" id="phoneNumber" required pattern="[0-9]{9}{10}" value="${sessionScope['user'].getPhoneNumber()}" title="${messageFailurePhoneNumber}">
                 <h5 style="float: left" for="gender" >Giới tính </h5>
 
                 <select name="gender" class="no-border "  id="gender" style="width: 265px">
@@ -391,7 +391,9 @@
             </div>
             <div class="function-text">
                 <input type="submit" style="margin-top: 40px" value="Register" class="register-button">
-
+                <input type="hidden" name="id" value="${sessionScope['user'].getId()}"/>
+                <input type="hidden" name="username" value="${sessionScope['user'].getUserName()}"/>
+                <input type="hidden" name="password" value="${sessionScope['user'].getPassword()}"/>
 
             </div>
             <%--        <hr style="background-color: #4CAF50">--%>

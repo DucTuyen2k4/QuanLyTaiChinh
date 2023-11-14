@@ -187,19 +187,14 @@ public class WalletServlet extends HttpServlet {
         String username = req.getParameter("username");
         String password = req.getParameter("password");
         String permission = req.getParameter("permission");
-        System.out.println(permission);
         Wallet wallet = iWalletDAO.checkID(id);
         req.setAttribute("wallet", wallet);
-        List<Wallet> walletShowMoney = walletDAO.showMoney(username);
-        req.setAttribute("money", walletShowMoney);
         if ("owner".equalsIgnoreCase(permission)) {
             List<User> list = iUserDAO.show(username, password);
             req.setAttribute("list", list);
 
             List<Wallet> walletList = walletDAO.listWallet(username, password);
             req.setAttribute("list", walletList);
-
-
             HttpSession session = req.getSession();
             session.setAttribute("user", list.get(0));
 
@@ -256,7 +251,8 @@ public class WalletServlet extends HttpServlet {
         double money = Double.parseDouble(req.getParameter("money"));
         String name = req.getParameter("name");
         double moneyBanking = Double.parseDouble(req.getParameter("moneyBanking"));
-
+        List<Wallet> walletShowMoney = walletDAO.showMoney(username);
+        req.setAttribute("money", walletShowMoney);
 
         if (iWalletDAO.selectWallet(name)) {
             if (money >= moneyBanking) {
@@ -274,7 +270,7 @@ public class WalletServlet extends HttpServlet {
 
                 List<Wallet> listWallet = iWalletDAO.showAllWallet(username, password);
                 req.setAttribute("list", listWallet);
-                req.getRequestDispatcher("users/q.jsp").forward(req, resp);
+                req.getRequestDispatcher("users/Home.jsp").forward(req, resp);
 
             } else {
                 req.setAttribute("messages", "Số dư không đủ để chuyển!");
