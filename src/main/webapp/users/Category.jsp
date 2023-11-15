@@ -153,6 +153,7 @@
         .describe {
 
         }
+
         .confirmation-dialog {
             display: none;
             position: fixed;
@@ -198,7 +199,8 @@
         <div class="menu">
             <div class="menu1">
                 <div>
-                    <a href="/user?action=Home&username=${sessionScope['user'].getUserName()}&password=${sessionScope['user'].getPassword()}" style="color: #0a0101 ; text-decoration: none; ">Home</a>
+                    <a href="/user?action=Home&username=${sessionScope['user'].getUserName()}&password=${sessionScope['user'].getPassword()}"
+                       style="color: #0a0101 ; text-decoration: none; ">Home</a>
                 </div>
                 <div class="w" style="margin-left: 20px">
                     <ul>
@@ -312,9 +314,18 @@
                         <a href="/category?action=delete&idCategory=${list.idCategory}&username=${sessionScope['user'].getUserName()}&password=${sessionScope['user'].getPassword()}">
                             <button>delete</button>
                         </a>
+                        <div style=" margin-left: 20%; width: 50%;height: 30px ; background-color:red " class="conter">
+                            <form action="expense" method="post">
+                                <a class="dropdown-item"
+                                   href="/expense?action=add&username=${sessionScope['user'].getUserName()}&password=${sessionScope['user'].getPassword()}&id=${sessionScope['user'].getId()}&idCategory=${list.idCategory}"
+                                   style="text-align: center ; color: #1d1e1c">+</a>
+                            </form>
+
+                        </div>
                     </c:forEach>
                     <c:forEach items="${expense}" var="expense">
                         <p>${expense.note}</p>
+                        <p>${expense.money}</p>
                     </c:forEach>
                 </c:if>
             </div>
@@ -349,11 +360,11 @@
 </div>
 <script>
     let id${wallet.getIdWallet()};
-    let WalletDiv =document.getElementById(wallet)
-    if (id === null || id === undefined){
-        walletDiv.style.display='block';
-    }else {
-        walletDiv.style.display='none';
+    let WalletDiv = document.getElementById(wallet)
+    if (id === null || id === undefined) {
+        walletDiv.style.display = 'block';
+    } else {
+        walletDiv.style.display = 'none';
     }
 </script>
 <script>
@@ -377,7 +388,7 @@
 
                 break;
             case 'logout':
-                window.location.href = "users/ListHome.jsp";
+                window.location.href = "users/LoginRegistrationInterface.jsp";
                 break;
             default:
                 break;

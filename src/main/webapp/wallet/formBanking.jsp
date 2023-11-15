@@ -5,7 +5,7 @@
     <title>Title</title>
 </head>
 <body>
-<form action="/wallet" method="post">
+<form action="wallet" method="post">
     <input type="hidden" name="idWallet" value="${wallet.getIdWallet()}"/>
     <p style="color: red">${message}</p>
     Tên tài khoản : <input name="nameWallet" value="${wallet.getNameWallet()}"/><br><br>
@@ -17,8 +17,16 @@
     <input type="hidden" name="id" value="${sessionScope['user'].getId()}"/>
     <input type="hidden" name="username" value="${sessionScope['user'].getUserName()}"/>
     <input type="hidden" name="password" value="${sessionScope['user'].getPassword()}"/>
-    <button name="action" value="confirmBanking">chuyển tiền</button>
-</form>
+    <button name="action" value="confirmBanking" onclick="onclick()">chuyển tiền</button></form>
 
+<script>
+    function onclick(){
+        var input = document.getElementById("inputField").value;
+        if (input<0){
+            alert("vui long khong nhap so am") ;
+        }
+    }
+</script>
 </body>
+
 </html>

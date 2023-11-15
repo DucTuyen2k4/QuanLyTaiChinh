@@ -26,6 +26,11 @@ public class Expense {
     public Expense() {
     }
 
+    public Expense(int idExpense) {
+        this.idExpense = idExpense;
+
+    }
+
     public int getIdExpense() {
         return idExpense;
     }

@@ -49,6 +49,8 @@ public class UserServlet extends HttpServlet {
         if (action == null) {
             action = "";
         }
+        req.setCharacterEncoding("UTF-8");
+        resp.setContentType("text/html; charset=UTF-8");
         switch (action) {
             case "delete":
                 try {
@@ -97,6 +99,8 @@ public class UserServlet extends HttpServlet {
         if (action == null) {
             action = "";
         }
+        req.setCharacterEncoding("UTF-8");
+        resp.setContentType("text/html; charset=UTF-8");
 
         switch (action) {
             case "addUser":

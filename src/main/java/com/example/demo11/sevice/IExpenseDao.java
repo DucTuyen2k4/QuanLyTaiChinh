@@ -8,6 +8,10 @@ import java.util.List;
 public interface IExpenseDao  {
 
    List<Expense> showExpenseWhereIdCategory(int idCategory) throws SQLException, ClassNotFoundException;
-   void addExpense(Expense expense);
-   void addCategoryExpense(int idCategory,int idExpense);
+   void addExpense(Expense expense) throws SQLException, ClassNotFoundException;
+   void addCategoryExpense(int idCategory,int idExpense) throws SQLException, ClassNotFoundException;
+   Expense showExpense(String name) throws SQLException, ClassNotFoundException;
+
+
+
 }

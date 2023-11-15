@@ -18,6 +18,7 @@ import java.util.List;
 
 import static com.example.demo11.controller.UserServlet.*;
 
+
 @WebServlet(name ="CategoryServlet", value = "/category")
 public class CategoryServlet extends HttpServlet {
 
@@ -37,6 +38,8 @@ public class CategoryServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         String action = req.getParameter("action");
+        req.setCharacterEncoding("UTF-8");
+        resp.setContentType("text/html; charset=UTF-8");
         if (action == null) {
             action = "";
         }
@@ -74,6 +77,8 @@ public class CategoryServlet extends HttpServlet {
         if (action == null) {
             action = "";
         }
+        req.setCharacterEncoding("UTF-8");
+        resp.setContentType("text/html; charset=UTF-8");
         switch (action) {
 
             case "showCategory":
