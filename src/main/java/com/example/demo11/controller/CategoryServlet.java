@@ -185,7 +185,7 @@ public class CategoryServlet extends HttpServlet {
         String note = req.getParameter("note");
         if (iCategoryDAO.selectNameCategory(nameCategory)) {
             req.setAttribute("message","Tên danh mục đã tồn tại !");
-            req.getRequestDispatcher("/category /formAddCategory.jsp").forward(req,resp);
+            req.getRequestDispatcher("/category/formAddCategory.jsp").forward(req,resp);
         } else {
             iCategoryDAO.insertCategory(new Category(nameCategory, note));
 

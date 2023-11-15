@@ -112,7 +112,7 @@
                     <div class="register">
                         <h1 style="text-align: center">Add Folder</h1><br>
                         <p style="margin-left: 17%">Name list : </p>
-                        <p style="color: red">${message}</p>
+                        <p style="color: red ; text-align: center">${message}</p>
                         <input style="border-radius: 10px;width: 70%; margin-left: 17%;padding-left: 10px"
                                name="nameCategory" type="text" required/><br><br>
                         <p style="margin-left: 17%; top: 20px">Note :</p>
