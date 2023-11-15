@@ -1,6 +1,7 @@
 package com.example.demo11.controller;
 
 import com.example.demo11.model.Category;
+import com.example.demo11.model.Expense;
 import com.example.demo11.model.User;
 import com.example.demo11.model.Wallet;
 import com.example.demo11.sevice.*;
@@ -23,12 +24,14 @@ public class CategoryServlet extends HttpServlet {
     private ICategoryDao iCategoryDAO;
     private IUserDAO iUserDAO;
     private IWalletDAO iWalletDAO;
+    private IExpenseDao iExpenseDao;
 
     @Override
     public void init() throws ServletException {
         iCategoryDAO = new CategoryDao();
         iUserDAO = new UserDAO();
         iWalletDAO = new WalletDAO();
+        iExpenseDao=new ExpenseDao();
     }
 
     @Override
@@ -107,6 +110,8 @@ public class CategoryServlet extends HttpServlet {
         int idCategory = Integer.parseInt(req.getParameter("idCategory"));
         String username = req.getParameter("username");
         String password = req.getParameter("password");
+        List<Expense> listExpense=iExpenseDao.showExpenseWhereIdCategory(idCategory);
+        req.setAttribute("expense",listExpense);
         List<User> list = userDAO.show(username, password);
         req.setAttribute("list", list);
         List<Wallet> walletList = walletDAO.listWallet(username, password);
@@ -125,6 +130,8 @@ public class CategoryServlet extends HttpServlet {
         String password = req.getParameter("password");
         String nameCategory = req.getParameter("nameCategory");
         String note = req.getParameter("note");
+        List<Wallet> walletShowMoney = walletDAO.showMoney(username);
+        req.setAttribute("money", walletShowMoney);
         if (iCategoryDAO.selectNameCategory(nameCategory)) {
             req.setAttribute("message","Tên danh mục đã tồn tại !");
             req.getRequestDispatcher("/category/formAddCategory.jsp").forward(req,resp);
@@ -159,22 +166,25 @@ public class CategoryServlet extends HttpServlet {
 
 
     private void updateCategory(HttpServletRequest request, HttpServletResponse response) throws SQLException, ClassNotFoundException, ServletException, IOException {
-        String username = request.getParameter("username");
+        String userName = request.getParameter("username");
         String password = request.getParameter("password");
         int idCategory = Integer.parseInt(request.getParameter("idCategory"));
-        String categoryName = request.getParameter("categoryName");
+        String categoryName = request.getParameter("nameCategory");
         String note = request.getParameter("note");
         iCategoryDAO.CategoryUpdate(new Category(idCategory, categoryName,note));
-        List<Category> listCategory = iCategoryDAO.selectCategory(username, password);
-        request.setAttribute("showNameCategory", listCategory);
-        Category category = new Category(idCategory, categoryName, note);
-        request.setAttribute("category", category);
-        List<User> listUser = userDAO.show(username, password);
+        List<Expense> listExpense=iExpenseDao.showExpenseWhereIdCategory(idCategory);
+        request.setAttribute("expense",listExpense);
+        List<User> list = userDAO.show(userName, password);
+        request.setAttribute("list", list);
+        List<Wallet> walletList = walletDAO.listWallet(userName, password);
+        request.setAttribute("list", walletList);
         HttpSession session = request.getSession();
-        session.setAttribute("user", listUser.get(0));
-//        System.out.println("da vao day ");
-        List<Wallet> listWallet = iWalletDAO.showAllWallet(username, password);
-        request.setAttribute("list", listWallet);
-        request.getRequestDispatcher("users/Home.jsp").forward(request, response);
+        session.setAttribute("user", list.get(0));
+        List<Category> categoryList = iCategoryDAO.selectCategory(userName, password);
+        request.setAttribute("showNameCategory", categoryList);
+        List<Category> listCategory = iCategoryDAO.selectAllCategorys(idCategory);
+        request.setAttribute("category", listCategory);
+        request.getRequestDispatcher("/users/Category.jsp").forward(request, response);
+
     }
 }

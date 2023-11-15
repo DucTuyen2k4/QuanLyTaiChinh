@@ -155,9 +155,11 @@
                         document.getElementById("birthdate").value = formattedDate;
                     </script>
                     <div style="display: flex;">
+
                         <button style="width: 100px; height: 30px;margin-left:17%; ">
-                            login
+                            <a href="/users/Login.jsp"> login</a>
                         </button>
+
                         <button style="width: 100px; height: 30px; margin-left:16%;" name="action" value="addUser">
                             Register
                         </button>
@@ -167,13 +169,8 @@
             </div>
             <div class="right"></div>
         </div>
-<%--        <div class="footer">--%>
-<%--            <div style="padding:  15px 0 0 0">--%>
-<%--                <p style="text-align: center"> Copyright &copy; 2023 Financial Management Application</p>--%>
-<%--            </div>--%>
-
-<%--        </div>--%>
     </div>
 </form>
+
 </body>
 </html>

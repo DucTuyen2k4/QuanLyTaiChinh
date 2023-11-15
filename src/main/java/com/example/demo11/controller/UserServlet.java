@@ -179,15 +179,14 @@ public class UserServlet extends HttpServlet {
     }
     private void logoutHome(HttpServletRequest request, HttpServletResponse response) throws IOException {
         request.getSession().invalidate();
-        response.sendRedirect(request.getContextPath() + "/users/list.jsp");
-
+        response.sendRedirect(request.getContextPath() + "/users/LoginRegistrationInterface.jsp");
     }
 
 
     public void DeleteUsers(HttpServletRequest req, HttpServletResponse resp) throws SQLException, ClassNotFoundException, IOException, ServletException {
         int id = Integer.parseInt(req.getParameter("id"));
         userDAO.DeleteUser(id);
-        req.getRequestDispatcher("users/list.jsp").forward(req, resp);
+        req.getRequestDispatcher("users/LoginRegistrationInterface.jsp").forward(req, resp);
 
     }
 
@@ -268,6 +267,8 @@ public class UserServlet extends HttpServlet {
     }
 
     private void confirmPassword(HttpServletRequest req, HttpServletResponse resp) throws SQLException, ClassNotFoundException, ServletException, IOException {
+        String userName = req.getParameter("username");
+
         int id = Integer.parseInt(req.getParameter("id"));
         String oldPassword = req.getParameter("oldPassword");
         String newPassword = req.getParameter("newPassword");
@@ -278,9 +279,21 @@ public class UserServlet extends HttpServlet {
         if (passwordUser.equals(oldPassword)) {
             if (confirmPassword.equals(newPassword)) {
                 userDAO.updatePassword(id, newPassword);
-                req.setAttribute("id", id);
 
-                req.getRequestDispatcher("users/q.jsp").forward(req, resp);
+                List<User> list = userDAO.show(userName, newPassword);
+
+
+                List<Wallet> walletList = walletDAO.listWallet(userName, newPassword);
+                req.setAttribute("list", walletList);
+
+
+                HttpSession session = req.getSession();
+                session.setAttribute("user", list.get(0));
+
+                List<Category> categoryList = icategoryDao.selectCategory(userName, newPassword);
+                req.setAttribute("listCategory", categoryList);
+
+                req.getRequestDispatcher("users/Home.jsp").forward(req, resp);
             } else {
                 req.setAttribute("id", id);
                 req.setAttribute("messages", "Mật khẩu không khớp ! ");
@@ -293,6 +306,7 @@ public class UserServlet extends HttpServlet {
         }
 
     }
+
 
     private void showFormChangePassword(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         int id = Integer.parseInt(req.getParameter("id"));

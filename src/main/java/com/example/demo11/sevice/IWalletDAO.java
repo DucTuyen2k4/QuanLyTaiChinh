@@ -29,4 +29,8 @@ public interface IWalletDAO {
     boolean checkEmailUser_Wallet(String email) throws SQLException, ClassNotFoundException;
     User user_wallet(String email)throws SQLException, ClassNotFoundException;
     void deleteWallet(int id) throws SQLException, ClassNotFoundException;
+    Wallet selectIdWallet(String email) throws SQLException, ClassNotFoundException;
+    boolean checkEmail(String email) throws SQLException, ClassNotFoundException;
+    boolean checkUserWallet(int idUser,int idWallet) throws SQLException, ClassNotFoundException;
+    void insertShareWallet(int idUser,int idWallet,String permission) throws SQLException, ClassNotFoundException;
 }

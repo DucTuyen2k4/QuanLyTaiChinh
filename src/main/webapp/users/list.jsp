@@ -130,12 +130,12 @@
         </div>
         <div class="right"></div>
     </div>
-    <%--    <div class="footer">--%>
-    <%--        <div style="padding:  15px 0 0 0">--%>
-    <%--            <p style="text-align: center"> Copyright &copy; 2023 Financial Management Application</p>--%>
-    <%--        </div>--%>
+        <div class="footer">
+            <div style="padding:  15px 0 0 0">
+                <p style="text-align: center"> Copyright &copy; 2023 Financial Management Application</p>
+            </div>
 
-    <%--    </div>--%>
+        </div>
 </div>
 </body>
 </html>

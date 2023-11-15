@@ -20,12 +20,12 @@
             <input type="text" name="email"><br>
             Lựa chọn quyền
             <select name="permission">
-                <option value="anew" > anew</option>
+                <option value="owner" > anew</option>
                 <option value="viewer" >viewer</option>
             </select>
 
             <button name="action" value="share">share</button>
-            <input type="hidden" name="idWallet" value="${idWallet}" />
+            <input type="hidden" name="idWallet" value="${id}" />
             <input type="hidden" name="username" value="${sessionScope['user'].getUserName()}"/>
             <input type="hidden" name="password" value="${sessionScope['user'].getPassword()}"/>
 
