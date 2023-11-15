@@ -162,6 +162,7 @@ public class WalletServlet extends HttpServlet {
                 iWalletDAO.insertShareWallet(idUser, id, permission);
 
                 List<User> list = iUserDAO.show(username, password);
+
                 req.setAttribute("list", list);
 
                 List<Wallet> walletList = iWalletDAO.listWallet(username, password);
