@@ -199,13 +199,14 @@ public class UserServlet extends HttpServlet {
         String password = req.getParameter("password");
         try {
             if (userDAO.checkUser(userName, password)) {
-                List<Wallet> walletShowMoney = walletDAO.showMoney(userName);
-                req.setAttribute("money", walletShowMoney);
+
                 List<User> list = userDAO.show(userName, password);
                 List<Wallet> walletList = walletDAO.listWallet(userName, password);
                 req.setAttribute("list", walletList);
                 HttpSession session = req.getSession();
                 session.setAttribute("user", list.get(0));
+                List<Wallet> walletShowMoney = walletDAO.showMoney(userName);
+                req.setAttribute("money", walletShowMoney);
                 List<Category> categoryList = icategoryDao.selectCategory(userName, password);
                 req.setAttribute("showNameCategory", categoryList);
                 req.getRequestDispatcher("users/Home.jsp").forward(req, resp);

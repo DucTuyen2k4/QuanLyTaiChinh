@@ -289,7 +289,7 @@
     <hr style="color: black; width: 70%; margin-left: 15%; margin-top: 35px">
     <div class="general">
         <div class="left"></div>
-        <div class="content">
+        <div class="content" style="margin-left: 20px">
             <div class="left" >
                 <c:set var="totalMoney" value="0" />
 
@@ -300,9 +300,13 @@
                 <p>Total Money All Wallet: ${totalMoney}</p>
 
                 <c:forEach var="list" items="${list}">
-                    <a style="background-color: #4CAF50;width: 200px;height: 50px;text-align: center"  class="dropdown-item"
+                    <a style="width: 200px;height: 50px;text-align: center"  class="dropdown-item"
                        href="/wallet?action=ShowWallet&permission=${list.permission}&id=${list.idWallet}&username=${sessionScope['user'].getUserName()}&password=${sessionScope['user'].getPassword()}">
-                        <span style="color: black; text-align: center">${list.nameWallet}${list.money}</span>
+                       <div style="background-color: #f0f0f0;margin-top: 20px">
+                           <p  style="color: #ffffff; text-align: center ;background-color: #7a7474">Tên :${list.nameWallet}</p>
+                           <p style="color: black; text-align: center"> Số dư${list.money}</p>
+
+                       </div>
                     </a>
                 </c:forEach>
             </div>

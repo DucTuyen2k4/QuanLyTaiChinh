@@ -274,7 +274,10 @@ public class WalletServlet extends HttpServlet {
         double money = Double.parseDouble(req.getParameter("money"));
         String name = req.getParameter("name");
         double moneyBanking = Double.parseDouble(req.getParameter("moneyBanking"));
-
+        List<Wallet> walletShowMoney = walletDAO.showMoney(username);
+        req.setAttribute("money", walletShowMoney);
+        List<Category> categoryList = icategoryDao.selectCategory(username, password);
+        req.setAttribute("showNameCategory", categoryList);
 
         if (iWalletDAO.selectWallet(name)) {
             if (money >= moneyBanking) {
@@ -299,8 +302,7 @@ public class WalletServlet extends HttpServlet {
                 HttpSession session = req.getSession();
                 session.setAttribute("user", list.get(0));
 
-                List<Category> categoryList = icategoryDao.selectCategory(username,password);
-                req.setAttribute("listCategory",categoryList);
+
 
                 req.getRequestDispatcher("users/Home.jsp").forward(req,resp);
 
