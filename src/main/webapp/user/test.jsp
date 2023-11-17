@@ -101,6 +101,14 @@
 <form method="post" action="/user">
     <div class="all">
         <div class="header">
+
+
+            <%--                           <span style="display: inline-block;margin-top: 20px;">--%>
+            <%--                   <i class="fa-brands fa-wordpress" style="font-size: 30px; color: #8030c9;"></i>--%>
+            <%--                   <h5 style="margin-top: 6px; display: inline-block;font-size: 30px;font-weight: bold;">Quản lý tài chính</h5>--%>
+            <%--                </span>--%>
+
+
         </div>
 
         <div class="general">
@@ -115,43 +123,49 @@
 
 
                     <%--                    <p style="margin-left: 17%;margin-top: 30px" >Tên đăng nhập:</p>--%>
-                    <label for="fullname" style="margin-left: 17%;margin-top: 28px">Họ và tên :</label>
+                    <label for="fullname">Họ và tên ::</label>
                     <input type="text" id="fullname" name="fullName"
-                           style="border-radius: 10px;width: 70%; margin-left: 17%;padding-left: 10px;height: 35px;margin-top: 10px"
+                           style="border-radius: 10px;width: 70%; margin-left: 17%;padding-left: 10px;height: 35px;margin-top: 30px"
                            value="${sessionScope['user'].getFullName()}">
-                    <label for="birthdate" style="margin-left: 17%;margin-top: 20px">Ngày sinh:</label>
+                    <label for="birthdate">Ngày sinh:</label>
                     <input type="date" id="birthdate" name="birthdate" placeholder="Ngày sinh :"
-                           style="border-radius: 10px;width: 70%; margin-left: 17%; padding-left: 10px;height: 35px;margin-top: 10px"
+                           style="border-radius: 10px;width: 70%; margin-left: 17%; padding-left: 10px;height: 35px;margin-top: 35px"
                            minlength="6" maxlength="8" required
                            pattern="^(?=.*[A-Z])(?=.*[0-9]).{6,8}$"
                            value="${sessionScope['user'].getBirthdate()}">
-                    <p style="color: red;font-size: 10px;margin-left: 17%;margin-top: 20px">${messageFailurePassword}</p>
-                    <label for="phoneNumber" style="margin-left: 17%">Số điện thoại:</label>
+                    <p style="color: red;font-size: 10px;margin-left: 17%;margin-top: 35px">${messageFailurePassword}</p>
+                    <label for="phoneNumber">Số điện thoại:</label>
                     <input type="tel"
-                           style="border-radius: 10px;width: 70%; margin-left: 17%; padding-left: 10px;height: 35px;margin-top: 10px"
+                           style="border-radius: 10px;width: 70%; margin-left: 17%; padding-left: 10px;height: 35px;margin-top: 35px"
                            id="phoneNumber" name="phoneNumber" value="${sessionScope['user'].getPhoneNumber()}"
                            required>
-                    <div style="margin-left: 17%;margin-top: 20px">
-                    <label for="image">Chọn ảnh :</label>
-                    <br>
+                    <label for="image">Chọn ảnh đại diện:</label>
                     <input type="file" id="image" name="image" accept="image/*" value="${sessionScope['user'].getImage()}" required>
-                    </div>
 
-                    <label for="gender" style="margin-left: 17%;margin-top: 20px">Giới tính:</label>
 
+                    <label for="gender" style="margin-left: 78px">Giới tính:</label>
                     <select id="gender" name="gender">
                         <option value="${sessionScope['user'].getGender()}">${sessionScope['user'].getGender()}</option>
                         <option value="male">Nam</option>
                         <option value="female">Nữ</option>
                         <option value="other">Khác</option>
                     </select>
-                    <br>
+
 
                     <input type="hidden" name="id" value="${sessionScope['user'].getId()}">
                     <input type="hidden" name="username" value="${sessionScope['user'].getUserName()}"/>
                     <input type="hidden" name="password" value="${sessionScope['user'].getPassword()}"/>
-                    <button style="width: 69.5%; height: 30px; margin-left:17%;margin-top: 20px;background-color: #8030c9;color: #ffffff" name="action" value="confirmUpdate">Xác Nhận</button>
-<%--                    <a class="button-container" href="user?action=changePassword&id=${sessionScope['user'].getId()}&username=${sessionScope['user'].getUserName()}&password=${sessionScope['user'].getPassword()}">Đổi Mật khẩu</a>--%>
+                    <button class="confirm-button" name="action" value="confirmUpdate">Xác Nhận</button>
+                    <a class="button-container" href="user?action=changePassword&id=${sessionScope['user'].getId()}&username=${sessionScope['user'].getUserName()}&password=${sessionScope['user'].getPassword()}">Đổi Mật khẩu</a>
+
+
+                <%--                        <button style="width: 69.5%; height: 30px; margin-left:17%;margin-top: 20px;background-color: #8030c9;color: #ffffff"--%>
+                    <%--                                name="action" value="addUser">--%>
+                    <%--                            Register--%>
+                    <%--                        </button>--%>
+                    <%--                    </div>--%>
+                    <%--                    <p style="width: 250px; height: 30px;margin-left:17%;margin-top: 20px ;margin-left: 110px;  ">--%>
+                    <%--                        Bạn đã có tài khoản ? <a href="/users/Login.jsp" style="text-decoration: none;color: #000000">Đăng nhập</a></p>--%>
 
                 </div>
             </div>

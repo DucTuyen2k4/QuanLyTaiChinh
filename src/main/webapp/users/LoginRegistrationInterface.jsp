@@ -156,7 +156,7 @@
         <div class="headers">
             <button class="no-border login-button"
                     style="width: 120px; height: 35px;  background-color: #ffffff;margin-top: 5px">
-                <a href="/users/list.jsp" style=" text-decoration: none; color: #000000">Đăng nhập</a></button>
+                <a href="/users/Login.jsp" style=" text-decoration: none; color: #000000">Đăng nhập</a></button>
             <button class="no-border login-button" style="width: 120px; height: 35px;  background-color: #ffffff">
                 <a href="/users/Register.jsp" style=" text-decoration: none;color: #000000">Đăng ký</a></button>
         </div>

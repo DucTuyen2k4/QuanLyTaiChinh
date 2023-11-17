@@ -230,28 +230,19 @@ public class UserServlet extends HttpServlet {
         String birthdate = req.getParameter("birthdate");
         int phoneNumber = Integer.parseInt(req.getParameter("phoneNumber"));
         String image = req.getParameter("image");
-        System.out.println("davao1");
         userDAO.updateProfileUser(id, fullName, gender, birthdate, phoneNumber, image);
-        System.out.println("davao2");
         List<User> list = userDAO.selectProfileUser(id);
-
-        System.out.println("davao3");
         List<User> listUser = userDAO.show(userName, password);
-        System.out.println("davao4");
-
-        System.out.println("davao5");
         List<Wallet> walletShowMoney = walletDAO.showMoney(userName);
         req.setAttribute("money", walletShowMoney);
         List<Wallet> walletList = walletDAO.listWallet(userName, password);
         req.setAttribute("list", walletList);
         System.out.println(walletList);
-        System.out.println("davao6");
         List<Category> categoryList = icategoryDao.selectCategory(userName, password);
         req.setAttribute("showNameCategory", categoryList);
         System.out.println(categoryList);
         HttpSession session = req.getSession();
         session.setAttribute("user", listUser.get(0));
-        System.out.println("davao7");
         req.getRequestDispatcher("users/Home.jsp").forward(req, resp);
     }
 
