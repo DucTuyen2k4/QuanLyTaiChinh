@@ -12,7 +12,7 @@
     <style>
         body {
             background-color: #ffffff;
-            background-image: url('https://c.wallhere.com/photos/da/b2/digital_art_artwork_illustration_sky_clouds_minimalism_blue_nature-2285538.jpg!d');
+            background-image: url('https://c.wallhere.com/photos/da/b2/digital_art_artwork_illustration_sky_clouds_minimalism_blue_nature-2285538.jpgd');
             background-size: cover; /* Ensures the background image covers the entire body */
             background-repeat: no-repeat; /* Prevents the background image from repeating */
         }
@@ -170,7 +170,7 @@
                             Register
                         </button>
                     </div>
-                    <p style="width: 250px; height: 30px;margin-left:17%;margin-top: 20px ;margin-left: 110px;  ">
+                    <p style="width: 250px; height: 30px;margin-left:17%;margin-top: 20px ;  ">
                         Bạn đã có tài khoản ? <a href="/users/Login.jsp" style="text-decoration: none;color: #000000">Đăng nhập</a></p>
 
                 </div>

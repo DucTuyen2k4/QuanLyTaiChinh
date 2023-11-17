@@ -223,7 +223,7 @@
                 <div class="Category" style="margin-left: 20px">
                     <ul>
                         <li class="dropdown">
-                            <a href="#" class="dropbtn" style="color: #0a0101 ; text-decoration: none">Category </a>
+                            <a href="#" class="dropbtn" style="color: #0a0101 ; text-decoration: none">Category</a>
                             <div class="dropdown-content">
                                 <c:forEach var="list" items="${showNameCategory}">
                                     <a class="dropdown-item"
@@ -322,11 +322,19 @@
                             </form>
 
                         </div>
-                    </c:forEach>
                     <c:forEach items="${expense}" var="expense">
-                        <p>${expense.note}</p>
+                        <form method="get" action="/expense">
+                        <p>${expense.nameExpense}</p>
                         <p>${expense.money}</p>
+                            <input type="hidden" name="username" value="${sessionScope['user'].getUserName()}"/>
+                            <input type="hidden" name="idCategory" value="${list.idCategory}"/>
+                            <input type="hidden" name="idExpense" value="${expense.idExpense}"/>
+                            <input type="hidden" name="password" value="${sessionScope['user'].getPassword()}"/>
+                            <button type="submit" name="action" value="deleteExpense">delete</button>
+                        </form>
                     </c:forEach>
+                    </c:forEach>
+
                 </c:if>
             </div>
 
