@@ -273,6 +273,11 @@
                                         Câp nhật thông tin </a>
                                 </li>
                                 <li class="nav-item">
+                                    <a style="color: #ffffff" class="nav-link active" aria-current="page"
+                                       href="/user?action=changePassword&id=${sessionScope['user'].getId()}&username=${sessionScope['user'].getUserName()}&password=${sessionScope['user'].getPassword()}">
+                                        Câp nhật mật khẩu  </a>
+                                </li>
+                                <li class="nav-item">
                                     <a style="color: #ffffff" class="nav-link active" aria-current="page" href="#"
                                        onclick="showDialog('confirmation-dialog-delete')">Xóa tài khoản</a></li>
                                 <li class="nav-item">

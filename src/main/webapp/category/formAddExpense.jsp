@@ -1,3 +1,4 @@
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%--
   Created by IntelliJ IDEA.
   User: acer
@@ -116,6 +117,17 @@
             <form action="expense" method="post">
                 <div class="register">
                     <h1 style="text-align: center">Add Expense</h1><br>
+                    <div class="dropdown-content">
+                        <c:forEach var="list" items="${list}">
+                            <a class="dropdown-item"
+                               href="/wallet?action=ShowWallet&permission=${list.permission}&id=${list.idWallet}&username=${sessionScope['user'].getUserName()}&password=${sessionScope['user'].getPassword()}">
+                                <span style="color: black; text-align: center">${list.nameWallet}${list.permission}</span>
+                            </a>
+                        </c:forEach>
+                        <a class="dropdown-item"
+                           href="/wallet/formAddWallet.jsp?username=${sessionScope['user'].getUserName()}&password=${sessionScope['user'].getPassword()}&id=${sessionScope['user'].getId()}"
+                           style="text-align: center ; color: #1d1e1c">+</a>
+                    </div>
 
                     <p style="margin-left: 17%">name:</p>
                     <input style="border-radius: 10px;width: 70%; margin-left: 17%; padding-left: 10px" name="name"
@@ -135,7 +147,31 @@
                     <input type="hidden" name="idCategory" value="${idCategory}"/>
 
 
-                    <br><br>
+<%--                        <label for="timeInput">Current Time:</label>--%>
+                    <input type="hidden" id="timeInput" name="time" readonly>
+                    <script>
+                        // Get the current date and time
+                        var currentDate = new Date();
+
+                        // Format the date and time as a string
+                        var formattedDateTime =
+                            currentDate.getFullYear() + '-' +
+                            padZero(currentDate.getMonth() + 1) + '-' +
+                            padZero(currentDate.getDate()) + 'T' +
+                            padZero(currentDate.getHours()) + ':' +
+                            padZero(currentDate.getMinutes());
+
+                        // Set the value of the hidden input field
+                        document.getElementById('timeInput').value = formattedDateTime;
+
+                        // Hide the hidden input field
+                        document.getElementById('timeInput').style.display = 'none';
+
+                        // Function to pad a single digit number with a leading zero
+                        function padZero(number) {
+                            return (number < 10) ? '0' + number : number;
+                        }
+                    </script>
                     <div style="display: flex;">
                         <button name="action" value="addExpense"
                                 style="width: 100px; height: 30px;margin-left:36%;background-color: #0735ea;color: white ">
@@ -152,4 +188,4 @@
 </html>
 
 
->
+
