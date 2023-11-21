@@ -8,6 +8,10 @@ import java.util.List;
 
 public interface IWalletDAO {
 
+    void refundMoneyToWallet(int idWallet, double money) throws SQLException, ClassNotFoundException;
+
+
+
     List<Wallet> listWallet(String name,String password);
     List<Wallet> listWalletHome();
     Wallet checkID(int id);

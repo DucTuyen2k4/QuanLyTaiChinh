@@ -23,29 +23,39 @@ public class ExpenseDao implements IExpenseDao {
             "VALUES (?,?,?,?);";
     private static final String SHOW_EXPENSE = "select idExpense from expense where nameExpense = ?  ";
     private static final String DELETE_EXPENSE = "DELETE category_expense, expense FROM category_expense INNER JOIN expense ON category_expense.idCategoryExpense = expense.idExpense WHERE category_expense.idCategoryExpense = ?";
-    private static final String SELECT_ALL_EXPENSE = "select category_expense.idCategoryExpense, expense.idExpense,expense.nameExpense,expense.money,expense.time,expense.note from expense inner join category_expense on expense.idExpense = category_expense.idCategoryExpense inner join users on users_wallet.idUser=users.id where username = ? and password = ?";
+
     public void deleteExpense(int idExpense) throws SQLException, ClassNotFoundException {
         PreparedStatement preparedStatement = JDBC.connection().prepareStatement(DELETE_EXPENSE);
         preparedStatement.setInt(1, idExpense);
         preparedStatement.executeUpdate();
     }
+
     @Override
-    public List<Expense> showAllExpense(String username, String password) throws SQLException, ClassNotFoundException {
-        List<Expense> list = new ArrayList<>();
-        PreparedStatement preparedStatement = JDBC.connection().prepareStatement(SELECT_ALL_EXPENSE);
-        preparedStatement.setString(1, username);
-        preparedStatement.setString(2, password);
-        ResultSet resultSet = preparedStatement.executeQuery();
-        while (resultSet.next()) {
-            int idExpense = resultSet.getInt("idExpense");
-            String nameExpense = resultSet.getString("nameExpense");
-            double money = resultSet.getDouble("money");
-            String time = resultSet.getString("time");
-            String note = resultSet.getString("note");
-            list.add(new Expense(idExpense,nameExpense,money,time,note));
+    public Expense getExpenseById(int id) throws SQLException, ClassNotFoundException {
+
+
+        try {
+
+            String query = "SELECT * FROM expense WHERE idExpense = ?";
+            PreparedStatement statement = JDBC.connection().prepareStatement(query);
+            statement.setInt(1, id);
+            ResultSet resultSet = statement.executeQuery();
+
+            if (resultSet.next()) {
+                Expense expense = new Expense();
+                expense.setIdExpense(resultSet.getInt("idExpense"));
+                expense.setNameExpense(resultSet.getString("nameExpense"));
+                expense.setMoney(resultSet.getDouble("money"));
+                expense.setTime(resultSet.getString("time"));
+                expense.setNote(resultSet.getString("note"));
+                return expense;
+            }
+        } finally {
+
         }
-        return list;
+        return null;
     }
+
 
     @Override
     public List<Expense> showExpenseWhereIdCategory(int idCategory) throws SQLException, ClassNotFoundException {
@@ -54,12 +64,12 @@ public class ExpenseDao implements IExpenseDao {
         preparedStatement.setString(1, String.valueOf(idCategory));
         ResultSet resultSet = preparedStatement.executeQuery();
         while (resultSet.next()) {
-int idExpense=resultSet.getInt("idExpense");
+            int idExpense = resultSet.getInt("idExpense");
             String nameExpense = resultSet.getString("nameExpense");
             double money = resultSet.getDouble("money");
             String time = resultSet.getString("time");
             String note = resultSet.getString("note");
-            list.add(new Expense( idExpense,nameExpense, money, time, note));
+            list.add(new Expense(idExpense, nameExpense, money, time, note));
         }
         return list;
     }

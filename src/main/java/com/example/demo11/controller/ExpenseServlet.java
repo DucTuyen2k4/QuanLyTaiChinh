@@ -65,34 +65,34 @@ public class ExpenseServlet extends HttpServlet {
         String password = req.getParameter("password");
         int idCategory = Integer.parseInt(req.getParameter("idCategory"));
         int idExpense = Integer.parseInt(req.getParameter("idExpense"));
-
-        // Delete the expense
+      //  int idWallet = Integer.parseInt(req.getParameter("idWallet"));
+        Expense deletedExpense = iExpenseDAO.getExpenseById(idExpense);
+        double refundedMoney = deletedExpense.getMoney();
         iExpenseDAO.deleteExpense(idExpense);
+        System.out.println("vo day " + idExpense);
+        System.out.println("vo day " + refundedMoney);
+ //       iWalletDAO.refundMoneyToWallet(idWallet, refundedMoney);
+ //       System.out.println("truyen vao vi" + idWallet);
 
-        // Get the remaining expenses for the same category
         List<Expense> listExpense = iExpenseDAO.showExpenseWhereIdCategory(idCategory);
 
-        // Set attributes for the JSP page
-        req.setAttribute("expense", listExpense);
+        req.setAttribute("expense",listExpense);
 
-        // Set attributes related to the user
         List<User> list = iUserDAO.show(username, password);
-        req.setAttribute("list", list);
+        req.setAttribute("list",list);
 
         List<Wallet> walletList = iWalletDAO.listWallet(username, password);
-        req.setAttribute("list", walletList);
+        req.setAttribute("list",walletList);
 
         HttpSession session = req.getSession();
         session.setAttribute("user", list.get(0));
 
-        // Set attributes related to categories
         List<Category> categoryList = iCategoryDAO.selectCategory(username, password);
         req.setAttribute("showNameCategory", categoryList);
 
         List<Category> listCategory = iCategoryDAO.selectAllCategorys(idCategory);
         req.setAttribute("category", listCategory);
 
-        // Forward to the Category.jsp page
         req.getRequestDispatcher("/users/Category.jsp").forward(req, resp);
     }
 
@@ -131,6 +131,7 @@ public class ExpenseServlet extends HttpServlet {
                 } catch (ClassNotFoundException e) {
                     throw new RuntimeException(e);
                 }
+
         }
     }
 
