@@ -335,6 +335,30 @@
                 </c:if>
 
             </div>
+            <form action="/expense?action=showByWallet" method="post">
+                <input type="hidden" name="idWallet" value="${wallet.getIdWallet()}">
+                <p>tinh tu ngay :</p>
+                <input type="date" name="First">
+                <p>  den ngay :</p>
+                <input type="date" name="Last">
+                <input type="submit" value="an vao">
+                <c:forEach var="out" items="${listExpense}">
+                    <p>${out.nameExpense}</p>
+                    <p>${out.money}</p>
+                    <p>${out.time}</p>
+                    <p>${out.note}</p>
+                </c:forEach>
+            </form>
+            <form action="/expense?action=showToday" method="post">
+                <input type="hidden" name="idWallet" value="${wallet.getIdWallet()}">
+                <input type="submit" value="xem hom nay">
+                <c:forEach var="out1" items="${Today}">
+                    <p>${out1.nameExpense}</p>
+                    <p>${out1.money}</p>
+                    <p>${out1.time}</p>
+                    <p>${out1.note}</p>
+                </c:forEach>
+            </form>
         </div>
         <div class="right"></div>
     </div>

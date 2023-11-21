@@ -376,15 +376,9 @@
         </div>
         </div>
     <div class="right-pane"></div>
+
 </main>
-<form>
-    <p style="text-align: center"> Copyright &copy; 2023 Financial Management Application</p>
-</form>
-<div class="confirmation-dialog" id="confirmation-dialog-delete">
-    <div class="confirmation-dialog-content">
-        <h2 style="font-size: 20px">Confirm account deletion</h2>
-        <p>Are you sure you want to delete your account?</p>
-        <button onclick="confirmAction('delete')">Agree</button>
+
         <button onclick="hideDialog('confirmation-dialog-delete')">Cancel</button>
     </div>
 </div>

@@ -72,6 +72,7 @@
             <input type="hidden" name="password" value="${sessionScope['user'].getPassword()}"/>
             <button type="submit" class="btn btn-primary">Update</button>
         </form>
+
     </c:forEach>
 </div>
 </body>

@@ -10,16 +10,15 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class CategoryDao implements ICategoryDao {
-    private static final String SELECT_CATEGORY = "select category.idCategory,category.nameCategory,category.note from category inner join user_category on category.idCategory=user_category.idCategory inner join users on user_category.idUser=users.id where userName = ? and password = ?";
-    private static final String INSERT_CATEGORY = "insert  into category(nameCategory,note) values (?,?) ";
-    private static final String SELECT_ID_CATEGORY = "select idCategory from category where nameCategory = ? and note = ? ";
+    private static final String SELECT_CATEGORY = "select Category.idCategory,Category.nameCategory,Category.note from Category inner join user_category on Category.idCategory=user_category.idCategory inner join users on user_category.idUser=users.id where userName = ? and password = ?";
+    private static final String INSERT_CATEGORY = "insert  into Category(nameCategory,note) values (?,?) ";
+    private static final String SELECT_ID_CATEGORY = "select idCategory from Category where nameCategory = ? and note = ? ";
     private static final String INSERT_NEW_CATEGORY = "insert into user_category (idUser,idCategory)values(?,?)";
-    private static final String SELECT_NAME_CATEGORY = "select nameCategory from category where nameCategory = ? ";
-    private static final String SHOW_CATEGORY_WHERE_ID = "select * from category where idCategory=? ";
+    private static final String SELECT_NAME_CATEGORY = "select nameCategory from Category where nameCategory = ? ";
+    private static final String SHOW_CATEGORY_WHERE_ID = "select * from Category where idCategory=? ";
     public static final String SELECT_CATEGORY_UPDATE = "UPDATE Category set nameCategory=?,note=? where idCategory=?";
-    private static final String SELECT_ALL_CATEGORY = "select * from category where idCategory = ? ";
+    private static final String SELECT_ALL_CATEGORY = "select * from Category where idCategory = ? ";
     public static final String DELETE_CATEGORY = "DELETE user_category, Category FROM user_category LEFT JOIN Category ON user_category.idCategory = Category.idCategory WHERE user_category.idCategory = ?";
-
     @Override
     public void deleteCategory(int id) throws SQLException, ClassNotFoundException {
         PreparedStatement preparedStatement = JDBC.connection().prepareStatement(DELETE_CATEGORY);

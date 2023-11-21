@@ -13,9 +13,11 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import javax.swing.text.DateFormatter;
 import java.io.IOException;
 import java.sql.SQLException;
 import java.time.Instant;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.FormatStyle;
@@ -57,9 +59,44 @@ public class ExpenseServlet extends HttpServlet {
                     throw new RuntimeException(e);
                 }
                 break;
-
-
+            case"showByWallet":
+                try {
+                    showExpenseByWallet(req,resp);
+                } catch (SQLException e) {
+                    throw new RuntimeException(e);
+                } catch (ClassNotFoundException e) {
+                    throw new RuntimeException(e);
+                }
+            case "showToday":
+                try {
+                    ShowToday(req,resp);
+                } catch (SQLException e) {
+                    throw new RuntimeException(e);
+                } catch (ClassNotFoundException e) {
+                    throw new RuntimeException(e);
+                }
         }
+    }
+
+    private void ShowToday(HttpServletRequest req, HttpServletResponse resp) throws SQLException, ClassNotFoundException, ServletException, IOException {
+        LocalDate currentDate = LocalDate.now();
+        int idWallet= Integer.parseInt(req.getParameter("idWallet"));
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+        String formattedDate = currentDate.format(formatter);
+        List<Expense>listExpense=iExpenseDAO.ShowToday(formattedDate,idWallet);
+        req.setAttribute("Today",listExpense);
+        req.getRequestDispatcher("users/Wallet.jsp").forward(req, resp);
+    }
+
+    private void showExpenseByWallet(HttpServletRequest req, HttpServletResponse resp) throws SQLException, ClassNotFoundException, ServletException, IOException {
+        String First=req.getParameter("First");
+        String Last=req.getParameter("Last");
+        int idWallet= Integer.parseInt(req.getParameter("idWallet"));
+        List<Expense>listExpense=iExpenseDAO.ShowExpenseWhere(idWallet,First,Last);
+        req.setAttribute("listExpense",listExpense);
+        req.getRequestDispatcher("users/Wallet.jsp").forward(req, resp);
+
+
     }
 
     private void showFormAddExpense(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -93,19 +130,15 @@ public class ExpenseServlet extends HttpServlet {
 
     private void addCategoryExpense(HttpServletRequest request, HttpServletResponse response) throws SQLException, ClassNotFoundException, ServletException, IOException {
 
-
         String nameExpense = request.getParameter("name");
         double money = Double.parseDouble(request.getParameter("money"));
         int idCategory = Integer.parseInt(request.getParameter("idCategory"));
         String userName = request.getParameter("username");
         String password = request.getParameter("password");
 
-
-        LocalDateTime localDateTime = LocalDateTime.now();
-        DateTimeFormatter formatter = DateTimeFormatter.ofLocalizedDateTime(FormatStyle.MEDIUM);
-        String time = localDateTime.format(formatter);
-        System.out.println("\n\nNgày giờ hiện tại: " + time);
-
+        LocalDate localDate = LocalDate.now();
+        System.out.println(localDate);
+        String time= String.valueOf(localDate);
         String note = request.getParameter("note");
         iExpenseDAO.addExpense(new Expense(nameExpense, money, time, note));
         Expense expense = iExpenseDAO.showExpense(nameExpense);
