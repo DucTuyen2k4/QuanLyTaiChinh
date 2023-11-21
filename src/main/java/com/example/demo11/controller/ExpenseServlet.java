@@ -56,60 +56,19 @@ public class ExpenseServlet extends HttpServlet {
                     throw new RuntimeException(e);
                 }
                 break;
+            case "updateExpense":
+                try {
+                    updateExpense(req,resp);
+                } catch (SQLException e) {
+                    throw new RuntimeException(e);
+                } catch (ClassNotFoundException e) {
+                    throw new RuntimeException(e);
+                }
 
 
         }
     }
-    private void deleteExpense(HttpServletRequest req, HttpServletResponse resp) throws SQLException, ClassNotFoundException, ServletException, IOException {
-        String username = req.getParameter("username");
-        String password = req.getParameter("password");
-        int idCategory = Integer.parseInt(req.getParameter("idCategory"));
-        int idExpense = Integer.parseInt(req.getParameter("idExpense"));
-      //  int idWallet = Integer.parseInt(req.getParameter("idWallet"));
-        Expense deletedExpense = iExpenseDAO.getExpenseById(idExpense);
-        double refundedMoney = deletedExpense.getMoney();
-        iExpenseDAO.deleteExpense(idExpense);
-        System.out.println("vo day " + idExpense);
-        System.out.println("vo day " + refundedMoney);
- //       iWalletDAO.refundMoneyToWallet(idWallet, refundedMoney);
- //       System.out.println("truyen vao vi" + idWallet);
 
-        List<Expense> listExpense = iExpenseDAO.showExpenseWhereIdCategory(idCategory);
-
-        req.setAttribute("expense",listExpense);
-
-        List<User> list = iUserDAO.show(username, password);
-        req.setAttribute("list",list);
-
-        List<Wallet> walletList = iWalletDAO.listWallet(username, password);
-        req.setAttribute("list",walletList);
-
-        HttpSession session = req.getSession();
-        session.setAttribute("user", list.get(0));
-
-        List<Category> categoryList = iCategoryDAO.selectCategory(username, password);
-        req.setAttribute("showNameCategory", categoryList);
-
-        List<Category> listCategory = iCategoryDAO.selectAllCategorys(idCategory);
-        req.setAttribute("category", listCategory);
-
-        req.getRequestDispatcher("/users/Category.jsp").forward(req, resp);
-    }
-
-
-    private void showFormAddExpense(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        String userName = req.getParameter("username");
-        String password = req.getParameter("password");
-
-        List<User> list = iUserDAO.show(userName, password);
-        HttpSession session = req.getSession();
-        session.setAttribute("user", list.get(0));
-
-        int idCategory = Integer.parseInt(req.getParameter("idCategory"));
-        req.setAttribute("idCategory", idCategory);
-        req.getRequestDispatcher("/category/formAddExpense.jsp").forward(req, resp);
-
-    }
 
 
     @Override
@@ -131,9 +90,105 @@ public class ExpenseServlet extends HttpServlet {
                 } catch (ClassNotFoundException e) {
                     throw new RuntimeException(e);
                 }
+                break;
+            case "showUpdateExpense":
+                try {
+                    showUpdateExpense(req,resp);
+                } catch (SQLException e) {
+                    throw new RuntimeException(e);
+                } catch (ClassNotFoundException e) {
+                    throw new RuntimeException(e);
+                }
 
         }
     }
+    private void showUpdateExpense(HttpServletRequest req, HttpServletResponse resp) throws SQLException, ClassNotFoundException, ServletException, IOException {
+        String username = req.getParameter("username");
+        String password = req.getParameter("password");
+        int idCategory = Integer.parseInt(req.getParameter("idCategory"));
+        int idExpense = Integer.parseInt(req.getParameter("idExpense"));
+       List<Expense> listExpense= iExpenseDAO.showUpdateExpense(idExpense);
+       req.setAttribute("expense",listExpense);
+        System.out.println(listExpense);
+        List<User> list = iUserDAO.show(username, password);
+        req.setAttribute("list",list);
+        HttpSession session = req.getSession();
+        session.setAttribute("user", list.get(0));
+        List<Category> listCategory = iCategoryDAO.selectAllCategorys(idCategory);
+        req.setAttribute("category", listCategory);
+       req.getRequestDispatcher("/category/fromUpdateExpense.jsp").forward(req,resp);
+
+    }
+
+    private void updateExpense(HttpServletRequest req, HttpServletResponse resp) throws SQLException, ClassNotFoundException, ServletException, IOException {
+        String username = req.getParameter("username");
+        String password = req.getParameter("password");
+        int idCategory = Integer.parseInt(req.getParameter("idCategory"));
+        int idExpense = Integer.parseInt(req.getParameter("idExpense"));
+        String nameExpense=req.getParameter("nameExpense");
+        double money = Double.parseDouble(req.getParameter("money"));
+        String time=req.getParameter("time");
+        String note=req.getParameter("note");
+        iExpenseDAO.updateExpense(new Expense(idExpense,nameExpense,money,time,note));
+        List<Expense> listExpense = iExpenseDAO.showExpenseWhereIdCategory(idCategory);
+        req.setAttribute("expense",listExpense);
+        List<User> list = iUserDAO.show(username, password);
+        req.setAttribute("list",list);
+        List<Wallet> walletList = iWalletDAO.listWallet(username, password);
+        req.setAttribute("list",walletList);
+        HttpSession session = req.getSession();
+        session.setAttribute("user", list.get(0));
+        List<Category> categoryList = iCategoryDAO.selectCategory(username, password);
+        req.setAttribute("showNameCategory", categoryList);
+        List<Category> listCategory = iCategoryDAO.selectAllCategorys(idCategory);
+        req.setAttribute("category", listCategory);
+        req.getRequestDispatcher("/users/Category.jsp").forward(req, resp);
+    }
+
+    private void deleteExpense(HttpServletRequest req, HttpServletResponse resp) throws SQLException, ClassNotFoundException, ServletException, IOException {
+        String username = req.getParameter("username");
+        String password = req.getParameter("password");
+        int idCategory = Integer.parseInt(req.getParameter("idCategory"));
+        int idExpense = Integer.parseInt(req.getParameter("idExpense"));
+      //  int idWallet = Integer.parseInt(req.getParameter("idWallet"));
+        Expense deletedExpense = iExpenseDAO.getExpenseById(idExpense);
+        double refundedMoney = deletedExpense.getMoney();
+        iExpenseDAO.deleteExpense(idExpense);
+        System.out.println("vo day " + idExpense);
+        System.out.println("vo day " + refundedMoney);
+ //       iWalletDAO.refundMoneyToWallet(idWallet, refundedMoney);
+        List<Expense> listExpense = iExpenseDAO.showExpenseWhereIdCategory(idCategory);
+        req.setAttribute("expense",listExpense);
+        List<User> list = iUserDAO.show(username, password);
+        req.setAttribute("list",list);
+        List<Wallet> walletList = iWalletDAO.listWallet(username, password);
+        req.setAttribute("list",walletList);
+        HttpSession session = req.getSession();
+        session.setAttribute("user", list.get(0));
+        List<Category> categoryList = iCategoryDAO.selectCategory(username, password);
+        req.setAttribute("showNameCategory", categoryList);
+        List<Category> listCategory = iCategoryDAO.selectAllCategorys(idCategory);
+        req.setAttribute("category", listCategory);
+        req.getRequestDispatcher("/users/Category.jsp").forward(req, resp);
+    }
+
+
+    private void showFormAddExpense(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        String userName = req.getParameter("username");
+        String password = req.getParameter("password");
+
+        List<User> list = iUserDAO.show(userName, password);
+        HttpSession session = req.getSession();
+        session.setAttribute("user", list.get(0));
+
+        int idCategory = Integer.parseInt(req.getParameter("idCategory"));
+        req.setAttribute("idCategory", idCategory);
+        req.getRequestDispatcher("/category/formAddExpense.jsp").forward(req, resp);
+
+    }
+
+
+
 
     private void addCategoryExpense(HttpServletRequest request, HttpServletResponse response) throws SQLException, ClassNotFoundException, ServletException, IOException {
 

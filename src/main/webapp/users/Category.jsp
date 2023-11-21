@@ -326,12 +326,15 @@
                         <form method="get" action="/expense">
                         <p>${expense.nameExpense}</p>
                         <p>${expense.money}</p>
+                            <p>${expense.time}</p>
+<%--                        <p>${expense.idExpense}</p>--%>
                             <input type="hidden" name="username" value="${sessionScope['user'].getUserName()}"/>
                             <input type="hidden" name="idCategory" value="${list.idCategory}"/>
                             <input type="hidden" name="idExpense" value="${expense.idExpense}"/>
 <%--                           <input type="hidden" name="idWallet" value="${list.idWallet}"/>--%>
                             <input type="hidden" name="password" value="${sessionScope['user'].getPassword()}"/>
                             <button type="submit" name="action" value="deleteExpense">delete</button>
+                            <button type="submit" name="action" value="showUpdateExpense">update</button>
                         </form>
                     </c:forEach>
                     </c:forEach>

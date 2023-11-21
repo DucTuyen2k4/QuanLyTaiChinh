@@ -1,7 +1,6 @@
 package com.example.demo11.sevice;
 
 import com.example.demo11.model.Expense;
-import com.example.demo11.model.Wallet;
 
 import java.sql.SQLException;
 import java.util.List;
@@ -10,7 +9,12 @@ public interface IExpenseDao  {
 
 
    Expense getExpenseById(int id) throws SQLException, ClassNotFoundException;
-   void deleteExpense(int idExpense) throws SQLException, ClassNotFoundException;
+
+    List<Expense> showUpdateExpense(int idExpense) throws SQLException, ClassNotFoundException;
+
+    void updateExpense(Expense expense) throws SQLException, ClassNotFoundException;
+
+    void deleteExpense(int idExpense) throws SQLException, ClassNotFoundException;
 
 
 

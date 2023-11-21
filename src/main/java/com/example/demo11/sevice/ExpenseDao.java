@@ -2,12 +2,10 @@ package com.example.demo11.sevice;
 
 import com.example.demo11.JDBC;
 import com.example.demo11.model.Expense;
-import com.example.demo11.model.Wallet;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -23,7 +21,35 @@ public class ExpenseDao implements IExpenseDao {
             "VALUES (?,?,?,?);";
     private static final String SHOW_EXPENSE = "select idExpense from expense where nameExpense = ?  ";
     private static final String DELETE_EXPENSE = "DELETE category_expense, expense FROM category_expense INNER JOIN expense ON category_expense.idCategoryExpense = expense.idExpense WHERE category_expense.idCategoryExpense = ?";
+    private static final String UPDATE_EXPENSE = "update expense set nameExpense=?,money=?,time=?,note=? where idExpense=?";
+    private static final String SHOW_UPDATE_EXPENSE = "select * from expense where idExpense=?";
+    @Override
+    public List<Expense> showUpdateExpense(int idExpense) throws SQLException, ClassNotFoundException {
+        List<Expense> list=new ArrayList<>();
+        PreparedStatement preparedStatement=JDBC.connection().prepareStatement(SHOW_UPDATE_EXPENSE);
+        preparedStatement.setInt(1,idExpense);
+        ResultSet resultSet = preparedStatement.executeQuery();
+        while (resultSet.next()){
+            String nameExpense=resultSet.getString("nameExpense");
+            double money= resultSet.getDouble("money");
+            String time=resultSet.getString("time");
+            String note =resultSet.getString("note");
+            list.add(new Expense(idExpense,nameExpense,money,time,note));
+        }
+        return list;
+    }
+    @Override
+    public void updateExpense(Expense expense) throws SQLException, ClassNotFoundException {
 
+        PreparedStatement preparedStatement = JDBC.connection().prepareStatement(UPDATE_EXPENSE);
+        preparedStatement.setString(1, expense.getNameExpense());
+        preparedStatement.setDouble(2, expense.getMoney());
+        preparedStatement.setString(3, expense.getTime());
+        preparedStatement.setString(4, expense.getNote());
+        preparedStatement.setInt(5, expense.getIdExpense());
+        preparedStatement.executeUpdate();
+
+    }
     public void deleteExpense(int idExpense) throws SQLException, ClassNotFoundException {
         PreparedStatement preparedStatement = JDBC.connection().prepareStatement(DELETE_EXPENSE);
         preparedStatement.setInt(1, idExpense);
