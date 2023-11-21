@@ -294,7 +294,14 @@
         <div class="content">
 
             <div class="category">
+<div>
+    <form class="search-form" action="/expense" method="post">
+        <input type="hidden" name="action" value="search">
+        <input type="text" name="categoryName"  placeholder="Tìm kiếm...">
+        <input type="submit" value="Tìm kiếm">
+    </form>
 
+</div>
                 <c:if test="${not empty category}">
                     <c:forEach var="list" items="${category}">
                         <form method="post" action="/category">
@@ -348,8 +355,6 @@
         </div>
     </div>
 </div>
-
-
 <div class="confirmation-dialog" id="confirmation-dialog-delete">
     <div class="confirmation-dialog-content">
         <h2 style="font-size: 20px">Confirm account deletion</h2>

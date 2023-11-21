@@ -56,10 +56,32 @@ public class ExpenseServlet extends HttpServlet {
                     throw new RuntimeException(e);
                 }
                 break;
+            case "search":
 
+                try {
+                    SearchExpense(req, resp);
+                } catch (SQLException | ClassNotFoundException e) {
+                    throw new RuntimeException(e);
+                }
+                break;
 
         }
     }
+
+    private void SearchExpense(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException, SQLException, ClassNotFoundException {
+        String categoryName = request.getParameter("categoryName");
+        System.out.println("vo day");
+        ExpenseDao expenseDao = new ExpenseDao();
+
+        List<Expense> expenses = expenseDao.selectExpenseByCategory(categoryName);
+
+        request.setAttribute("expenses", expenses);
+
+  request.getRequestDispatcher("category/Seach.jsp").forward(request,response);
+    }
+
+
     private void deleteExpense(HttpServletRequest req, HttpServletResponse resp) throws SQLException, ClassNotFoundException, ServletException, IOException {
         String username = req.getParameter("username");
         String password = req.getParameter("password");

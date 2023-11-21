@@ -7,7 +7,7 @@ import java.sql.SQLException;
 import java.util.List;
 
 public interface IExpenseDao  {
-
+   List<Expense> selectExpenseByCategory(String categoryName) throws SQLException, ClassNotFoundException;
 
    Expense getExpenseById(int id) throws SQLException, ClassNotFoundException;
    void deleteExpense(int idExpense) throws SQLException, ClassNotFoundException;

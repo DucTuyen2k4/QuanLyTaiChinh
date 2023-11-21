@@ -23,6 +23,30 @@ public class ExpenseDao implements IExpenseDao {
             "VALUES (?,?,?,?);";
     private static final String SHOW_EXPENSE = "select idExpense from expense where nameExpense = ?  ";
     private static final String DELETE_EXPENSE = "DELETE category_expense, expense FROM category_expense INNER JOIN expense ON category_expense.idCategoryExpense = expense.idExpense WHERE category_expense.idCategoryExpense = ?";
+    private static final String SELECT_EXPENSE_CATEGORY = "SELECT expense.* FROM expense " +
+            "JOIN category_expense ON expense.idExpense = category_expense.idExpense " +
+            "JOIN category ON category.idCategory = category_expense.idCategory " +
+            "WHERE category.nameCategory = ?";
+
+    public List<Expense> selectExpenseByCategory(String categoryName) throws SQLException, ClassNotFoundException {
+        List<Expense> list = new ArrayList<>();
+
+             PreparedStatement preparedStatement = JDBC.connection().prepareStatement(SELECT_EXPENSE_CATEGORY);
+            preparedStatement.setString(1, categoryName.trim());
+            try (ResultSet resultSet = preparedStatement.executeQuery()) {
+                while (resultSet.next()) {
+                    int idExpense = resultSet.getInt("idExpense");
+                    String nameExpense = resultSet.getString("nameExpense");
+                    double money = resultSet.getDouble("money");
+                    String time = resultSet.getString("time");
+                    String note = resultSet.getString("note");
+                    list.add(new Expense(idExpense, nameExpense, money, time, note));
+                }
+            }
+
+        return list;
+    }
+
 
     public void deleteExpense(int idExpense) throws SQLException, ClassNotFoundException {
         PreparedStatement preparedStatement = JDBC.connection().prepareStatement(DELETE_EXPENSE);
