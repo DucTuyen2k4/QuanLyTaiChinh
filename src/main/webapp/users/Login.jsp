@@ -135,9 +135,7 @@
                                 Đăng nhập
                             </button>
 
-
-
-                        <p style="width: 250px; height: 30px;margin-left:17%;margin-top: 20px ;margin-left: 110px;  ">
+                        <p style="width: 250px; height: 30px;margin-left:17%;margin-top: 20px   ">
                             Bạn chưa có tài khoản ? <a href="/users/Register.jsp" style="text-decoration: none;color: #000000">Đăng ký</a></p>
 
                     </div>
@@ -146,12 +144,6 @@
         </div>
         <div class="right"></div>
     </div>
-    <%--    <div class="footer">--%>
-    <%--        <div style="padding:  15px 0 0 0">--%>
-    <%--            <p style="text-align: center"> Copyright &copy; 2023 Financial Management Application</p>--%>
-    <%--        </div>--%>
-
-    <%--    </div>--%>
 </div>
 </body>
 </html>

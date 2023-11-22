@@ -6,6 +6,7 @@
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <html>
 <head>
     <title>Title</title>
@@ -128,6 +129,12 @@
                     <p style="margin-left: 17%; top: 20px">Note :</p>
                     <input name="note" type="text"
                            style="border-radius: 10px;width: 70%; margin-left: 17%; padding-left: 10px">
+                    <select name="wallet" id="wallet"
+                            style="border-radius: 10px;width: 70%; margin-left: 17%; padding-left: 10px">
+                        <c:forEach var="list" items="${list}">
+                            <option value="  ${list.nameWallet}"></option>
+                        </c:forEach>
+                    </select>
 
                     <input type="hidden" name="id" value="${sessionScope['user'].getId()}"/>
                     <input type="hidden" name="username" value="${sessionScope['user'].getUserName()}"/>

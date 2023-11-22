@@ -8,6 +8,13 @@ public class Expense {
     private String time;
     private String note;
 
+    public Expense(int idExpense,double money, String time, String note) {
+        this.idExpense = idExpense;
+        this.money = money;
+        this.time = time;
+        this.note = note;
+    }
+
     public Expense(int idExpense, String nameExpense, double money, String time, String note) {
         this.idExpense = idExpense;
         this.nameExpense = nameExpense;

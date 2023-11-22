@@ -48,7 +48,6 @@ public class WalletDAO implements IWalletDAO {
         preparedStatement.setString(1, userName);
         ResultSet dataResult = preparedStatement.executeQuery();
         while (dataResult.next()) {
-//            String walletName = dataResult.getString("nameWallet");
             double money = dataResult.getDouble("totalMoney");
             list.add(new Wallet(money));
         }

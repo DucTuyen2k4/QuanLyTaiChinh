@@ -292,9 +292,17 @@
     <div class="general">
         <div class="left"></div>
         <div class="content">
-
             <div class="category">
-
+                <div>
+                    <c:if test="${not empty lists}">
+                        <c:forEach items="${lists}" var="infor">
+                            <p>STT: ${infor.idExpense}</p>
+                            <p>Money: ${infor.money}</p>
+                            <p>Time: ${infor.time}</p>
+                            <p>Note: ${infor.note}</p>
+                        </c:forEach>
+                    </c:if>
+                </div>
                 <c:if test="${not empty category}">
                     <c:forEach var="list" items="${category}">
                         <form method="post" action="/category">
@@ -314,16 +322,21 @@
                         <a href="/category?action=delete&idCategory=${list.idCategory}&username=${sessionScope['user'].getUserName()}&password=${sessionScope['user'].getPassword()}">
                             <button>delete</button>
                         </a>
+                        <a href="/category?action=search&idCategory=${list.idCategory}">
+                            <button>search</button>
+                        </a>
+
                         <div style=" margin-left: 20%; width: 50%;height: 30px ; background-color:red " class="conter">
                             <form action="expense" method="post">
                                 <a class="dropdown-item"
                                    href="/expense?action=add&username=${sessionScope['user'].getUserName()}&password=${sessionScope['user'].getPassword()}&id=${sessionScope['user'].getId()}&idCategory=${list.idCategory}"
                                    style="text-align: center ; color: #1d1e1c">+</a>
                             </form>
-
                         </div>
                     </c:forEach>
                     <c:forEach items="${expense}" var="expense">
+                        <p>${expense.time}</p>
+                        <p>${expense.nameExpense}</p>
                         <p>${expense.note}</p>
                         <p>${expense.money}</p>
                     </c:forEach>

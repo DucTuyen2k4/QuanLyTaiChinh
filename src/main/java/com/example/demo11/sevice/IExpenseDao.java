@@ -12,6 +12,8 @@ public interface IExpenseDao  {
    void addCategoryExpense(int idCategory,int idExpense) throws SQLException, ClassNotFoundException;
    Expense showExpense(String name) throws SQLException, ClassNotFoundException;
 
+   List<Expense> information(String information,String information1,int idCategory)throws SQLException, ClassNotFoundException;
+
 
 
 }

@@ -98,8 +98,23 @@ public class CategoryServlet extends HttpServlet {
                 } catch (ClassNotFoundException e) {
                     throw new RuntimeException(e);
                 }
+            case "search":
+                try {
+                    shearch(req,resp);
+                } catch (SQLException e) {
+                    throw new RuntimeException(e);
+                } catch (ClassNotFoundException e) {
+                    throw new RuntimeException(e);
+                }
         }
     }
+
+    private void shearch(HttpServletRequest req, HttpServletResponse resp) throws SQLException, ClassNotFoundException, ServletException, IOException {
+        int id = Integer.parseInt(req.getParameter("idCategory"));
+        req.setAttribute("id",id);
+        req.getRequestDispatcher("users/information.jsp").forward(req, resp);
+    }
+
     private void Delete(HttpServletRequest req, HttpServletResponse resp) throws SQLException, ClassNotFoundException, ServletException, IOException {
         String username = req.getParameter("username");
         String password = req.getParameter("password");

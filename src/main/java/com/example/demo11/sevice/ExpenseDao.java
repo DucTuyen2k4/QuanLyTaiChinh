@@ -16,11 +16,32 @@ public class ExpenseDao implements IExpenseDao {
             "INNER JOIN category_expense ON expense.idExpense = category_expense.idExpense\n" +
             "INNER JOIN Category ON category_expense.idCategory = Category.idCategory\n" +
             "WHERE Category.idCategory = ?";
-
     private static final String ADD_CATEGORY_EXPENSE = "INSERT INTO category_expense (idCategory, idExpense) VALUES(?,?)";
-    private static final String ADD_EXPENSE = "INSERT INTO expense (nameExpense, money, time, note) \n" +
-            "VALUES (?,?,?,?);";
+    private static final String ADD_EXPENSE = "INSERT INTO expense (nameExpense, money, time, note) \n" + "VALUES (?,?,?,?);";
     private static final String SHOW_EXPENSE = "select idExpense from expense where nameExpense = ?  ";
+    private static final String INFORMATION = "select  expense.idExpense,money,time,expense.note from category inner join category_expense on category.idCategory = category_expense.idCategory inner join expense on category_expense.idExpense =expense.idExpense  WHERE time BETWEEN ? AND ? and category_expense.idCategory=? ";
+
+
+    @Override
+    public List<Expense> information(String information, String information1, int idCategory) throws SQLException, ClassNotFoundException {
+        List<Expense> expenseList = new ArrayList<>();
+        PreparedStatement preparedStatement = JDBC.connection().prepareStatement(INFORMATION);
+        preparedStatement.setString(1, information);
+        preparedStatement.setString(2, information1);
+        preparedStatement.setInt(3, idCategory);
+        ResultSet resultSet = preparedStatement.executeQuery();
+        while (resultSet.next()) {
+            System.out.println("ok");
+            int idExpense = resultSet.getInt("idExpense");
+            System.out.println(idExpense);
+            Double money = resultSet.getDouble("money");
+            String time = resultSet.getString("time");
+            String note = resultSet.getString("note");
+            System.out.println(money + time + note);
+            expenseList.add(new Expense(idExpense, money, time, note));
+        }
+        return expenseList;
+    }
 
     @Override
     public List<Expense> showExpenseWhereIdCategory(int idCategory) throws SQLException, ClassNotFoundException {
@@ -31,7 +52,6 @@ public class ExpenseDao implements IExpenseDao {
         while (resultSet.next()) {
 
             String nameExpense = resultSet.getString("nameExpense");
-
             double money = resultSet.getDouble("money");
             String time = resultSet.getString("time");
             String note = resultSet.getString("note");
@@ -62,12 +82,14 @@ public class ExpenseDao implements IExpenseDao {
     public Expense showExpense(String name) throws SQLException, ClassNotFoundException {
         Expense expense = null;
         PreparedStatement preparedStatement = JDBC.connection().prepareStatement(SHOW_EXPENSE);
-        preparedStatement.setString(1,name);
+        preparedStatement.setString(1, name);
         ResultSet resultSet = preparedStatement.executeQuery();
-        while (resultSet.next()){
-           int idExpense = resultSet.getInt("idExpense");
-           expense = new Expense(idExpense);
+        while (resultSet.next()) {
+            int idExpense = resultSet.getInt("idExpense");
+            expense = new Expense(idExpense);
         }
         return expense;
     }
+
+
 }

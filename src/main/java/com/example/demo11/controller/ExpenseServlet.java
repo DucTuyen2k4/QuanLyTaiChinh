@@ -16,13 +16,13 @@ import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.sql.SQLException;
 import java.time.Instant;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.FormatStyle;
 import java.util.List;
 
-import static com.example.demo11.controller.UserServlet.userDAO;
-import static com.example.demo11.controller.UserServlet.walletDAO;
+import static com.example.demo11.controller.UserServlet.*;
 
 @WebServlet(name = "ExpenseServlet", value = "/expense")
 public class ExpenseServlet extends HttpServlet {
@@ -57,10 +57,50 @@ public class ExpenseServlet extends HttpServlet {
                     throw new RuntimeException(e);
                 }
                 break;
+            case "information":
+                try {
+                    information(req,resp);
+                } catch (SQLException e) {
+                    throw new RuntimeException(e);
+                } catch (ClassNotFoundException e) {
+                    throw new RuntimeException(e);
+                }
 
 
         }
     }
+
+
+    private void information(HttpServletRequest req, HttpServletResponse resp) throws SQLException, ClassNotFoundException, ServletException, IOException {
+        int idCategory= Integer.parseInt(req.getParameter("idCategory"));
+        System.out.println(idCategory);
+        String information=req.getParameter("information");
+        System.out.println(information);
+        String information1=req.getParameter("information1");
+        System.out.println(information1);
+
+        String username = req.getParameter("username");
+        String password = req.getParameter("password");
+        List<User> list = iUserDAO.show(username, password);
+        req.setAttribute("list", list);
+
+        List<Wallet> walletList = walletDAO.listWallet(username, password);
+        req.setAttribute("list", walletList);
+
+
+        List<Category> categoryList = icategoryDao.selectCategory(username, password);
+        req.setAttribute("showNameCategory", categoryList);
+
+
+        List<Wallet> listWallet = iWalletDAO.showAllWallet(username, password);
+        req.setAttribute("list", listWallet);
+
+        List<Expense> lists = iExpenseDAO.information(information,information1,idCategory);
+        req.setAttribute("lists",lists);
+        req.getRequestDispatcher("users/Category.jsp").forward(req,resp);
+
+    }
+
 
     private void showFormAddExpense(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         String userName = req.getParameter("username");
@@ -101,11 +141,9 @@ public class ExpenseServlet extends HttpServlet {
         String password = request.getParameter("password");
 
 
-        LocalDateTime localDateTime = LocalDateTime.now();
-        DateTimeFormatter formatter = DateTimeFormatter.ofLocalizedDateTime(FormatStyle.MEDIUM);
-        String time = localDateTime.format(formatter);
-        System.out.println("\n\nNgày giờ hiện tại: " + time);
-
+        LocalDate localDate=LocalDate.now();
+        System.out.println(localDate);
+        String time = String.valueOf(localDate);
         String note = request.getParameter("note");
         iExpenseDAO.addExpense(new Expense(nameExpense, money, time, note));
         Expense expense = iExpenseDAO.showExpense(nameExpense);
