@@ -294,59 +294,36 @@
         <div class="content">
 
             <div class="category">
-<div>
-    <form class="search-form" action="/expense" method="post">
-        <input type="hidden" name="action" value="search">
-        <input type="text" name="categoryName"  placeholder="Tìm kiếm...">
-        <input type="submit" value="Tìm kiếm">
-        <input type="hidden" name="username" value="${sessionScope['user'].getUserName()}"/>
-        <input type="hidden" name="password" value="${sessionScope['user'].getPassword()}"/>
-        <p style=" color: red">${message}</p>
-    </form>
-</div>
+                <div>
+                    <form class="search-form" action="/expense" method="post">
+                        <input type="hidden" name="action" value="search">
+                        <input type="text" name="categoryName"  placeholder="Tìm kiếm...">
+                        <input type="submit" value="Tìm kiếm">
+                        <input type="hidden" name="username" value="${sessionScope['user'].getUserName()}"/>
+                        <input type="hidden" name="password" value="${sessionScope['user'].getPassword()}"/>
+                    </form>
 
-                <c:if test="${not empty category}">
-                    <c:forEach var="list" items="${category}">
-                        <form method="post" action="/category">
-                            <div class="form-group">
-                                <label>Tên Danh Mục :</label><br>
-                                <input name="nameCategory" value="${list.nameCategory}">
-                            </div>
-                            <div class="form-group">
-                                <label>Ghi chú :</label><br>
-                                <input name="note" value="${list.note}">
-                                <input type="hidden" name="username" value="${sessionScope['user'].getUserName()}"/>
-                                <input type="hidden" name="idCategory" value="${list.idCategory}"/>
-                                <input type="hidden" name="password" value="${sessionScope['user'].getPassword()}"/>
-                            </div>
-                            <button type="submit" name="action" value="CategoryUpdate">Cập Nhật</button>
-                        </form>
-                        <a href="/category?action=delete&idCategory=${list.idCategory}&username=${sessionScope['user'].getUserName()}&password=${sessionScope['user'].getPassword()}">
-                            <button>delete</button>
-                        </a>
-                        <div style=" margin-left: 20%; width: 50%;height: 30px ; background-color:red " class="conter">
-                            <form action="expense" method="post">
-                                <a class="dropdown-item"
-                                   href="/expense?action=add&username=${sessionScope['user'].getUserName()}&password=${sessionScope['user'].getPassword()}&id=${sessionScope['user'].getId()}&idCategory=${list.idCategory}"
-                                   style="text-align: center ; color: #1d1e1c">+</a>
-                            </form>
-
-                        </div>
-                    <c:forEach items="${expense}" var="expense">
-                        <form method="get" action="/expense">
-                        <p>${expense.nameExpense}</p>
-                        <p>${expense.money}</p>
-                            <input type="hidden" name="username" value="${sessionScope['user'].getUserName()}"/>
-                            <input type="hidden" name="idCategory" value="${list.idCategory}"/>
-                            <input type="hidden" name="idExpense" value="${expense.idExpense}"/>
-<%--                           <input type="hidden" name="idWallet" value="${list.idWallet}"/>--%>
-                            <input type="hidden" name="password" value="${sessionScope['user'].getPassword()}"/>
-                            <button type="submit" name="action" value="deleteExpense">delete</button>
-                        </form>
+                </div>
+                <table border="1">
+                    <thead>
+                    <tr>
+                        <th>Name</th>
+                        <th>Money</th>
+                        <th>Time</th>
+                        <th>Note</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <c:forEach var="expense" items="${expenses}">
+                        <tr>
+                            <td>${expense.nameExpense}</td>
+                            <td>${expense.money}</td>
+                            <td>${expense.time}</td>
+                            <td>${expense.note}</td>
+                        </tr>
                     </c:forEach>
-                    </c:forEach>
-
-                </c:if>
+                    </tbody>
+                </table>
             </div>
 
         </div>

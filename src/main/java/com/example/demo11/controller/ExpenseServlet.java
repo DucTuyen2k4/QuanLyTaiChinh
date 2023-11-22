@@ -71,15 +71,42 @@ public class ExpenseServlet extends HttpServlet {
     private void SearchExpense(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException, SQLException, ClassNotFoundException {
         String categoryName = request.getParameter("categoryName");
+        String username = request.getParameter("username");
+        String password = request.getParameter("password");
+
+
         System.out.println("vo day");
         ExpenseDao expenseDao = new ExpenseDao();
-
         List<Expense> expenses = expenseDao.selectExpenseByCategory(categoryName);
 
-        request.setAttribute("expenses", expenses);
+        if (expenses != null && !expenses.isEmpty()) {
+            request.setAttribute("expenses", expenses);
+            request.setAttribute("message", "Danh sách chi phí cho danh mục '" + categoryName + "'");
+        } else {
+            boolean categoryExists = expenseDao.doesCategoryExist(categoryName);
+            if (categoryExists) {
+                request.setAttribute("message", "Không tìm thấy chi phí nào cho danh mục nhất định.");
+            } else {
+                request.setAttribute("message", "Danh Mục '" + categoryName + "' không tồn tại.");
+            }
+        }
 
-  request.getRequestDispatcher("category/Seach.jsp").forward(request,response);
+        List<User> list = iUserDAO.show(username, password);
+        request.setAttribute("list",list);
+
+        List<Wallet> walletList = iWalletDAO.listWallet(username, password);
+        request.setAttribute("list",walletList);
+
+        HttpSession session = request.getSession();
+        session.setAttribute("user", list.get(0));
+
+        List<Category> categoryList = iCategoryDAO.selectCategory(username, password);
+        request.setAttribute("showNameCategory", categoryList);
+
+
+        request.getRequestDispatcher("category/test.jsp").forward(request, response);
     }
+
 
 
     private void deleteExpense(HttpServletRequest req, HttpServletResponse resp) throws SQLException, ClassNotFoundException, ServletException, IOException {

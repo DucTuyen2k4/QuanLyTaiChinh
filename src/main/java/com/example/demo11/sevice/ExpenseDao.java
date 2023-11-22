@@ -23,7 +23,7 @@ public class ExpenseDao implements IExpenseDao {
             "VALUES (?,?,?,?);";
     private static final String SHOW_EXPENSE = "select idExpense from expense where nameExpense = ?  ";
     private static final String DELETE_EXPENSE = "DELETE category_expense, expense FROM category_expense INNER JOIN expense ON category_expense.idCategoryExpense = expense.idExpense WHERE category_expense.idCategoryExpense = ?";
-    private static final String SELECT_EXPENSE_CATEGORY = "SELECT expense.* FROM expense " +
+    private static final String SELECT_EXPENSE_CATEGORY = "SELECT expense.idExpense,expense.nameExpense,expense.money,expense.time,expense.note FROM expense " +
             "JOIN category_expense ON expense.idExpense = category_expense.idExpense " +
             "JOIN category ON category.idCategory = category_expense.idCategory " +
             "WHERE category.nameCategory = ?";
@@ -45,6 +45,24 @@ public class ExpenseDao implements IExpenseDao {
             }
 
         return list;
+    }
+    public boolean doesCategoryExist(String categoryName) throws SQLException, ClassNotFoundException {
+
+
+
+
+            // SQL query to check if the category exists
+            String sql = "SELECT COUNT(*) FROM category WHERE nameCategory = ?";
+     PreparedStatement   statement = JDBC.connection().prepareStatement(sql);
+            statement.setString(1, categoryName);
+        ResultSet  resultSet = statement.executeQuery();
+
+        boolean categoryExists = Boolean.parseBoolean(null);
+        if (resultSet.next() && resultSet.getInt(1) > 0) {
+                categoryExists = true;
+            }
+
+        return categoryExists;
     }
 
 
