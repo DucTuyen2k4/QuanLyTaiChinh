@@ -73,7 +73,7 @@ public class ExpenseServlet extends HttpServlet {
         String categoryName = request.getParameter("categoryName");
         String username = request.getParameter("username");
         String password = request.getParameter("password");
-
+t
 
         System.out.println("vo day");
         ExpenseDao expenseDao = new ExpenseDao();
@@ -104,7 +104,7 @@ public class ExpenseServlet extends HttpServlet {
         request.setAttribute("showNameCategory", categoryList);
 
 
-        request.getRequestDispatcher("category/test.jsp").forward(request, response);
+        request.getRequestDispatcher("category/Seach.jsp").forward(request, response);
     }
 
 
