@@ -335,14 +335,14 @@
                 </c:if>
 
             </div>
-            <form action="/expense?action=showByWallet" method="post">
+            <form action="/expense?action=showByWallet" method="post" >
                 <input type="hidden" name="idWallet" value="${wallet.getIdWallet()}">
                 <p>tinh tu ngay :</p>
                 <input type="date" name="First">
                 <p>  den ngay :</p>
                 <input type="date" name="Last">
                 <input type="submit" value="an vao">
-                <c:forEach var="out" items="${listExpense}">
+                <c:forEach var="out" items="${listExpense}" >
                     <p>${out.nameExpense}</p>
                     <p>${out.money}</p>
                     <p>${out.time}</p>

@@ -1,3 +1,4 @@
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%--
   Created by IntelliJ IDEA.
   User: acer
@@ -129,11 +130,18 @@
                     <input name="note" type="text"
                            style="border-radius: 10px;width: 70%; margin-left: 17%; padding-left: 10px">
 
+                    <c:forEach items="${wallet}" var="out">
+                        <button id="myButton${out.idWallet}" value="${out.idWallet}"
+                                onclick="setInputValue(event, ${out.idWallet})">${out.nameWallet}</button>
+                    </c:forEach>
+
+                    <input type="hidden" id="myInput" name="idWallet">
+
+
                     <input type="hidden" name="id" value="${sessionScope['user'].getId()}"/>
                     <input type="hidden" name="username" value="${sessionScope['user'].getUserName()}"/>
                     <input type="hidden" name="password" value="${sessionScope['user'].getPassword()}"/>
                     <input type="hidden" name="idCategory" value="${idCategory}"/>
-
 
                     <br><br>
                     <div style="display: flex;">
@@ -148,6 +156,18 @@
     </div>
     <div class="right"></div>
 </div>
+
+<script>
+    function setInputValue(event, walletId) {
+        event.preventDefault();
+
+        let buttonValue = walletId;
+
+        let input = document.getElementById("myInput");
+        input.value = buttonValue;
+    }
+</script>
+</script>
 </body>
 </html>
 

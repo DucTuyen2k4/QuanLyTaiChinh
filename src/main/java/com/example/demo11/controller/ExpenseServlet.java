@@ -102,10 +102,11 @@ public class ExpenseServlet extends HttpServlet {
     private void showFormAddExpense(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         String userName = req.getParameter("username");
         String password = req.getParameter("password");
-
         List<User> list = iUserDAO.show(userName, password);
         HttpSession session = req.getSession();
         session.setAttribute("user", list.get(0));
+        List<Wallet>wallets=iWalletDAO.listWallet(userName,password);
+        req.setAttribute("wallet",wallets);
 
         int idCategory = Integer.parseInt(req.getParameter("idCategory"));
         req.setAttribute("idCategory", idCategory);
@@ -140,11 +141,15 @@ public class ExpenseServlet extends HttpServlet {
         System.out.println(localDate);
         String time= String.valueOf(localDate);
         String note = request.getParameter("note");
-        iExpenseDAO.addExpense(new Expense(nameExpense, money, time, note));
+        int idWallet= Integer.parseInt(request.getParameter("idWallet"));
+//        System.out.println(idWallet);
+        iExpenseDAO.addExpense(new Expense(nameExpense, money, time, note,idWallet));
+
         Expense expense = iExpenseDAO.showExpense(nameExpense);
         int idExpense = expense.getIdExpense();
         iExpenseDAO.addCategoryExpense(idCategory, idExpense);
-
+        System.out.println(idCategory);
+        System.out.println(idExpense);
         List<Expense> listExpense = iExpenseDAO.showExpenseWhereIdCategory(idCategory);
         request.setAttribute("expense", listExpense);
         List<User> list = userDAO.show(userName, password);

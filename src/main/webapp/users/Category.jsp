@@ -324,7 +324,7 @@
                         </div>
                     </c:forEach>
                     <c:forEach items="${expense}" var="expense">
-                        <p>${expense.note}</p>
+                        <p>${expense.nameExpense}</p>
                         <p>${expense.money}</p>
                     </c:forEach>
                 </c:if>

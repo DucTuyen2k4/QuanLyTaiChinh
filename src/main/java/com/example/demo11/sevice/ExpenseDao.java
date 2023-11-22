@@ -16,10 +16,9 @@ public class ExpenseDao implements IExpenseDao {
             "INNER JOIN category_expense ON expense.idExpense = category_expense.idExpense\n" +
             "INNER JOIN Category ON category_expense.idCategory = Category.idCategory\n" +
             "WHERE Category.idCategory = ?";
-
     private static final String ADD_CATEGORY_EXPENSE = "INSERT INTO category_expense (idCategory, idExpense) VALUES(?,?)";
-    private static final String ADD_EXPENSE = "INSERT INTO expense (nameExpense, money, time, note) \n" +
-            "VALUES (?,?,?,?);";
+    private static final String ADD_EXPENSE = "INSERT INTO expense (nameExpense, money, time, note,wallet_id) \n" +
+            "VALUES (?,?,?,?,?);";
     private static final String SHOW_EXPENSE = "select idExpense from expense where nameExpense = ?  ";
     private static final String SHOW_EXPENSE_FROM_WALLET="SELECT * FROM expense WHERE time BETWEEN ? AND ? AND wallet_id = ?";
     private static final String SHOW_TODAY="select * from expense where time=? and wallet_id=?";
@@ -80,6 +79,7 @@ return list;
         preparedStatement.setDouble(2, expense.getMoney());
         preparedStatement.setString(3, expense.getTime());
         preparedStatement.setString(4, expense.getNote());
+        preparedStatement.setInt(5,expense.getIdWallet());
         preparedStatement.executeUpdate();
     }
 

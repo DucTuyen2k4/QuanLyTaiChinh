@@ -7,6 +7,32 @@ public class Expense {
     private double money;
     private String time;
     private String note;
+    private int idWallet;
+
+    public int getIdWallet() {
+        return idWallet;
+    }
+
+    public void setIdWallet(int idWallet) {
+        this.idWallet = idWallet;
+    }
+
+    public Expense(String nameExpense, double money, String time, String note, int idWallet) {
+        this.nameExpense = nameExpense;
+        this.money = money;
+        this.time = time;
+        this.note = note;
+        this.idWallet = idWallet;
+    }
+
+    public Expense(int idExpense, String nameExpense, double money, String time, String note, int idWallet) {
+        this.idExpense = idExpense;
+        this.nameExpense = nameExpense;
+        this.money = money;
+        this.time = time;
+        this.note = note;
+        this.idWallet = idWallet;
+    }
 
     public Expense(int idExpense, String nameExpense, double money, String time, String note) {
         this.idExpense = idExpense;
