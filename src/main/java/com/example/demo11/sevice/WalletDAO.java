@@ -34,6 +34,8 @@ public class WalletDAO implements IWalletDAO {
     private static final String INSERT_SHARE_WALLET = "insert into users_wallet (idUser,idWallet,permission)values(?,?,?) ";
     private static final String SHOW_MONEY_All_WALLET = "SELECT u.id, u.fullName, w.nameWallet, SUM(w.money) AS totalMoney FROM users u JOIN users_wallet uw ON u.id = uw.idUser JOIN Wallet w ON uw.idWallet = w.idWallet WHERE u.userName=? GROUP BY u.id, u.userName, w.nameWallet";
     private static final String SELECT_ID = "select id from users where email = ? ";
+//    private static final String SELECT_EXPENSE = "select expense.idExpense,expense.nameExpense,expense.money,expense.note from category inner join user_category on category.idCategory=user_category.idCategory inner join users on user_category.idUser=users.id where userName = ? and password = ?";
+
 
     @Override
     public void refundMoneyToWallet(int idWallet, double money) throws SQLException, ClassNotFoundException {

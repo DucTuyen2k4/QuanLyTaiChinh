@@ -5,22 +5,39 @@ public class Expense {
 
     private String nameExpense;
     private double money;
+    private int wallet_id;
     private String time;
     private String note;
 
-    public Expense(int idExpense, String nameExpense, double money, String time, String note) {
+    public Expense(int idExpense, String nameExpense, double money,int wallet_id, String time, String note) {
         this.idExpense = idExpense;
         this.nameExpense = nameExpense;
         this.money = money;
+        this.wallet_id=wallet_id;
         this.time = time;
         this.note = note;
     }
 
+    public Expense(String nameExpense, double money,int wallet_id, String time, String note) {
+        this.nameExpense = nameExpense;
+        this.money = money;
+        this.wallet_id=wallet_id;
+        this.time = time;
+        this.note = note;
+    }
     public Expense(String nameExpense, double money, String time, String note) {
         this.nameExpense = nameExpense;
         this.money = money;
+
         this.time = time;
         this.note = note;
+    }
+    public int getWallet_id() {
+        return wallet_id;
+    }
+
+    public void setWallet_id(int wallet_id) {
+        this.wallet_id = wallet_id;
     }
 
     public Expense() {
@@ -71,3 +88,5 @@ public class Expense {
         this.note = note;
     }
 }
+
+

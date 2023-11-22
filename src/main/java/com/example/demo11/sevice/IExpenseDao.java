@@ -10,12 +10,16 @@ public interface IExpenseDao  {
 
    Expense getExpenseById(int id) throws SQLException, ClassNotFoundException;
 
+    List<Expense> showAllExpense(int idWallet) throws SQLException, ClassNotFoundException;
+
+    List<Expense> showToday(String today, int idWallet) throws SQLException, ClassNotFoundException;
+
     List<Expense> showUpdateExpense(int idExpense) throws SQLException, ClassNotFoundException;
 
     void updateExpense(Expense expense) throws SQLException, ClassNotFoundException;
 
     void deleteExpense(int idExpense) throws SQLException, ClassNotFoundException;
-
+    void MinusWallet(int idWallet,double MMoney) throws ClassNotFoundException, SQLException;
 
 
    List<Expense> showExpenseWhereIdCategory(int idCategory) throws SQLException, ClassNotFoundException;

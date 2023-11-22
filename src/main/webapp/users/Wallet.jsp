@@ -273,14 +273,8 @@
                                         Câp nhật thông tin </a>
                                 </li>
                                 <li class="nav-item">
-                                    <a style="color: #ffffff" class="nav-link active" aria-current="page"
-                                       href="/user?action=changePassword&id=${sessionScope['user'].getId()}&username=${sessionScope['user'].getUserName()}&password=${sessionScope['user'].getPassword()}">
-                                        Câp nhật mật khẩu  </a>
-                                </li>
-                                <li class="nav-item">
                                     <a style="color: #ffffff" class="nav-link active" aria-current="page" href="#"
                                        onclick="showDialog('confirmation-dialog-delete')">Xóa tài khoản</a></li>
-
                                 <li class="nav-item">
                                     <a style="color: #ffffff" class="nav-link active" aria-current="page" href="#"
                                        onclick="showDialog('confirmation-dialog-logout')">Đăng xuất</a>
@@ -341,6 +335,40 @@
                 </c:if>
 
             </div>
+            <form action="/expense?action=showByWallet" method="post" >
+                <input type="hidden" name="idWallet" value="${wallet.getIdWallet()}">
+                <p>tinh tu ngay :</p>
+                <input type="date" name="First">
+                <p>  den ngay :</p>
+                <input type="date" name="Last">
+                <input type="submit" value="an vao">
+                <c:forEach var="out" items="${listExpense}" >
+                    <p>${out.nameExpense}</p>
+                    <p>${out.money}</p>
+                    <p>${out.time}</p>
+                    <p>${out.note}</p>
+                </c:forEach>
+            </form>
+            <form action="/expense?action=showToday" method="post">
+                <input type="hidden" name="idWallet" value="${wallet.getIdWallet()}">
+                <input type="submit" value="xem hom nay">
+                <c:forEach var="out1" items="${Today}">
+                    <p>${out1.nameExpense}</p>
+                    <p>${out1.money}</p>
+                    <p>${out1.time}</p>
+                    <p>${out1.note}</p>
+                </c:forEach>
+            </form>
+
+
+            <c:forEach var="expense" items="${expense}">
+                <p>${expense.nameExpense}</p>
+            </c:forEach>
+
+
+
+
+
         </div>
         <div class="right"></div>
     </div>

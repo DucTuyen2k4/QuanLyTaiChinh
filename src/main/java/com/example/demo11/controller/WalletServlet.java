@@ -23,12 +23,14 @@ import static com.example.demo11.controller.UserServlet.walletDAO;
 public class WalletServlet extends HttpServlet {
     public static IUserDAO iUserDAO;
     private static IWalletDAO iWalletDAO;
+    public static IExpenseDao iExpenseDao;
 
 
     @Override
     public void init() {
         iUserDAO = new UserDAO();
         iWalletDAO = new WalletDAO();
+        iExpenseDao=new ExpenseDao();
 
     }
 
@@ -210,6 +212,8 @@ public class WalletServlet extends HttpServlet {
         String permission = req.getParameter("permission");
         Wallet wallet = iWalletDAO.checkID(id);
         req.setAttribute("wallet", wallet);
+        List<Expense> expenseList=iExpenseDao.showAllExpense(id);
+        req.setAttribute("expense",expenseList);
 
         if ("owner".equalsIgnoreCase(permission)) {
 
