@@ -142,8 +142,10 @@ public class ExpenseServlet extends HttpServlet {
         String time= String.valueOf(localDate);
         String note = request.getParameter("note");
         int idWallet= Integer.parseInt(request.getParameter("idWallet"));
+
 //        System.out.println(idWallet);
         iExpenseDAO.addExpense(new Expense(nameExpense, money, time, note,idWallet));
+        iExpenseDAO.MinusWallet(idWallet,money);
 
         Expense expense = iExpenseDAO.showExpense(nameExpense);
         int idExpense = expense.getIdExpense();

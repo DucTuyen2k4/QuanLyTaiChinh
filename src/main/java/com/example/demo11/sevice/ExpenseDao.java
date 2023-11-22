@@ -22,6 +22,13 @@ public class ExpenseDao implements IExpenseDao {
     private static final String SHOW_EXPENSE = "select idExpense from expense where nameExpense = ?  ";
     private static final String SHOW_EXPENSE_FROM_WALLET="SELECT * FROM expense WHERE time BETWEEN ? AND ? AND wallet_id = ?";
     private static final String SHOW_TODAY="select * from expense where time=? and wallet_id=?";
+    private static final String MINUS_WALLET="UPDATE wallet SET money = money - ? WHERE idWallet = ?";
+    public void MinusWallet(int idWallet,double MMoney) throws SQLException, ClassNotFoundException {
+        PreparedStatement preparedStatement= JDBC.connection().prepareStatement(MINUS_WALLET);
+        preparedStatement.setDouble(1,MMoney);
+        preparedStatement.setInt(2,idWallet);
+        preparedStatement.executeUpdate();
+    }
     public List<Expense> ShowToday(String today,int idWallet) throws SQLException, ClassNotFoundException {
         List<Expense> list=new ArrayList<>();
         PreparedStatement preparedStatement = JDBC.connection().prepareStatement(SHOW_TODAY);
