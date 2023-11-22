@@ -91,6 +91,49 @@ public class WalletServlet extends HttpServlet {
                     throw new RuntimeException(e);
                 }
                 break;
+            case  "addMoney" :
+                try {
+                    addMoney(req,resp);
+                } catch (SQLException e) {
+                    throw new RuntimeException(e);
+                } catch (ClassNotFoundException e) {
+                    throw new RuntimeException(e);
+                }
+                break;
+        }
+    }
+
+    private void addMoney(HttpServletRequest req, HttpServletResponse resp) throws SQLException, ClassNotFoundException, ServletException, IOException {
+        String username= req.getParameter("username");
+        String password = req.getParameter("password");
+        double money = Double.parseDouble(req.getParameter("money"));
+        String wallet = req.getParameter("wallet");
+
+        if (iWalletDAO.selectNameWallet(wallet)){
+            Wallet walletMoney =  iWalletDAO.selectMoney(wallet);
+            double moneyOld = walletMoney.getMoney();
+            double moneyNew = moneyOld+money;
+
+            iWalletDAO.updateMoney(moneyNew,wallet);
+
+            List<Wallet> walletShowMoney = walletDAO.showMoney(username);
+            req.setAttribute("money", walletShowMoney);
+            List<User> list = iUserDAO.show(username, password);
+            List<Wallet> walletList = walletDAO.listWallet(username, password);
+            req.setAttribute("list", walletList);
+            HttpSession session = req.getSession();
+            session.setAttribute("user", list.get(0));
+            List<Category> categoryList = icategoryDao.selectCategory(username, password);
+            req.setAttribute("showNameCategory", categoryList);
+            req.getRequestDispatcher("users/Home.jsp").forward(req, resp);
+
+        }else {
+            List<User> list = iUserDAO.show(username, password);
+            HttpSession session = req.getSession();
+            session.setAttribute("user", list.get(0));
+
+            req.setAttribute("message","Tên ví khong tồn tại ");
+            req.getRequestDispatcher("/wallet/formAddMoney.jsp").forward(req,resp);
         }
     }
 

@@ -208,7 +208,7 @@
                                 <c:forEach var="list" items="${list}">
                                     <a class="dropdown-item"
                                        href="/wallet?action=ShowWallet&permission=${list.permission}&id=${list.idWallet}&username=${sessionScope['user'].getUserName()}&password=${sessionScope['user'].getPassword()}">
-                                        <span style="color: black; text-align: center">${list.nameWallet}${list.permission}</span>
+                                        <span style="color: black; text-align: center">${list.nameWallet}</span>
                                     </a>
                                 </c:forEach>
                                 <a class="dropdown-item"
@@ -278,6 +278,11 @@
                                 <li class="nav-item">
                                     <a style="color: #ffffff" class="nav-link active" aria-current="page" href="#"
                                        onclick="showDialog('confirmation-dialog-logout')">Đăng xuất</a>
+                                </li>
+                                <li>
+                                    <a href="/wallet/formAddMoney.jsp?username=${sessionScope['user'].getUserName()}&password=${sessionScope['user'].getPassword()}">
+                                        Nạp tiền
+                                    </a>
                                 </li>
                             </ul>
                         </div>
