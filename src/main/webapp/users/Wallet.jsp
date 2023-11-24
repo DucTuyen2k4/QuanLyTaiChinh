@@ -12,7 +12,8 @@
     <style>
         body {
             /*background-image: url("/users/hình-nền-ấn-tượng.jpg");*/
-            background-color: #eee4e4;
+            background-color: #ffffff;
+            height: 100%;
         }
 
         .header {
@@ -39,6 +40,7 @@
             margin-left: 5%;
             display: flex;
             margin-top: 20px;
+            justify-content: space-between;
 
 
         }
@@ -49,20 +51,20 @@
 
         .left {
             float: left;
-            width: 20%;
+            width: 10%;
             height: 100%;
         }
 
         .content {
             float: left;
-            width: 60%;
+            width: 80%;
             height: 100%;
-            box-shadow: 0 0 6px 5px #646e6e;
+            /*box-shadow: 0 0 6px 5px #646e6e;*/
         }
 
         .right {
             float: left;
-            width: 20%;
+            width: 10%;
             height: 100%;
         }
 
@@ -193,17 +195,17 @@
     <div class="header">
         <div class="logo">
             <i class="fa-brands fa-wordpress" style="font-size: 60px; color: #8030c9"></i>
-            <h5 style="margin-top: 6px">wallet <br>manage</h5>
+            <h5 style="margin-top: 6px">QUẢN LÝ<br>TÀI CHÍNH</h5>
         </div>
         <div class="menu">
             <div class="menu1">
                 <div>
-                    <a href="/user?action=Home&username=${sessionScope['user'].getUserName()}&password=${sessionScope['user'].getPassword()}" style="color: #0a0101 ; text-decoration: none; ">Home</a>
+                    <a href="/user?action=Home&username=${sessionScope['user'].getUserName()}&password=${sessionScope['user'].getPassword()}" style="color: #000000 ; text-decoration: none; ">Trang chủ</a>
                 </div>
                 <div class="w" style="margin-left: 20px">
                     <ul>
                         <li class="dropdown">
-                            <a href="#" class="dropbtn" style="color: #0a0101 ; text-decoration: none">Wallet </a>
+                            <a href="#" class="dropbtn" style="color: #0a0101 ; text-decoration: none">Ví  </a>
                             <div class="dropdown-content">
                                 <c:forEach var="list" items="${list}">
                                     <a class="dropdown-item"
@@ -221,7 +223,7 @@
                 <div class="Category" style="margin-left: 20px">
                     <ul>
                         <li class="dropdown">
-                            <a href="#" class="dropbtn" style="color: #0a0101 ; text-decoration: none">Category </a>
+                            <a href="#" class="dropbtn" style="color: #0a0101 ; text-decoration: none">Thư mục </a>
                             <div class="dropdown-content">
                                 <c:forEach var="list" items="${showNameCategory}">
                                     <a class="dropdown-item"
@@ -237,13 +239,13 @@
                     </ul>
                 </div>
                 <div>
-                    <a href="" style="margin-left: 40px; color: #0a0101; text-decoration: none">History</a>
+                    <a href="" style="margin-left: 40px; color: #0a0101; text-decoration: none">Lịch sử</a>
                 </div>
                 <div>
-                    <a href="" style="margin-left: 40px; color: #0a0101 ; text-decoration: none">Bank</a>
+                    <a href="" style="margin-left: 40px; color: #0a0101 ; text-decoration: none">Ngân hàng</a>
                 </div>
                 <div>
-                    <a href="" style="margin-left: 40px; color: #0a0101 ; text-decoration: none">Spending</a>
+                    <a href="" style="margin-left: 40px; color: #0a0101 ; text-decoration: none">Chi tiêu</a>
                 </div>
             </div>
         </div>
@@ -267,10 +269,16 @@
                         </div>
                         <div class="offcanvas-body">
                             <ul class="navbar-nav justify-content-end flex-grow-1 pe-3">
+
                                 <li class="nav-item">
                                     <a style="color: #ffffff" class="nav-link active" aria-current="page"
                                        href="/user?action=update&id=${sessionScope['user'].getId()}&username=${sessionScope['user'].getUserName()}&password=${sessionScope['user'].getPassword()}">
                                         Câp nhật thông tin </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a style="color: #ffffff" class="nav-link active" aria-current="page"
+                                       href="/user?action=changePassword&id=${sessionScope['user'].getId()}&username=${sessionScope['user'].getUserName()}&password=${sessionScope['user'].getPassword()}">
+                                        Câp nhật mật khẩu  </a>
                                 </li>
                                 <li class="nav-item">
                                     <a style="color: #ffffff" class="nav-link active" aria-current="page" href="#"
@@ -296,11 +304,11 @@
                     <a hidden="hidden"><p>${wallet.getIdWallet()}</p></a>
                     <div class="icon">
                         <i class="${wallet.getIcon()}" style="font-size: 50px"></i>
-                        <p>${wallet.getNameWallet()}</p>
+                        <p>Tên ví: ${wallet.getNameWallet()}</p>
                     </div>
                     <div class="money">
                         <div style="width: 80%">
-                            <p>${wallet.getMoney()} ${wallet.getCurrency()}</p><br>
+                            <p>Số dư: ${wallet.getMoney()}${wallet.getCurrency()} </p><br>
                         </div>
                         <c:if test="${not empty send}">
                             <div class="function" style="margin-left: 20px" >
@@ -316,12 +324,16 @@
                                                   method="post">
                                                 <input value="Transfer money" type="submit">
                                             </form>
+
                                             <form action="/wallet?action=showFormShare&idWallet=${wallet.getIdWallet()}&username=${sessionScope['user'].getUserName()}&password=${sessionScope['user'].getPassword()}&id=${sessionScope['user'].getId()}"
                                                   method="post">
                                                 <input type="submit" value="Share">
                                             </form>
                                             <a href="#" id="Delete-link">
                                                 <input type="submit" value="Delete wallet">
+                                            </a>
+                                            <a href="#" id="queryHistory-link">
+                                                <input type="submit" value="Truy vấn lịch sử giao dịch">
                                             </a>
                                         </div>
                                     </li>
@@ -330,40 +342,87 @@
                         </c:if>
                     </div>
                     <div class="describe">
-                        <p>Describe :${wallet.getDescription()}</p>
+                        <p>Nội dung: ${wallet.getDescription()}</p>
                     </div>
                 </c:if>
 
             </div>
             <form action="/expense?action=showByWallet" method="post" >
                 <input type="hidden" name="idWallet" value="${wallet.getIdWallet()}">
-                <p>tinh tu ngay :</p>
-                <input type="date" name="First">
-                <p>  den ngay :</p>
-                <input type="date" name="Last">
-                <input type="submit" value="an vao">
-                <c:forEach var="out" items="${listExpense}" >
-                    <p>${out.nameExpense}</p>
-                    <p>${out.money}</p>
-                    <p>${out.time}</p>
-                    <p>${out.note}</p>
-                </c:forEach>
-            </form>
-            <form action="/expense?action=showToday" method="post">
-                <input type="hidden" name="idWallet" value="${wallet.getIdWallet()}">
-                <input type="submit" value="xem hom nay">
-                <c:forEach var="out1" items="${Today}">
-                    <p>${out1.nameExpense}</p>
-                    <p>${out1.money}</p>
-                    <p>${out1.time}</p>
-                    <p>${out1.note}</p>
-                </c:forEach>
+
+                <div id="transactionTable" style="display: none; width: 30%;">
+                    <p>Truy vấn lịch sử giao dịch</p>
+                    <div style="display: flex; justify-content: space-between;">
+
+                        <div>
+                            <p>Từ ngày</p>
+                            <input type="date" name="First">
+                        </div>
+                        <div>
+                            <p>Đến ngày</p>
+                            <input type="date" name="Last">
+                        </div>
+                    </div>
+                    <input type="submit" value="Tìm kiếm" style="width: 100%;background-color: #8030c9">
+                </div>
+
+                <script>
+                    // JavaScript code to toggle the visibility of the transaction table
+                    document.getElementById("queryHistory-link").addEventListener("click", function () {
+                        var table = document.getElementById("transactionTable");
+                        if (table.style.display === "none") {
+                            table.style.display = "block";
+                        } else {
+                            table.style.display = "none";
+                        }
+                    });
+                </script>
+
+                <form action="/expense?action=showToday" method="post">
+                    <input type="hidden" name="idWallet" value="${wallet.getIdWallet()}">
+                    <input type="submit" value="xem hom nay">
+                    <c:forEach var="out1" items="${Today}">
+                        <p>Name :${out1.nameExpense} | Money: ${out1.money} | Date: ${out1.time} | Note :${out1.note}</p>
+                    </c:forEach>
+                </form>
+<%--                <p>Chi tiết giao dịch</p>--%>
+<%--                <c:forEach var="out" items="${listExpense}" >--%>
+<%--                    <p>Khoảng thời gian</p>--%>
+<%--                    <p>Date: ${out.time}</p>--%>
+<%--                    <p>Tên ${out.nameExpense} | Số tiền ${out.money} |  | ghi chú ${out.note}</p>--%>
+<%--                </c:forEach>--%>
             </form>
 
 
-            <c:forEach var="expense" items="${expense}">
-                <p>${expense.nameExpense}</p>
-            </c:forEach>
+
+            <table style="border-collapse: collapse; width: 100%;">
+                <thead>
+                <tr style="background-color: #f2f2f2;">
+                    <th style="border: 1px solid #dddddd; padding: 8px; text-align: left;">Thời gian</th>
+                    <th style="border: 1px solid #dddddd; padding: 8px; text-align: left;">Số tiền</th>
+                    <th style="border: 1px solid #dddddd; padding: 8px; text-align: left;">Chi tiết</th>
+                </tr>
+                </thead>
+                <tbody>
+                <c:forEach var="expense" items="${expense}">
+                    <tr style="border: 1px solid #dddddd;">
+                        <td style="border: 1px solid #dddddd; padding: 8px; text-align: left;">${expense.time}</td>
+                        <td style="border: 1px solid #dddddd; padding: 8px; text-align: left;">${expense.money}</td>
+                        <td style="border: 1px solid #dddddd; padding: 8px; text-align: left;">${expense.note}</td>
+                    </tr>
+                </c:forEach>
+                </tbody>
+                <tbody>
+                <c:forEach var="out" items="${listExpense}">
+                    <tr style="border: 1px solid #dddddd;">
+                        <td style="border: 1px solid #dddddd; padding: 8px; text-align: left;">${out.time}</td>
+                        <td style="border: 1px solid #dddddd; padding: 8px; text-align: left;">${out.money}</td>
+                        <td style="border: 1px solid #dddddd; padding: 8px; text-align: left;">${out.note}</td>
+                    </tr>
+                </c:forEach>
+                </tbody>
+            </table>
+
 
 
 
@@ -372,9 +431,9 @@
         </div>
         <div class="right"></div>
     </div>
-    <div class="footer">
-        <div style="padding:  15px 0 0 0">
-            <p style="text-align: center"> Copyright &copy; 2023 Financial Management Application</p>
+    <div class="footer" style="width: 100%;background-color: #1d1e1c">
+        <div >
+            <p style="text-align: center;background-color: #1d1e1c"> Copyright 2023 Financial Management Application</p>
         </div>
     </div>
 </div>

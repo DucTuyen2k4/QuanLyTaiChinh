@@ -75,6 +75,7 @@ public class ExpenseServlet extends HttpServlet {
                 } catch (ClassNotFoundException e) {
                     throw new RuntimeException(e);
                 }
+                break;
             case "search":
 
                 try {
@@ -83,10 +84,66 @@ public class ExpenseServlet extends HttpServlet {
                     throw new RuntimeException(e);
                 }
                 break;
-
+            case "information":
+                try {
+                    information(req,resp);
+                } catch (SQLException e) {
+                    throw new RuntimeException(e);
+                } catch (ClassNotFoundException e) {
+                    throw new RuntimeException(e);
+                }
+                break;
+            case"showByWallet":
+                try {
+                    showExpenseByWallet(req,resp);
+                } catch (SQLException e) {
+                    throw new RuntimeException(e);
+                } catch (ClassNotFoundException e) {
+                    throw new RuntimeException(e);
+                }
 
 
         }
+    }
+    private void showExpenseByWallet(HttpServletRequest req, HttpServletResponse resp) throws SQLException, ClassNotFoundException, ServletException, IOException {
+        String First=req.getParameter("First");
+        String Last=req.getParameter("Last");
+        int idWallet= Integer.parseInt(req.getParameter("idWallet"));
+        List<Expense>listExpense=iExpenseDAO.ShowExpenseWhere(idWallet,First,Last);
+
+        req.setAttribute("listExpense",listExpense);
+        req.getRequestDispatcher("users/Wallet.jsp").forward(req, resp);
+
+
+    }
+    private void information(HttpServletRequest req, HttpServletResponse resp) throws SQLException, ClassNotFoundException, ServletException, IOException {
+        int idCategory= Integer.parseInt(req.getParameter("idCategory"));
+        System.out.println(idCategory);
+        String information=req.getParameter("information");
+        System.out.println(information);
+        String information1=req.getParameter("information1");
+        System.out.println(information1);
+
+        String username = req.getParameter("username");
+        String password = req.getParameter("password");
+        List<User> list = iUserDAO.show(username, password);
+        req.setAttribute("list", list);
+
+        List<Wallet> walletList = walletDAO.listWallet(username, password);
+        req.setAttribute("list", walletList);
+
+
+        List<Category> categoryList = icategoryDao.selectCategory(username, password);
+        req.setAttribute("showNameCategory", categoryList);
+
+
+        List<Wallet> listWallet = iWalletDAO.showAllWallet(username, password);
+        req.setAttribute("list", listWallet);
+
+        List<Expense> lists = iExpenseDAO.information(information,information1,idCategory);
+        req.setAttribute("lists",lists);
+        req.getRequestDispatcher("users/Category.jsp").forward(req,resp);
+
     }
     private void SearchExpense(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException, SQLException, ClassNotFoundException {
@@ -242,8 +299,6 @@ public class ExpenseServlet extends HttpServlet {
         System.out.println(time);
         String note = req.getParameter("note");
         System.out.println(note);
-
-
         iExpenseDAO.updateExpense(new Expense(idExpense, nameExpense, money2,wallet_id, time, note));
         iExpenseDAO.MinusWallet(wallet_id,money);
         List<Expense> listExpense = iExpenseDAO.showExpenseWhereIdCategory(idCategory);

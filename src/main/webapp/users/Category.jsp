@@ -12,7 +12,8 @@
     <style>
         body {
             /*background-image: url("/users/hình-nền-ấn-tượng.jpg");*/
-            background-color: #eee4e4;
+            background-color: #ffffff;
+            height: 500px;
         }
 
         .header {
@@ -49,25 +50,25 @@
 
         .left {
             float: left;
-            width: 20%;
+            width: 10%;
             height: 100%;
         }
 
         .content {
             float: left;
-            width: 60%;
+            width: 80%;
             height: 100%;
-            box-shadow: 0 0 6px 5px #646e6e;
+            /*box-shadow: 0 0 6px 5px #646e6e;*/
         }
 
         .right {
             float: left;
-            width: 20%;
+            width: 10%;
             height: 100%;
         }
 
         .footer {
-            background-color: #c4b4b4;
+            background-color: #ffffff;
             width: 100%;
             height: 10%;
             border-radius: 10px 10px 0 0;
@@ -194,18 +195,17 @@
     <div class="header">
         <div class="logo">
             <i class="fa-brands fa-wordpress" style="font-size: 60px; color: #8030c9"></i>
-            <h5 style="margin-top: 6px">wallet <br>manage</h5>
+            <h5 style="margin-top: 6px">QUẢN LÝ<br>TÀI CHÍNH</h5>
         </div>
         <div class="menu">
             <div class="menu1">
                 <div>
-                    <a href="/user?action=Home&username=${sessionScope['user'].getUserName()}&password=${sessionScope['user'].getPassword()}"
-                       style="color: #0a0101 ; text-decoration: none; ">Home</a>
+                    <a href="/user?action=Home&username=${sessionScope['user'].getUserName()}&password=${sessionScope['user'].getPassword()}" style="color: #000000 ; text-decoration: none; ">Trang chủ</a>
                 </div>
                 <div class="w" style="margin-left: 20px">
                     <ul>
                         <li class="dropdown">
-                            <a href="#" class="dropbtn" style="color: #0a0101 ; text-decoration: none">Wallet </a>
+                            <a href="#" class="dropbtn" style="color: #0a0101 ; text-decoration: none">Ví  </a>
                             <div class="dropdown-content">
                                 <c:forEach var="list" items="${list}">
                                     <a class="dropdown-item"
@@ -223,7 +223,7 @@
                 <div class="Category" style="margin-left: 20px">
                     <ul>
                         <li class="dropdown">
-                            <a href="#" class="dropbtn" style="color: #0a0101 ; text-decoration: none">Category</a>
+                            <a href="#" class="dropbtn" style="color: #0a0101 ; text-decoration: none">Thư mục </a>
                             <div class="dropdown-content">
                                 <c:forEach var="list" items="${showNameCategory}">
                                     <a class="dropdown-item"
@@ -239,13 +239,13 @@
                     </ul>
                 </div>
                 <div>
-                    <a href="" style="margin-left: 40px; color: #0a0101; text-decoration: none">History</a>
+                    <a href="" style="margin-left: 40px; color: #0a0101; text-decoration: none">Lịch sử</a>
                 </div>
                 <div>
-                    <a href="" style="margin-left: 40px; color: #0a0101 ; text-decoration: none">Bank</a>
+                    <a href="" style="margin-left: 40px; color: #0a0101 ; text-decoration: none">Ngân hàng</a>
                 </div>
                 <div>
-                    <a href="" style="margin-left: 40px; color: #0a0101 ; text-decoration: none">Spending</a>
+                    <a href="" style="margin-left: 40px; color: #0a0101 ; text-decoration: none">Chi tiêu</a>
                 </div>
             </div>
         </div>
@@ -269,6 +269,7 @@
                         </div>
                         <div class="offcanvas-body">
                             <ul class="navbar-nav justify-content-end flex-grow-1 pe-3">
+
                                 <li class="nav-item">
                                     <a style="color: #ffffff" class="nav-link active" aria-current="page"
                                        href="/user?action=update&id=${sessionScope['user'].getId()}&username=${sessionScope['user'].getUserName()}&password=${sessionScope['user'].getPassword()}">
@@ -299,6 +300,29 @@
         <div class="content">
 
             <div class="category">
+                <div>
+                    <form class="search-form" action="/expense" method="post">
+                        <input type="hidden" name="action" value="search">
+                        <input type="text" name="categoryName"  placeholder="Tìm kiếm...">
+                        <input type="submit" value="Tìm kiếm">
+                        <input type="hidden" name="username" value="${sessionScope['user'].getUserName()}"/>
+                        <input type="hidden" name="password" value="${sessionScope['user'].getPassword()}"/>
+                        <p style=" color: red">${message}</p>
+                    </form>
+                </div>
+
+
+<%--                <div>--%>
+
+<%--                    <c:if test="${not empty lists}">--%>
+<%--                        <c:forEach items="${lists}" var="infor">--%>
+<%--                            <p>STT: ${infor.idExpense}</p>--%>
+<%--                            <p>Money: ${infor.money}</p>--%>
+<%--                            <p>Time: ${infor.time}</p>--%>
+<%--                            <p>Note: ${infor.note}</p>--%>
+<%--                        </c:forEach>--%>
+<%--                    </c:if>--%>
+<%--                </div>--%>
 
                 <c:if test="${not empty category}">
                     <c:forEach var="list" items="${category}">
@@ -327,21 +351,20 @@
                             </form>
 
                         </div>
-                    <c:forEach items="${expense}" var="expense">
-                        <form method="get" action="/expense">
-                        <p>${expense.nameExpense}</p>
-                        <p>${expense.money}</p>
-                            <p>${expense.time}</p>
-<%--                        <p>${expense.idExpense}</p>--%>
-                            <input type="hidden" name="username" value="${sessionScope['user'].getUserName()}"/>
-                            <input type="hidden" name="idCategory" value="${list.idCategory}"/>
-                            <input type="hidden" name="idExpense" value="${expense.idExpense}"/>
-<%--                           <input type="hidden" name="idWallet" value="${list.idWallet}"/>--%>
-                            <input type="hidden" name="password" value="${sessionScope['user'].getPassword()}"/>
-                            <button type="submit" name="action" value="deleteExpense">delete</button>
-                            <button type="submit" name="action" value="showUpdateExpense">update</button>
-                        </form>
-                    </c:forEach>
+                        <c:forEach items="${expense}" var="expense" varStatus="loopStatus">
+                            <form method="get" action="/expense">
+                                <p>STT: ${loopStatus.index + 1} | Name: ${expense.nameExpense} | Money: ${expense.money} | Date: ${expense.time}</p>
+
+                                <!-- Your other form elements and hidden inputs -->
+                                <input type="hidden" name="username" value="${sessionScope['user'].getUserName()}"/>
+                                <input type="hidden" name="idCategory" value="${list.idCategory}"/>
+                                <input type="hidden" name="idExpense" value="${expense.idExpense}"/>
+                                <input type="hidden" name="password" value="${sessionScope['user'].getPassword()}"/>
+
+                                <button type="submit" name="action" value="deleteExpense">delete</button>
+                                <button type="submit" name="action" value="showUpdateExpense">update</button>
+                            </form>
+                        </c:forEach>
                     </c:forEach>
 
                 </c:if>

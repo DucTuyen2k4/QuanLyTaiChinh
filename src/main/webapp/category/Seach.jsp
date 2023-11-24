@@ -1,9 +1,5 @@
-<%@ page import="java.text.DecimalFormat" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@ page import="java.text.DecimalFormat" %>
-
-
 <html>
 <head>
     <title>Title</title>
@@ -16,8 +12,7 @@
     <style>
         body {
             /*background-image: url("/users/hình-nền-ấn-tượng.jpg");*/
-            background-color: #ffffff;
-            height: 100%;
+            background-color: #eee4e4;
         }
 
         .header {
@@ -44,7 +39,7 @@
             margin-left: 5%;
             display: flex;
             margin-top: 20px;
-            justify-content: space-between;
+
 
         }
 
@@ -54,25 +49,25 @@
 
         .left {
             float: left;
-            width: 10%;
+            width: 20%;
             height: 100%;
         }
 
         .content {
             float: left;
-            width: 80%;
+            width: 60%;
             height: 100%;
-            /*box-shadow: 0 0 6px 5px #646e6e;*/
+            box-shadow: 0 0 6px 5px #646e6e;
         }
 
-        /*.right {*/
-        /*    float: left;*/
-        /*    width: 9%;*/
-        /*    height: 100%;*/
-        /*}*/
+        .right {
+            float: left;
+            width: 20%;
+            height: 100%;
+        }
 
         .footer {
-            background-color: #ffffff;
+            background-color: #c4b4b4;
             width: 100%;
             height: 10%;
             border-radius: 10px 10px 0 0;
@@ -158,6 +153,7 @@
         .describe {
 
         }
+
         .confirmation-dialog {
             display: none;
             position: fixed;
@@ -194,27 +190,27 @@
     </style>
 </head>
 <body>
-
 <div class="all">
     <div class="header">
         <div class="logo">
             <i class="fa-brands fa-wordpress" style="font-size: 60px; color: #8030c9"></i>
-            <h5 style="margin-top: 6px">QUẢN LÝ<br>TÀI CHÍNH</h5>
+            <h5 style="margin-top: 6px">wallet <br>manage</h5>
         </div>
         <div class="menu">
             <div class="menu1">
                 <div>
-                    <a href="/user?action=Home&username=${sessionScope['user'].getUserName()}&password=${sessionScope['user'].getPassword()}" style="color: #000000 ; text-decoration: none; ">Trang chủ</a>
+                    <a href="/user?action=Home&username=${sessionScope['user'].getUserName()}&password=${sessionScope['user'].getPassword()}"
+                       style="color: #0a0101 ; text-decoration: none; ">Home</a>
                 </div>
                 <div class="w" style="margin-left: 20px">
                     <ul>
                         <li class="dropdown">
-                            <a href="#" class="dropbtn" style="color: #0a0101 ; text-decoration: none">Ví  </a>
+                            <a href="#" class="dropbtn" style="color: #0a0101 ; text-decoration: none">Wallet </a>
                             <div class="dropdown-content">
                                 <c:forEach var="list" items="${list}">
                                     <a class="dropdown-item"
                                        href="/wallet?action=ShowWallet&permission=${list.permission}&id=${list.idWallet}&username=${sessionScope['user'].getUserName()}&password=${sessionScope['user'].getPassword()}">
-                                        <span style="color: black; text-align: center">${list.nameWallet}</span>
+                                        <span style="color: black; text-align: center">${list.nameWallet}${list.permission}</span>
                                     </a>
                                 </c:forEach>
                                 <a class="dropdown-item"
@@ -227,7 +223,7 @@
                 <div class="Category" style="margin-left: 20px">
                     <ul>
                         <li class="dropdown">
-                            <a href="#" class="dropbtn" style="color: #0a0101 ; text-decoration: none">Thư mục </a>
+                            <a href="#" class="dropbtn" style="color: #0a0101 ; text-decoration: none">Category</a>
                             <div class="dropdown-content">
                                 <c:forEach var="list" items="${showNameCategory}">
                                     <a class="dropdown-item"
@@ -243,13 +239,13 @@
                     </ul>
                 </div>
                 <div>
-                    <a href="" style="margin-left: 40px; color: #0a0101; text-decoration: none">Lịch sử</a>
+                    <a href="" style="margin-left: 40px; color: #0a0101; text-decoration: none">History</a>
                 </div>
                 <div>
-                    <a href="" style="margin-left: 40px; color: #0a0101 ; text-decoration: none">Ngân hàng</a>
+                    <a href="" style="margin-left: 40px; color: #0a0101 ; text-decoration: none">Bank</a>
                 </div>
                 <div>
-                    <a href="" style="margin-left: 40px; color: #0a0101 ; text-decoration: none">Chi tiêu</a>
+                    <a href="" style="margin-left: 40px; color: #0a0101 ; text-decoration: none">Spending</a>
                 </div>
             </div>
         </div>
@@ -273,16 +269,10 @@
                         </div>
                         <div class="offcanvas-body">
                             <ul class="navbar-nav justify-content-end flex-grow-1 pe-3">
-
                                 <li class="nav-item">
                                     <a style="color: #ffffff" class="nav-link active" aria-current="page"
                                        href="/user?action=update&id=${sessionScope['user'].getId()}&username=${sessionScope['user'].getUserName()}&password=${sessionScope['user'].getPassword()}">
                                         Câp nhật thông tin </a>
-                                </li>
-                                <li class="nav-item">
-                                    <a style="color: #ffffff" class="nav-link active" aria-current="page"
-                                       href="/user?action=changePassword&id=${sessionScope['user'].getId()}&username=${sessionScope['user'].getUserName()}&password=${sessionScope['user'].getPassword()}">
-                                        Câp nhật mật khẩu  </a>
                                 </li>
                                 <li class="nav-item">
                                     <a style="color: #ffffff" class="nav-link active" aria-current="page" href="#"
@@ -301,148 +291,132 @@
     <hr style="color: black; width: 70%; margin-left: 15%; margin-top: 35px">
     <div class="general">
         <div class="left"></div>
-        <div class="content" style="margin-left: 20px">
+        <div class="content">
 
-                <c:set var="totalMoney" value="0" />
+            <div class="category">
+                <div>
+                    <form class="search-form" action="/expense" method="post">
+                        <input type="hidden" name="action" value="search">
+                        <input type="text" name="categoryName"  placeholder="Tìm kiếm...">
+                        <input type="submit" value="Tìm kiếm">
+                        <input type="hidden" name="username" value="${sessionScope['user'].getUserName()}"/>
+                        <input type="hidden" name="password" value="${sessionScope['user'].getPassword()}"/>
+                    </form>
 
-<%--            <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>--%>
-
-<%--            <c:forEach items="${money}" var="wallet">--%>
-<%--                <c:set var="moneyAsString" value="${wallet.money}" />--%>
-<%--                <c:set var="moneyAsInt" value="${fn:parseInt(fn:substringBefore(moneyAsString, '.'))}" />--%>
-<%--                <c:set var="totalMoney" value="${totalMoney + moneyAsInt}" />--%>
-<%--            </c:forEach>--%>
-                <c:forEach items="${money}" var="wallet">
-                    <c:set var="totalMoney" value="${(totalMoney + wallet.money)}" />
-                </c:forEach>
-            <c:set var="result" value="${(totalMoney/1000)}"/>
-                <h3>Tổng số dư ví:  ${result}</h3>
-            <div class="wallet-container" style=" display: flex; flex-wrap: wrap;">
-                <c:forEach var="list" items="${list}">
-                    <a class="dropdown-item" style="width: 200px; height: 50px; margin-left: 20px; margin-left: 20px; margin-bottom: 40px; margin-top: 20px" href="/wallet?action=ShowWallet&permission=${list.permission}&id=${list.idWallet}&username=${sessionScope['user'].getUserName()}&password=${sessionScope['user'].getPassword()}">
-                        <div style="background-color: #f0f0f0; margin-top: 20px;">
-                            <p style="color: #ffffff; text-align: center; background-color: #935bc5;">Tên ví: ${list.nameWallet}</p>
-                            <c:set var="money" value="${list.money}"/>
-                            <c:if test="${list.money >= 1000.0}">
-                                <c:set var="money" value="${list.money/1000.0}"/>
-                                <p style="color: black; text-align: center;"> Số dư: ${money} nghìn</p>
-                            </c:if>
-                            <c:if test="${list.money < 1000.0 and list.money >= 100.0}">
-                                <c:set var="money" value="${list.money/1000.0}"/>
-                                <p style="color: black; text-align: center;"> Số dư: ${money} nghìn</p>
-                            </c:if>
-                            <c:if test="${list.money < 100.0 and list.money >= 10.0}">
-                                <c:set var="money" value="${list.money/10.0}"/>
-                                <p style="color: black; text-align: center;"> Số dư: ${money} nghìn</p>
-                            </c:if>
-                            <c:if test="${list.money < 10.0 and list.money >= 1.0}">
-                                <c:set var="money" value="${list.money/10.0}"/>
-                                <p style="color: black; text-align: center;"> Số dư: ${money}</p>
-                            </c:if>
-                            <c:if test="${list.money < 1.0}">
-                                <c:set var="money" value="${list.money}"/>
-                                <p style="color: black; text-align: center;"> Số dư: ${money} </p>
-                            </c:if>
-<%--                            <c:if test="${list.money % 1 eq 0}">--%>
-<%--                                <c:set var="money" value="${list.money}"/>--%>
-<%--                                <p style="color: black; text-align: center;"> Số dư: ${money} </p>--%>
-<%--                            </c:if>--%>
-
-                        </div>
-                    </a>
-                </c:forEach>
+                </div>
+                <table border="1">
+                    <thead>
+                    <tr>
+                        <th>Name</th>
+                        <th>Money</th>
+                        <th>wallet</th>
+                        <th>Time</th>
+                        <th>Note</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <c:forEach var="expense" items="${expenses}">
+                        <tr>
+                            <td>${expense.nameExpense}</td>
+                            <td>${expense.money}</td>
+                            <td>${expense.wallet_id}</td>
+                            <td>${expense.time}</td>
+                            <td>${expense.note}</td>
+                        </tr>
+                    </c:forEach>
+                    </tbody>
+                </table>
             </div>
-        </div>
-            <div class="right"></div>
-        </div>
 
+        </div>
+        <div class="right"></div>
     </div>
-        <div class="footer" style="width: 100%;background-color: #1d1e1c">
-            <div >
-                <p style="text-align: center;background-color: #1d1e1c"> Copyright 2023 Financial Management Application</p>
-            </div>
-        </div>
-
-    <div class="confirmation-dialog" id="confirmation-dialog-delete">
-        <div class="confirmation-dialog-content">
-            <h2 style="font-size: 20px">Confirm account deletion</h2>
-            <p>Are you sure you want to delete your account?</p>
-            <button onclick="confirmAction('delete')">Agree</button>
-            <button onclick="hideDialog('confirmation-dialog-delete')">Cancel</button>
+    <div class="footer">
+        <div style="padding:  15px 0 0 0">
+            <p style="text-align: center"> Copyright &copy; 2023 Financial Management Application</p>
         </div>
     </div>
-
-    <div class="confirmation-dialog" id="confirmation-dialog-logout">
-        <div class="confirmation-dialog-content">
-            <h2 style="font-size: 20px">Confirm logout</h2>
-            <p>Are you sure you want to sign out?</p>
-            <button onclick="confirmAction('logout')">Agree</button>
-            <button onclick="hideDialog('confirmation-dialog-logout')">Cancel</button>
-        </div>
+</div>
+<div class="confirmation-dialog" id="confirmation-dialog-delete">
+    <div class="confirmation-dialog-content">
+        <h2 style="font-size: 20px">Confirm account deletion</h2>
+        <p>Are you sure you want to delete your account?</p>
+        <button onclick="confirmAction('delete')">Agree</button>
+        <button onclick="hideDialog('confirmation-dialog-delete')">Cancel</button>
     </div>
-    <script>
-        let id${wallet.getIdWallet()};
-        let WalletDiv =document.getElementById(wallet)
-        if (id === null || id === undefined){
-            walletDiv.style.display='block';
-        }else {
-            walletDiv.style.display='none';
-        }
-    </script>
-    <script>
-        function showDialog(dialogId) {
-            const dialog = document.getElementById(dialogId);
-            dialog.style.display = 'block';
-        }
+</div>
 
-        function hideDialog(dialogId) {
-            const elementById = document.getElementById(dialogId);
-            const dialog = elementById;
-            dialog.style.display = 'none';
-        }
-
-        function confirmAction(action) {
-            console.log(action + " thành công");
-            hideDialog('confirmation-dialog-' + action);
-            switch (action) {
-                case 'delete':
-                    window.location.href = "/user?action=delete&id=${sessionScope['user'].getId()}";
-
-                    break;
-                case 'logout':
-                    window.location.href = "users/LoginRegistrationInterface.jsp";
-                    break;
-                default:
-                    break;
-            }
-        }
-    </script>
-    <div class="confirmation-dialog" id="confirmation-deleteW">
-        <div class="confirmation-dialog-content">
-            <h2>Confirm deletion</h2>
-            <p>Do you want to delete ?</p>
-            <button id="confirm-De">Yes</button>
-            <button id="cancel-De">Cancel</button>
-        </div>
+<div class="confirmation-dialog" id="confirmation-dialog-logout">
+    <div class="confirmation-dialog-content">
+        <h2 style="font-size: 20px">Confirm logout</h2>
+        <p>Are you sure you want to sign out?</p>
+        <button onclick="confirmAction('logout')">Agree</button>
+        <button onclick="hideDialog('confirmation-dialog-logout')">Cancel</button>
     </div>
+</div>
+<script>
+    let id${wallet.getIdWallet()};
+    let WalletDiv = document.getElementById(wallet)
+    if (id === null || id === undefined) {
+        walletDiv.style.display = 'block';
+    } else {
+        walletDiv.style.display = 'none';
+    }
+</script>
+<script>
+    function showDialog(dialogId) {
+        const dialog = document.getElementById(dialogId);
+        dialog.style.display = 'block';
+    }
 
-    <script>
-        const DeleteLink = document.getElementById('Delete-link');
-        const confirmationDelete = document.getElementById('confirmation-deleteW');
-        const confirmDelete = document.getElementById('confirm-De');
-        const cancelDelete = document.getElementById('cancel-De');
+    function hideDialog(dialogId) {
+        const elementById = document.getElementById(dialogId);
+        const dialog = elementById;
+        dialog.style.display = 'none';
+    }
 
-        DeleteLink.addEventListener('click', function (event) {
-            event.preventDefault();
-            confirmationDelete.style.display = 'block';
-        });
-        confirmDelete.addEventListener('click', function () {
-            confirmationDelete.style.display = 'none';
-            window.location.href = "/wallet?action=delete&idWallet=${wallet.getIdWallet()}&username=${sessionScope['user'].getUserName()}&password=${sessionScope['user'].getPassword()}";
-        });
-        cancelDelete.addEventListener('click', function () {
-            confirmationDelete.style.display = 'none';
-        });
-    </script>
+    function confirmAction(action) {
+        console.log(action + " thành công");
+        hideDialog('confirmation-dialog-' + action);
+        switch (action) {
+            case 'delete':
+                window.location.href = "/user?action=delete&id=${sessionScope['user'].getId()}";
+
+                break;
+            case 'logout':
+                window.location.href = "users/LoginRegistrationInterface.jsp";
+                break;
+            default:
+                break;
+        }
+    }
+</script>
+<div class="confirmation-dialog" id="confirmation-deleteW">
+    <div class="confirmation-dialog-content">
+        <h2>Confirm deletion</h2>
+        <p>Do you want to delete ?</p>
+        <button id="confirm-De">Yes</button>
+        <button id="cancel-De">Cancel</button>
+    </div>
+</div>
+
+<script>
+    const DeleteLink = document.getElementById('Delete-link');
+    const confirmationDelete = document.getElementById('confirmation-deleteW');
+    const confirmDelete = document.getElementById('confirm-De');
+    const cancelDelete = document.getElementById('cancel-De');
+
+    DeleteLink.addEventListener('click', function (event) {
+        event.preventDefault();
+        confirmationDelete.style.display = 'block';
+    });
+    confirmDelete.addEventListener('click', function () {
+        confirmationDelete.style.display = 'none';
+        window.location.href = "/wallet?action=delete&idWallet=${wallet.getIdWallet()}&username=${sessionScope['user'].getUserName()}&password=${sessionScope['user'].getPassword()}";
+    });
+    cancelDelete.addEventListener('click', function () {
+        confirmationDelete.style.display = 'none';
+    });
+</script>
 </body>
 </html>

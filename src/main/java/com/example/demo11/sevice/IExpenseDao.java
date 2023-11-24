@@ -7,7 +7,7 @@ import java.util.List;
 
 public interface IExpenseDao  {
 
-
+    List<Expense> ShowExpenseWhere(int idWallet,String First,String Last) throws SQLException, ClassNotFoundException;
    Expense getExpenseById(int id) throws SQLException, ClassNotFoundException;
 
     List<Expense> showAllExpense(int idWallet) throws SQLException, ClassNotFoundException;
@@ -19,7 +19,10 @@ public interface IExpenseDao  {
     void updateExpense(Expense expense) throws SQLException, ClassNotFoundException;
 
     void deleteExpense(int idExpense) throws SQLException, ClassNotFoundException;
-    void MinusWallet(int idWallet,double MMoney) throws ClassNotFoundException, SQLException;
+
+    List<Expense> information(String information, String information1, int idCategory) throws SQLException, ClassNotFoundException;
+
+    void MinusWallet(int idWallet, double MMoney) throws ClassNotFoundException, SQLException;
 
 
    List<Expense> showExpenseWhereIdCategory(int idCategory) throws SQLException, ClassNotFoundException;

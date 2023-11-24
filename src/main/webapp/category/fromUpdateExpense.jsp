@@ -14,12 +14,15 @@
 <body>
 <form method="post" action="/expense?action=updateExpense">
     <c:forEach var="expense" items="${expense}">
-        <p>davao</p>
 
+<p>Name: </p>
         <input name="nameExpense" value="${expense.nameExpense}">
+        <p>Money: </p>
         <input  name="money1" value="${expense.money}" type="hidden">
         <input  name="money2" value="${expense.money}">
+        <p>Date: </p>
         <input type="date" id="timeInput" name="time" value="${expense.time}" required>
+        <p>Note: </p>
         <input name="note" value="${expense.note}">
         <input name="wallet_id" value="${expense.wallet_id}" type="hidden" >
 
