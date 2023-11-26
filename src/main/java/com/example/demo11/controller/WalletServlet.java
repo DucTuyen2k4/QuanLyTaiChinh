@@ -1,9 +1,6 @@
 package com.example.demo11.controller;
 
-import com.example.demo11.model.Category;
-import com.example.demo11.model.Expense;
-import com.example.demo11.model.User;
-import com.example.demo11.model.Wallet;
+import com.example.demo11.model.*;
 import com.example.demo11.sevice.*;
 
 import javax.servlet.ServletException;
@@ -15,6 +12,9 @@ import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 import java.sql.SQLException;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 ;import static com.example.demo11.controller.UserServlet.icategoryDao;
 import static com.example.demo11.controller.UserServlet.walletDAO;
@@ -108,6 +108,7 @@ public class WalletServlet extends HttpServlet {
         String password = req.getParameter("password");
         double money = Double.parseDouble(req.getParameter("money"));
         String wallet = req.getParameter("wallet");
+        String note = "Nạp thêm tiền vào ví";
 
         if (iWalletDAO.selectNameWallet(wallet)){
             Wallet walletMoney =  iWalletDAO.selectMoney(wallet);
@@ -115,6 +116,20 @@ public class WalletServlet extends HttpServlet {
             double moneyNew = moneyOld+money;
 
             iWalletDAO.updateMoney(moneyNew,wallet);
+
+            LocalDate localDateTime = LocalDate.now();
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy/MM/dd");
+            String time = localDateTime.format(formatter);
+
+
+            Wallet wallet1 = iWalletDAO.selectId(wallet);
+            int idWallet = wallet1.getIdWallet();
+
+            iWalletDAO.insertRevenue(idWallet,note,money,time);
+
+
+
+
 
             List<Wallet> walletShowMoney = walletDAO.showMoney(username);
             req.setAttribute("money", walletShowMoney);
@@ -176,8 +191,38 @@ public class WalletServlet extends HttpServlet {
                     throw new RuntimeException(e);
                 }
                 break;
+            case "revenue" :
+                try {
+                    showRevenue(req,resp);
+                } catch (SQLException e) {
+                    throw new RuntimeException(e);
+                } catch (ClassNotFoundException e) {
+                    throw new RuntimeException(e);
+                }
+                break;
 
         }
+    }
+
+    private void showRevenue(HttpServletRequest req, HttpServletResponse resp) throws SQLException, ClassNotFoundException, ServletException, IOException {
+        String username = req.getParameter("username");
+        String password = req.getParameter("password");
+
+        List<Revenue> listRevenue = iWalletDAO.selectRevenue();
+        req.setAttribute("listRevenue",listRevenue);
+
+        List<Wallet> walletShowMoney = walletDAO.showMoney(username);
+        req.setAttribute("money", walletShowMoney);
+        List<User> list = iUserDAO.show(username, password);
+        List<Wallet> walletList = walletDAO.listWallet(username, password);
+        req.setAttribute("list", walletList);
+        HttpSession session = req.getSession();
+        session.setAttribute("user", list.get(0));
+        List<Category> categoryList = icategoryDao.selectCategory(username, password);
+        req.setAttribute("showNameCategory", categoryList);
+        req.getRequestDispatcher("users/Home.jsp").forward(req, resp);
+
+
     }
 
     private void formShare(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {

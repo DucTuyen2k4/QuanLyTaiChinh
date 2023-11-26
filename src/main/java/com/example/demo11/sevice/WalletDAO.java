@@ -1,12 +1,14 @@
 package com.example.demo11.sevice;
 
 import com.example.demo11.JDBC;
+import com.example.demo11.model.Revenue;
 import com.example.demo11.model.User;
 import com.example.demo11.model.Wallet;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -33,6 +35,10 @@ public class WalletDAO implements IWalletDAO {
     private static final String SHOW_MONEY_All_WALLET = "SELECT u.id, u.fullName, w.nameWallet, SUM(w.money) AS totalMoney FROM users u JOIN users_wallet uw ON u.id = uw.idUser JOIN wallet w ON uw.idWallet = w.idWallet WHERE u.userName=? GROUP BY u.id, u.userName, w.nameWallet";
     private static final String SELECT_ID = "select id from users where email = ? " ;
     private static final String SELECT_NAME_WALLET = "select * from wallet where nameWallet = ?  " ;
+    private static final String SELECT_REVENUE = "select revenue.idRevenue,revenue.money , revenue.nameRevenue , revenue.time,revenue.note,wallet.nameWallet from wallet inner join revenue on wallet.idWallet = revenue.idWallet   " ;
+
+    private static final String INSERT_REVENUE = "insert into revenue(money,time,note,idWallet) values(?,?,?,?)" ;
+
     @Override
     public void insertShareWallet(int idUser, int idWallet, String permission) throws SQLException, ClassNotFoundException {
         PreparedStatement preparedStatement = JDBC.connection().prepareStatement(INSERT_SHARE_WALLET);
@@ -48,6 +54,34 @@ public class WalletDAO implements IWalletDAO {
         preparedStatement.setString(1,name);
         ResultSet resultSet = preparedStatement.executeQuery();
         return resultSet.next();
+    }
+
+    @Override
+    public List<Revenue> selectRevenue() throws SQLException, ClassNotFoundException {
+        List<Revenue> list = new ArrayList<>();
+        Statement statement = JDBC.connection().createStatement();
+        ResultSet resultSet = statement.executeQuery(SELECT_REVENUE);
+        while (resultSet.next()){
+            int idRevenue = resultSet.getInt("idRevenue");
+            String nameRevenue = resultSet.getString("nameRevenue");
+            double money = resultSet.getDouble("money");
+            String time = resultSet.getString("time");
+            String note = resultSet.getString("note");
+            String  nameWallet =resultSet.getString("nameWallet");
+            list.add(new Revenue(idRevenue,nameRevenue,money,time,note,nameWallet));
+        }
+        return list;
+    }
+
+    @Override
+    public void insertRevenue(int id,String note,double money , String time) throws SQLException, ClassNotFoundException {
+        PreparedStatement preparedStatement = JDBC.connection().prepareStatement(INSERT_REVENUE);
+        preparedStatement.setInt(4,id);
+        preparedStatement.setDouble(1,money);
+        preparedStatement.setString(2,time);
+        preparedStatement.setString(3,note);
+        preparedStatement.executeUpdate();
+
     }
 
     @Override

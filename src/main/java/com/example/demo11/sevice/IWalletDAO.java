@@ -1,9 +1,11 @@
 package com.example.demo11.sevice;
 
+import com.example.demo11.model.Revenue;
 import com.example.demo11.model.User;
 import com.example.demo11.model.Wallet;
 
 import java.sql.SQLException;
+import java.sql.Time;
 import java.util.List;
 
 public interface IWalletDAO {
@@ -34,4 +36,6 @@ public interface IWalletDAO {
     boolean checkUserWallet(int idUser,int idWallet) throws SQLException, ClassNotFoundException;
     void insertShareWallet(int idUser,int idWallet,String permission) throws SQLException, ClassNotFoundException;
     boolean selectNameWallet(String name) throws SQLException, ClassNotFoundException;
+    List<Revenue> selectRevenue() throws SQLException, ClassNotFoundException;
+    void insertRevenue(int id, String note, double money , String  time) throws SQLException, ClassNotFoundException;
 }

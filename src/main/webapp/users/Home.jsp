@@ -203,7 +203,7 @@
                 <div class="w" style="margin-left: 20px">
                     <ul>
                         <li class="dropdown">
-                            <a href="#" class="dropbtn" style="color: #0a0101 ; text-decoration: none">Wallet </a>
+                            <a href="#" class="dropbtn" style="color: #0a0101 ; text-decoration: none">Wallet</a>
                             <div class="dropdown-content">
                                 <c:forEach var="list" items="${list}">
                                     <a class="dropdown-item"
@@ -293,7 +293,16 @@
     </div>
     <hr style="color: black; width: 70%; margin-left: 15%; margin-top: 35px">
     <div class="general">
-        <div class="left"></div>
+        <div class="left">
+                <a href="/wallet?action=revenue&username=${sessionScope['user'].getUserName()}&password=${sessionScope['user'].getPassword()}">khoan thu</a>
+            <c:forEach var="listRevenue" items="${listRevenue}" >
+              Tên khoản thu :    <p>${listRevenue.nameRevenue}</p><br>
+              Số tiền thu :   <p>${listRevenue.money}</p><br>
+              Thời gian thu :   <p>${listRevenue.time}</p><br>
+              Ghi chú :   <p>${listRevenue.note}</p><br>
+              Ví thu :   <p>${listRevenue.nameWallet}</p><br>
+            </c:forEach>
+        </div>
         <div class="content">
             <div class="left" >
                 <c:set var="totalMoney" value="0" />
