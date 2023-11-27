@@ -44,6 +44,7 @@ public class ExpenseServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         String action = req.getParameter("action");
+        req.setCharacterEncoding("UTF-8");
         if (action == null) {
             action = "";
         }
@@ -112,7 +113,7 @@ public class ExpenseServlet extends HttpServlet {
         List<Expense>listExpense=iExpenseDAO.ShowExpenseWhere(idWallet,First,Last);
 
         req.setAttribute("listExpense",listExpense);
-        req.getRequestDispatcher("users/Wallet.jsp").forward(req, resp);
+        req.getRequestDispatcher("users/ShowExpenseByTime.jsp").forward(req, resp);
 
 
     }
@@ -221,6 +222,7 @@ public class ExpenseServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         String action = req.getParameter("action");
+        req.setCharacterEncoding("UTF-8");
         if (action == null) {
             action = "";
         }
@@ -256,7 +258,7 @@ public class ExpenseServlet extends HttpServlet {
         String formattedDate = currentDate.format(formatter);
         List<Expense>listExpense=iExpenseDAO.showToday(formattedDate,idWallet);
         req.setAttribute("Today",listExpense);
-        req.getRequestDispatcher("users/Wallet.jsp").forward(req, resp);
+        req.getRequestDispatcher("users/Today.jsp").forward(req, resp);
     }
 
     private void showUpdateExpense(HttpServletRequest req, HttpServletResponse resp) throws SQLException, ClassNotFoundException, ServletException, IOException {

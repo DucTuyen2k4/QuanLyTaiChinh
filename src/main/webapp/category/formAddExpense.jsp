@@ -130,10 +130,15 @@
                     <input name="note" type="text"
                            style="border-radius: 10px;width: 70%; margin-left: 17%; padding-left: 10px">
 
-                    <c:forEach items="${wallet}" var="out">
-                        <button id="myButton${out.idWallet}" value="${out.idWallet}"
-                                onclick="setInputValue(event, ${out.idWallet})">${out.nameWallet}</button>
-                    </c:forEach>
+                        <br>
+                    <br>
+                        <label >Chọn ví sử dụng:</label>
+                        <select name="idWallet">
+                            <c:forEach items="${wallet}" var="out">
+                            <option value="${out.idWallet}">${out.nameWallet}</option>
+                            </c:forEach>
+                        </select>
+
 
                     <input type="hidden" id="myInput" name="idWallet">
 
@@ -156,18 +161,6 @@
     </div>
     <div class="right"></div>
 </div>
-
-<script>
-    function setInputValue(event, walletId) {
-        event.preventDefault();
-
-        let buttonValue = walletId;
-
-        let input = document.getElementById("myInput");
-        input.value = buttonValue;
-    }
-</script>
-</script>
 </body>
 </html>
 

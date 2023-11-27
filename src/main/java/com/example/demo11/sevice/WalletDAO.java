@@ -14,26 +14,26 @@ import java.util.List;
 
 
 public class WalletDAO implements IWalletDAO {
-    private static final String SELECT_ALL_WALLET = "select users_wallet.permission, Wallet.idWallet,Wallet.nameWallet, Wallet.icon,Wallet.money,Wallet.currency,Wallet.description from Wallet inner join users_wallet on Wallet.idWallet = users_wallet.idWallet inner join users on users_wallet.idUser=users.id where username = ? and password = ?";
-    private static final String SELECT_ALL_WALLET_HOME = "select*from Wallet";
-    private static final String CHECK_ID = "select*from Wallet where idWallet like ?";
-    private static final String INSERT_WALLET = "insert into Wallet(icon,nameWallet,money,currency,description,permission) values (?,?,?,?,?,?)";
-    private static final String SELECT_ID_WALLET = "select idWallet from Wallet where nameWallet = ? ";
+    private static final String SELECT_ALL_WALLET = "select users_wallet.permission, wallet.idWallet,wallet.nameWallet, wallet.icon,wallet.money,wallet.currency,wallet.description from wallet inner join users_wallet on wallet.idWallet = users_wallet.idWallet inner join users on users_wallet.idUser=users.id where username = ? and password = ?";
+    private static final String SELECT_ALL_WALLET_HOME = "select*from wallet";
+    private static final String CHECK_ID = "select*from wallet where idWallet like ?";
+    private static final String INSERT_WALLET = "insert into wallet(icon,nameWallet,money,currency,description,permission) values (?,?,?,?,?,?)";
+    private static final String SELECT_ID_WALLET = "select idWallet from wallet where nameWallet = ? ";
     private static final String INSERT_USER_WALLET = "insert into users_wallet (idUser,idWallet,permission)values (?,?,?)";
-    private static final String UPDATE_WALLET = "update Wallet set icon = ?,nameWallet=?,money=?,currency=?,description=? where idWallet=? ";
-    private static final String SHOW_WALLET = "select * from Wallet where idWallet=? ";
-    private static final String SELECT_WALLET = "select nameWallet from Wallet where nameWallet = ?";
-    private static final String SELECT_MONEY = "select money from Wallet where nameWallet = ?";
-    private static final String UPDATE_MONEY = "update Wallet set money = ? where nameWallet = ? ";
-    private static final String CHECK_EMAIL_USER_WALLET = "select users.id,email from users inner join users_wallet on users.id =users_wallet.idUser inner join wallet on Wallet.idWallet = users_wallet.idWallet where  email=? ";
+    private static final String UPDATE_WALLET = "update wallet set icon = ?,nameWallet=?,money=?,currency=?,description=? where idWallet=? ";
+    private static final String SHOW_WALLET = "select * from wallet where idWallet=? ";
+    private static final String SELECT_WALLET = "select nameWallet from wallet where nameWallet = ?";
+    private static final String SELECT_MONEY = "select money from wallet where nameWallet = ?";
+    private static final String UPDATE_MONEY = "update wallet set money = ? where nameWallet = ? ";
+    private static final String CHECK_EMAIL_USER_WALLET = "select users.id,email from users inner join users_wallet on users.id =users_wallet.idUser inner join wallet on wallet.idWallet = users_wallet.idWallet where  email=? ";
     private static final String SHARE_WALLET = "insert into users_wallet(idUser,idWallet,permission)values(?,?,?)";
     private static final String CHECK = "select id from users where email= ? ";
-    private static final String DELETE_WALLET = " DELETE users_wallet, Wallet FROM users_wallet INNER JOIN Wallet ON users_wallet.idWallet = Wallet.idWallet WHERE users_wallet.idWallet = ?";
-    private static final String CHECK_EMAIL = "select * from users where email = ? ";
-    private static final String CHECK_USER_WALLET = "select * from users_wallet where idUser = ? and idWallet = ?  ";
-    private static final String INSERT_SHARE_WALLET = "insert into users_wallet (idUser,idWallet,permission)values(?,?,?) ";
-    private static final String SHOW_MONEY_All_WALLET = "SELECT u.id, u.fullName, w.nameWallet, SUM(w.money) AS totalMoney FROM users u JOIN users_wallet uw ON u.id = uw.idUser JOIN Wallet w ON uw.idWallet = w.idWallet WHERE u.userName=? GROUP BY u.id, u.userName, w.nameWallet";
-    private static final String SELECT_ID = "select id from users where email = ? ";
+    private static final String DELETE_WALLET = " DELETE users_wallet, wallet FROM users_wallet INNER JOIN wallet ON users_wallet.idWallet = wallet.idWallet WHERE users_wallet.idWallet = ?";
+    private static final String CHECK_EMAIL = "select * from users where email = ? " ;
+    private static final String CHECK_USER_WALLET = "select * from users_wallet where idUser = ? and idWallet = ?  " ;
+    private static final String INSERT_SHARE_WALLET = "insert into users_wallet (idUser,idWallet,permission)values(?,?,?) " ;
+    private static final String SHOW_MONEY_All_WALLET = "SELECT u.id, u.fullName, w.nameWallet, SUM(w.money) AS totalMoney FROM users u JOIN users_wallet uw ON u.id = uw.idUser JOIN wallet w ON uw.idWallet = w.idWallet WHERE u.userName=? GROUP BY u.id, u.userName, w.nameWallet";
+    private static final String SELECT_ID = "select id from users where email = ? " ;
 //    private static final String SELECT_EXPENSE = "select expense.idExpense,expense.nameExpense,expense.money,expense.note from category inner join user_category on category.idCategory=user_category.idCategory inner join users on user_category.idUser=users.id where userName = ? and password = ?";
 
 

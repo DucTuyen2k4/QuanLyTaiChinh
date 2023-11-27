@@ -1,3 +1,10 @@
+<%--
+  Created by IntelliJ IDEA.
+  User: dang
+  Date: 27/11/2023
+  Time: 09:29
+  To change this template use File | Settings | File Templates.
+--%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <html>
@@ -155,6 +162,7 @@
         .describe {
 
         }
+
         .confirmation-dialog {
             display: none;
             position: fixed;
@@ -188,10 +196,11 @@
         .confirmation-dialog-content button {
             margin-right: 10px;
         }
-         .scrollable-table-container {
-             max-height: 400px;
-             overflow: auto;
-         }
+
+        .scrollable-table-container {
+            max-height: 400px;
+            overflow: auto;
+        }
     </style>
 </head>
 <body>
@@ -204,12 +213,13 @@
         <div class="menu">
             <div class="menu1">
                 <div>
-                    <a href="/user?action=Home&username=${sessionScope['user'].getUserName()}&password=${sessionScope['user'].getPassword()}" style="color: #000000 ; text-decoration: none; ">Trang chủ</a>
+                    <a href="/user?action=Home&username=${sessionScope['user'].getUserName()}&password=${sessionScope['user'].getPassword()}"
+                       style="color: #000000 ; text-decoration: none; ">Trang chủ</a>
                 </div>
                 <div class="w" style="margin-left: 20px">
                     <ul>
                         <li class="dropdown">
-                            <a href="#" class="dropbtn" style="color: #0a0101 ; text-decoration: none">Ví  </a>
+                            <a href="#" class="dropbtn" style="color: #0a0101 ; text-decoration: none">Ví </a>
                             <div class="dropdown-content">
                                 <c:forEach var="list" items="${list}">
                                     <a class="dropdown-item"
@@ -282,7 +292,7 @@
                                 <li class="nav-item">
                                     <a style="color: #ffffff" class="nav-link active" aria-current="page"
                                        href="/user?action=changePassword&id=${sessionScope['user'].getId()}&username=${sessionScope['user'].getUserName()}&password=${sessionScope['user'].getPassword()}">
-                                        Câp nhật mật khẩu  </a>
+                                        Câp nhật mật khẩu </a>
                                 </li>
                                 <li class="nav-item">
                                     <a style="color: #ffffff" class="nav-link active" aria-current="page" href="#"
@@ -304,127 +314,46 @@
         <div class="content">
 
             <div class="category">
-                <c:if test="${not empty wallet.getIdWallet()}">
-                    <a hidden="hidden"><p>${wallet.getIdWallet()}</p></a>
-                    <div class="icon">
-                        <i class="${wallet.getIcon()}" style="font-size: 50px"></i>
-                        <p>Tên ví: ${wallet.getNameWallet()}</p>
-                    </div>
-                    <div class="money">
-                        <div style="width: 80%">
-                            <p>Số dư: ${wallet.getMoney()}${wallet.getCurrency()} </p><br>
-                        </div>
-                        <c:if test="${not empty send}">
-                            <div class="function" style="margin-left: 20px" >
-                                <ul>
-                                    <li class="dropdown" >
-                                        <a href="#" class="dropbtn" style="color: #0a0101 ; text-decoration: none">function</a>
-                                        <div class="dropdown-content" style="background-color: #9d9292; ">
-                                            <form action="/wallet?action=showWalletUpdate&idWallet=${wallet.getIdWallet()}&username=${sessionScope['user'].getUserName()}&password=${sessionScope['user'].getPassword()}"
-                                                  method="post" >
-                                                <input value="Update" type="submit">
-                                            </form>
-                                            <form action="/wallet?action=showFormBanking&idWallet=${wallet.getIdWallet()}&username=${sessionScope['user'].getUserName()}&password=${sessionScope['user'].getPassword()}&money=${wallet.getMoney()}&nameWallet=${wallet.getNameWallet()}"
-                                                  method="post">
-                                                <input value="Transfer money" type="submit">
-                                            </form>
 
-                                            <form action="/wallet?action=showFormShare&idWallet=${wallet.getIdWallet()}&username=${sessionScope['user'].getUserName()}&password=${sessionScope['user'].getPassword()}&id=${sessionScope['user'].getId()}"
-                                                  method="post">
-                                                <input type="submit" value="Share">
-                                            </form>
-                                            <a href="#" id="Delete-link">
-                                                <input type="submit" value="Delete wallet">
-                                            </a>
-                                            <a href="#" id="queryHistory-link">
-                                                <input type="submit" value="Truy vấn lịch sử giao dịch">
-                                            </a>
-                                        </div>
-                                    </li>
-                                </ul>
-                            </div>
-                        </c:if>
-                    </div>
-                    <div class="describe">
-                        <p>Nội dung: ${wallet.getDescription()}</p>
-                    </div>
-                </c:if>
 
             </div>
-            <form action="/expense?action=showByWallet" method="post" >
-                <input type="hidden" name="idWallet" value="${wallet.getIdWallet()}">
-                <div style="display: flex">
-                        <div>
-                            <p>Từ ngày</p>
-                            <input type="date" name="First">
-                        </div>
-                        <div>
-                            <p>Đến ngày</p>
-                            <input type="date" name="Last">
-                        </div>
-                </div>
 
-                    <input type="submit" value="Tìm kiếm" >
-                </form>
+            <script>
+                // JavaScript code to toggle the visibility of the transaction table
+                document.getElementById("queryHistory-link").addEventListener("click", function () {
+                    let table = document.getElementById("transactionTable");
+                    if (table.style.display === "none") {
+                        table.style.display = "block";
+                    } else {
+                        table.style.display = "none";
+                    }
+                });
+            </script>
 
-                <script>
-                    // JavaScript code to toggle the visibility of the transaction table
-                    document.getElementById("queryHistory-link").addEventListener("click", function () {
-                        var table = document.getElementById("transactionTable");
-                        if (table.style.display === "none") {
-                            table.style.display = "block";
-                        } else {
-                            table.style.display = "none";
-                        }
-                    });
-                </script>
-
-                <form action="/expense?action=showToday" method="post">
-                    <input type="hidden" name="idWallet" value="${wallet.getIdWallet()}">
-                    <input type="submit" value="xem ">
-                </form>
-<%--                <p>Chi tiết giao dịch</p>--%>
-<%--                <c:forEach var="out" items="${listExpense}" >--%>
-<%--                    <p>Khoảng thời gian</p>--%>
-<%--                    <p>Date: ${out.time}</p>--%>
-<%--                    <p>Tên ${out.nameExpense} | Số tiền ${out.money} |  | ghi chú ${out.note}</p>--%>
-<%--                </c:forEach>--%>
-
-
-
-<div class="scrollable-table-container">
-            <table style="border-collapse: collapse; width: 100%;">
-                <thead>
-                <tr style="background-color: #f2f2f2;">
-                    <th style="border: 1px solid #dddddd; padding: 8px; text-align: left;">Thời gian</th>
-                    <th style="border: 1px solid #dddddd; padding: 8px; text-align: left;">Số tiền</th>
-                    <th style="border: 1px solid #dddddd; padding: 8px; text-align: left;">Chi tiết</th>
-                    <th style="border: 1px solid #dddddd; padding: 8px; text-align: left;">Tên</th>
-                </tr>
-                </thead>
-                <tbody>
-                <c:forEach var="expense" items="${expense}">
-                    <tr style="border: 1px solid #dddddd;">
-                        <td style="border: 1px solid #dddddd; padding: 8px; text-align: left;">${expense.time}</td>
-                        <td style="border: 1px solid #dddddd; padding: 8px; text-align: left;">${expense.money}</td>
-                        <td style="border: 1px solid #dddddd; padding: 8px; text-align: left;">${expense.note}</td>
-                        <td style="border: 1px solid #dddddd; padding: 8px; text-align: left;">${expense.nameExpense}</td>
+            <div class="scrollable-table-container">
+                <table style="border-collapse: collapse; width: 100%;">
+                    <tr style="background-color: #f2f2f2;">
+                        <th style="border: 1px solid #dddddd; padding: 8px; text-align: left;">Thời gian</th>
+                        <th style="border: 1px solid #dddddd; padding: 8px; text-align: left;">Số tiền</th>
+                        <th style="border: 1px solid #dddddd; padding: 8px; text-align: left;">Chi tiết</th>
+                        <th style="border: 1px solid #dddddd; padding: 8px; text-align: left;">Tên</th>
                     </tr>
-                </c:forEach>
-                </tbody>
-            </table>
-</div>
-
-
-
-
-
+                    <c:forEach var="out1" items="${Today}">
+                        <tr style="border: 1px solid #dddddd;">
+                            <td style="border: 1px solid #dddddd; padding: 8px; text-align: left;">${out1.time}</td>
+                            <td style="border: 1px solid #dddddd; padding: 8px; text-align: left;">${out1.money}</td>
+                            <td style="border: 1px solid #dddddd; padding: 8px; text-align: left;">${out1.note}</td>
+                            <td style="border: 1px solid #dddddd; padding: 8px; text-align: left;">${out1.nameExpense}</td>
+                        </tr>
+                    </c:forEach>
+                </table>
+            </div>
 
         </div>
         <div class="right"></div>
     </div>
     <div class="footer" style="width: 100%;background-color: #1d1e1c">
-        <div >
+        <div>
             <p style="text-align: center;background-color: #1d1e1c"> Copyright 2023 Financial Management Application</p>
         </div>
     </div>
@@ -448,6 +377,15 @@
         <button onclick="hideDialog('confirmation-dialog-logout')">Cancel</button>
     </div>
 </div>
+<script>
+    let id${wallet.getIdWallet()};
+    let WalletDiv = document.getElementById(wallet)
+    if (id === null || id === undefined) {
+        walletDiv.style.display = 'block';
+    } else {
+        walletDiv.style.display = 'none';
+    }
+</script>
 <script>
     function showDialog(dialogId) {
         const dialog = document.getElementById(dialogId);

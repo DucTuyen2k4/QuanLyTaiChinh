@@ -13,8 +13,8 @@ public class ExpenseDao implements IExpenseDao {
     private static final String SHOW_EXPENSE_WHERE_IDCATEGORY = "SELECT expense.idExpense, expense.nameExpense, expense.money,expense.wallet_id, expense.time, expense.note\n" +
             "FROM expense\n" +
             "INNER JOIN category_expense ON expense.idExpense = category_expense.idExpense\n" +
-            "INNER JOIN category ON category_expense.idCategory = category.idCategory\n" +
-            "WHERE category.idCategory = ?";
+            "INNER JOIN Category ON category_expense.idCategory = Category.idCategory\n" +
+            "WHERE Category.idCategory = ?";
 
     private static final String ADD_CATEGORY_EXPENSE = "INSERT INTO category_expense (idCategory, idExpense) VALUES(?,?)";
     private static final String ADD_EXPENSE = "INSERT INTO expense (nameExpense, money, time, note,wallet_id) \n" +
@@ -23,27 +23,28 @@ public class ExpenseDao implements IExpenseDao {
 
     private static final String UPDATE_EXPENSE = "update expense set nameExpense=?,money=?,time=?,note=? where idExpense=?";
     private static final String SHOW_UPDATE_EXPENSE = "select * from expense where idExpense=?";
-    private static final String SHOW_TODAY="select * from expense where time=? and wallet_id=?";
-    private static final String SHOW_ALL_EXPENSE_IDWALLET="select * from expense where wallet_id=?";
+    private static final String SHOW_TODAY = "select * from expense where time=? and wallet_id=?";
+    private static final String SHOW_ALL_EXPENSE_IDWALLET = "select * from expense where wallet_id=?";
 
     private static final String DELETE_EXPENSE = "DELETE category_expense, expense FROM category_expense INNER JOIN expense ON category_expense.idCategoryExpense = expense.idExpense WHERE category_expense.idCategoryExpense = ?";
     private static final String SELECT_EXPENSE_CATEGORY = "SELECT expense.idExpense,expense.nameExpense,expense.money,expense.time,expense.note,expense.wallet_id FROM expense " +
             "JOIN category_expense ON expense.idExpense = category_expense.idExpense " +
-            "JOIN category ON category.idCategory = category_expense.idCategory " +
-            "WHERE category.nameCategory = ?";
-    private static final String MINUS_WALLET="UPDATE wallet SET money = money - ? WHERE idWallet = ?";
-    private static final String SHOW_EXPENSE_FROM_WALLET="SELECT * FROM expense WHERE time BETWEEN ? AND ? AND wallet_id = ?";
-//    private static final String ADD_EXPENSE = "INSERT INTO expense (nameExpense, money, time, note) \n" + "VALUES (?,?,?,?);";
-private static final String INFORMATION = "select  expense.idExpense,money,time,expense.note from category inner join category_expense on category.idCategory = category_expense.idCategory inner join expense on category_expense.idExpense =expense.idExpense  WHERE time BETWEEN ? AND ? and category_expense.idCategory=? ";
+            "JOIN Category ON Category.idCategory = category_expense.idCategory " +
+            "WHERE Category.nameCategory = ?";
+    private static final String MINUS_WALLET = "UPDATE wallet SET money = money - ? WHERE idWallet = ?";
+    private static final String SHOW_EXPENSE_FROM_WALLET = "SELECT * FROM expense WHERE time BETWEEN ? AND ? AND wallet_id = ?";
+    //    private static final String ADD_EXPENSE = "INSERT INTO expense (nameExpense, money, time, note) \n" + "VALUES (?,?,?,?);";
+    private static final String sql = "SELECT COUNT(*) FROM Category WHERE nameCategory = ?";
+    private static final String INFORMATION = "select  expense.idExpense,money,time,expense.note from Category inner join category_expense on Category.idCategory = category_expense.idCategory inner join expense on category_expense.idExpense =expense.idExpense  WHERE time BETWEEN ? AND ? and category_expense.idCategory=? ";
 
-    public List<Expense> ShowExpenseWhere(int idWallet,String First,String Last) throws SQLException, ClassNotFoundException {
-        List<Expense> list=new ArrayList<>();
+    public List<Expense> ShowExpenseWhere(int idWallet, String First, String Last) throws SQLException, ClassNotFoundException {
+        List<Expense> list = new ArrayList<>();
         PreparedStatement preparedStatement = JDBC.connection().prepareStatement(SHOW_EXPENSE_FROM_WALLET);
-        preparedStatement.setString(1,First);
-        preparedStatement.setString(2,Last);
-        preparedStatement.setInt(3,idWallet);
-        ResultSet resultSet=preparedStatement.executeQuery();
-        while (resultSet.next()){
+        preparedStatement.setString(1, First);
+        preparedStatement.setString(2, Last);
+        preparedStatement.setInt(3, idWallet);
+        ResultSet resultSet = preparedStatement.executeQuery();
+        while (resultSet.next()) {
             String nameExpense = resultSet.getString("nameExpense");
             double money = resultSet.getDouble("money");
             String time = resultSet.getString("time");
@@ -52,6 +53,7 @@ private static final String INFORMATION = "select  expense.idExpense,money,time,
         }
         return list;
     }
+
     @Override
     public List<Expense> information(String information, String information1, int idCategory) throws SQLException, ClassNotFoundException {
         List<Expense> expenseList = new ArrayList<>();
@@ -72,10 +74,11 @@ private static final String INFORMATION = "select  expense.idExpense,money,time,
         }
         return expenseList;
     }
-    public void MinusWallet(int idWallet,double MMoney) throws SQLException, ClassNotFoundException {
-        PreparedStatement preparedStatement= JDBC.connection().prepareStatement(MINUS_WALLET);
-        preparedStatement.setDouble(1,MMoney);
-        preparedStatement.setInt(2,idWallet);
+
+    public void MinusWallet(int idWallet, double MMoney) throws SQLException, ClassNotFoundException {
+        PreparedStatement preparedStatement = JDBC.connection().prepareStatement(MINUS_WALLET);
+        preparedStatement.setDouble(1, MMoney);
+        preparedStatement.setInt(2, idWallet);
         preparedStatement.executeUpdate();
     }
 
@@ -92,7 +95,7 @@ private static final String INFORMATION = "select  expense.idExpense,money,time,
                 int wallet = resultSet.getInt("wallet_id");
                 String time = resultSet.getString("time");
                 String note = resultSet.getString("note");
-                list.add(new Expense(idExpense, nameExpense, money,wallet,time, note));
+                list.add(new Expense(idExpense, nameExpense, money, wallet, time, note));
             }
         }
 
@@ -101,10 +104,10 @@ private static final String INFORMATION = "select  expense.idExpense,money,time,
 
     public boolean doesCategoryExist(String categoryName) throws SQLException, ClassNotFoundException {
 
-        String sql = "SELECT COUNT(*) FROM category WHERE nameCategory = ?";
-        PreparedStatement   statement = JDBC.connection().prepareStatement(sql);
+
+        PreparedStatement statement = JDBC.connection().prepareStatement(sql);
         statement.setString(1, categoryName);
-        ResultSet  resultSet = statement.executeQuery();
+        ResultSet resultSet = statement.executeQuery();
 
         boolean categoryExists = Boolean.parseBoolean(null);
         if (resultSet.next() && resultSet.getInt(1) > 0) {
@@ -146,40 +149,38 @@ private static final String INFORMATION = "select  expense.idExpense,money,time,
     }
 
 
-
-
-
     @Override
     public List<Expense> showAllExpense(int idWallet) throws SQLException, ClassNotFoundException {
-        List<Expense> list=new ArrayList<>();
+        List<Expense> list = new ArrayList<>();
         PreparedStatement preparedStatement = JDBC.connection().prepareStatement(SHOW_ALL_EXPENSE_IDWALLET);
-        preparedStatement.setInt(1,idWallet);
-        ResultSet resultSet=preparedStatement.executeQuery();
-        while (resultSet.next()){
+        preparedStatement.setInt(1, idWallet);
+        ResultSet resultSet = preparedStatement.executeQuery();
+        while (resultSet.next()) {
             int idExpense = resultSet.getInt("idExpense");
             String nameExpense = resultSet.getString("nameExpense");
             double money = resultSet.getDouble("money");
             int wallet = resultSet.getInt("wallet_id");
             String time = resultSet.getString("time");
             String note = resultSet.getString("note");
-            list.add(new Expense(idExpense,nameExpense, money,wallet, time, note));
+            list.add(new Expense(idExpense, nameExpense, money, wallet, time, note));
         }
         return list;
     }
+
     @Override
     public List<Expense> showToday(String today, int idWallet) throws SQLException, ClassNotFoundException {
-        List<Expense> list=new ArrayList<>();
+        List<Expense> list = new ArrayList<>();
         PreparedStatement preparedStatement = JDBC.connection().prepareStatement(SHOW_TODAY);
-        preparedStatement.setString(1,today);
-        preparedStatement.setInt(2,idWallet);
-        ResultSet resultSet=preparedStatement.executeQuery();
-        while (resultSet.next()){
+        preparedStatement.setString(1, today);
+        preparedStatement.setInt(2, idWallet);
+        ResultSet resultSet = preparedStatement.executeQuery();
+        while (resultSet.next()) {
             String nameExpense = resultSet.getString("nameExpense");
             double money = resultSet.getDouble("money");
             int wallet = resultSet.getInt("wallet_id");
             String time = resultSet.getString("time");
             String note = resultSet.getString("note");
-            list.add(new Expense(nameExpense, money,wallet, time, note));
+            list.add(new Expense(nameExpense, money, wallet, time, note));
         }
         return list;
     }
@@ -187,20 +188,21 @@ private static final String INFORMATION = "select  expense.idExpense,money,time,
 
     @Override
     public List<Expense> showUpdateExpense(int idExpense) throws SQLException, ClassNotFoundException {
-        List<Expense> list=new ArrayList<>();
-        PreparedStatement preparedStatement=JDBC.connection().prepareStatement(SHOW_UPDATE_EXPENSE);
-        preparedStatement.setInt(1,idExpense);
+        List<Expense> list = new ArrayList<>();
+        PreparedStatement preparedStatement = JDBC.connection().prepareStatement(SHOW_UPDATE_EXPENSE);
+        preparedStatement.setInt(1, idExpense);
         ResultSet resultSet = preparedStatement.executeQuery();
-        while (resultSet.next()){
-            String nameExpense=resultSet.getString("nameExpense");
-            double money= resultSet.getDouble("money");
+        while (resultSet.next()) {
+            String nameExpense = resultSet.getString("nameExpense");
+            double money = resultSet.getDouble("money");
             int wallet_id = resultSet.getInt("wallet_id");
-            String time=resultSet.getString("time");
-            String note =resultSet.getString("note");
-            list.add(new Expense(idExpense,nameExpense,money,wallet_id,time,note));
+            String time = resultSet.getString("time");
+            String note = resultSet.getString("note");
+            list.add(new Expense(idExpense, nameExpense, money, wallet_id, time, note));
         }
         return list;
     }
+
     @Override
     public void updateExpense(Expense expense) throws SQLException, ClassNotFoundException {
 
@@ -228,7 +230,7 @@ private static final String INFORMATION = "select  expense.idExpense,money,time,
             int wallet = resultSet.getInt("wallet_id");
             String time = resultSet.getString("time");
             String note = resultSet.getString("note");
-            list.add(new Expense(idExpense, nameExpense, money,wallet, time, note));
+            list.add(new Expense(idExpense, nameExpense, money, wallet, time, note));
         }
         return list;
     }
@@ -240,7 +242,7 @@ private static final String INFORMATION = "select  expense.idExpense,money,time,
         preparedStatement.setDouble(2, expense.getMoney());
         preparedStatement.setString(3, expense.getTime());
         preparedStatement.setString(4, expense.getNote());
-        preparedStatement.setInt(5,expense.getWallet_id());
+        preparedStatement.setInt(5, expense.getWallet_id());
         preparedStatement.executeUpdate();
     }
 
